@@ -8,3 +8,8 @@ scripts I wrote to explore the material.
 
 The book is built around the programming language R, but I will be using Python
 throughout, esp. Jupyter notebooks.
+
+## Chapter Notes
+
+*  [Chapter 1](./chapter1.md)
+
