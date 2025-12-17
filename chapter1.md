@@ -189,3 +189,34 @@ I started this whole thing to learn about those multilevel models, but, I will
 take it on faith that the book is setting me up for success here later.  Or at
 least, shading in subtleties that I wouldn't learn about jumping straight to
 MRP.
+
+## Exercises
+
+### 1.2, Sketching a regression model and data
+
+TK
+
+### 1.9, A problem with linear models
+
+> Consider the helicopter design experiment in Exercise 1.1.
+> Suppose you were to construct 25 helicopters, measure their falling times, fit
+> a linear model predicting that outcome given wing width and body length:
+> 
+>   `time = b_0 + b_1 * width + b_2 * length + error`
+> 
+> and then use the fitted model to estimate the values of wing width and body
+> length that will maximize expected time aloft.
+> 
+> (a) Why will this approach fail?
+> (b) Suggest a better model to fit that would not have this problem.
+
+It'll fail because of the linearity of the model.  If either `b_j` parameter is
+negative, you maximize time aloft by setting the width (or height) to zero.  If
+either is positive, you maximize time aloft by make width (or height)
+*infinite*.  Those are both degenerate answers.
+
+I recommend adding synthetic predictor attributes for `width^2`, `height^2`, and
+`width * height`, so that the model now has six `b_j` parameters to fit.  It's
+still a "linear model," but it's linear over non-linear transformations of our
+data.  You'll be able to fit parabolas that will allow for a non-degenerate
+maximum.
