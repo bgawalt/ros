@@ -68,3 +68,124 @@ iterated on a simpler first-run model.
 The difference is that the use of a disciplined process or workflow, vs.
 pluggin' and chuggin', makes for more trustworthy conclusions.  It starts a
 conversation instead of prematurely concluding one.
+
+### 1.4.  Challenges in building, understanding, and interpreting regressions
+
+"We can distinguish two different ways in which regression is used for causal
+inference: estimating a relationship and adjusting for background variables."
+
+Note that one author, Gelman, is adorably prickly about always saying "adjusting
+for" when the typical jargon is "controlling for."  It's humbler!  And the
+actual operation being performed is indeed humble.
+
+#### (1/2) Regression to estimate a relationship of interest
+
+You wan't to know the `m` in `y = mx + b`.  And of course this gets complicated,
+where you think `m` will vary based on other covariates, like how `m` is
+different for smokers and non-smokers when estimating the carcinogenic effect of
+radon.
+
+#### (2/2) Regression to adjust for differences between treatment and control groups
+
+I really love Fig 1.8 for this:
+
+![Hypothetical data with a binary treatment and a continuous pre-treatment variable. Treated units
+are displayed with circles on the scatterplot, and controls are shown with dots. Overlaid is a fitted regression
+predicting the outcome given treatment and background variable, with the estimated treatment effect being the
+difference between the two lines.](./fig/fig1_8.png)
+
+#### Introducing workflow
+
+The final subsection here lays out the workflow cycle of regression analysis:
+
+1.  Model building (i.e., stating a functional form like `y = mx + b`; start
+    simple and add complexity on later loops)
+2.  Model fitting, this is just the stats library of your choice
+3.  Understanding model fits, where you especially use graphs and charts to
+    explore where the model is succeeding and where failing and see if you get
+    a hunch around why
+4.  Criticism
+
+I can add some perspective here: I know author Gelman from his blog.  The
+reason I know his blog is that he's entering a third decade of trying popularize
+the idea of criticism, always and everywhere.  It doesn't have to be a punitive,
+flagellating slog, but if you avoid it, you wind up with the alternative of,
+uhhhhhhhhhhhh, let's say, overconfident conclusions.  Blinding with science.
+
+"No study is perfect.... The common theme is that we should recognize challenges
+in extrapolation \[BG: I think of this more as the three kinds of generalization
+described in 1.1\] and then work to adjust for them."
+
+### 1.5, Classical and Bayesian inference
+
+This is teasing an introduction to the holy war of Bayesians vs. Frequentists,
+but cutely starts by talking about how really there are "various methodological
+and philosophical frameworks."
+
+> Common to all [BG: note, *all* not *either*!] these approaches are three
+> concerns:
+> 
+> 1.  what information is being used in the estimation process,
+> 2.  what assumptions are being made, and
+> 3.  how estimates and predictions are interpreted, in a classical or Bayesian
+>     framework
+
+#### Information
+
+There's the actual data you have as a CSV or whatever.  Then there's the
+information about how it was collected, including how treatment attribute
+values were assigned. And then "\[f\]inally, we typically have *prior
+knowledge*" (emphasis in original), which is where the holy war comes in.
+
+#### Assumptions
+
+1.  Functional form of the model, a.k.a., the likelihood
+2.  Data provenance, e.g., do we assume (if even just for the sake of
+    simplification) the data were sampled randomly?
+3.  Real-world relevance.  Are these measurements stable across time and across
+    units of study?  Here's where that third and most taxing form of
+    generalization comes in, "The interpretation of a regression of `y` on `x`
+    depends also on the relation between the measured `x` and the underlying
+    predictors of interest, and on the relation between the measured `y` and the
+    underlying outcomes of interest.
+
+#### Classical vs. Bayesian
+
+The last two subsections introduce a classical analysis, where the uncertainty
+interval for the estimated treatment effect is wide.  And then it's reanalyzed
+in the Bayes style, adding in prior information stating a range of effect sizes
+that it's reasonable to expect.  This narrows the range of possible effect
+sizes.  Was that a good idea or not?  Impossible to say in a vacuum.
+
+The reason the authors come down on the side of Bayes is that you can pretty
+much recover the same answers that the classical result will give, by using
+weakly- and non-informative ("flat") priors.  But you also get a handy and
+easy way to explore other options with an actually-informative prior and see if
+that "helps."
+
+Measuring helpfulness is left implicit, but, it's down to "are the predictions
+made by the model more or less correct," which necessarily means collecting more
+data than you analyzed to craft this model.
+
+### 1.6, Computing least squares and Bayesian regression
+
+This is now just about what to type into what computer file.  The book uses R
+(and [Stan](https://mc-stan.org/)); I will use Python (and... almost certainly
+[PyStan](https://pystan.readthedocs.io/en/latest/)).
+
+I will say that *I* know what Stan is doing there: it's doing Markov chain Monte
+Carlo.  But this is not made explicit here; there is merely allusion to 
+"producing simulations that enable you to express inferential and predictive
+uncertainty (that is, estimates with uncertainties and probabilistic predictions
+or forecasts)."
+
+Pretty clear the book won't ever get into that: "Bayesian and simulation
+approaches become more important when fitting regularized regression and
+multilevel models. These topics are beyond the scope of the present book, but
+once you are comfortable using simulations to handle uncertainty, you will be
+well situated to learn and work with those more advanced models."
+
+I started this whole thing to learn about those multilevel models, but, I will
+take it on faith that the book is setting me up for success here later.  Or at
+least, shading in subtleties that I wouldn't learn about jumping straight to
+MRP.
