@@ -13,3 +13,32 @@ throughout, esp. Jupyter notebooks.
 
 *  [Chapter 1](./chapter1.md)
 
+## Jupyter
+
+I set up a virtual environment for running a notebook server locally.
+
+Setup the environment with:
+
+```shell
+$ python3 -m venv venv/jupyter
+```
+
+Installed Jupyter with:
+
+```shell
+$ cd ~
+$ source venv/jupyter/bin/activate
+$ pip3 install jupyter
+$ pip3 install matplotlib
+```
+
+Ran the backend with:
+
+```shell
+$ jupyter notebook --port 9999
+```
+
+I use that manually-specific port to avoid colliding with Pelican (my
+static-site blogging software) on :8888.
+
+More details: https://docs.jupyter.org/en/latest/running.html
