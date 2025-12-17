@@ -194,7 +194,11 @@ MRP.
 
 ### 1.2, Sketching a regression model and data
 
-TK
+This one involves sketching data that powers a linear regression a la Fig 1.1b,
+with two levels of residual standard deviation.  I sketched it in Matplotlib,
+which you can see in [the Chapter01 notebook](./notebooks/Chapter01.ipynb):
+
+![two scatter plots, one with 3x the residual std dev of the other](/fig/ex01_2.png)
 
 ### 1.9, A problem with linear models
 
