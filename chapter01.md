@@ -92,7 +92,7 @@ I really love Fig 1.8 for this:
 ![Hypothetical data with a binary treatment and a continuous pre-treatment variable. Treated units
 are displayed with circles on the scatterplot, and controls are shown with dots. Overlaid is a fitted regression
 predicting the outcome given treatment and background variable, with the estimated treatment effect being the
-difference between the two lines.](./fig/fig1_8.png)
+difference between the two lines.](./fig/fig01_8.png)
 
 #### Introducing workflow
 
