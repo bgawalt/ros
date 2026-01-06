@@ -11,7 +11,7 @@ throughout, esp. Jupyter notebooks.
 
 ## Chapter Notes
 
-*  [Chapter 1](./chapter1.md)
+*  [Chapter 1](./chapter01.md)
 
 ## Jupyter
 
@@ -35,6 +35,7 @@ $ pip3 install matplotlib
 Ran the backend with:
 
 ```shell
+$ source venv/jupyter/bin/activate
 $ jupyter notebook --port 9999
 ```
 

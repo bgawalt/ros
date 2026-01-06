@@ -59,7 +59,7 @@ predictors on top of not-that-many observed data (fifty states,
 thirty predictor attributes).  They turned the crank and got a p-value and then
 went hog wild claiming a causal effect. "\[T\]he result was that a respected
 medical journal was induced to publish strong and poorly supported conclusions
-taken from a messy set of aggregate trend data
+taken from a messy set of aggregate trend data."
 
 The UN peacekeeping study gets praised for having a *thoughtful* process of
 adding a hand-crafted predictor (how bad was the conflict) that directly
@@ -69,7 +69,7 @@ The difference is that the use of a disciplined process or workflow, vs.
 pluggin' and chuggin', makes for more trustworthy conclusions.  It starts a
 conversation instead of prematurely concluding one.
 
-### 1.4.  Challenges in building, understanding, and interpreting regressions
+### 1.4,  Challenges in building, understanding, and interpreting regressions
 
 "We can distinguish two different ways in which regression is used for causal
 inference: estimating a relationship and adjusting for background variables."
