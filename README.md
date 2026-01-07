@@ -12,6 +12,7 @@ throughout, esp. Jupyter notebooks.
 ## Chapter Notes
 
 *  [Chapter 1](./chapter01.md)
+*  [Chapter 2](./chapter02.md)
 
 ## Jupyter
 
