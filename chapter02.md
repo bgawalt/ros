@@ -124,3 +124,27 @@ rate.  It's a regression model the book hasn't discussed fitting yet.  The
 section concludes with "\[t\]hese graphs demonstrate the value of this sort of
 data exploration," but it's not *just* data exploration.  It's a regression
 model!
+
+
+## Exercises
+
+### 2.7, Reliability and validity
+
+> (a) Give an example of a scenario of measurements that have validity but not
+> reliability.
+>
+> (b) Give an example of a scenario of measurements that have reliability but
+> not validity.
+
+When I take my kids' temperature with the ear thermometer, the thing I'm after
+has validity.  But the measurements are unreliable.  We got in the habit of
+always doing both ears, and they can vary by a full degree-Fahrenheit.
+I suspect the forehead-blaster forehead thermometer checks they got at their
+daycare in the immediate post-COVID years were even less reliable.
+
+If you're trying to measure financial precarity, and you do so by asking for
+copies of paystubs or tax returns or whatever: you will very reliably observe
+your subjects' income.  But that may or may not be a valid reflection of
+precarity.  Some people have family money they know they can fall back on; some
+people are currently grad students and have reasonable certainty that high
+income is coming soon.  Stuff like that.
