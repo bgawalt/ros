@@ -160,3 +160,37 @@ your subjects' income.  But that may or may not be a valid reflection of
 precarity.  Some people have family money they know they can fall back on; some
 people are currently grad students and have reasonable certainty that high
 income is coming soon.  Stuff like that.
+
+### 2.9, Graphing parallel time series
+>  The mortality data in Section 2.4 are accessible from this site at the U.S.
+> Centers for Disease Control and Prevention: wonder.cdc.gov. Download mortality
+> data from this source but choose just one particular cause of death, and then
+> make graphs similar to those in Section 2.4, breaking down trends in death
+> rate by age, sex, and region of the country.
+
+I chose emphysema, and downloaded three separate datasets of "compressed
+mortality", for the years 1968-1978; 1979-1998; and 1999-2016.
+
+Mortality nationwide:
+
+![Emphysema mortality for the full US, 1968-2016
+](./fig/ex02_9_emphysema_all.png)
+
+Mortality by sex:
+
+![Emphysema mortality for the full US, 1968-2016, broken down by sex into 'M'
+or 'F'
+](./fig/ex02_9_emphysema_sex.png)
+
+Mortality by age (as bucketed by the CDC):
+
+Mortality by age:
+
+![Emphysema mortality for the full US, broken down by age bucket, 1968-2016
+](./fig/ex02_9_emphysema_age.png)
+
+Mortality by age and region:
+
+![Four small multiples of emphysema mortality, one for each of four major
+census regions (west, midwest, northeast, south), broken down within each by
+age bucket, 1968-2016](./fig/ex02_9_emphysema_region_age.png)
