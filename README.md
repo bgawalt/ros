@@ -33,7 +33,7 @@ $ pip3 install jupyter
 $ pip3 install matplotlib
 ```
 
-Ran the backend with:
+Ran the backend (always from the root dir of this repo) with:
 
 ```shell
 $ source venv/jupyter/bin/activate
