@@ -108,8 +108,19 @@ daunting.
 FWIW, I have a real hard time untangling the two identically-styled lines
 apart in Figure 2.11(c):
 
-![TODO alt text](./fig/fig02_11c.png)
+![Figure 2.11(c) from ROS, showing two time series of death rate for 45-54
+non-Hispanic white people. One is the raw death rate, the other is an expected
+death rate you'd see based on the age distribution of peopl 45-54 each year.
+They have identical upward trends starting from around 2003.
+](./fig/fig02_11c.png)
 
 Every time the lines cross, I have to guess which one is going which direction.
 I can decipher it using Figs. 2.11(a) and (b), but like: just use two distinct
 styles.  Dashed lines are free.
+
+I think this example is neat, and worth discussing in the book.  But all the
+juice is in the model that extrapolates an age distribution to an expected death
+rate.  It's a regression model the book hasn't discussed fitting yet.  The
+section concludes with "\[t\]hese graphs demonstrate the value of this sort of
+data exploration," but it's not *just* data exploration.  It's a regression
+model!
