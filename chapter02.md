@@ -128,6 +128,18 @@ model!
 
 ## Exercises
 
+### 2.3, Data processing
+
+>  Go to the
+> [folder `Names`](https://github.com/avehtari/ROS-Examples/tree/master/Names/data)
+> and make a graph similar to Figure 2.8, but for girls.
+
+Ta-daaaa:
+
+![26 time series of the popularity of last letters among girls' names from
+1880 to 2010; the top five are A, E, N, Y, and H, the only ones to finish
+above 5% in the most recent yaer.](./fig/ex02_3.png)
+
 ### 2.7, Reliability and validity
 
 > (a) Give an example of a scenario of measurements that have validity but not
