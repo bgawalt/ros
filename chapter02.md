@@ -6,7 +6,7 @@ your numbers are coming from."  Understanding by making graphs and charts.
 
 ## Subsection rundown
 
-### 2.1 Examining where data come from
+### 2.1, Examining where data come from
 
 The Human Development Index is criticized as "pretty much a map of state income
 with a mysterious transformation and a catchy name."  The point of the exercise
@@ -17,5 +17,99 @@ Re: the partisanship vs. ideology example of Figure 2.3, "even very similar
 measures can answer quite different questions."  (In 2008, income predicted
 partisanship much better than it did ideology, among self reports of each.)
 
-Not accounting for those "quite different questions" means your conclusions
-reached from a regression analysis can lack validity.
+Not accounting for those "quite different questions" means you risk drawing
+invalid conclusions from your regression analysis.
+
+### 2.2, Validity and reliability
+
+Measurement issues arise from:
+
+*  quantifying a "real" thing, that's difficult to measure: foreign-born
+population share, daily caloric intake
+*  somewhat fuzzy, how many people do you trust, how large is your
+vocabulary"
+*  subjective concepts, like customer satisfaction
+
+Validity of a measure (measuring process) is "giving the right answer on average
+across a wide range of plausible scenarios."  You need some source of ground
+truth (in at least some environment, if not the one you're studying) and
+multiple measurements taken to assess validity.  Mostly this falls back to
+"ground truth is what experts give as the right answer."
+
+Reliable measuring processes give the same value on repeated measurements:
+precision and stability.  "Inter-rater reliability" is mentioned as a way of
+assessing reliability.
+
+They close by saying they prefer to include selection and non-response biases
+in the family of measurement issues.
+
+All of these are of interest when considering "larger models [that connect]
+measurements to underlying relationships of interest."  That's one of the key
+forms of generalization trumpeted in Chapter 1.
+
+### 2.3, All graphs are comparisons
+
+#### Pt. 1, through "Grids of plots," inclusive
+
+*  The redistricting model is interesting, there's a lot going on in terms of,
+   why does the partisan-coding of the redistricting only affect the intercept,
+   not the slope.  Clearly for a later chapter.
+*  Kinda stuck with just two continuous values in your plots: `x1` and `y`.
+   Everything else is discretized into colors or small-multiple rows and
+   columns.
+*  The call for rich captions falls in with the theme of the book: regression is
+   story telling.  There's a big emphasis on prose, beginning-middle-end,
+   narrative.  The graphs aren't necessarily succinct; you are meant to go big
+   with them.
+
+#### Pt. 2, "Applying graphical principles..." and on
+
+
+*  "A graph can almost always be made smaller than you think and still be
+   readable.  This then leaves room for more plots on a grid."
+*  When discussing "three digits are usually enough because if more were
+   necessary, we would subtract out the mean first": I do wish we had a word for
+   the residual left when you subtract out a mean.  I think "the deviation"
+   works, but it's not standard (hah!) jargon.  Even baseball sabremetrics has
+   to resort to a mouthful of syllables to say "wins above replacement."
+*  Here's Figure 15.6, used as an example of "\[an\] effective graph\[\]
+   showing us what a fitted model is doing," an ordinal logistic regression
+   model in this case:
+
+![Six small multiples of an ordinal logistic regression predicting outcomes in
+the set {1, 2, 3} for x-axis values running from zero to 100.  Each small
+multiple shows a different dynamic between the x-value (just called "Value") and
+what the model recovers: (1) perfect monotonicity between x and y value; 
+(2) one fuzzy and one sharp cutpoint; (3) monotonic with one outlier; (4) only
+1's and 3's in the y values; (5) almost only 3's; (6) erratic/noisy data
+](./fig/fig15_6.png)
+
+*  Here's Figure 10.9, used as an example of "graph\[ing\] sets of estimated
+   parameters."  I think I would try to come up with a smaller, discrete set of
+   y-axis scales instead of each one being *sui generis:*
+
+![Nine small multiples, one for each predictor included in a models predicting
+party identification.  The coefficient for each predictor is plotted as a time
+series in each multiple, showing how its estimate changed with each election.
+](./fig/fig10_9.png)
+
+### 2.4, Data and analysis: trends in mortality rates
+
+This is a memorable example for me, because it gave rise to a pithy expression
+that bounces around my head: "45-54 year olds are older than they used to be."
+Kind of a macabre etymology, but: still useful to keep in mind.
+
+The study itself is known to me as the "deaths of despair" paper.
+
+Also a fun memory for me: this dataset is named `AgePeriodCohort`, which is to
+my mind the decomposition from hell.  I have never performed one, and they seem
+daunting.
+
+FWIW, I have a real hard time untangling the two identically-styled lines
+apart in Figure 2.11(c):
+
+![TODO alt text](./fig/fig02_11c.png)
+
+Every time the lines cross, I have to guess which one is going which direction.
+I can decipher it using Figs. 2.11(a) and (b), but like: just use two distinct
+styles.  Dashed lines are free.
