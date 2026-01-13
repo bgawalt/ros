@@ -207,4 +207,97 @@ if they became the model treatment person," and I hope we get into Q-Q plots for
 charting this kind of comparison for quantiles starting anywhere from the
 1st to the 99th percentile.
 
+### 3.6 Probability modeling
+
+Fun fact: my vote was decisive to an election, recently!  My congressional
+district had a tie for second place in our weird open primary system.
+Read all about it: https://en.wikipedia.org/wiki/Evan_Low#2024_U.S._House_of_Representatives_election
+
+(There was a recount, some people were irritated by how it got kicked off, the
+recount eliminated the tie.)
+
+Anyway, the book talks about modeling the odds of a tied election two ways:
+
+#### Using an empirical forecast
+
+TK
+
+#### Using a reasonable-seeming but inappropriate probability model
+
+TK
+
+
 ## Exercises
+
+### 3.1, Weighted averages
+
+> A survey is conducted in a certain city regarding support for increased
+> property taxes to fund schools. In this survey, higher taxes are supported by
+> 50% of respondents aged 18–29, 60% of respondents aged 30–44, 40% of
+> respondents aged 45–64, and 30% of respondents aged 65 and up. Assume there is
+> no nonresponse.
+
+TK
+
+### 3.2, Weighted averages
+
+> Continuing the previous exercise, suppose you would like to estimate the
+> proportion of all adults in the population who support higher taxes, so you
+> take a weighted average as in Section 3.1. Give a set of weights for the four
+> age categories so that the estimated proportion who support higher taxes for
+> all adults in the city is 40%.
+
+TK
+
+### 3.3, Probability distributions
+
+> Using R, graph probability densities for the normal distribution, plotting
+> several different curves corresponding to different choices of mean and
+> standard deviation parameters.
+
+TK
+
+### 3.4, Probability distributions
+
+> Using a bar plot in R, graph the Poisson distribution with parameter 3.5.
+
+### 3.5 Probability distributions
+
+> Using a bar plot in R, graph the binomial distribution with $n = 20$ and
+> $p = 0.3$.
+
+### 3.6 Linear transformations
+
+> A test is graded from 0 to 50, with an average score of 35 and a standard
+> deviation of 10. For comparison to other tests, it would be convenient to
+> rescale to a mean of 100 and standard deviation of 15.
+> 
+> (a) Labeling the original test scores as $x$ and the desired rescaled test
+> score as $y$, come up with a linear transformation, that is, values of $a$ and
+> $b$ so that the rescaled scores $y = a + bx$ have a mean of 100 and a standard
+> deviation of 15.
+>
+> (b) What is the range of possible values of this rescaled score y?
+>
+> (c) Plot the line showing $y$ vs. $x$.
+
+TK 
+
+### 3.7 Linear transformations
+
+> Continuing the previous exercise, there is another linear transformation
+> that also rescales the scores to have mean 100 and standard deviation 15.
+> What is it, and why would you not want to use it for this purpose?
+
+TK
+
+### 3.8 Correlated random variables
+
+> Suppose that the heights of husbands and wives have a correlation
+> of 0.3, husbands’ heights have a distribution with mean 69.1 and standard
+> deviation 2.9 inches, and wives’ heights have mean 63.7 and standard deviation
+> 2.7 inches. Let $x$ and $y$ be the heights of a married couple chosen at
+> random. What are the mean and standard deviation of the average height,
+> $(x + y)=2$?
+
+TK
