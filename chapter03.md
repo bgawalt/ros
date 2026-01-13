@@ -33,3 +33,33 @@ $$\hat{y} = X\hat{\beta}$$
 where matrix $X \in \mathbb{R}^{N \times p}$ has one example per row,
 one predictor (feature) per column, and the model weights are a $p \times 1$
 column vector.
+
+## 3.3, Graphing a line
+
+"Slope and intercept" are straight-up pre-algebra curricula, so I am now
+getting a better sense of the audience of the book, or at least a meaningful
+share: undergrads from disciplines where calculus is not a requirement.
+
+I like the subtle change-of-variables that the switch from $1000 - 0.393x$ to
+$241 - 0.393(x - 1950)$ represents.  This is going to be an important fact
+about (generalized?) linear regression later, that additive scaling of an input
+feature doesn't change that feature's model weight (0.393, here).
+
+This is a mouthful, but it seems like a useful way to express the concept, so
+I'll copy it down as a form of practice/recitation: "when comparing any two
+years, we see a world record time that is, on average, 0.393 seconds per year
+less for the more recent year."
+
+## 3.4, Exponential and power-law growth and decline; logarithmic and log-log relationships
+
+The world population growth model gets a caveat about how doubling every 50
+years is "not an accurate description, just a crude approximation."  Linear
+algebra didn't get the same courtesy that human-population studies does here!
+
+I've worked out the semilog and log-log translations a bunch of times and it's
+always fun.  So I won't try committing it to memory, I'll just have fun
+re-deriving it if I ever need to.
+
+(I hope this book talks about the difference between fitting a semilog/log-log
+model directly, vs. fitting a slope and intercept to log-transformed data.)
+
