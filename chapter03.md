@@ -63,3 +63,27 @@ re-deriving it if I ever need to.
 (I hope this book talks about the difference between fitting a semilog/log-log
 model directly, vs. fitting a slope and intercept to log-transformed data.)
 
+## 3.5, Probability distributions
+
+"\[T\]he *error term* \[emphasis theirs\] in the expression
+$y = a + bx + \epsilon$" -- I think that's the first time we've seen that
+expression?
+
+Two steps to "describe the typical range of values of the outcome variable,
+given the predictors": "predict the average outcome value given the predictors,"
+and "summarize the variation in this prediction."
+
+### Mean and standard deviation of a probability distribution
+
+A dog that didn't bark: in defining variance, the book doesn't mention the
+difference between empirically estimating variance as
+
+$$Var(x) = \frac{1}{N}\sum_{j=1}^N (x_j - \mu_j)^2$$
+
+versus taking an the unbiased estimate with:
+
+$$Var(x) = \frac{1}{N-1}\sum_{j=1}^N (x_j - \mu_j)^2$$
+
+This pleases me, as my first data science job, I got in a minor disagreement
+over my colleague calling the first one "wrong."  It's not wrong!  It's biased!
+Those are different.  Sometimes bias is good.
