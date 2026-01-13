@@ -116,6 +116,11 @@ normally distributed, but you can make a normal distribution out of them:
 > coefficients, even when the underlying data do not follow a normal
 > distribution.
 
+Also, interesting! The word "Gaussian" does not appear until Chapter 11, when
+used to talk about Gaussian processes.  And that's the only sense the word is
+ever used in the book (eight appearances).  The bell curve is Normal, not
+Gaussian, to this book.
+
 #### Linear transformations
 
 It was actually nice to see/be reminded how easy unit conversions (inches to
@@ -158,5 +163,48 @@ multiplicative factors would have been nice.
 Between the lines: the book does not want readers to stress about whether any
 particular random variable is Gaussian.  Transformations need a motivation other
 than "now it looks more bell curvy."
+
+#### Binomial distribution
+
+Language is tricky: "independent of each other (that is, success in one shot is
+not associated with ... probability of success for any other shot)."  There's
+some undergrad-level-clever examples of like, uncorrelated variables, that very
+much are dependent on each other.  So establishing what counts as "associated
+with" is complicated.
+
+#### Poisson distribution
+
+Summarized as "can be used for count data;" with stay-tuned notices about
+(a) checking its "fit to data" before definitely describing an RV as Poisson,
+and (b) Section 15.2 will talk about accounting for "overdispersion".
+(As a mechanical requirement of the distribution, Poisson RVs have variance
+equal to their mean, but lots of empirical count datasets exhibit much larger
+variances than that. Fix it!!)
+
+#### Unclassified probability distributions
+
+The heights example (a mixture of Gaussians) is a good one to call back to: you
+can mix and match and combine all these, to the point that the set of
+distributions worth considering is unenumerable.
+
+Though here are some good named distributions that didn't get a mention above:
+Laplacian, Cauchy, negative binomial, gamma, beta.  We Bought A Zoo.
+
+#### Probability distributions for error
+
+They're coyly introducing generalized regression here, when talking about how
+the observed Bernoulli RVs can be better modeled with a latent "deterministic,
+plus random error" RV behind it.
+
+#### Comparing distributions
+
+First off, wwwwwwhat is the placebo for "percutaneous coronary intervention"?
+Do they gas you with propofol and then pretend to cut you open?  *Actually* cut
+you open?
+
+I like the "how many percentile points would the modal control person move up
+if they became the model treatment person," and I hope we get into Q-Q plots for
+charting this kind of comparison for quantiles starting anywhere from the
+1st to the 99th percentile.
 
 ## Exercises
