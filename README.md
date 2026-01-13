@@ -13,6 +13,7 @@ throughout, esp. Jupyter notebooks.
 
 *  [Chapter 1](./chapter01.md): Overview
 *  [Chapter 2](./chapter02.md): Data and measurement
+*  [Chapter 3](./chapter03.md): Some basic methods in mathematics and probability
 
 ## Jupyter
 
