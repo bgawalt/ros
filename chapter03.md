@@ -220,11 +220,57 @@ Anyway, the book talks about modeling the odds of a tied election two ways:
 
 #### Using an empirical forecast
 
-TK
+Yow, I am confused where this "use the PDF over $n$" as an approximation that
+the (binary) election of $n$ voters is tied.  PDFs only reflect probability when
+you integrate them over some range.  I guess this is like a rectangle of width
+$1/n$ and height given by the PDF, but why that width and that height?
+
+I guess they don't want to get into that kind of reasoning yet -- it is more of
+a pure-play probability question, than a regression question.  But I dunno; I
+think we'll need to answer stuff like this later.  Like when we make use of
+a vote-total-predicting election model.
+
+From my memories of Gelman's blog, I am *less* confused by earlier advice of
+just calculating the odds the election lands between 49.9% and 50.1% and then
+slicing up a uniform distribution over vote totals within to answer "will there
+be a tie."  Maybe these are equivalent methods?
+
+Reading for later:
+
+*  [A new argument for estimating the probability that your vote will be decisive](https://statmodeling.stat.columbia.edu/2024/02/05/a-new-argument-estimating-the-probability-that-your-vote-will-be-decisive/), Feb 5, 2024
+*  [What is the probability your vote will make a difference? \[pdf\]](https://sites.stat.columbia.edu/gelman/research/published/probdecisive2.pdf), April 2012, featuring co-author Nate Silver!
 
 #### Using a reasonable-seeming but inappropriate probability model
 
-TK
+I do like thinking about the Anscombe's-Quartet style switcharoo between
+"every voter has probability $p$ of voting in favor" versus "the overall vote
+share is $p$% in favor."  The paragraph calls this "\[s\]ome voters are almost
+certainly going to choose one candidate, others are almost certainly on the
+other side[...]."  Those voters aren't $p$% likely to vote in favor; they're
+locked to 0% or 100%.
+
+I had this discussion about this kind of "let's just say they're all $p$%
+likely to be clicked, since population wide $p$% of them *are* clicked"
+reasoning about Google's public web index nine years ago.  It's a strong
+assumption!
+
+The closing discussion about "\[t\]he key problem in the election example is
+that the binomial model does not do a good job at capturing uncertainty \[in our
+estimate of $p$, even granting we're allowed to model every voter as being
+$p$% likely to vote in favor\]" is why I default to Bayesian inference over
+probabilistic graphical models.  I know how to account for, and propagate,
+uncertrainty like that; to let uncertainty in $p$ flow to our uncertainty in
+probability-of-a-tie.
+
+#### General lessons for probability modeling
+
+"Ultimately we should check our probability models by their empirical
+implications."  I agree, and work backwards from this.  Refuse any work where
+there's no ability to check the model against empirical implication.  I am
+$400K poorer this year due to this agreement.
+
+I do hope we get to something more algorithmic than "a glance at Figure 3.6(c)"
+to make goodness-of-fit decisions around what distributions we choose.
 
 
 ## Exercises
