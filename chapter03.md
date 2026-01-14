@@ -282,8 +282,19 @@ to make goodness-of-fit decisions around what distributions we choose.
 > 50% of respondents aged 18–29, 60% of respondents aged 30–44, 40% of
 > respondents aged 45–64, and 30% of respondents aged 65 and up. Assume there is
 > no nonresponse.
+>
+> Suppose the sample includes 200 respondents aged 18–29, 250 aged 30–44, 300
+> aged 45–64, and 250 aged 65+. Use the weighted average formula to compute the
+> proportion of respondents in the sample who support higher taxes.
 
-TK
+$$\begin{align}              N_j &= [200, 250, 300, 250] \\
+                             y_j &= [50, 60, 40, 30] \\
+\frac{\sum_j N_jy_j}{\sum_j N_j} &= \frac{(200 \times 50) + (250 \times 60) + (300 \times 40) + (250 \times 30)}{200 + 250 + 300 + 250} \\
+                                 &= \frac{44,500}{1000} \\
+                                 &= 44.5
+\end{align}$$
+
+So 44.5%.
 
 ### 3.2, Weighted averages
 
@@ -293,7 +304,11 @@ TK
 > age categories so that the estimated proportion who support higher taxes for
 > all adults in the city is 40%.
 
-TK
+Ok.  Every adult in the city is age 45-64.  Done.
+
+I *could* also look around for a quadratic program solver that finds the set of
+weights closest to $[200, 250, 300, 250]$ that preserves the
+weighted-average-is-40 constraint....
 
 ### 3.3, Probability distributions
 
@@ -327,7 +342,15 @@ TK
 >
 > (c) Plot the line showing $y$ vs. $x$.
 
-TK 
+To get a standard deviation of 15, we need $b$ to be 1.5.  The expected value
+of $1.5x$ is $(1.5 \times 35) = 52.5$.  So if the mean of $y$ is 100, then
+$a$ must be $(100 - 52.5) = 47.5$.  Altogether:
+
+$$y = 47.5 + 1.5x$$
+
+The range of scores is now $[47.5, 99]$.
+
+TK plot
 
 ### 3.7 Linear transformations
 
