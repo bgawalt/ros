@@ -141,7 +141,7 @@ Also just some useful cheat-sheet entries on the mean and standard deviation of
 a linear combination of random variables $z = au + bv$:
 
 *  $\mu_z = a\mu_u + b\mu_v$
-*  $\sigma_z = \sqrt{a^2\sigma_u^2 + b^2\sigma_v^2 + 2ab\sigma_u\sigma_v}$
+*  $\sigma_z = \sqrt{a^2\sigma_u^2 + b^2\sigma_v^2 + 2ab\rho\sigma_u\sigma_v}$
 
 #### Lognormal distribution
 
@@ -310,6 +310,20 @@ I *could* also look around for a quadratic program solver that finds the set of
 weights closest to $[200, 250, 300, 250]$ that preserves the
 weighted-average-is-40 constraint....
 
+Instead I'll just brainstorm more options:
+
+*  $[0, 0, 1000, 0]$: Plop them all in the bucket that's already 40%
+*  $[333, 0, 334, 333]$: The oldest and youngest sets, when averaged, make 40%,
+    so do a mostly even split between 18-29, 45-64, and 64+
+*  $[0, 333, 1, 666]$: If you have two 35 year olds for every 70 year old, you
+    get an average of 40%.
+*  $[75, 150, 400, 375]$: My best attempt at combining the above to make a
+    relatively even distribution across the buckets
+
+I don't think there's much escaping that since the even-weights average is 45%,
+you have to move a lot of people into the older buckets: those are the only two
+with voting-in-favor rates below that unweighted average.
+
 ### 3.3, Probability distributions
 
 > Using R, graph probability densities for the normal distribution, plotting
@@ -322,10 +336,14 @@ TK
 
 > Using a bar plot in R, graph the Poisson distribution with parameter 3.5.
 
+TK
+
 ### 3.5 Probability distributions
 
 > Using a bar plot in R, graph the binomial distribution with $n = 20$ and
 > $p = 0.3$.
+
+TK
 
 ### 3.6 Linear transformations
 
@@ -348,7 +366,7 @@ $a$ must be $(100 - 52.5) = 47.5$.  Altogether:
 
 $$y = 47.5 + 1.5x$$
 
-The range of scores is now $[47.5, 99]$.
+The range of scores is now $[47.5, 122.5]$.
 
 TK plot
 
@@ -358,7 +376,19 @@ TK plot
 > that also rescales the scores to have mean 100 and standard deviation 15.
 > What is it, and why would you not want to use it for this purpose?
 
-TK
+Lol, this one took me a minute.  But!  If you take $b$ to be **-1.5**, you still
+get a distribution with a standard deviation of 15.  Again, adjusting $a$ to
+make the mean of $y$ be 100 asks for:
+
+$$\begin{align}a &= 100 - b\mu_x\\
+                 &= 100 - (-1.5)(35) \\
+                 &= 152.5
+\end{align}$$
+
+$$y_{BAD} = 152.5 - 1.5x$$
+
+Like the good book says, the last shall be first, and the first shall be last.
+(The range is now $[77.5, 152.5]$.)
 
 ### 3.8 Correlated random variables
 
@@ -367,6 +397,34 @@ TK
 > deviation 2.9 inches, and wives’ heights have mean 63.7 and standard deviation
 > 2.7 inches. Let $x$ and $y$ be the heights of a married couple chosen at
 > random. What are the mean and standard deviation of the average height,
-> $(x + y)=2$?
+> $(x + y)/2$?
 
-TK
+Define the above data variables:
+
+*  Average husband height: $\mu_H \leftarrow 69.1$
+*  Husband height standard deviation: $\sigma_H \leftarrow 2.9$
+*  Average wife height: $\mu_W \leftarrow 63.7$
+*  Wife height standard deviation: $\sigma_W \leftarrow 2.7$
+*  Correlation: $\rho_{HW} \leftarrow 0.3$
+*  Random variable representing the husband-wife average: $z$, with mean $\mu_z$
+    and standard deviation $\sigma_z$
+
+Then we can use the formulae I pulled out from "Mean and standard deviation of
+the sum of correlated random variables" above.
+
+First the mean:
+
+$$\begin{align}
+    \mu_z &= a\mu_h + b\mu_w \\
+          &= (0.5 \times 69.1) + (0.5 \times 63.7) \\
+          &= 66.4
+\end{align}$$
+
+Then the standard deviation:
+
+$$\begin{align}
+    \sigma_z &= \sqrt{a^2\sigma_u^2 + b^2\sigma_v^2 + 2ab\rho\sigma_u\sigma_v} \\
+             &= \sqrt{(0.5)^2(2.9)^2 + (0.5)^2(2.7)^2 + 2(0.5)(0.5)(0.3)(2.9)(2.7)} \\
+             &= \sqrt{5.0995} \\
+             &= 2.3
+\end{align}$$
