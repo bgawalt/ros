@@ -330,20 +330,30 @@ with voting-in-favor rates below that unweighted average.
 > several different curves corresponding to different choices of mean and
 > standard deviation parameters.
 
-TK
+![Three normal distribution PDFs plotted from -10 to 10: (1) the leftmost is
+orange, it's N(-3, 4), it's very wide and its vertical max is of height 0.1;
+(2) the middle one is blue, it's N(0, 1), its vertical max is of height 0.4;
+(3) the rightmost one is green, it's N(6, 0.6), its vertical max is of height
+0.7](./fig/ex03_3_normals.png)
 
 ### 3.4, Probability distributions
 
 > Using a bar plot in R, graph the Poisson distribution with parameter 3.5.
 
-TK
+![Blue bar chart of a Poisson distribution, y-axis labelled "Probability" and
+x-axis labelled "Count", rises quickly from prob. of 0.03 at count 0 to a peak
+prob. of 0.21 at count 3, then decays to nothing by count 10 and 11, where the
+plot ends.](./fig/ex03_4_poisson.png)
 
 ### 3.5 Probability distributions
 
 > Using a bar plot in R, graph the binomial distribution with $n = 20$ and
 > $p = 0.3$.
 
-TK
+![Purple bar chart of a binomial distribution, y-axis labelled "Probability" and
+x-axis labelled "Count", rises from prob. of zero at count 0 to a peak prob. of
+0.19 at count 6, then decays to nothing by count 13 and 14, though the plot goes
+all the way to a count of 20](./fig/ex03_5_binom.png)
 
 ### 3.6 Linear transformations
 
@@ -368,7 +378,11 @@ $$y = 47.5 + 1.5x$$
 
 The range of scores is now $[47.5, 122.5]$.
 
-TK plot
+![Graph with a y-axis from 0 to 130 and x-axis from 0 to 50.  A blue line
+segment represents the linear transform for the graded tests, it has large blue
+circles capping its endpoints of (0, 47.5) and (50, 122.5).  A red circle
+labels the mean test score at (35, 100), and two orange squares mark the mean
+plus/minus one standard deviation at (25, 85) and (45, 115).](./fig/ex03_6_linear_transform.png)
 
 ### 3.7 Linear transformations
 
