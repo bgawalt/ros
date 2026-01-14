@@ -1,5 +1,7 @@
 # Chapter 2: Data and measurement
 
+[(Return to README)](./README.md)
+
 The book is about fitting lines to data, and moving from there to prediction
 and causal inference.  *This* chapter, though, is about "understanding where
 your numbers are coming from."  Understanding by making graphs and charts.
@@ -127,6 +129,8 @@ model!
 
 
 ## Exercises
+
+Plots and computation powered by [Chapter02.ipynb](./notebooks/Chapter02.ipynb)
 
 ### 2.3, Data processing
 

@@ -1,5 +1,7 @@
 # Chapter 3: Some basic methods in mathematics and probability
 
+[(Return to README)](./README.md)
+
 Three motivations for the chapter:
 
 1. Learn building blocks that can be used to construct "elaborate models"
@@ -274,6 +276,8 @@ to make goodness-of-fit decisions around what distributions we choose.
 
 
 ## Exercises
+
+Plots and computation powered by [Chapter03.ipynb](./notebooks/Chapter03.ipynb)
 
 ### 3.1, Weighted averages
 

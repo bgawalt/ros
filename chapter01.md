@@ -1,5 +1,7 @@
 # Chapter 1: Overview
 
+[(Return to README)](./README.md)
+
 Key line from the chapter intro, which motivates this whole book club in the
 first place: "It turns out there are many subtleties involved even with simple
 linear regression—straight-line fitting."  Yeah!  Let's master some subtleties.
@@ -191,6 +193,8 @@ least, shading in subtleties that I wouldn't learn about jumping straight to
 MRP.
 
 ## Exercises
+
+Plots and computation powered by [Chapter01.ipynb](./notebooks/Chapter01.ipynb)
 
 ### 1.2, Sketching a regression model and data
 
