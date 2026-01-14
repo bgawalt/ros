@@ -408,7 +408,7 @@ Like the good book says, the last shall be first, and the first shall be last.
 endcaps at (0, 152.5) and (50, 77.5). The blue and purple line segments
 intersect at the red mean circle, (35, 100). Two more orange squares mark the
 mean plus/minus one standard deviation for the bad transform at (25, 115) and
-(45, 85).](./fig/ex03_6_linear_transform.png)
+(45, 85).](./fig/ex03_7_bad_transform.png)
 
 ### 3.8 Correlated random variables
 
