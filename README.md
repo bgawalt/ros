@@ -37,7 +37,7 @@ $ pip3 install matplotlib
 Ran the backend (always from the root dir of this repo) with:
 
 ```shell
-$ source venv/jupyter/bin/activate
+$ source ~/venv/jupyter/bin/activate
 $ jupyter notebook --port 9999
 ```
 
