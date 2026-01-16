@@ -367,7 +367,115 @@ about whatever effect/parameter is being estimated.
 
 ### 4.5, Problems with the concept of statistical significance
 
-TK
+"The difference between significant and nonsignificant is not itself
+significant" is not a direct quote from the opener, but Gelmnans used this
+aphorism in his blog and it's the same idea.
+
+#### Statistical significance is not the same as practical importance
+
+Just from the title: this is one of those things that people just know to
+knee-jerk say whenever a statistical analysis comes up.  Its popularity is 
+second only to "correlation is not causation" in the world of lazy C+ replies.
+It's worth noting in the book for completeness, but I'm allowed to think it's
+overrated.
+
+#### Non-significance is not the same as zero
+
+They don't draw it out explicitly, but earlier they talk about how the two
+options are "reject" or "don't reject" a hypothesis, and this is the same as
+that.  "We don't reject the null" is not "we accept the null (the effect is
+zero)."
+
+#### The difference between “significant” and “not significant” is not itself statistically significant
+
+Hey, called shot!  Didn't know this was coming when I typed up my initial entry
+at the start of this section.
+
+I think this might be one of a few times so far where we start to peek at the
+use of inference (and regression) in practice.  It's not one clean study,
+analysis of the study's data, and then conclusions.  It's *lots* of analyses of
+different parts of the data from one study.  This is telling you not to use
+statsig as a feather of Anubis to separate the virtuous effects from the
+vicious. 
+
+The example they use is comparing two different studies of the same phenomenon,
+but the next section is...
+
+#### Researcher degrees of freedom, p-hacking, and forking paths
+
+... about multiple comparisons!  I.e., doing lots of analyses within the same
+dataset, studying the same effect.
+
+Just to get it out of the way, one of the bigger XKCD's is about this.
+["Significant," #882](https://xkcd.com/882/):
+
+![Scientists are asked to study effects of jelly beans on acne; they find no
+effect; they're told to look for effects among particular colors of jelly bean;
+they find nothing 19 times and do find one for green jelly beans; the newspaper
+headlines freakout](./fig/ch04_a_xkcd_jellybeans.png)
+
+The authors want to talk about the subtler variant of this.  Not just crude
+data dredging, not just malice-aforethought $p$-hacking.  Instead, it's that
+doing the good things the book has encouraged so far -- plot your data, get to
+know it -- suggests what test/predictors/outlier-santization/etc. would be
+appropriate.  Except if those are *post hoc* decisions, your inferences are
+overfit; "a different test would have been performed given different data."
+
+The proposed remedial approach is vague: "directly model the variation that is
+otherwise hidden in all these possible data coding and analysis choices, and
+to accept uncertainty and not demand statistical significance in our results."
+
+We, as readers, don't know how to do that variation-modeling (yet?).  And I
+think "not demand statistical significance in our results" is going to have
+some socio-organizational problems.  Even if you don't summarize it a $p$-value,
+results with strong signal are going to get more attention than those that
+don't.
+
+*  It's easy to get weak signal just by goofing something up; maybe your weak
+    signal study is a false positive.  The academic community receiving the work
+    is going to price that risk in.
+*  Most comparisons are weak signal (including mostly zeros).  Washington, DC,
+    rainfall timeseries from 1900-1950 does not predict coral bleaching in 2025
+    as a function of latitude.  They're unrelated, it will present as a lot of
+    uncertainty/variance for you to accept.  But no one is going to praise you
+    for talking about how high-variance it is.
+
+Meanwhile, strong signal studies are going to be high value, received by
+the community with interest and praise.  And that will funnel down to authors
+who will transmute the community's demand into demands on the data.
+
+#### The statistical significance filter
+
+From Nov 2014, Gelman's blog,
+["This is what “power = .06” looks like. Get used to it."](https://statmodeling.stat.columbia.edu/2014/11/17/power-06-looks-like-get-used/):
+
+![A bell curve representing an estimated effect size's PDF.  The tails beyond
+which the estimated effect would pass a $p$ < 0.05 test are in red.  The
+negative effect tail is a Type S error, which has a 24% chance of arising under
+low power like this.  The positive effect tail is a Type M error: in order to
+have the proper sign and meet statsig, the estimate must be over 9 times larger
+than the true effect.](./fig/ch04_b_power_006.png)
+
+The book states this as:
+
+> Any estimate with $p$ < 0.05 is by necessity at least two standard errors from
+> zero. If a study has a high noise level, standard errors will be high, and
+> so statistically significant estimates will automatically be large, no matter
+> how small the underlying effect.
+
+#### Example: A flawed study of ovulation and political attitudes
+
+I hope we get to see an example of what "all the comparisons" would look like
+for a study like this.  Maybe there's a graph worth 1,000 words that quickly
+conveys many comparisons all at once?
+
+I think the key thing here is, the authors already know "that opinion polls find
+very few people switching their vote preferences during the campaign for any
+reason."  I imagine that *this* is what drew attention to the study and its
+problems in the first place.  Knowing that the result was likely a Type M error,
+they can assume low power to the study, and can also look into the details of
+how contrived and multplie-comparisony the analysis appears.  (Put another way,
+I think but for the Type M error, this study would not appear in this book.)
 
 ### 4.6, Example of hypothesis testing: 55,000 residents need your help!
 
