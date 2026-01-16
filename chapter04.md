@@ -479,11 +479,28 @@ I think but for the Type M error, this study would not appear in this book.)
 
 ### 4.6, Example of hypothesis testing: 55,000 residents need your help!
 
-TK
+The test statistic, and the $\chi^2$ tests, require a lot of focus to make sense
+of.  But the actual reply is much more intuitive and convincing, it's pretty
+effective to save it till the end:
+
+> As we explained to the writer of the fax, opinion polls of 1000 people are
+> typically accurate to within 2%, and so, if voters really are arriving at
+> random, it makes sense that batches of 1000 votes are highly stable.
+
+The original letter thinks that 4% variance is suspiciously stable, but the
+"margin of error" for 1000-subject surveys is the same order of magnitude, and
+it's easy to point to that in the reply.
 
 ### 4.7, Moving beyond hypothesis testing
 
-TK
+The advice:
+
+*  Analyze all your data.  Upgrade your statistical method to one with the
+    "ability to incorporate more information into the analysis."
+*  Present all your comparisons.  "We recognize that, compared to the usual
+    deterministically framed summary, this might represent a larger burden of
+    effort for the consumer of the research as well as the author of the 
+    paper."
 
 ## Exercises
 
