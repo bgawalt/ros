@@ -729,4 +729,93 @@ $\hat{q}$ of \[33.6%, 59.7%\].
 >   yes/no questions with approximately equal proportions of each response, and
 >   (unrealistically) that the surveys have no problems with nonresponse.
 
-TK
+Obviously, this is pointing towards "oversample Latinos to better estimate the
+difference in rates; random sample everyone to better estimate the general
+population rate."  But it's fun to get some rough sense of the difference it
+makes by actually doing the calculations.
+
+Define three proportions to estimate, 
+
+1.  The share-in-favor among the *L*atino population, $p_L$
+2.  The share-in-favor among the *N*on-Latino population, $p_N$
+3.  The share-in-favor for the general (*T*otal) population, $p_T$.
+
+We have from the given census data for this problem that:
+
+$$p_T = 0.15p_L + 0.85p_N$$
+
+We want to estimate $p_T$ and $p_L - p_N$.
+
+Examine each survey method and estimate in turn.
+
+Spoilers for what happens to the uncertainty interval width (i.e.,
+$4\textrm{se}$), when moving from the simple random sample to the Latino
+oversample:
+    *  Total pop. rate:  6.4% increases to 8.8%
+    *  Demo comparison: 18.8% decreases to 14%
+
+#### Simple random sample, total population average
+
+Easiest estimate first.
+
+*  Estimate: $\hat{p}_T$ is just the number of Yes'es over 1000
+*  Standard error: $\sqrt{\hat{p}_T(1 - \hat{p}_T)/1000}$.  Probably close to
+    $0.5/\sqrt{1000} = 0.016$, given what the problem says that yes/no rates are
+    "approximately equal."
+
+So a standard error of **1.6%**.
+
+#### Simple random sample, Latino/other comparison
+
+How many Latinos, $N_L$, are in our simple sample? We expect 150 -- that's 15%
+of 1000 -- but the standard error here is:
+
+$$\textrm{se}(N_L) = 1000 \times \sqrt{0.15 \times 0.85 / 1000} = 11.3$$
+
+So our uncertainty range for $N_L$ is [127, 173].
+
+That means our uncertainty range for $N_N$ is [827, 873], subject to our
+constraint of $N_N + N_L = 1000$.
+
+Let's calculate standard errors under low-, medium-, and high-rates of Latino
+inclusion in our simple random sample.
+
+* Low Latino inclusion
+    *  $N_L = 127 \Rightarrow \textrm{se}(\hat{p}_L) = 0.5/\sqrt{127} = 4.4\%$
+    *  $N_N = 873 \Rightarrow \textrm{se}(\hat{p}_N) = 0.5/\sqrt{873} = 1.7\%$.
+    *  $\textrm{se}(p_L - p_T) = \sqrt{\textrm{se}(\hat{p}_L)^2 + \textrm{se}(\hat{p}_N)^2} = 4.7\%$
+* Mid Latino inclusion
+    *  $N_L = 150 \Rightarrow \textrm{se}(\hat{p}_L) = 0.5/\sqrt{150} = 4.1\%$
+    *  $N_N = 850 \Rightarrow \textrm{se}(\hat{p}_N) = 0.5/\sqrt{850} = 1.7\%$.
+    *  $\textrm{se}(p_L - p_T) = \sqrt{\textrm{se}(\hat{p}_L)^2 + \textrm{se}(\hat{p}_N)^2} = 4.4\%$
+* High Latino inclusion
+    *  $N_L = 173 \Rightarrow \textrm{se}(\hat{p}_L) = 0.5/\sqrt{150} = 3.8\%$
+    *  $N_N = 827 \Rightarrow \textrm{se}(\hat{p}_N) = 0.5/\sqrt{850} = 1.7\%$.
+    *  $\textrm{se}(p_L - p_T) = \sqrt{\textrm{se}(\hat{p}_L)^2 + \textrm{se}(\hat{p}_N)^2} = 4.2\%$
+
+All strongly suggestive that going to $N_L = 300$ in the oversampling design
+will continue to reduce the standard error of the estimated difference.
+
+If we prepare for the worst, though, we should not be surprised by a standard
+error of **4.7%**.
+
+#### Latino oversample, total population average
+
+Here we have $N_L = 300$, $N_N = 700$.  Our per-demo-group standard errors are:
+
+*  $\textrm{se}(\hat{p}_L) = 0.5/\sqrt{300} = 2.9%%$
+*  $\textrm{se}(\hat{p}_N) = 0.5/\sqrt{700} = 1.9%%$
+*  $\textrm{se}(\hat{p}_T) = \sqrt{\frac{300}{1000}\textrm{se}(\hat{p}_L)^2 + \frac{700}{1000}\textrm{se}(\hat{p}_N)^2} = 2.2%%$
+
+This is up from 1.6% in the simple random sample design.  Bad!
+
+#### Latino oversample, Latino/other comparison
+
+Our per-demo standard errors are same as in our total population average
+calculation, which means we can jump right to the calculation of the
+difference's standard error:
+
+$\textrm{se}(p_L - p_T) = \sqrt{\textrm{se}(\hat{p}_L)^2 + \textrm{se}(\hat{p}_N)^2} = 3.5\%$
+
+This is down from our worst-probable-case standard error of 4.7% under the
+simple random sample design.  Good!
