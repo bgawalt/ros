@@ -123,7 +123,7 @@ above 1, just truncate and move on.
 For two independent quantities, the standard error ($\textrm{se}$) of their
 difference is:
 
-$$\textrm{se}_\textrm{diff} = \sqrt{\textrm{se}_1 + \textrm{se}_2}$$
+$$\textrm{se}_\textrm{diff} = \sqrt{\textrm{se}_1^2 + \textrm{se}_2^2}$$
 
 #### Sampling distribution of the sample mean and standard deviation; normal and $\chi^2$ distributions
 
@@ -504,7 +504,7 @@ The advice:
 
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter04.ipynb](./notebooks/Chapter04.ipynb)
 
 ### 4.1, Comparison of proportions
 
@@ -514,7 +514,24 @@ Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 > response rate among the treated group and 40% response rate among the control
 > group. Give an estimate and standard error of the average treatment effect.
 
-TK
+The estimated treatment effect is 10%:
+
+$$\hat{p_1} - \hat{p_2} = 0.5 - 0.4 = 0.1$$
+
+The standard error is:
+
+$$\begin{align} \textrm{se}_{\textrm{diff}} &= \sqrt{\textrm{se}_1^2 + \textrm{se}_2^2} \\
+\textrm{se}_1 &= \sqrt{\hat{p_1}\left(1 - \hat{p_1}\right) / 500} \\
+  &= \sqrt{0.5 \times 0.5 / 500} \\
+  &= 0.0224 \\
+\textrm{se}_2 &= \sqrt{\hat{p_2}\left(1 - \hat{p_2}\right) / 500} \\
+  &= \sqrt{0.4 \times 0.6 / 500} \\
+  &= 0.0219 \\
+\textrm{se}_{\textrm{diff}} &= \sqrt{0.0224^2 + 0.0219^2} \\
+  &= 0.313 \\
+\end{align}$$
+
+So a reasonable uncertainty interval in the effect size is $[3.7\%, 16.3\%]$.
 
 ### 4.2, Choosing sample size
 
@@ -523,7 +540,21 @@ TK
 > simple random sample of the voting population, how many people do you need to
 > poll so that the standard error is less than 5 percentage points?
 
-TK
+If we assume that both gender populations support the candidate within the
+30%-to-70% range (Harris-Trump was 43%-55% for men and 53%-46% for women),
+then the $0.5/\sqrt{n}$ approximation for standard error holds.
+
+$$\begin{align} \textrm{se}_{\textrm{diff}} &= \sqrt{\textrm{se}_M^2 + \textrm{se}_W^2} \\
+  &= \sqrt{\left(0.5/\sqrt{n/2}\right)^2 + \left(0.5/\sqrt{n/2}\right)^2} \\
+  &= \sqrt{2 \times \frac{0.25}{n/2}} \\
+  &= \sqrt{1 / n}
+\sqrt{1 / n} < 0.05 &\Leftarrow 1/n < 0.0025 \\
+    &\Leftarrow n > (1 /0.0025) \\
+    &\Leftarrow n > 400 \\
+\end{align}$$
+
+So 400 people, assuming a 50-50 split in respondents by gender, and also that
+the within 30-to-70 assumption also holds.
 
 ### 4.3, Comparison of proportions
 
@@ -533,16 +564,49 @@ TK
 > percentages. What is the probability that the better shooter makes more shots
 > in this small experiment?
 
-TK
+Using a brute-force loop over the scenarios where the good shooter hits
+\{0, 1, ... 20\} shots, I can
+[use `scipy.stats.binom.logsf`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom.html#scipy.stats.binom)
+to calculate the (log-)probability that the bad shooter hits more than that.
+
+I get a final result of a 12% chance, but I don't entirely trust that I avoided
+off-by-one errors on this.  Probably fine.
 
 ### 4.4, Designing an experiment
 
 > You want to gather data to determine which of two students is a better
-> basketball shooter. You plan to have each student take N shots and then
-> compare their shooting percentages. Roughly how large does N have to be for
+> basketball shooter. You plan to have each student take $N$ shots and then
+> compare their shooting percentages. Roughly how large does $N$ have to be for
 > you to have a good chance of distinguishing a 30% shooter from a 40% shooter?
 
-TK
+Here we can use the formula from "Hypothesis testing for simple comparisons"
+above:
+
+$$\textrm{se}\left(\hat{\theta}\right) = \sqrt{s_C^2/n_C + s_T^2/n_T}$$
+
+Where $n_C = n_T = N$:
+
+$$\begin{align}
+    s_C^2 &= \hat{p_C}\left(1 - \hat{p_C}\right) \\
+      &= 0.3 \times (1 - 0.3) \\
+    s_T^2 &= \hat{p_T}\left(1 - \hat{p_T}\right) \\
+      &= 0.4 \times (1 - 0.4) \\
+\textrm{se}\left(\hat{\theta}\right) &= \sqrt{\frac{0.3(1 - 0.3) + 0.4(1 - 0.4)}{N}} \\
+    &= \sqrt{\frac{0.45}{N}} \\
+\end{align}$$
+
+We combine this with the approximate 95% interval formula:
+
+$$[\hat{\theta} \pm t_{2N - 2}^0.975 \times \textrm{se}\left(\hat{\theta}\right)]$$
+
+We want that interval to always be above 0, and $\hat{\theta}$ is 0.1.  So let's
+brute-force linear scan (too lazy to code up the corner cases for binary search)
+for the first $N$ that satisfies:
+
+$$t_{2N - 2}^0.975 \times \textrm{se}\left(\hat{\theta}\right) < 0.1$$
+
+My Python script says: we need 175 shots from each shooter to reliably tell the
+good one from the bad one.
 
 ### 4.6, Hypothesis testing
 
@@ -569,7 +633,16 @@ TK
 >   equal to the theoretical variance, and proportional to a $\chi^2$ random
 >   variable with 23 degrees of freedom; see page 53.
 
-TK
+The standard deviation of that list of numbers is 6.275e-3.
+
+The mean is 48.57%, and that's out of 3,900 births per month.  A binomial random
+variable $\textrm{Bin}(0.4857, 3900)$  would have a standard deviation of 31.2,
+or 8e-3.
+
+Evaluating the CDF of a $\chi^2(23)$ RV with mean 8e-3 at the observed 6.3e-3
+gives a value of 25%, so this is not so far from a typical value for that
+distribution.  It's not way down in the left tail, for sure.
+
 
 ### 4.7, Inference from a proportion with $y = 0$
 
