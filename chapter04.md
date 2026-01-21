@@ -548,9 +548,9 @@ $$\begin{align} \textrm{se}_{\textrm{diff}} &= \sqrt{\textrm{se}_M^2 + \textrm{s
   &= \sqrt{\left(0.5/\sqrt{n/2}\right)^2 + \left(0.5/\sqrt{n/2}\right)^2} \\
   &= \sqrt{2 \times \frac{0.25}{n/2}} \\
   &= \sqrt{1 / n}
-\sqrt{1 / n} < 0.05 &\Leftarrow 1/n < 0.0025 \\
-    &\Leftarrow n > (1 /0.0025) \\
-    &\Leftarrow n > 400 \\
+\sqrt{1 / n} < 0.05 &\Rightarrow 1/n < 0.0025 \\
+    &\Rightarrow n > (1 /0.0025) \\
+    &\Rightarrow n > 400 \\
 \end{align}$$
 
 So 400 people, assuming a 50-50 split in respondents by gender, and also that
@@ -688,7 +688,28 @@ Log scale standard error: 0.166
 > 100 students take the item, and 60% get it correct. Give an estimate and 95%
 > confidence interval for the percentage in the population who know the answer.
 
-TK
+Let's define two rates:
+
+1.  $p$, the rate at which we see a correct answer
+2.  $q$, the rate at which students know the answer
+
+We observe $\hat{p}$ of 60%, with standard error:
+
+$$\textrm{se}(p) = \sqrt{0.6 \times 0.4 / 100} = 0.049$$
+
+so that gives an interval on $\hat{p}$ of \[50.2%, 69.8%\].
+
+The relationship between $p$ and $q$ is given that everyone who knows the answer
+increments $p$, and so do a quarter of students who don't know the answer:
+
+$$p = q + 0.25(1 - q) = 0.25 + 0.75q$$
+
+Reversing this linear relationship gives:
+
+$$0.75q = (p - 0.25) \Rightarrow q = (4p - 1)/3$$
+
+If we apply that transformation to the bounds on $\hat{p}$, we get a range for
+$\hat{q}$ of \[33.6%, 59.7%\].
 
 ### 4.10, Survey weighting
 
