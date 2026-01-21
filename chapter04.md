@@ -597,13 +597,13 @@ $$\begin{align}
 
 We combine this with the approximate 95% interval formula:
 
-$$[\hat{\theta} \pm t_{2N - 2}^0.975 \times \textrm{se}\left(\hat{\theta}\right)]$$
+$$[\hat{\theta} \pm t_{2N - 2}^{0.975} \times \textrm{se}\left(\hat{\theta}\right)]$$
 
 We want that interval to always be above 0, and $\hat{\theta}$ is 0.1.  So let's
 brute-force linear scan (too lazy to code up the corner cases for binary search)
 for the first $N$ that satisfies:
 
-$$t_{2N - 2}^0.975 \times \textrm{se}\left(\hat{\theta}\right) < 0.1$$
+$$t_{2N - 2}^{0.975} \times \textrm{se}\left(\hat{\theta}\right) < 0.1$$
 
 My Python script says: we need 175 shots from each shooter to reliably tell the
 good one from the bad one.
@@ -650,7 +650,18 @@ distribution.  It's not way down in the left tail, for sure.
 > office. From this information, give a 95% confidence interval for the
 > proportion of Americans who have ever held political office.
 
-TK
+If we use the trick of "pretend to have observed 2 heads and 2 tails prior to
+seeing the actual coin toss data," we have:
+
+$$\hat{p} = \frac{2}{54} = 3.7%$$
+
+$$\textrm{se} = \sqrt{\hat{p}(1-\hat{p})/54} = 2.6%$$
+
+So using the (truncated) range $\hat{p} \pm 2\textrm{se}$, we get [0%, 8.8%].
+
+Note that the
+[Rule of 3](https://en.wikipedia.org/wiki/Rule_of_three_(statistics)) suggests
+an upper bound of 3/50 = 6%.
 
 ### 4.8, Transformation of confidence or uncertainty intervals
 
@@ -666,7 +677,9 @@ TK
 > 
 > (b) What is the standard error on the logarithmic scale?
 
-TK
+Log scale treatment effect: 0.351
+
+Log scale standard error: 0.166
 
 ### 4.9, Inference for a probability
 
