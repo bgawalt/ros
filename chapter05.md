@@ -77,7 +77,56 @@ ranges out of an array of samples.
 
 ### 5.4, Bootstrapping to simulate a sampling distribution
 
-TK
+Distribution-free and generative-model-free way to estimate a sampling
+distribution: just resample, with replacement, from the data you have. Like the
+other methods, "giv\[es\] some sense of the variation that could be expected
+if the data collection process had been re-done."
+
+They give an example of generating a standard error around a ratio of medians,
+by running 10,000 bootstrap resamples.
+
+#### Choices in defining the bootstrap distribution
+
+Two alternatives for bootstrapping uncertainty into regression model estimates:
+(1) just resample from the $(x, y)_i$ directly, or (2) resample the *residuals*
+that you find from the original model estimate, to get a new set of
+$y_i^{\text{boot}}$ labels for each $x_i$ and fit a new model to that single
+resampling.  No word on why you'd choose one or the other, though I suppose
+it's not hard to try both.
+
+They list some structured models that are examples of needing extra attention
+and thought in their resampling:
+
+*  **Time series.**  Given $(t, y)_i$ timestamped data, simple resample gives
+    multiple observations at some time instants, and drops others entirely.
+    Bootstrapping residuals "has issues too."  Their whole point is that there's
+    no easy answer here.
+*  **Multilevel structure.**  If you have groupable observations -- multiple
+    students tested per school, or multiple tests done per student -- how do you
+    resample?  Resample each group, or resample each observation?  First the
+    group, then an observation?  "These three choices correspond to different
+    sampling models and yield different bootstrap standard errors for estimates
+    of interest."
+*  **Discrete data.**  Binomial logistic regression (where you see $n_i$ copies
+    of $(x, y)_i$ pairs) can be resampled just like the multilevel structure
+    above -- you can either resample the $(x, n, y)$ triples themselves, or
+    break them up into $\sum_i n_i$ observations of binary logistic outcome
+    pairs. "\[N\]either of these two bootstrapping options is wrong here; they
+    just correspond to two different sampling models."
+
+#### Limitations of bootstrapping
+
+You can't resample what you never observed in the first place, so
+rare-but-presumably-extant phenomenon.  "Black Barry Goldwater voter" may
+not appear in your 1,000 voter sample, and so won't in any of the bootstrap
+resamples, either; you can't put error bars capping the odds of "Black voter
+picks Goldwater" just with the bootstrap.
+
+Note: we handled this in Ch. 4 by just assuming, for any category, a foursome
+of fake observations, two yes and two no.  Used like a Bayesian prior.  They
+allude to that fact when they say, "the problem arose with a simple
+unregularized logistic regression."  Regularization is another way of saying
+"put a prior on it."
 
 
 ## Exercises
