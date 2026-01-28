@@ -48,7 +48,37 @@ simulation in R.
 
 ### 5.2, Simulation of continuous and mixed discrete/continuous models
 
+Some examples of tracking nontrivial derived quantities from the simulation; in
+this case, the mean and max of the heights across groups of 10 US adults
+(where you flip a coin for "man/woman" and then draw from the corresponding
+normal distribution).
+
+#### Simulation in R using custom-made functions
+
+Demonstrates defining functions in R (in this case, to sample $N$ US adult
+heights), then passing the function invocation to `replicate`.
+
+### 5.3., Summarizing a set of simulations using median and median absolute deviation
+
+They introduce not just median absolute deviation, but this tradition they have
+to scale it up to what a standard deviation *would* be in a normal curve of
+same M.A.D. value (calling the scaled up quantity "mad sd").  I have no reason
+to do this; I can't picture an audience for my work that would care about this.
+
+They say it's used a lot in their reporting of regression coefficients when
+using Stan to fit generalized linear models, since they're more numerically
+stable than mean and actual-sd.  Stan and other MCMC Bayes samplers need their
+results summarized *some* how, and this is how they communicate point estimate
+and uncertainty (rather than just thinking of them as "more reliable
+summaries").
+
+Includes some pointers to R's `quantile` function for getting more quantile
+ranges out of an array of samples.
+
+### 5.4, Bootstrapping to simulate a sampling distribution
+
 TK
+
 
 ## Exercises
 
