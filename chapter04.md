@@ -128,10 +128,10 @@ $$\textrm{se}_\textrm{diff} = \sqrt{\textrm{se}_1^2 + \textrm{se}_2^2}$$
 #### Sampling distribution of the sample mean and standard deviation; normal and $\chi^2$ distributions
 
 If you have $n$ samples from a distribution $y_i \sim \mathcal{N}(\mu, \sigma)$,
-and calculate sample mean and sample standard deviation (using $\frac{1}{n-1} for the
-variance estimate!), then:
+and calculate sample mean and sample standard deviation (using $\frac{1}{n-1}$
+for the variance estimate!), then:
 
-*  The sample mean is distributed as $\mathcal{N}(\mu, sigma/\sqrt{n})$
+*  The sample mean is distributed as $\mathcal{N}(\mu, \sigma/\sqrt{n})$
 *  The sample standard deviation, called $s_y$, is distribued such that its
     transformation $s_y^2(n-1)/\sigma^2$ is distributed as a $\chi^2$ RV with
     $n-1$ degrees of freedom.
