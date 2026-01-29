@@ -181,7 +181,10 @@ doesn't get that close, since the scatter plot points peter out after around 12]
 > times and check that your simulated probability of making exactly 3 shots is
 > close to the exact probability computed in (a).
 
-TK
+The official chance is 21.5%.
+
+My simulation came up with the range [21.1%, 22.8%], using two standard errors
+as the uncertainty.
 
 ### 5.4, Demonstration of the Central Limit Theorem
 
