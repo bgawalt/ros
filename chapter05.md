@@ -330,7 +330,8 @@ place.  Which is probably why the authors wrote the exercise this way.
 
 ### 5.10, Inference for a ratio of parameters
 
-> A (hypothetical) study compares the costs and effectiveness of two different medical treatments.
+> A (hypothetical) study compares the costs and effectiveness of two different
+> medical treatments.
 >
 > * In the first part of the study, the difference in costs between treatments
 >   A and B is estimated at $600 per patient, with a standard error of $400,
@@ -354,9 +355,25 @@ place.  Which is probably why the authors wrote the exercise this way.
 > (c) Repeat, changing the standard error on the difference in effectiveness to
 >     2.0.
 
-TK
+When the standard error on effectiveness is 1.0:
 
-## 5.12, Randomization
+![Big blue cloud of uncorrelated dots, the x axis fuzzes from -500 to 1500,
+the y-axis fuzzes from 0 to 6](./fig/ex05_10_cost_effectiveness_se1.png)
+
+*  Mean ratio: 238.533
+*  50% interval: 109.851 to 318.179
+*  95% interval: -75.142 to 805.061
+
+When the standard error on effectiveness increases to 2.0:
+
+![Big blue cloud of uncorrelated dots, very similar to above, the x axis fuzzes
+from -500 to 1500, the y-axis now fuzzes from -2 to 10](./fig/ex05_10_cost_effectiveness_se2.png)
+
+*  Mean ratio: 124.386
+*  50% interval: 63.576 to 308.149
+*  95% interval: -1526.594 to 1541.528
+
+### 5.12, Randomization
 
 > Write a function in R to assign $n$ items to treatment and control conditions
 > under the following assignment procedures:
@@ -377,4 +394,5 @@ TK
 > all combinations of $n$ and $p$. If it doesn’t, write it so that it throws an
 > error and alerts the user.
 
-TK
+Check out [the notebook](./notebooks/Chapter05.ipynb) to see my Python
+implementation.
