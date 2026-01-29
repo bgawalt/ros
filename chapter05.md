@@ -166,7 +166,8 @@ doesn't get that close, since the scatter plot points peter out after around 12]
 > elevator with a capacity of 1750 pounds. What is the probability that their
 > total weight exceeds this limit?
 
-TK
+[5.46%, 5.76%], using a standard error calculation for the uncertainty range
+(rather than re-simulating a bunch of times).
 
 ### 5.3, Binomial distribution
 
