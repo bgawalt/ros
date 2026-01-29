@@ -195,7 +195,8 @@ as the uncertainty.
 > histogram. Comment on any differences between the histogram and the curve.
 
 The Central Limit Theorem says that, with $\mu = 0.5$, $\sigma^2 = 1/12$ for our
-$U[0, 1]$ case with $n = 20$:
+$U[0, 1]$ case with $n = 20$ (using the second term in the $N(\mu, \sigma^2)$ to
+mean variance this time):
 
 $$(\bar{x}_n - \mu)\sqrt{n} \sim N(0, \sigma^2)$$
 $$\Rightarrow \left(\frac{1}{n}\sum_i x_i - \mu\right)\sqrt{n} \sim N(0, \sigma^2)$$
@@ -214,7 +215,7 @@ a red dotted line.](./fig/ex05_04_central_limit_thm.png)
 
 ### 5.5, Distribution of averages and differences
 
-> The heights of men in theUnited States are approximately normally distributed
+> The heights of men in the United States are approximately normally distributed
 > with mean 69.1 inches and standard deviation 2.9 inches. The heights of women
 > are approximately normally distributed with mean 63.7 inches and standard
 > deviation 2.7 inches. Let $x$ be the average height of 100 randomly sampled
@@ -223,7 +224,27 @@ a red dotted line.](./fig/ex05_04_central_limit_thm.png)
 > compute the mean and standard deviation of the distribution of $x - y$ and
 > compare to their exact values.
 
-TK
+If men's height is normal $N(69.1, 2.9^2)$ (again using variance as that
+second normal distribution parameter), then:
+
+$$x_i^{(m)} \sim N(69.1, 2.9^2), ~i=1,\ldots, 100$$
+$$\Rightarrow \sum_{i=1}^{100} x_i^{(m)} \sim N(100 \times 69.1, 100 \times 2.9^2)$$
+$$\Rightarrow \frac{1}{100}\sum_{i=1}^{100} x_i^{(m)} \sim N\left(
+    \frac{1}{100} \times 100 \times 69.1,
+    \frac{1}{100^2} \times 100 \times 2.9^2\right) = N\left(69.1, \left(\frac{2.9}{10}\right)^2\right)$$
+
+Or, like Chapter 4 made simple: the standard error (same as standard deviation
+for normals) is $\sigma/\sqrt{n} = 2.9/\sqrt{100} = 0.29$ inches.
+
+For women, the standard deviation of their 100-woman-average is 0.27 inches.
+
+The standard error of the difference is $\sqrt{0.29^2 + 0.27^2} = 0.3962$ in,
+so:
+
+$$\frac{1}{100}\sum_{i=1}^{100} x_i^{(m)} - \frac{1}{100}\sum_{i=1}^{100} x_i^{(w)} ~ N(69.1 - 63.7, \sqrt{0.29^2 + 0.27^2}) = N(5.4, 0.3962)$$
+
+![A red histogram shaped like a bell curve, with the actual bell curve laid
+over top of it.](./fig/ex05_05_diff_avg_height.png)
 
 ### 5.6, Propagation of uncertainty
 
