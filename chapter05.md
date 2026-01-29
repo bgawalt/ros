@@ -190,11 +190,27 @@ as the uncertainty.
 
 > Let $x = x_1 + \ldots + x_{20}$, the sum of 20 independent uniform(0; 1)
 > random variables. In R, create 1000 simulations of $x$ and plot their
-> histogram. > What is the normal approximation to this distribution provided by
+> histogram.  What is the normal approximation to this distribution provided by
 > the Central Limit Theorem? Overlay a graph of the normal density on top of the
 > histogram. Comment on any differences between the histogram and the curve.
 
-TK
+The Central Limit Theorem says that, with $\mu = 0.5$, $\sigma^2 = 1/12$ for our
+$U[0, 1]$ case with $n = 20$:
+
+$$(\bar{x}_n - \mu)\sqrt{n} \sim N(0, \sigma^2)$$
+$$\Rightarrow \left(\frac{1}{n}\sum_i x_i - \mu\right)\sqrt{n} \sim N(0, \sigma^2)$$
+$$\Rightarrow \left(\sum_i x_i - n\mu\right)\frac{1}{\sqrt{n}} \sim N(0, \sigma^2)$$
+$$\Rightarrow \left(\sum_i x_i - n\mu\right) \sim N(0, n\sigma^2)$$
+$$\Rightarrow \sum_i x_i \sim N(n\mu, n\sigma^2)$$
+$$\Rightarrow \sum_i x_i \sim N(10, 5)$$
+
+Here's that overlaying the histogram of sums:
+
+![A light blue histogram, x axis running from 0 to 20, where all the mass
+is between 5 and 15, and most of the mass is between 7.5 and 12.5, like a bell
+curve.  An actual normal distribution, mean 10, variance 5/3, is overlain in
+a red dotted line.](./fig/ex05_04_central_limit_thm.png)
+
 
 ### 5.5, Distribution of averages and differences
 
