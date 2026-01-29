@@ -257,14 +257,37 @@ over top of it.](./fig/ex05_05_diff_avg_height.png)
 > use simulation to estimate the total amount of money saved by the new product
 > (that is, savings per unit, multiplied by size of the market).
 
-TK
+From 10,000 simulations, using a truncated normal for the market sizes:
+
+*  Mean Savings: $200.2K
+*  Std. Dev: $170.0K
+*  Interquartile Range: $88.0K to $301.7
+*  95% coverage: -$110.1K to $570.8
+
+![A green histogram shaped like a bell curve, though slightly bent to have
+more mass on the right-hand-side.](./fig/ex05_06_market_opportunity.png)
 
 ### 5.7, Coverage of confidence intervals
 
 > Reconstruct the graph in Figure 4.2. The simulations are for an estimate whose
 > sampling distribution has mean 6 and standard deviation 4.
 
-TK
+Here's the original Fig. 4.2:
+
+![Figure 4.2, with x-axis "Simulation" running from 0 to 100, y-axis "Estimate,
+50%, and 95% confidence interval" running from -10 to 20, and one hundred thin
+vertical lines where the middle part is thicker (the 50% uncertainty interval)
+and there's a circle marker in the middle (the estimate).  Caption: "Simulation
+of coverage of confidence intervals: the horizontal line shows the true
+parameter value, and dots and vertical lines show estimates and confidence
+intervals obtained from 100 random simulations from the sampling distribution.
+If the model is correct, 50% of the 50% intervals and 95% of the 95% intervals
+should contain the true parameter value, in the long run.](./fig/fig04_2_confidence_intervals.png)
+
+And here's my reconstruction:
+
+![Very similar chart to Fig 4.2 immmediately above, now with the coverage
+intervals and estimate markers in blue](./fig/ex05_07_coverage.png)
 
 ### 5.8, Coverage of confidence intervals
 
