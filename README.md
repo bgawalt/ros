@@ -15,6 +15,7 @@ throughout, esp. Jupyter notebooks.
 *  [Chapter 2](./chapter02.md): Data and measurement
 *  [Chapter 3](./chapter03.md): Some basic methods in mathematics and probability
 *  [Chapter 4](./chapter04.md): Statistical inference
+*  [Chapter 5](./chapter05.md): Simulation
 
 ## Jupyter
 
