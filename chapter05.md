@@ -131,7 +131,7 @@ unregularized logistic regression."  Regularization is another way of saying
 
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter05.ipynb](./notebooks/Chapter05.ipynb)
 
 ### 5.1, Discrete probability simulation
 
@@ -150,7 +150,12 @@ Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 > (c) Using your simulations, make a scatterplot of the number of shots the
 > player will take and the proportion of shots that are successes.
 
-TK
+![Histogram for part (b), most of the mass is at 4 or below, but it decays
+steadily until around 12 shots, and doesn't still entirely until 16](./fig/ex05_01_basket_hist.png)
+
+![Scatterplot for part (c), I added jitter noise, but the success rate just
+rises mechanically like a hyperbola headed for an asymptote of 1, though it
+doesn't get that close, since the scatter plot points peter out after around 12](./fig/ex05_01_basket_scatter.png)
 
 ### 5.2, Continuous probability simulation
 
