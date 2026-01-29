@@ -310,7 +310,9 @@ intervals and estimate markers in blue](./fig/ex05_07_coverage.png)
 >     these represent the mean and standard deviation of the sampling
 >     distribution of the estimated treatment effect.
 
-TK
+*  959 replications included the true effect size.
+*  Mean of simulated effects: 0.10
+*  Std. Dev of simulated effects: 0.17
 
 ### 5.9, Coverage of confidence intervals after selection on statistical significance
 
@@ -319,7 +321,12 @@ TK
 > average and standard deviation of the selected point estimates. Compare these
 > to the result from Exercise 5.8.
 
-TK
+*  83 findings of statistical significance
+*  Mean: 0.35
+*  Std. Dev: 0.21
+
+This matches the inflated effect size the authors complained about in the first
+place.  Which is probably why the authors wrote the exercise this way.
 
 ### 5.10, Inference for a ratio of parameters
 
