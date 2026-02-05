@@ -11,11 +11,14 @@ throughout, esp. Jupyter notebooks.
 
 ## Chapter Notes
 
-*  [Chapter 1](./chapter01.md): Overview
-*  [Chapter 2](./chapter02.md): Data and measurement
-*  [Chapter 3](./chapter03.md): Some basic methods in mathematics and probability
-*  [Chapter 4](./chapter04.md): Statistical inference
-*  [Chapter 5](./chapter05.md): Simulation
+* Part 1: Fundamentals
+    *  [Chapter 1](./chapter01.md): Overview
+    *  [Chapter 2](./chapter02.md): Data and measurement
+    *  [Chapter 3](./chapter03.md): Some basic methods in mathematics and probability
+    *  [Chapter 4](./chapter04.md): Statistical inference
+    *  [Chapter 5](./chapter05.md): Simulation
+* Part 2: Linear Regression
+    *  [Chapter 6](./chapter06.md): Background on regression modeling
 
 ## Jupyter
 
