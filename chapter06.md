@@ -136,4 +136,112 @@ final exam scores should exactly match midterm scores.
 
 ## Exercises
 
+### 6.2, Programming fake-data simulation
+
+> Write an R function to: (i) simulate $n$ data points from the model, 
+> $y = a + bx + \text{error}$, with data points $x$ uniformly sampled from the
+> range (0, 100) and with errors drawn independently from the normal
+> distribution with mean 0 and standard deviation $\sigma$; (ii) fit a linear
+> regression to the simulated data; and (iii) make a scatterplot of the data
+> and fitted regression line. Your function should take as arguments, $a$, $b$,
+> $n$, $\sigma$, and it should return the data, print out the fitted regression,
+> and make the plot. Check your function by trying it out on some values of $a$,
+> $b$, $n$, $\sigma$.
+
+TK
+
+### 6.3, Variation, uncertainty, and sample size
+
+> Repeat the example in Section 6.2, varying the number of data points, $n$.
+> What happens to the parameter estimates and uncertainties when you increase
+> the number of observations?
+
+TK
+
+### 6.4, Simulation study
+
+> Perform the previous exercise more systematically, trying out a sequence of
+> values of $n$, for each simulating fake data and fitting the regression to
+> obtain estimate and uncertainty (median and mad sd) for each parameter. Then
+> plot each of these as a function of $n$ and report on what you find.
+
+TK
+
+### 6.5, Regression prediction and averages
+
+> The heights and earnings data in Section 6.3 are in the folder `Earnings`.
+> Download the data and compute the average height for men and women in the
+> sample.
+> 
+> (a) Use these averages and fitted regression model displayed on page 84 to
+>     get a model-based estimate of the average earnings of men and of women in
+>     the population.
+> 
+> (b) Assuming 52% of adults are women, estimate the average earnings of adults
+>     in the population.
+> 
+> (c) Directly from the sample data compute the average earnings of men, women,
+>     and everyone.  Compare these to the values calculated in parts (a) and
+>     (b).
+
+TK
+
+### 6.6 Selection on x or y,
+
+> (a) Repeat the analysis in Section 6.4 using the same data, but just analyzing
+>     the observations for mothers’ heights less than the mean. Confirm that the
+>     estimated regression parameters are roughly the same as were obtained by
+>     fitting the model to all the data.
+> 
+> (b) Repeat the analysis in Section 6.4 using the same data, but just analyzing
+>     the observations for daughters’ heights less than the mean. Compare the
+>     estimated regression parameters and discuss how they differ from what was
+>     obtained by fitting the model to all the data.
+> 
+> (c) Explain why selecting on daughters’ heights had so much more of an effect
+>     on the fit than selecting on mothers’ heights.
+
+TK
+
+### 6.7, Regression to the mean
+
+> Gather before-after data with a structure similar to the mothers’ and
+> daughters’ heights in Sections 6.4 and 6.5. These data could be performance of
+> athletes or sports teams from one year to the next, or economic outcomes in
+> states or countries in two successive years, or any other pair of measurements
+> taken on a set of items. Standardize each of the two variables so it has a
+> mean of 0 and standard deviation of 1.
+> 
+> (a) Following the steps of Section 6.4, read in the data, fit a linear
+>     regression, and plot the data and fitted regression line.
+> 
+> (b) Repeat the above steps with fake data that look similar to the data you
+>     have gathered.
+
+TK
+
+### 6.8, Regression to the mean with fake data
+
+> Perform a fake-data simulation as in Section 6.5, but using the flight school
+> example on page 89. Simulate data from 500 pilots, each of whom performs two
+> maneuvers, with each maneuver scored continuously on a 0–10 scale, that each
+> pilot has a true ability that is unchanged during the two tasks, and that the
+> score for each test is equal to this true ability plus independent errors.
+> Further suppose that when pilots score higher than 7 on the scale during the
+> first maneuver, that they get praised, and that scores lower than 3 on the
+> first maneuver result in negative reinforcement. Also suppose, though, that
+> this feedback has no effect on performance on the second task.
+> 
+> (a) Make a scatterplot with one dot for each pilot, showing score on the
+>     second maneuver vs. score on the first maneuver. Color the dots blue for
+>     the pilots who got praised, red for those who got negative reinforcement,
+>     and black for the other cases.
+>
+> (b) Compute the average change in scores for each group of pilots. If you did
+>     your simulation correctly, the pilots who were praised did worse, on
+>     average, and the pilots who got negative reinforcement improved, on
+>     average, for the second maneuver. Explain how this happened, given that
+>     your data were simulated under a model in which the positive and negative
+>     messages had no effects.
+
 TK
