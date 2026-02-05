@@ -134,7 +134,10 @@ They conclude by rephrasing the regression fallacy as a comparison against a
 bogus alternative -- daughters should be the same height as their mothers,
 final exam scores should exactly match midterm scores.
 
+
 ## Exercises
+
+Plots and computation powered by [Chapter06.ipynb](./notebooks/Chapter06.ipynb)
 
 ### 6.2, Programming fake-data simulation
 
