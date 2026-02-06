@@ -151,7 +151,19 @@ Plots and computation powered by [Chapter06.ipynb](./notebooks/Chapter06.ipynb)
 > and make the plot. Check your function by trying it out on some values of $a$,
 > $b$, $n$, $\sigma$.
 
-TK
+Two sample runs,
+
+*  At left, $a = 30$, $b = 0.25$, $n = 200$, $\sigma = 15$
+*  At right, $a=80$, $b = -0.9$, $n = 35$, $\sigma = 4$
+
+![Two scatterplots with blue dots, side by side, both with x and y axes that
+each go from 0 to 100. At left, the title reads: "Slope: [0.16, 0.30];
+Intercept: [28.1, 36.4]", the blue dots are labeled "N = 200" and are spread
+across the bottom 2/3rds of the space.  At right, the title reads:
+"Slope: [-0.96, -0.87]; Intercept: [79.0, 83.9]", the blue dots are labeled
+"N = 35" and are on a tight stripe across the space.  Both have lines
+across them indiciating their linear regression fit and each fit has a wider
+pale red stripe encoding some of the model uncertainty.](./fig/ex06_2_demo_regression.png)
 
 ### 6.3, Variation, uncertainty, and sample size
 
@@ -159,7 +171,14 @@ TK
 > What happens to the parameter estimates and uncertainties when you increase
 > the number of observations?
 
-TK
+Four repeats of \[$a = 30$, $b = 0.25$, $\sigma = 15$\] with larger sample
+sizes (each is its own resampling, they aren't telescoping sets):
+
+![Same basic layout as the above-left figure, repeated four times in a 2 x 2
+grid; the uncertainty around the line of best fit gets narrower.  Slope
+uncertainty goes: [0.11, 0.4] at n = 50, [0.22, 0.43] at n = 100, [0.22, 0.43]
+at n = 200, and [0.21, 0.32] at n = 400.  Intercept uncertainty goes [23.6, 39.2],
+[20.5, 33.4], [24.4, 31.8], [27.6, 33.9]](./fig/ex06_3_larger_samples.png)
 
 ### 6.4, Simulation study
 
@@ -168,7 +187,17 @@ TK
 > obtain estimate and uncertainty (median and mad sd) for each parameter. Then
 > plot each of these as a function of $n$ and report on what you find.
 
-TK
+These are also repeats of the \[$a = 30$, $b = 0.25$, $\sigma = 15$\] generating
+process. The sample sizes used were [10, 20, 40, 80, 160, 320, 640, 1280].
+
+The thick gray bar indicates the max-likelihood estimate of each parameter
+for the largest sample, so that we can see whether it's covered by earlier
+samples (it is).  
+
+![Two side-by-side semilog plots.  At left, slope's y-axis goes from 0 to 0.8;
+its initial uncertainty is [0.2, 0.8] and slowly tightens to [0.21, 0.27].
+At right, intercept's y-axis goes from just below 0 to 45; its initial
+uncertainty is [0, 34] tightening to [29, 31].](./fig/ex06_4_uncertainty.png)
 
 ### 6.5, Regression prediction and averages
 
