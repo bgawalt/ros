@@ -216,7 +216,13 @@ uncertainty is [0, 34] tightening to [29, 31].](./fig/ex06_4_uncertainty.png)
 >     and everyone.  Compare these to the values calculated in parts (a) and
 >     (b).
 
-TK
+Predicted average earnings for each category:
+
+| Category | Model   | Sample   |
+| -------- | ------- | -------- |
+| Men      | $26.7K  | $30.1K   |
+| Women    | $12.7K  | $15.8K   |
+| All      | $19.4K  | $21.1K   |
 
 ### 6.6 Selection on x or y,
 
@@ -233,7 +239,22 @@ TK
 > (c) Explain why selecting on daughters’ heights had so much more of an effect
 >     on the fit than selecting on mothers’ heights.
 
-TK
+Fitting the model to three editions of the dataset (note that my linear model
+is different that what their `stan_glm` version produced, and also the datasets
+don't seem identical?):
+
+| Subsample       | Intercept (in.) | Mother's Height |
+| --------------- | --------------- | --------------- |
+| All records     | 33.0 +/- 1.4    | 0.46 +/- 0.02   |
+| Short mothers   | 37.8 +/- 3.1    | 0.38 +/- 0.05   |
+| Short daughters | 49.6 +/- 1.4    | 0.17 +/- 0.02   |
+
+Graphically:
+
+![A football-shaped cloud of light scatterplot dots, with Mother's Height on
+the x-axis and Daughter's Height on the y-axis.  Both axes run from 50 in. to
+75 in, though most of the dots are between 55 and.  The three slope-intercept
+lines from the table are drawn, in cyan, yellow, and magenta.](./fig/ex06_6_mother_daughter.png)
 
 ### 6.7, Regression to the mean
 
@@ -250,7 +271,24 @@ TK
 > (b) Repeat the above steps with fake data that look similar to the data you
 >     have gathered.
 
-TK
+Drawing from my work
+[on The LombardoTron](https://github.com/bgawalt/lombardotron/commit/5bf17f5b762cd926211ea96659e698788e87c6bd),
+I exported a CSV of IDP-league fantasy football points earned by NFL players
+who earned at least 20 points in both the 2023 and 2024 seasons.  And would you
+look at that: when I fit a linear model on the log-log scale, we see regression
+to the mean.
+
+$$\log(\hat{y}) = 1.8 + 0.59 \log(x)$$
+$$\Rightarrow \hat{y} = 6x^{0.59}$$
+
+
+![Scatter plot with log-log axes labeled "Total IDP Score for 2023" (x axis)
+and "... for 2024" (y axis), both running from 2^4 to 2^9.  The 739 blue dots
+representing each player-performance are uniformly spread, though they make
+a kind of acute isoceles triangle shape, point northeast -- narrowing by a
+factor of three (again, log scale) between low-score and high-score regions.
+A red line is overlain labeled "log(y) ~ 1.8 + 0.59 log(x)](./fig/ex06_07_nfl_idp.png)
+
 
 ### 6.8, Regression to the mean with fake data
 
@@ -276,4 +314,18 @@ TK
 >     your data were simulated under a model in which the positive and negative
 >     messages had no effects.
 
-TK
+With a generative distribution of:
+
+*  Pilot ability is uniform between 1.5 and 8.5,
+*  Score on any particular maneuver is "ability, plus noise of
+    $\mathcal{N}(0, 1)$, truncated to cap all noise within [-2.4, 2.4],
+*  And then an overall clamp applied to keep all manuever scores between 0 and
+    10,
+
+the negative-reinforcement group saw an average change of +0.6 points, and the
+praised group saw an average change of -0.6 points.
+
+![A rectangle-turned-diagonal stripe of scatterplot points, colored as
+instructed for this exercise.  X- and y-axes run from 0 to 10 and are labelled
+"First/Second maneuver score".  There is a dashed cyan line denoting the linear
+model fit.](./fig/ex06_8_fake_pilots.png)
