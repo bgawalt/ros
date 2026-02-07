@@ -289,6 +289,17 @@ a kind of acute isoceles triangle shape, point northeast -- narrowing by a
 factor of three (again, log scale) between low-score and high-score regions.
 A red line is overlain labeled "log(y) ~ 1.8 + 0.59 log(x)](./fig/ex06_07_nfl_idp.png)
 
+Important to note that the exercise here is loading the dice.  It explicitly
+instructs students to standardize both variables to zero mean and unit
+standard deviation.  The book's earlier argument was *if* variance is preserved
+from $t_1$ to $t_2$, *then* we see this regression to the mean.  The
+standardization forces that to obtain.
+
+I have declined to standardize this data and observe regression to the mean
+anyway.  It makes sense, the NFL has homestatic mechanisms to keep player
+performances relatively bounded: if someone's looking dominant out there,
+opponents will find a way to shut that down, at least partially.
+
 
 ### 6.8, Regression to the mean with fake data
 
