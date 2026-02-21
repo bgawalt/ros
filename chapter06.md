@@ -39,7 +39,7 @@ modeling.")
 The section describes fitting a model to $(x, y)$ data where $x$ is the integers
 1 through 20.  The output $y$ is:
 
-$$y_i + 0.2 + 0.3x_i + \mathcal{N}(0, 0.5)$$
+$$y_i = 0.2 + 0.3x_i + \mathcal{N}(0, 0.5)$$
 
 They report median and madsd numbers for their estimates of the slope and
 intercept, as well as for the residual noise's standard deviation.  They also
@@ -66,7 +66,7 @@ When doing those comparisons, they word it as:
 *  "the average difference in earnings, comparing two people of the same sex but
     one inch different in height, is $600."
 *  "when comparing two people with the same height but different sex, the man’s
-    earnings will be, on average, $10 600 more than the woman’s in the fitted
+    earnings will be, on average, $10,600 more than the woman’s in the fitted
     model."
 
 ### 6.4, Historical origins of regression
