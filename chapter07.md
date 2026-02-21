@@ -9,7 +9,40 @@ regression.
 
 ### 7.1, Example: predicting presidential vote share from the economy
 
-TK
+We kick off with a univariate predictor of using economic growth to predict
+presidential election vote share.  The prose is a bit vague about what's being
+modeled, but its very first lines say "look at Figure 7.1," which does clear
+everything up.
+
+"\[W\]hat is impressive here is that this simple model does pretty well."
+
+*  Note about the data: it covers US presidential elections from 1952 to 2012,
+    sixteen data in total.
+*  "To fit a line with zero intercept, y = bx, use the expression,
+    `stan_glm(vote ~ -1 + growth)`; the -1 tells R to exclude the intercept or
+    constant term from the fit."  This is not a great DSL!!  You have to learn
+    it with folklore about the magic sigils that mean things like "no
+    intercept".
+*  "The interval is well separated from zero, indicating that, if the data had
+    been generated from a model whose true slope is 0, it would be very unlikely
+    to get an estimated slope coefficient this large."  That's impressive for
+    only 16 elections.
+*  On the other hand, "the linear model predicts the election outcome to within
+    about 3.9 percentage points. Roughly 68% of the outcomes will fall between
+    $\pm 3.9$ of the fitted line."
+*  The "72% chance Clinton wins in 2016" prediction is just about where 538 was
+    at the time.  Figure 7.3:
+
+![A bell curve centered at 52.3 with standard deviation 3.9, it's mass
+mostly between 45 and 60.  The x-axis of this probability mass function plot is
+labeled "Clinton share of the two-party vote."  The area under the curve
+starting from 50% and heading right is shaded grey and labeled "Predicted 72%
+chance of Clinton victory."](./fig/fig07_3.png)
+
+*  "Why not instead use the economic data to directly predict who wins the
+    election?"
+    *  dasf
+    *  sdf
 
 ### 7.2, Checking the model-fitting procedure using fake-data simulation
 
