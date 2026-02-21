@@ -15,7 +15,112 @@ its connection to classical linear regression."
 
 ### 8.1, Least squares, maximum likelihood, and Bayesian inference
 
-TK
+#### Least squares
+
+For a model estimate $(\hat{a}, \hat{b})$, the residuals are 
+$r_i = y_i - (\hat{a} + \hat{b}x_i)$: "We distinguish between the *residuals*
+\[...\] and the *errors*\[...\]. The model is written in terms of the errors,
+but it is the residuals that we can work with: we cannot calculate the errors as
+to do so would require knowing $a$ and $b$."
+
+They present the normal equations, $\hat{\beta} = (X^TX)^{-1}X^Ty$, which turn
+into fun formulae in the univariate case:
+
+$$\hat{b} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n(x_i - \bar{x})^2}$$
+
+$$\hat{a} = \bar{y} - \hat{b}\bar{x}$$
+
+$$y_i = \bar{y} + \hat{b}(x_i - \bar{x}) + r_i$$
+
+#### Estimation of residual standard deviation $\sigma$
+
+Because $(\hat{a}, \hat{b})$ are derived from the data, the root-mean-squared
+of the $r_i$s underestimates the actual error standard deviation $\sigma$:
+they call this an overfitting phenomenon.  They recommend, for a $k$ parameter
+model (and the intercept term counts as a parameter), using:
+
+$$\hat{\sigma} = \sqrt{\frac{1}{n - k}\sum_{i=1}^n r_i^2}$$
+
+And this automatically introduces the idea of "what if you have fewer data than
+predictors."
+
+They don't provide any intuition for why this $n - k$ denominator is a good
+choice.
+
+#### Computing the sum of squares directly
+
+Yup, a function "intended for home consumption and not production use" that
+computes the residual sum of squares for a given $(a, b)$ model.
+
+#### Maximum likelihood
+
+Here they link up with the normal distribution of outcomes,
+
+$$y_i \sim \mathcal{N}(a + bx_i, \sigma)$$
+
+and their independence, meaning:
+
+$$\text{Pr}\{y | a, b, \sigma, X\} = \frac{1}{\sqrt{2\pi}\sigma}\prod_{i=1}^n \exp\left\{-\frac{1}{2}\left(\frac{y_i - (a + bx_i)}{\sigma}\right)^2\right\}$$
+
+They say that "careful study of \[the previous equation\] reveals that
+maximizing the likelihood requires minimizing the sum of squared residuals."
+This comes from doing a log transform (minimizing $f$ is the same as minimizing
+$\log f$):
+
+$$\log \text{Pr}\{y | a, b, \sigma, X\} = -\log \{\sqrt{2\pi}\sigma\} - \frac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - (a + bx_i)\right)$$
+
+The fractional terms with $\sigma$ in the denominator are constant w.r.t. our
+model parameters $(a, b)$, and so they drop out under an optimization routine:
+
+$$\begin{align}(\hat{a}, \hat{b}) &= \arg \max_{a, b} \text{Pr}\{y | a, b, \sigma, X\} \\
+ &= \arg \max_{a, b} \log \text{Pr}\{y | a, b, \sigma, X\} \\
+ &= \arg \max_{a, b} \left\{-\log \{\sqrt{2\pi}\sigma\} - \frac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right\} \\
+ &= \arg \max_{a, b} \left\{-\sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right\} \\
+ &= \arg \min_{a, b} \left\{\sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right\}
+ \end{align}$$
+
+I don't know what to make of the closing two sentences of this section.  Is it
+bad that the max-likelihood estimate of $\sigma$ is the overfitting equation?
+Do frequentist approaches to inference not incorporate uncertainty in the other
+parameters to show up in the uncertainty described for each individual
+parameter?
+
+#### Where do the standard errors come from? Using the likelihood surface to assess uncertainty in the parameter estimates
+
+Introducing the idea of the "uncertainty ellipse," where the uncertainty in
+$\hat{a}$ and $\hat{b}$ are correlated.  They use draws from the posterior
+distribution of their Bayesian inference of the economy-election dataset to
+show how there's a tendency for the intercept to be high when the slope is low,
+and vice versa.  Both kinds of line do an okay job of fitting the data.
+
+![Fig 8.1 and 8.2 from ROS](./fig/fig08_1_2_uncertainty_ellipse.png)
+
+There's no description, right now, of where the standard errors come from in
+Figure 8.1.
+
+#### Bayesian inference
+
+Minimizing the residual sum of squares best fits the data, but "we typically
+have prior information about the parameters of the model."  As in, information
+above and beyond the data itself, which can be incorporated into the model fit.
+More about this is coming in Chapter 9, but the summary for now is a move from
+maximum likelihood estimation to maximum *penalized* likelihood estimation.
+The penalties fall hardest on parameter values that the prior distribution gives
+low credence.
+
+Introduces here the fact that using `stan_glm` means you "obtain a set of
+simulation draws that represent the posterior distribution," which then needs
+summarizing.
+
+#### Point estimate, mode-based approximation, and posterior simulations
+
+The point estimate they discuss is the posterior mode, for which the
+maximum likelihood result is a special case of using uniform/flat priors on the
+parameters.
+
+Now we get an answer on where standard errors come from: it's the mad sd taken
+from `stan_glm`'s simulation draws.  No word on what non-Bayesian model fit
+routines use to describe uncertainty ranges.
 
 ### 8.2, Influence of individual points in a fitted regression
 
