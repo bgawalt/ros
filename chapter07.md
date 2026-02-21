@@ -83,8 +83,10 @@ The comparisons they pose as regression:
 *  "Estimating the mean is the same as regressing on a constant term," i.e.,
     only $y$ and an intercept term, no $x$.  I do think there would be a payoff
     now if the book had earlier talked about the optimization routine that
-    leads to coefficient estimation.  Though the usual framework for this,
-    ordinary least squares, would need to be walked back in order to introduce
+    leads to coefficient estimation.  Why does OLS on zero predictors produce 
+    the output mean?  What objective function would produce an output median?
+    I wonder if it's because using the minimization framework lends itself too
+    much to frequentissm, and would need to be walked back in order to introduce
     the Bayesian approach next chapter.
 *  "Estimating a difference is the same as regressing on an indicator variable,"
     i.e., all the $x$s are 0 or 1.
