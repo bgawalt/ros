@@ -41,16 +41,57 @@ chance of Clinton victory."](./fig/fig07_3.png)
 
 *  "Why not instead use the economic data to directly predict who wins the
     election?"
-    *  dasf
-    *  sdf
+    *  Too many hopelessly close cases, where collapsing a 50-50 race into a
+        hard binary won/lost would introduce a kind of quantization noise
+    *  In somewhat close cases, where there's consensus around who's very likely
+        to win, you want to provide odds of an upset.
+    *  Too many too-easy landslide cases, where vote margin prediction just is
+        the more interesting thing to predict.
+    *  "In any of these cases, a prediction of the vote share is more
+        informative than simply predicting the winner."
+*  And then the familiar sad stinger, declaring that multilevel modeling "is
+    beyond the scope of this book."
 
 ### 7.2, Checking the model-fitting procedure using fake-data simulation
 
-TK
+The fake data simulation uses the actual economic growth numbers as $x$ values,
+then simulates random $y$ outcomes centered on the model coefficients with
+the same residual standard deviation.
+
+They repeat the simulation 1000 times to check coverage rates of the "real"
+coefficient values used to generate the fake data.  "The coverage is a bit low,
+in part because $\pm 1$ and $\pm 2$ are standard error bounds for the normal
+distribution, but with a sample size of only 16, our inferences should use the
+$t$ distribution with 14 degrees of freedom."
 
 ### 7.3, Formulating comparisons as regression models
 
-TK
+"\[W\]e show how simple averages and comparisons can be interpreted as special
+cases of linear regression."  I love when things are special cases of
+linear regression!  Like
+[all of these common statistical tests:](https://lindeloev.github.io/tests-as-linear/)
+
+!["Cheat sheet" of how many statistical tests are actually linear models, from
+the above lindeloev.github link](./fig/ch07_linear_tests_cheat_sheet.png)
+
+This section introduces the jargon "indicator variable, which is a predictor
+that equals 1 or 0 to indicate whether a data point falls into a specified
+category."
+
+The comparisons they pose as regression:
+
+*  "Estimating the mean is the same as regressing on a constant term," i.e.,
+    only $y$ and an intercept term, no $x$.  I do think there would be a payoff
+    now if the book had earlier talked about the optimization routine that
+    leads to coefficient estimation.  Though the usual framework for this,
+    ordinary least squares, would need to be walked back in order to introduce
+    the Bayesian approach next chapter.
+*  "Estimating a difference is the same as regressing on an indicator variable,"
+    i.e., all the $x$s are 0 or 1.
+
+Coming attraction: "In Section 10.4 we discuss the use of indicator variables in
+regression models with multiple predictors."
+
 
 ## Exercises
 
@@ -110,7 +151,7 @@ TK
 
 > Set up a simulation study such as in Section 7.2, writing the entire
 > simulation as a function, with one of the arguments being the number of data
-> points, $n$. Compute the simulation for $n = $10, 30, 100, 300, 1000, 3000,
+> points, $n$. Compute the simulation for $n =$ 10, 30, 100, 300, 1000, 3000,
 > 10 000, and 30 000, for each displaying the estimate and standard error.
 > Graph these to show the increasing stability as $n$ increases.
 
@@ -141,7 +182,8 @@ TK
 > `stan_glm(y ~ x, data=fake)`. Plot the data and fitted regression line.
 >
 > (b) Check that the estimated coefficients from the fitted model are reasonably
-> close to the assumed true values. What does “reasonably close” mean in this context?
+> close to the assumed true values. What does “reasonably close” mean in this
+> context?
 
 TK
 
