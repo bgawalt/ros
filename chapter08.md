@@ -169,7 +169,30 @@ Theorem\[...)\]".
 
 ### 8.4, Comparing two fitting functions: `lm` and `stan_glm`
 
-TK
+Two reasons they switched to `stan_glm`:
+
+1.  The computed simulations "represent uncertainty and can be used to obtain
+    standard errors and predictive distributions for any function of current
+    data, future data, and parameters."
+2.  You can slap a prior on there, both to incorporate that extra information
+    and "to get more stable estimates."
+
+The examples in the book so far, like the mother-daughter height of Chapter 6,
+all used `stan_glm` with weak priors, "to keep the coefficient estimates stable
+in some pathological cases such as near-collinearity."  So it hasn't been
+generating estimates too different than other routines like `lm` would have.
+
+#### Confidence intervals, uncertainty intervals, compatibility intervals
+
+Standard errors are based on the standard deviation of the distribution the
+estimated value is drawn from.  "For linear regression, the residual standard
+deviation $\sigma$ is itself estimated with error."  So they say, instead of
+using the usual $\pm2\sigma/\sqrt{n}$ as the uncertainty range, use (a) the
+empirical estimate of the residual standard deviation, and (b) a multiplier
+based on quantiles of the $t_{n-k}$ distribution (for $k$ predictors).
+
+You can also just use the quantiles of the MCMC draws that `stan_glm` produces
+for each parameter, and skip the whole standard error, mad sd, etc., stuff.
 
 
 ## Exercises
