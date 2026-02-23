@@ -180,16 +180,6 @@ LinRegress results:
 ![Scatterplot of a convex parabola and a dashed line that crosses it about a
 third the way up its full height](./fig/ex07_3_fake_parabola.png)
 
-### 7.4, Prediction
-
-> Following the template of Section 7.1, find data in which one variable can be
-> used to predict the other, then fit a linear model and plot it along with the
-> data, then display the fitted model and explain in words as on page 95. Use
-> the model to obtain a probabilistic prediction for new data, and evaluate that
-> prediction, as in the last part of Section 7.1.
-
-TK
-
 ### 7.5, Convergence as sample size increases
 
 > Set up a simulation study such as in Section 7.2, writing the entire
