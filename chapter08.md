@@ -152,7 +152,20 @@ which really would move the slope around.
 
 ### 8.3, Least squares slope as a weighted average of slopes of pairs
 
-TK
+1.  Take all pairs of points, including self pairs,
+2.  calculate each slope, $\text{slope}_{ij} = \frac{y_j - y_i}{x_j - x_i}$,
+3.  and take the weighted average of the $n^2$ slopes,
+    using $w_{ij} = (x_j - x_i)^2$,
+
+you wind up with a weighted-sum expression that turns into our equation for
+the least squares slope, $\hat{b}$.
+
+I file this away next to the motivation/intuition of the
+maximum-likelihood-assuming-normal-errors section above.  It's an interesting
+way to arrive at the normal equations.  I think they're even saying as much when
+they say the choice of weight scheme "relate\[s\] to the use of the normal
+distribution for errors (which is in turn motivated by the Central Limit
+Theorem\[...)\]".
 
 ### 8.4, Comparing two fitting functions: `lm` and `stan_glm`
 
