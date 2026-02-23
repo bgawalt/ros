@@ -108,7 +108,21 @@ Plots and computation powered by [Chapter07.ipynb](./notebooks/Chapter07.ipynb)
 > would this have changed the resulting regression? How would this change have
 > affected the fit and interpretation of the results?
 
-TK
+Without inflation adjustment, you'd see a rearrangement of the $x$ values.
+But I don't know in advance if that would make the data more or less well-fit
+by a straight line.  I will just look up the inflation data and find out:
+
+![Two scatterplot series regressing incumbent party vote share in presidential
+elections against recent changes in personal income, with (blue) and without
+(red) adjusting for inflation](./fig/ex07_1a_inflation.png)
+
+It's a worse fit:
+
+![Same pair of red and blue scatterplots, now with linear models fit to them and
+displayed as dashed lines](./fig/ex07_1b_models.png)
+
+The coefficient of determination (i.e., share of explained variance) is 58% when
+adjusting for inflation and only 3% when you don't.
 
 ### 7.2, Fake-data simulation and regression
 
