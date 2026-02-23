@@ -54,27 +54,32 @@ computes the residual sum of squares for a given $(a, b)$ model.
 
 #### Maximum likelihood
 
-Here they link up with the normal distribution of outcomes,
+Here they link up with a normal distribution of the error terms,
 
 $$y_i \sim \mathcal{N}(a + bx_i, \sigma)$$
 
-and their independence, meaning:
+and the independence of each draw from , meaning:
 
-$$\text{Pr}(y | a, b, \sigma, X) = \frac{1}{\sqrt{2\pi}\sigma}\prod_{i=1}^n \exp\left[-\frac{1}{2}\left(\frac{y_i - (a + bx_i)}{\sigma}\right)^2\right]$$
+$$\text{Pr}(y | a, b, \sigma, X) = \frac{1}{\left(\sqrt{2\pi}\sigma\right)^n}\prod_{i=1}^n \exp\left[-\frac{1}{2}\left(\frac{y_i - (a + bx_i)}{\sigma}\right)^2\right]$$
+
+Note: "the least squares estimate \[...\] *can be* viewed as a maximum likelihood
+estimate under the normal model."  Emphasis mine.  You don't *have* to view it
+this way, but if you do, the normal-errors assumption is sufficient to give you
+the normal equations.
 
 They say that "careful study of \[the previous equation\] reveals that
 maximizing the likelihood requires minimizing the sum of squared residuals."
 This comes from doing a log transform (minimizing $f$ is the same as minimizing
 $\log f$):
 
-$$\log \text{Pr}(y | a, b, \sigma, X) = -\log \{\sqrt{2\pi}\sigma\} - \frac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - (a + bx_i)\right)$$
+$$\log \text{Pr}(y | a, b, \sigma, X) = -n\log \{\sqrt{2\pi}\sigma\} - \frac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - (a + bx_i)\right)$$
 
-The fractional terms with $\sigma$ in the denominator are constant w.r.t. our
-model parameters $(a, b)$, and so they drop out under an optimization routine:
+The terms associated with $\sigma$ are constant w.r.t. our model parameters
+$(a, b)$, and so they drop out under an optimization routine:
 
 $$\begin{align}(\hat{a}, \hat{b}) &= \arg \max_{a, b} \text{Pr}(y | a, b, \sigma, X) \\
  &= \arg \max_{a, b} \log \text{Pr}(y | a, b, \sigma, X) \\
- &= \arg \max_{a, b} \left[-\log \{\sqrt{2\pi}\sigma\} - \frac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right] \\
+ &= \arg \max_{a, b} \left[-n\log \{\sqrt{2\pi}\sigma\} - \frac{1}{2\sigma^2} \sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right] \\
  &= \arg \max_{a, b} \left[-\sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right] \\
  &= \arg \min_{a, b} \left[\sum_{i=1}^n \left(y_i - (a + bx_i)\right) \right]
  \end{align}$$
