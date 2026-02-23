@@ -163,7 +163,22 @@ best fit overlaid](./fig/ex07_2_fake_data.png)
 > (b) Graph a scatterplot of the data and the regression line. This is the
 > best-fit linear regression. What does “best-fit” mean in this context?
 
-TK
+I put the parabola vertex at $x = 25$ and set the parabola's y-axis intercept
+to match the max $y$ value in Exercise 5.2, with:
+
+$$a = 350,~b=-25,~c=0.5$$
+
+LinRegress results:
+
+*  **Slope:** -0.18
+*  **Slope stderr:** 0.66
+*  **Intercept:** 145.17
+*  **Intercept stderr:** 18.84
+*  **RValue:** -0.03
+*  **PValue:** 0.78
+
+![Scatterplot of a convex parabola and a dashed line that crosses it about a
+third the way up its full height](./fig/ex07_3_fake_parabola.png)
 
 ### 7.4, Prediction
 
