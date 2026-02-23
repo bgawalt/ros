@@ -132,10 +132,22 @@ adjusting for inflation and only 3% when you don't.
 > with mean 0 and standard deviation 3.
 >
 > (a) Fit a regression line to these data and display the output.
+>
 > (b) Graph a scatterplot of the data and the regression line.
+>
 > (c) Use the text function in R to add the formula of the fitted line to the graph.
 
-TK
+LinRegress results:
+
+*  **Slope:** 6.97
+*  **Slope stderr:** 0.02
+*  **Intercept:** 5.82
+*  **Intercept stderr:** 0.65
+*  **RValue:** 1.00
+*  **PValue:** 0.00
+
+![Scatterplot of fake data as requested in the problem, along with the line of
+best fit overlaid](./fig/ex07_2_fake_data.png)
 
 ### 7.3, Fake-data simulation and fitting the wrong model
 
