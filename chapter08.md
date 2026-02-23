@@ -121,7 +121,9 @@ summarizing.
 
 The point estimate they discuss is the posterior mode, for which the
 maximum likelihood result is a special case of using uniform/flat priors on the
-parameters.
+parameters.  To capture uncertainty, they use simulation draws from a posterior
+distribution.  That lets them/us harness the correlations between parameter
+values, like the ellipse in Fig 8.2.
 
 Now we get an answer on where standard errors come from: it's the mad sd taken
 from `stan_glm`'s simulation draws.  No word on what non-Bayesian model fit
@@ -129,7 +131,24 @@ routines use to describe uncertainty ranges.
 
 ### 8.2, Influence of individual points in a fitted regression
 
-TK
+The estimated regression parameters "are linear functions of the data, $y$."
+As in, of the labels only.  The normal equations make this linearity more clear
+to me than the cited expressions of (8.3) and (8.4):
+
+$$\hat{\beta} = (X^TX)^{-1}X^Ty$$
+
+That matrix, $(X^TX)^{-1}X^T$, has two rows and $n$ columns for our
+slope-intercept univariate model.
+
+To influence the slope, they recommend focusing efforts on data where
+$(x_i - \bar{x})$ is of largest magnitude.
+
+I don't find it immediately obvious, when looking at Fig. 8.3, why moving a
+$y_i$ where $x_i = \bar{x}$ *only* affects the intercept and not the slope.
+I believe the algebra, that no matter how far you pull it up, the slope stays
+unchanged.  But it's counterintuitive to me.  I guess because I am implicitly
+imagining large displacements of points with $x_i \in [\bar{x} \pm \epsilon]$,
+which really would move the slope around.
 
 ### 8.3, Least squares slope as a weighted average of slopes of pairs
 
