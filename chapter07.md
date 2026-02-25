@@ -188,7 +188,21 @@ third the way up its full height](./fig/ex07_3_fake_parabola.png)
 > 10 000, and 30 000, for each displaying the estimate and standard error.
 > Graph these to show the increasing stability as $n$ increases.
 
-TK
+$n$ | $\hat{b}$ | std. err
+--- | --------- | --------
+10 | 4.0 | 0.83
+30 | 2.8 | 0.42
+100 | 2.7 | 0.27
+300 | 3.2 | 0.16
+1000 | 3.0 | 0.09
+3000 | 3.0 | 0.05
+10,000 | 3.0 | 0.03
+30,000 | 3.0 | 0.02
+
+![A trio of line plots, with the y axis "Slope estimate, +/- 1 std err" between
+2.4 and 4.9, and the x-axis "Sample size" on a log scale from 7 to 3x10^4. 
+The three lines form a green band that stars very wide, from 3.1 to 4.8, and
+narrows to almost exactly 3](./fig/ex07_5_fake_data_slopes.png)
 
 ### 7.6, Formulating comparisons as regression models
 
@@ -204,7 +218,12 @@ TK
 > growth and check that the resulting estimate and standard error are the same
 > as above.
 
-TK
+With the direct method of (a), I find an average difference of 5.5% with a
+standard error of 2.3%.  When I use the linear regression method of (b), I get
+a slope of 5.5% and a standard error of 2.5%.  Those are close enough that I
+trust it's working, and I chalk up the difference to the linear regression
+package probably making use of a genuine $t$-distribution with $n - 2$ degrees
+of freedom.
 
 ### 7.7, Comparing simulated data to assumed parameter values
 
