@@ -256,7 +256,14 @@ standard error for the itnercept.
 > their standard errors, and that approximately 95% of the estimate $\pm 2$
 > standard error intervals contain the true parameter values.
 
-TK
+Quantity | Got | Want
+-------- | --- | ----
+Mean slope estimate | 3.01 | 3.00
+Mean intercept estimate | 1.94 | 2.00
+Slope estimate std | 0.09 | 0.08
+Intercept estimate std | 1.05 | 1.00
+Slope coverage rate | 95.2% | 95%
+Intercept coverage rate | 93.2% | 95%
 
 ### 7.9, Interpretation of regressions
 
