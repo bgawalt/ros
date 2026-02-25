@@ -309,7 +309,7 @@ TK
 > points, and using this fitted model to predict the held-out observation:
 > 
 > * For $i = 1, \dots, n$:
->    * Fit the model $y = a + bx + \text{error} to the $n - 1$ data points
+>    * Fit the model $y = a + bx + \text{error}$ to the $n - 1$ data points
 >      $(x, y)_j, j \ne i$. Label the estimated regression coefficients as 
 >      $\hat{a}_{-i}$, $\hat{b}_{-i}$.
 >    * Compute the cross-validated residual,
