@@ -305,7 +305,39 @@ is the same as the absolute influence in the blue chart.
 > (b) Demonstrate how this works in a simple case with three data points,
 >     $(x, y) = (0, 0), (4, 1), (5, 5)$.
 
+#### 8.7(a)
+
 TK
+
+#### 8.7(b)
+
+Using the slopes:
+
+$$\begin{align}\sum_{i, j} (x_j - x_i)(y_j - y_i) &= 2 \left[(0 - 4)(0 - 1) + (0 - 5)(0 - 5) + (4 - 5)(1 - 5)\right] \\
+ &= 2\left[4 + 25 + 4\right] = 66
+\end{align}$$
+
+$$\sum_{i, j} (x_j - x_i)^2 = 2 \left[(0 - 4)^2 + (0 - 5)^2 + (4 - 5)^2\right] = 84$$
+
+$$\hat{b}_\text{slope} = \frac{66}{84} = \frac{11}{14}$$
+
+Using expression (8.3):
+
+$$\bar{x} = \frac{1}{3}(0 + 4 + 5) = 3$$
+
+$$\bar{y} = \frac{1}{3}(0 + 1 + 5) = 2$$
+
+$$\begin{align}\sum_{i} (x_i - \bar{x})(y_i - \bar{y}) &= (0 - 3)(0 - 2) + (4 - 3)(1 - 2) + (5 - 3)(5 - 2) \\
+ &= 6 - 1 + 6 = 11
+\end{align}$$
+
+$$\begin{align}\sum_i (x_i - \bar{x})^2 &= (0 - 3)^2 + (4 - 3)^2 + (5 - 3)^2 \\
+ &= 9 + 1 + 4 = 14
+\end{align}$$
+
+$$\hat{b}_\text{OLS} = \frac{11}{14}$$
+
+Hooray!  They match!
 
 ### 8.8, Comparing `lm` and `stan_glm`
 
