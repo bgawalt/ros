@@ -210,7 +210,15 @@ Plots and computation powered by [Chapter08.ipynb](./notebooks/Chapter08.ipynb)
 > estimate. Confirm that the residual sum of squares is indeed minimized at the
 > least squares estimate.
 
-TK
+![Two plots, side by side, sharing a y-axis called "Resid. Sum of Squares" that
+goes from 0 to 1000.  The left plot is titled "Intercept fixed at 46.2" and has
+an x-axis labeled "Slope" that goes from 0 to 6.  Its plot is a blue convex
+parabola that has a minimum basically at (3, 200), and is tall enough to touch
+the top left and top right corners of the plot.  The right plot is titled
+"Slope fixed at 3.1" and has an x-axis labeled "Intercept" that goes from 40 to
+52.  Its plot is a green convex parabola that has a minimum at (46.2, 200), and
+its max values in the plot are around an RSS of 800 at the edges
+](./fig/ex08_01_rss_sweep.png)
 
 ### 8.2, Maximum likelihood
 
