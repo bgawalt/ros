@@ -273,4 +273,33 @@ Intercept coverage rate | 93.2% | 95%
 > coefficients in this regression, and consider what this implies about any
 > causal interpretations of the original regression fit in the chapter.
 
-TK
+*  **Slope:** 0.19
+*  **Slope stderr:** 0.04
+*  **Intercept:** -7.96
+*  **Intercept stderr:** 2.26
+*  **Coef. of Determination:**  0.58
+
+![The economy-elections plot, but with horizontal and vertical axes transposed.
+The line of best fit is `y ~ -8 + 0.2x`](./fig/ex07_9_retrocast.png)
+
+There's obviously no causal relationship here. The $y$ can't be caused by $x$,
+since we don't know the election outcome (or even candidates) when the income
+values are generated and recorded.
+
+The coefficient of determination is the same as when we predicted vote share
+from income growth.  So you can't just use "the model fit better" as a proof of
+causality (since they tied on that metric despite one of them being obviously
+non-causal).
+
+This model can still be useful.  "Are we in a recession" can take a while to
+figure out; there's a lag in the economic statistics.  So being able to back out
+the likely preceding income growth as a function of a counted-overnight election
+result can be handy, even if the model makes no causal sense.
+
+The last thing I'll say is... it's probably not entirely non-causal.  People can
+anticipate election results, and can "pull forward" reactions to policies that
+aren't yet implemented but are on their way.  I don't think that makes enough
+sense here to say "well, maybe it really is a case of bidirectional causality,"
+but it's important to keep in mind for other situations.  If people can predict
+the future, then future events can influence stuff that come before those
+events.
