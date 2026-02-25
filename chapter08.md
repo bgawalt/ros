@@ -245,7 +245,44 @@ the chapter equations as prescribed in the problem text.
 > sum of absolute values of residuals as a function of $a$ and of $b$.
 > Compare the least squares and least absolute deviation estimates of $(a, b)$.
 
-TK
+To solve this, really solve it, you can use a linear program, introducing a
+vector of dummy variables $t \in \mathbb{R}^n$:
+
+$$\begin{align}
+(\hat{a}, \hat{b}) &= \arg \min_{a, b} \sum_{i=1}^n |y_i - (a + bx_i)| \\
+ &= \begin{align*} \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ \text{s.t.}&~ |y_i - (a + bx_i)| \leq t_i,~\forall i\end{align*} \\
+ &= \begin{align*} \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ \text{s.t.}&~ -t_i \leq y_i - (a + bx_i) \leq t_i,~\forall i\end{align*} \\
+ &= \begin{align*}
+    \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ 
+            \text{s.t.} &~ y_i - (a + bx_i) \leq t_i,~\forall i \\
+                        &~ -t_i \leq y_i - (a + bx_i),~\forall i
+    \end{align*} \\
+&= \begin{align*}
+    \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ 
+            \text{s.t.} &~ -a - bx_i - t_i\leq -y_i,~\forall i \\
+                        &~ a + bx_i - t_i \leq y_i,~\forall i
+    \end{align*} 
+\end{align}$$
+
+That form plugs in quite happily
+[into `scipy.optimize.linprog`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html).
+The $A_{ub}$ winds up being a sparse (mostly-zeros) matrix of size $2n$ rows and
+$2n + 2$ columns.
+
+When we apply that solver to the Hibbs data, we see a similar trajectory to OLS,
+albeit not "dragged down" as much by that 1952 Stevenson-Eisenhower election
+with 2.4% income growth but only a 44.6% incumbent party vote share:
+
+![The Hibbs election scatterplot with two similar lines of best fit overlain; 
+for OLS, y = 46.2 + 3.1x; for LAD, y = 46.0 + 3.5x
+](./fig/ex08_03_hibbs_lad_ols.png)
+
+Here's the slope and intercept sweeps, just like the previous two exercises:
+
+![sdfasd](./fig/ex08_03_lad_minimum.png)
+
+I can't account for those wonky shapes.  I believe it to be piecewise linear,
+but I haven't checked.
 
 ### 8.4, Least squares and least absolute deviation
 
