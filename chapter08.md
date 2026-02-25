@@ -249,19 +249,17 @@ To solve this, really solve it, you can use a linear program, introducing a
 vector of dummy variables $t \in \mathbb{R}^n$:
 
 $$\begin{align}
-(\hat{a}, \hat{b}) &= \arg \min_{a, b} \sum_{i=1}^n |y_i - (a + bx_i)| \\
- &= \begin{align*} \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ \text{s.t.}&~ |y_i - (a + bx_i)| \leq t_i,~\forall i\end{align*} \\
- &= \begin{align*} \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ \text{s.t.}&~ -t_i \leq y_i - (a + bx_i) \leq t_i,~\forall i\end{align*} \\
- &= \begin{align*}
-    \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ 
-            \text{s.t.} &~ y_i - (a + bx_i) \leq t_i,~\forall i \\
-                        &~ -t_i \leq y_i - (a + bx_i),~\forall i
-    \end{align*} \\
-&= \begin{align*}
-    \arg \min_{a, b, t} & \sum_{i=1}^n t_i \\ 
-            \text{s.t.} &~ -a - bx_i - t_i\leq -y_i,~\forall i \\
-                        &~ a + bx_i - t_i \leq y_i,~\forall i
-    \end{align*} 
+(\hat{a}, \hat{b}) &= \arg \min_{a, b} && \sum_{i=1}^n |y_i - (a + bx_i)|  \\
+ &= \arg \min_{a, b, t} & \sum_{i=1}^n t_i& &\\ 
+    &&\text{s.t.}&~ |y_i - (a + bx_i)| \leq t_i,~\forall i \\
+ &= \arg \min_{a, b, t} & \sum_{i=1}^n t_i& &\\ 
+    &&\text{s.t.}&~ -t_i \leq y_i - (a + bx_i) \leq t_i,~\forall i \\
+ &= \arg \min_{a, b, t} & \sum_{i=1}^n t_i& &\\ 
+    && \text{s.t.} &~ y_i - (a + bx_i) \leq t_i,~\forall i \\
+           &&             &~ -t_i \leq y_i - (a + bx_i),~\forall i \\
+&= \arg \min_{a, b, t} & \sum_{i=1}^n t_i& &\\ 
+    && \text{s.t.} &~ -a - bx_i - t_i\leq -y_i,~\forall i \\
+           & &            &~ a + bx_i - t_i \leq y_i,~\forall i
 \end{align}$$
 
 That form plugs in quite happily
@@ -279,7 +277,9 @@ for OLS, y = 46.2 + 3.1x; for LAD, y = 46.0 + 3.5x
 
 Here's the slope and intercept sweeps, just like the previous two exercises:
 
-![sdfasd](./fig/ex08_03_lad_minimum.png)
+![Two plots, convex and somewhat parabola-like but with weird kinks like bent
+coat hangers, that help show how the LAD estimates are at a global minimum of
+best fit for the Hibbs data.](./fig/ex08_03_lad_minimum.png)
 
 I can't account for those wonky shapes.  I believe it to be piecewise linear,
 but I haven't checked.
