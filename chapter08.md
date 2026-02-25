@@ -281,7 +281,21 @@ data point labeling it "this one".](./fig/ex08_05_influence.png)
 >     prior distribution and so it does not exactly yield the least squares
 >     estimate.)
 
-TK
+Here's the absolute influence from the formula
+$\frac{|x_i - \bar{x}|}{\sum (x_i - \bar{x})^2}$:
+
+![Blue dots in a scatterplot that track a v-shaped absolute value function
+centered at x = 3.06, maxing out at 0.08 at its edges
+](./fig/ex08_06a_hibbs_influence.png)
+
+And here's the $n$ different slope parameters you get by adding 1 to each $y_i$
+in turn:
+
+![Green dots on a straight line that range from 2.98 to 3.14.
+](./fig/ex08_06b_hibbs_add1.png)
+
+You can see that the deviation from the original slope (the dashed black line)
+is the same as the absolute influence in the blue chart.
 
 ### 8.7, Least squares slope as a weighted average of individual slopes
 
