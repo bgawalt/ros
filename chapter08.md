@@ -229,7 +229,13 @@ its max values in the plot are around an RSS of 800 at the edges
 > is maximized at the values computed from the formulas in the text (with
 > $\sigma$ computed using $\frac{1}{n}$, not $\frac{1}{n-2}$ see page 104).
 
-TK
+![Three plots sharing a y-axis called "Log Likelihood" that goes from -80 to
+-40.  The left two plots are blue and green concave parabolae representing
+sweeps of slope and intercept, with the other parameters frozen at their max
+likelihood estimates.  The third plot is not quite a parabola, it's a sweep of
+sigma from 2 to 5.  It still has one maximum point, at the value derived from
+the chapter equations as prescribed in the problem text.
+](./fig/ex08_02_loglikelihood.png)
 
 ### 8.3, Least absolute deviation
 
