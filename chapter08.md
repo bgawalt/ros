@@ -291,7 +291,25 @@ but I haven't checked.
 > in the fit, $y = a + bx$, are much different. What did you have to do to make
 > this happen?
 
-TK
+Least absolute deviation is able to draw a zero-slope model that earns zero 
+error on nine of these data.  As long as its line goes in between the two data
+points at $x=10$, it earns the same error across those two points.  (Getting
+closer to the $y = 10$ top one just pulls you an equal distance away from the
+$y = 1$ bottom one, so it's a wash.)
+
+Ordinary least squares, however, really really suffers at $x = 10$.  It wants to
+pass its fit line through the midpoint, $(10, 5.5)$.  So it takes on more error
+on the "normal" dots that all have $y = 9$ in order to try and pass through that
+no-man's-land between the two $x = 10$ points.  I dunno?  Not great?
+
+![A scatter plot of 11 blue dots for my fake dataset.  All their x values are on
+the integers 1 to 10.  The y values from x=1 to x=9 are all 9.  Then there's
+two dots at x=10, one with y=1 and one y=10.  The OLS line slopes down,
+y ~ 10 - 0.3x.  The LAD line is perfectly horizontal at y ~ 9 + 0x.
+](./fig/ex08_04_lad_ols_diff.png)
+
+In this way, LAD shows resistance to "outliers," if that's what you want to call
+whatever's happening at $x = 10$ in my fake data here.
 
 ### 8.5, Influence of individual data points
 
