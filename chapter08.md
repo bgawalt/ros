@@ -261,7 +261,11 @@ TK
 > A linear regression is fit to the data below. Which point has the most
 > influence (see Section 8.2) on the slope?
 
-TK
+The right-most point has an $x$ value farthest from $\bar{x}$ and so it has the
+most influence on the slope parameter:
+
+![The scatterplot from the text book with a red arrow pointing at the right most
+data point labeling it "this one".](./fig/ex08_05_influence.png)
 
 ### 8.6, Influence of individual data points
 
