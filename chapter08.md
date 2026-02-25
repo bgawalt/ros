@@ -265,7 +265,7 @@ $$\begin{align}
 That form plugs in quite happily
 [into `scipy.optimize.linprog`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html).
 The $A_{ub}$ winds up being a sparse (mostly-zeros) matrix of size $2n$ rows and
-$2n + 2$ columns.
+$n + 2$ columns.
 
 When we apply that solver to the Hibbs data, we see a similar trajectory to OLS,
 albeit not "dragged down" as much by that 1952 Stevenson-Eisenhower election
