@@ -345,19 +345,28 @@ TK
 >      $(x, y)_j, j \ne i$. Label the estimated regression coefficients as 
 >      $\hat{a}_{-i}$, $\hat{b}_{-i}$.
 >    * Compute the cross-validated residual,
->      $r_i^{\text{CV}} = y_i - (\hat{a}_{-i} + \hat{b}_{-i}x_i)$.
+>      $r_i^\text{CV} = y_i - (\hat{a}_{-i} + \hat{b}_{-i}x_i)$.
 > * Compute the estimate
->    $\hat{\sigma}^{\text{CV}} = \sqrt{\frac{1}{n}\sum_{i=1}^nr_i^2}$.
+>    $\hat{\sigma}^\text{CV} = \sqrt{\frac{1}{n}\sum_{i=1}^nr_i^2}$.
 >
 > (a) Perform the above steps for the elections model from Section 7.1. Compare
-> three estimates of $\sigma$: (i) the estimate produced by `stan_glm`,
-> (ii) formula (8.5), and (iii) $\hat{\sigma}^{\text{CV}}$ as defined above.
+>     three estimates of $\sigma$: (i) the estimate produced by `stan_glm`,
+>     (ii) formula (8.5), and (iii) $\hat{\sigma}^{\text{CV}}$ as defined above.
 >
 > (b) Discuss any differences between the three estimates.
 
-TK
+Formula (8.5):
 
-### 8.10 Leave-one-out cross validation
+$$\hat{\sigma} = \sqrt{\frac{1}{n-2} \sum_{i=1}^n (y_i - (\hat{a} + \hat{b}x_i))^2}$$
+
+Results:
+
+$$\hat{\sigma} = 3.76$$
+$$\hat{\sigma}^\text{CV} = 3.91$$
+
+TODO: Use Bambi in place of `stan_glm`
+
+### 8.10, Leave-one-out cross validation
 
 > Create a fake dataset $(x, y)_i, i = 1, \dots, n$, in such a way that there
 > is a big difference between $\hat{\sigma}^{\text{CV}}$ as defined in the
