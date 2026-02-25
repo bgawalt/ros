@@ -237,7 +237,16 @@ of freedom.
 > close to the assumed true values. What does “reasonably close” mean in this
 > context?
 
-TK
+![The requested scatterplot in blue with red line of best fit,
+`y ~ 1.9 + 3.0x`](./fig/ex07_7.png)
+
+*  **Slope:** 3.00
+*  **Slope stderr:** 0.08
+*  **Intercept:** 1.85
+*  **Intercept stderr:** 0.99
+
+Checks out.  "Reasonably close" means bang-on for the slope, and well within the
+standard error for the itnercept.
 
 ### 7.8, Sampling distribution
 
