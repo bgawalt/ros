@@ -47,6 +47,7 @@ Ran the backend (always from the root dir of this repo) with:
 
 ```shell
 $ source ~/venv/jupyter/bin/activate; \
+cd ~/ros; \
 jupyter notebook --port 9999
 ```
 
