@@ -2,16 +2,65 @@
 
 [(Return to README)](./README.md)
 
+Three steps that "go beyond classical estimation:"
+
+1.  Form a posterior distribution, represented by a set of simulated parameter
+    values.
+2.  Propogate uncertainty in this distribution/these parameters when making
+    "simulation-based predictions for unobserved or future outcomes."
+3.  Feed additional information into the mode using a prior distribution.
 
 ## Subsection rundown
 
 ### 9.1, Propagating uncertainty in inference using posterior simulations
 
-TK
+*  "\[S\]tart by considering Bayesian simulation simply as a way of expressing
+    uncertainty in inferences and predictions\[...\]."
+*  "The real advantage of summarizing inference by simulations is that we can
+    directly use these to propagate uncertainty."  Especially for derived
+    quantities, they use $a/b$, intercept over slope, as an example.  You just
+    calculate that for all 1000 simulated $(a,b)$ pairs and report quantiles.
 
 ### 9.2, Prediction and uncertainty: `predict`, `posterior_linpred`, and `posterior_predict`
 
-TK
+If you have the Bayesian regression fit (i.e., the simulation matrix of $(a, b)$
+pairs), there's three kinds of prediction you can make on a new input $x$:
+
+1.  Collapse the simulations into a point estimate set of parameters, then use
+    that point estimate to generate a prediction from $x$ ("point prediction").
+    "The point prediction ignores uncertainty."
+2.  Calculate predictions based on $x$ for each of the simulated parameter sets,
+    then report on the empirical distribution of those predictions ("linear 
+    predictor with uncertainty").  The specific uncertainty you're reporting is
+    the "uncertainty about the **expected or average** value of $y$," emphasis
+    mine.
+3.  Do what you did in (2), but now also rope in estimates of the error term(s).
+    They call this "the predictive distribution for a new observation."  In our
+    case, this would be augmenting the uncertainty in the mean value of $y$ with
+    estimates of what we think $\sigma$ is.
+
+These are actually very useful terms of art for me to keep in mind.  I think the
+one to lead with every time is "predictive distribution" though.
+
+The "by hand" implementation of the predictive distribution is cruder than I'd
+thought it'd be: it looks like they're just turning each simulated $\sigma_j$
+into a single draw from $\mathcal{N}(0, \sigma_j)$ and then adding that scalar
+draw to the point prediction $a_j + b_jx^\text{new}$ for each simulation.
+
+The "Propagating uncertainty" section is interesting.  They feed a distinct
+$x$ (drawn from a distribution of interest) to each simulated parameter set,
+rather than a constant $x^\text{new}$.  They show how this increases the
+uncertainty interval around the same point estimate for $y$.
+
+They provide some off-the-shelf formulas for predictive uncertainty, the
+standard deviation of the point estimate for $y$ and for the width of the noise
+interval around it.  But they don't like those formulae, "which do not even work
+once we move to more complicated models and nonlinear predictions."  The
+simulations, though: those always work.
+
+Finally, when I look at their R code snippets: I have no idea where these
+functions are defined.  You should care about stuff like that!  Your code style
+should insist on making this easy to determine at the point of use!
 
 ### 9.3, Prior information and Bayesian synthesis
 
