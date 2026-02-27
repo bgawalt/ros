@@ -64,7 +64,31 @@ should insist on making this easy to determine at the point of use!
 
 ### 9.3, Prior information and Bayesian synthesis
 
-TK
+They won't talk about Bayesian inference in general, but they do say we're
+going to have a compromise between the prior and the data we provide, when
+making our estimations.
+
+Their formula for the parameter estimate, $\hat{\theta}_\text{Bayes}$, might
+look nicer with a rewrite (multiply top and bottom by
+$\text{se}^2_\text{prior}\text{se}^2_\text{data}$):
+
+$$\begin{align}
+  \hat{\theta}_\text{Bayes} &= \left.
+       \left(\frac{1}{\text{se}^2_\text{prior}}\hat{\theta}_\text{prior} +
+             \frac{1}{\text{se}^2_\text{data}}\hat{\theta}_\text{data}\right)
+       \middle/
+       \left(\frac{1}{\text{se}^2_\text{prior}} + \frac{1}{\text{se}^2_\text{data}}\right)
+       \right.\\
+   &= \frac{\text{se}^2_\text{data}\hat{\theta}_\text{prior} + \text{se}^2_\text{prior}\hat{\theta}_\text{data}}{\text{se}^2_\text{prior} + \text{se}^2_\text{data}}
+\end{align}$$
+
+Typically, $\text{se}^2_\text{data}$ drops to zero with enough data, and the
+prior barely makes a dent in the overall parameter estimate.
+
+It's important to highlight what they say about the standard error of the Bayes
+estimate: it *must* be less than the standard error you'd get for the data-only
+estimate.  If the prior is proper, you are reducing uncertainty in your reported
+estimates.  Maybe that's bad, if you pick a bad prior!
 
 ### 9.4, Example of Bayesian inference: beauty and sex ratio
 
