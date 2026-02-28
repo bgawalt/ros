@@ -153,7 +153,44 @@ anywhere, for any reason.
 
 ### 9.5, Uniform, weakly informative, and informative priors in regression
 
-TK
+This section is about using `stan_glm` to set priors on regression coefficients.
+
+By opening with the "uniform distribution" (actually an improper prior): it's
+wild to me they don't even get into the API docs of `stan_glm` here.  This
+is the first time we see `prior_intercept`, `prior`, and `prior_aux`, and
+there's not yet been a description of what those arguments expect.  Integers?
+Callbacks?
+
+The default prior is norms for all coefficients.  They word it weirdly -- they
+make it sound like you need to know the $b$ coefficents times the predictor
+meansbefore you can set the prior on the intercept -- but the later codeblock
+makes clear you just need to know the empirical mean and standard deviation of
+the labels to set the prior on the intercept.  (Due to a faith that the
+regression is supposed to pass through $(\bar{x}, \bar{y})$.)
+
+This part is worth going into:
+
+> If $x$ and $y$ have both been standardized, then the coefficient is the
+> expected difference in standard deviations in $y$ corresponding to a change of
+> 1 standard deviation in $x$. We typically expect such a difference to be less
+> than 1 in absolute value, hence a normal prior with mean 0 and scale 2.5 will
+> partially pool noisy coefficient estimates toward that range.
+
+Why do we expect such a difference to be less than 1?  Because we're doing
+statistics, and no one needs to do statistics to learn obvious effects.  This
+loops back around to the sociology of where priors come from, where this is the
+biggest fact of all: all of this stuff is only useful for the narrow range of
+study between hopelessly noisy and blindingly obvious effects.
+
+I'm still not loving their case against the beauty-sex-ratio study.  "There's
+no steady, linear increase in girl-share as a function of attractiveness bucket"
+is different than "something's going on, there's lots of girls in the most
+attractive bucket."  It's interesting that if you *did* think about the
+dataset in the first version ("girl-share is a linear function of parental
+hotness"), that the data rule that out.  But that's a different thing!  And the
+averages in each bucket are insufficient to check the second thing right now
+(but are sufficient to fit the regression, especially if you weight each
+bucket by corresponding number of parents).
 
 
 ## Exercises
