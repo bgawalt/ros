@@ -52,7 +52,8 @@ $x$ (drawn from a distribution of interest) to each simulated parameter set,
 rather than a constant $x^\text{new}$.  They show how this increases the
 uncertainty interval around the same point estimate for $y$.
 
-They provide some off-the-shelf formulas for predictive uncertainty, the
+They provide some off-the-shelf formulas for predictive uncertainty
+($\hat{\sigma}_\text{linpred}$ and $\hat{sigma}_\text{prediction}$), the
 standard deviation of the point estimate for $y$ and for the width of the noise
 interval around it.  But they don't like those formulae, "which do not even work
 once we move to more complicated models and nonlinear predictions."  The
@@ -82,17 +83,73 @@ $$\begin{align}
    &= \frac{\text{se}^2_\text{data}\hat{\theta}_\text{prior} + \text{se}^2_\text{prior}\hat{\theta}_\text{data}}{\text{se}^2_\text{prior} + \text{se}^2_\text{data}}
 \end{align}$$
 
-Typically, $\text{se}^2_\text{data}$ drops to zero with enough data, and the
-prior barely makes a dent in the overall parameter estimate.
+The standard error of the Bayes estimate goes to zero:
+
+$$\begin{align}
+\text{se}_\text{Bayes} &= \left.1\middle/\sqrt{\frac{1}{\text{se}^2_\text{prior}} + \frac{1}{\text{se}^2_\text{data}}}\right.
+  &= \frac{\text{se}_\text{data}\text{se}_\text{prior}}{\sqrt{\text{se}^2_\text{data} + \text{se}^2_\text{prior}}}
+\end{align}$$
+
+Typically, $\text{se}^2_\text{data}$ drops to zero with enough data, so even
+though the prior's standard error is fixed, the overall posterior standard error
+also drops to zero.  The prior barely makes a dent in the overall parameter
+estimate, when you have enough data.
 
 It's important to highlight what they say about the standard error of the Bayes
 estimate: it *must* be less than the standard error you'd get for the data-only
 estimate.  If the prior is proper, you are reducing uncertainty in your reported
 estimates.  Maybe that's bad, if you pick a bad prior!
 
+They note a key assumption about Bayesian information aggregation: the prior
+and the data are independent of each other.  That's kind of implied by the name
+"prior," if you fix it prior to seeing the data, it's an independent source of
+data.  Or it isn't definitely dependent.  It may still be accidentally
+independent if whoever is providing the data is aware of, and responding to, the
+same prior info you're incorporating.
+
+I take the closing subsection to mean there's no standard way of picking a
+prior distribution.  Sometimes, like in the election and births examples, you
+use subject matter expertise.  Sometimes, they allow that you just won't know
+enough about what you're estimating ("\[multivariate regression\] coefficients 
+for which we have little knowledge or about which we do not want to make any
+strong assumptions").
+
 ### 9.4, Example of Bayesian inference: beauty and sex ratio
 
-TK
+They talk about a study where 3,000 parent-pairs were surveyed for their
+attractiveness and how many of their kids were girls.
+
+This is obviously a sociological/bureaucratic process by which we declare
+something is "well known," the way that "\[i\]t is well known that variation in
+the human sex ratio occurs in a very narrow range."  They have a set of
+expectations for what a truly large change in girl-boy birth share would be, and
+encode it as $\mathcal{N}(0\%, 0.25\%)$, so basically no chance of sex ratios
+outside the range $[49.3\%, 50.7\%]$.
+
+They run a bunch of numbers on standard errors of proportions from Chapter 4,
+on the whole 3,000.  The data on "very attractive" parents
+($n_\text{hot} = 300$) had a estimate-and-standard-error of $58\% \pm 3\%$.
+That's very different than the usual 50-50 for sure. But.
+
+> Estimating a comparison to an accuracy of 2 or 3 percentage points is pretty
+> good -- for many purposes. But for studying differences in the sex ratio, we
+> need much higher precision, more on the scale of 0.1 percentage point.
+
+I don't think this quite sells their actual beef with the study.  Yes, the Bayes
+estimate fails to reject the 50-50 null.  That's cuz you set a prior to things
+"well known" to you!  I guess the actual issues -- like, who set the rules for
+what counts as "very attractive" and did they set them so that they could reject
+the null -- are outside this particular book's remit.  But as is, the section
+is light on arguments for why no, really, you need sub-0.1% precision for
+studying sex ratios.
+
+They want you to know this could be a Type M error, but they can only compare
+the standard error to the prior that they insist upon: "the data standard error
+is more than 10 times the prior uncertainty."  I think one more paragraph where
+they adjust the prior to once again admit a null-rejecting Bayes estimate would
+be interesting.  They could point to how wide it is, and say, if sex ratios
+really can vary this much, how come we've never seen a (say) 66-33 split ever,
+anywhere, for any reason.
 
 ### 9.5, Uniform, weakly informative, and informative priors in regression
 
