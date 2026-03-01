@@ -350,7 +350,18 @@ TK
 > minute. What is the expected net gain for purchasing 20 minutes of ads? What
 > is the probability that the net gain is negative?
 
-TK
+The *gross* benefit of one minute of advertising is distributed as
+$\mathcal{N}(500; 200)$, in units of thousands of dollars.  The *net* benefit is
+$\mathcal{N}(200; 200)$.
+
+If you buy twenty minutes of ads, the net benefit is distributed as 
+$\mathcal{N}(4000; 4000)$, just multiplying both terms from the one-minute
+distribution by 20.  So,
+
+(a) Expect a net gain of $4MM,
+
+(b) but there's a 16% chance that the net gain winds up negative (that's the
+share of a normal curve that's to the left of $-1\sigma$).
 
 ### 9.9, Prior distributions
 
