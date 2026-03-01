@@ -36,7 +36,7 @@ Setup the environment with:
 $ python3 -m venv venv/ros
 ```
 
-Installed Jupyter with:
+Installed Python module dependencies with:
 
 ```shell
 $ cd ~
@@ -44,6 +44,17 @@ $ source venv/ros/bin/activate
 $ pip3 install jupyter
 $ pip3 install matplotlib
 ```
+
+And in order to actually compute NUTS chains quickly, I needed to install
+`g++` and `python3-dev`:
+
+```shell
+$ sudo apt-get update
+$ sudo apt install python3-dev
+$ sudo apt install g++
+```
+
+(This made chain sampling go 100x faster.)
 
 Ran the backend (always from the root dir of this repo) with:
 
