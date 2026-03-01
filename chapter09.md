@@ -205,7 +205,25 @@ Plots and computation powered by [Chapter09.ipynb](./notebooks/Chapter09.ipynb)
 > one with household incomes of $40,000 and one with household income of
 > $80,000.
 
-TK
+Using Bambi as best I can right now:
+
+```python
+rng = numpy.random.default_rng("Exercise 9.1")
+
+data = pandas.DataFrame({"income": income, "gpa": gpa})
+model = bambi.Model("gpa ~ income", data)
+fitted = model.fit()
+
+diffs = []
+sigmas = []
+for chain in range(4):
+    chain_df = (
+        fitted.posterior.sel(chain=chain).to_dataframe().groupby("draw").mean())
+    diffs.extend(inc * 40_000 for inc in chain_df["income"])
+    sigmas.extend(chain_df["sigma"].to_list())
+noisy_diffs = [d + rng.normal(0, 2 * s) for d, s in zip(diffs, sigmas)]
+print(numpy.percentiles(noisy_diffs, [5, 90]))
+```
 
 ### 9.2, Predictive simulation for linear regression
 
