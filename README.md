@@ -25,21 +25,22 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 9](./chapter09.md): Prediction and Bayesian inference
 
 
-## Jupyter
+## Jupyter and Bambi
 
-I set up a virtual environment for running a notebook server locally.
+I set up a virtual environment for running a notebook server locally, which can
+both make plots (with matplotlib) and do Bayesian regression (with Bambi).
 
 Setup the environment with:
 
 ```shell
-$ python3 -m venv venv/jupyter
+$ python3 -m venv venv/ros
 ```
 
 Installed Jupyter with:
 
 ```shell
 $ cd ~
-$ source venv/jupyter/bin/activate
+$ source venv/ros/bin/activate
 $ pip3 install jupyter
 $ pip3 install matplotlib
 ```
@@ -47,7 +48,7 @@ $ pip3 install matplotlib
 Ran the backend (always from the root dir of this repo) with:
 
 ```shell
-$ source ~/venv/jupyter/bin/activate; \
+$ source ~/venv/ros/bin/activate; \
 cd ~/ros; \
 jupyter notebook --port 9999
 ```
