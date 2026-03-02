@@ -412,10 +412,19 @@ negative.
 >     that is, an estimated treatment effect of +10%.
 >
 > (d) Compute the 95% interval on the log scale and exponentiate it; check that
->     this comes to [0:9; 1:3], that is, a range from 􀀀10% to +30% on the
+>     this comes to [0.9, 1.3], that is, a range from -10% to +30% on the
 >     original scale.
 
-TK
+From [Exercise 4.8](./chapter04.md), the log-scale additive effect measured in
+the data is distributed as $\mathcal{N}(0.35, 0.17)$.
+
+Combining this with the $\mathcal{N}(0, 0.1)$ prior gives a posterior 
+distribution of $\mathcal{N}(0.09, 0.09)$.  Exponentiating the mean of this
+does produce an expected multiplicative effect of 1.1.
+
+If we use $\pm 2\sigma$ as to calculate 95% coverage range on the log scale,
+and exponentiate those interval endpoints, we get a range of \[0.93, 1.30\]
+for the multiplicative effect, as expected.
 
 ### 9.7, Uniform, weakly informative, and informative priors
 
