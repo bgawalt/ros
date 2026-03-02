@@ -522,4 +522,63 @@ $\mathcal{N}(0.65, 0.2)$ for the slope.
 >     Bayes estimate for $b$ halfway between the prior mean and the least
 >     squares estimate?
 
-TK
+With ordinary least squares, we recover the true parameters exactly,
+$\hat{a}_\text{OLS} = 1, \hat{b}_\text{OLS} = 0.1$.
+
+When I sweep $n$ and fit a Bayesian regression to a new sample, I don't see
+any particular trend:
+
+$n$  | $\hat{a}$ | $\hat{b}$
+---- | --------- | ---------
+2 | 0.96 | 0.12
+4 | 1.05 | 0.16
+10 | 1.22 | -0.13
+20 | 0.80 | -0.05
+35 | 0.94 | 0.05
+50 | 1.10 | 0.18
+67 | 1.05 | 0.01
+83 | 0.94 | 0.16
+100 | 1.14 | 0.28
+150 | 1.02 | 0.12
+200 | 0.99 | -0.04
+300 | 1.04 | 0.13
+400 | 1.00 | 0.07
+
+If I greatly narrow the prior distribution on $b$, I can see that reflected:
+
+$n$  | $\hat{a}_\text{strong}$ | $\hat{b}_\text{strong}$
+---- | --------- | ---------
+2 | 0.51 | 0.02
+4 | 0.89 | -0.00
+10 | 1.00 | 0.00
+20 | 0.73 | 0.00
+35 | 1.08 | 0.00
+50 | 0.88 | 0.01
+67 | 0.93 | -0.00
+83 | 1.00 | -0.00
+100 | 0.95 | 0.00
+150 | 0.97 | 0.01
+200 | 1.02 | 0.01
+300 | 0.97 | 0.02
+400 | 1.01 | 0.01
+
+And when I just use Bambi's default priors I get:
+
+$n$  | $\hat{a}_\text{default}$ | $\hat{b}_\text{default}$
+---- | --------- | ---------
+2 | -1.58 | -2.81
+4 | 0.69 | -0.73
+10 | 1.17 | 0.26
+20 | 0.79 | 0.23
+35 | 1.13 | 0.23
+50 | 1.00 | 0.06
+67 | 1.04 | 0.18
+83 | 0.96 | 0.11
+100 | 0.92 | 0.11
+150 | 0.94 | 0.12
+200 | 1.05 | 0.08
+300 | 0.96 | 0.02
+400 | 0.97 | 0.15
+
+Maybe if I were extracting the sample median instead of the sample mean, this
+would be more stable, or produce the results this question is looking for.
