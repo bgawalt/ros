@@ -351,12 +351,30 @@ and up, via `stats.norm.sf(0.5, loc=0.49, scale=0.032)`.  It's 38%.
 
 > A new job training program is being tested. Based on the successes and
 > failures of previously proposed innovations, your prior distribution on the
-> effect size on log(income) is normal with a mean of 􀀀0:02 and a standard
+> effect size on log(income) is normal with a mean of -0.02 and a standard
 > deviation of 0.05. You then conduct an experiment which gives an unbiased
 > estimate of the treatment effect of 0.16 with a standard deviation of 0.08.
 > What is the posterior mean and standard deviation of the treatment effect?
 
-TK
+Given:
+
+$$\hat{\theta}_\text{prior} = -0.02$$
+$$\text{se}_\text{prior} = 0.05$$
+$$\hat{\theta}_\text{data} = 0.16$$
+$$\text{se}_\text{data} = 0.08$$
+
+We derive:
+
+$$\text{se}^2_\text{prior} = 0.0025$$
+$$\text{se}^2_\text{data} = 0.0064$$
+$$\hat{\theta}_\text{Bayes} = \frac{0.0064 \cdot (-0.02) + 0.0025 \cdot 0.16}{0.0025 + 0.0064}$$
+$$\hat{\theta}_\text{Bayes} = \frac{0.000272}{0.0089} = \emph{0.031}$$
+$$\text{se}_\text{Bayes} = \left.1\middle/\sqrt{\frac{1}{0.0025} + \frac{1}{0.0064}}\right. = \frac{1}{\sqrt{556.25}} = \emph{0.042}$$
+
+So our posterior can be modeled as a log-scale additive effect of
+$\mathcal{N}(0.031, 0.042)$.  Probably positive, but a real chance of being
+negative.
+
 
 ### 9.6, Bayesian inference with a zero-centered informative prior on the log scale
 
