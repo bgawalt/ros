@@ -495,7 +495,9 @@ share of a normal curve that's to the left of $-1\sigma$).
 > above information, set up reasonable priors for the slope and the intercept
 > after centering.
 
-TK
+I translate this as a prior of $\mathcal{N}(0, 10)$ for the intercept (maybe
+that standard deviation could go lower by a point or three), and
+$\mathcal{N}(0.65, 0.2)$ for the slope.
 
 ### 9.10, Prior distribution and likelihood
 
