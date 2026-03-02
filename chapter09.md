@@ -279,7 +279,27 @@ the tail gets much heavier as you go from 25% to 50% to 75%ile player.
 >     Section 9.2. Check that you get the same values as in part (a) of this
 >     problem.
 
-TK
+When I fit the (Bayesian) regression model to the data as `vote ~ growth`, I get
+point estimates as:
+
+$$\hat{a} = 46.3;~\hat{b} = 3.0~\hat{\sigma} = 4.036$$
+
+That makes a point forecast of a **52.3%** share of the vote if growth is 2%.
+
+With $n = 16$, I apply Equations 9.1 and 9.2 to get:
+
+$$\hat{\sigma}_\text{linpred} = 4.036\sqrt{\frac{1}{16} + \frac{(2 - \bar{x})^2}{\sum_{i=1}^{16} (x_i - \bar{x})^2}} = 1.0$$
+
+$$\hat{\sigma}_\text{prediction} = 4.036\sqrt{1 + \frac{1}{16} + \frac{(2 - \bar{x})^2}{\sum_{i=1}^{16} (x_i - \bar{x})^2}} = 4.2$$
+
+When I run this manually (and by sampling normal RVs according to the sampled
+$\sigma$ values for the predictive distribution), I get:
+
+*  Point forecast: 52.4%
+*  Standard deviation of point predictions: 1.0 percentage points
+*  Standard deviation of predictions (with noise/error added): 4.2 percentage points
+
+Not bad!
 
 ### 9.4, Partial pooling
 
