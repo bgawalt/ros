@@ -432,7 +432,35 @@ for the multiplicative effect, as expected.
 > earnings on height using the data from the folder `Earnings`. You will need to
 > think what could be an informative prior distribution in this setting.
 
-TK
+I transformed the `Earnings` data, creating a new variable by subtracting
+sixty inches off each subject's height, so that the intercept term made more
+sense.
+
+For the strongly informative priors,
+
+*  Median earnings are 16k, and mean earnings are 21k.  So using
+    $\mathcal{N}(20, 10)$ as the intercept prior will encompass the "no effect"
+    outcome.
+*  The quartiles (25, 50, 75%-ile) of earnings are spaced around $10k apart from
+    each other.  And height quartiless are spaced around 2 inches apart from
+    each other.  It would be very weird if height percentile entirely determined
+    earnings percentile, so $5k/inch is an extreme overestimate.  I'll go with
+    a prior of $\mathcal{N}(0, 0.3)$ to allow for at-most a quarter of that
+    effect.
+*  Like the book example in 9.5, I'll leave the prior on the noise level
+    unspecified/flat.
+
+Here are the inferences for the three parameters across the three choices of
+priors:
+
+Param     | Flat            | Weak             | Strong
+--------- | --------------- | ---------------- | ----------------
+Intercept | $10.7 \pm 1.01$ | $10.7 \pm 1.0$   | $12.4 \pm 0.93$
+`height`  | $1.5 \pm 0.13$  | $1.6 \pm 0.13$   | $1.3 \pm 0.12$
+$\sigma$  | $21.7 \pm 0.37$ | $21.7 \pm 0.37$  | $21.7 \pm 0.36$
+
+Huh!  That strong prior on `height` didn't drastically affect the estimates.
+I guess with $n = 1816$ it takes a *really* strong prior to make a difference.
 
 ### 9.8, Simulation for decision analysis
 
