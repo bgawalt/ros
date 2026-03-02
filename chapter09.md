@@ -298,7 +298,54 @@ TK
 > (b) Given this information, what is the posterior probability that the
 >     candidate wins the election?
 
-TK
+Here's what we're given:
+
+$$\text{se}_\text{prior} = 0.05$$
+$$\hat{\theta}_\text{prior} = 0.42$$
+$$\hat{\theta}_\text{data} = 0.54$$
+$$\hat{\theta}_\text{Bayes} = 0.49$$
+
+From Equation 9.3:
+
+$$\hat{\theta}_\text{Bayes} = \left.
+       \left(\frac{1}{\text{se}^2_\text{prior}}\hat{\theta}_\text{prior} +
+             \frac{1}{\text{se}^2_\text{data}}\hat{\theta}_\text{data}\right)
+       \middle/
+       \left(\frac{1}{\text{se}^2_\text{prior}} + \frac{1}{\text{se}^2_\text{data}}\right)
+       \right.$$
+
+From Chapter 4:
+
+$$\text{se}_\text{data} = \sqrt{\hat{\theta}_\text{data}(1 - \hat{\theta}_\text{data}) / n}$$
+
+We can derive:
+
+$$\text{se}^2_\text{prior} = 0.0025$$
+
+$$\text{se}_\text{data} = \sqrt{0.54 \cdot 0.46 / n} = \sqrt{0.2484/n}$$
+
+$$\hat{\theta}_\text{Bayes} = \frac{\text{se}^2_\text{data}\hat{\theta}_\text{prior} + \text{se}^2_\text{prior}\hat{\theta}_\text{data}}{\text{se}^2_\text{prior} + \text{se}^2_\text{data}}$$
+
+$$0.49 = \frac{0.42\text{se}^2_\text{data} + 0.0025 \cdot 0.54}{0.0025 + \text{se}^2_\text{data}}$$
+
+$$0.49\text{se}^2_\text{data} + 0.0025 \cdot 0.49  = 0.42\text{se}^2_\text{data} + 0.0025 \cdot 0.54$$
+
+$$0.07\text{se}^2_\text{data} = 0.0025(0.54 - 0.49) = 0.000125$$
+$$\text{se}^2_\text{data} = 0.001786$$
+$$0.2484/n = 0.001786$$
+$$n = 139.1 \approx 140$$
+
+Since we have a value for $\text{se}^2_\text{data}$, we can plug that into
+Equation 9.4 to answer part (b):
+
+$$\text{se}_\text{Bayes} = \left.1\middle/\sqrt{\frac{1}{\text{se}^2_\text{prior}} + \frac{1}{\text{se}^2_\text{data}}}\right.$$
+
+$$\text{se}_\text{Bayes} = \left.1\middle/\sqrt{\frac{1}{0.0025} + \frac{1}{0.001786}}\right.$$
+
+$$\text{se}_\text{Bayes} = 0.032$$
+
+So we can calculate the area under a $\mathcal{N}(0.49, 0.032)$ curve from 0.5
+and up, via `stats.norm.sf(0.5, loc=0.49, scale=0.032)`.  It's 38%.
 
 ### 9.5, Combining prior information and data
 
