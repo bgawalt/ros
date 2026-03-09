@@ -23,6 +23,7 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 7](./chapter07.md): Linear regression with a single predictor
     *  [Chapter 8](./chapter08.md): Fitting regression models
     *  [Chapter 9](./chapter09.md): Prediction and Bayesian inference
+    *  [Chapter 10](./chapter10.md): Linear regression with multiple predictors
 
 
 ## Jupyter and Bambi
