@@ -55,7 +55,22 @@ what $\beta_k$ means, in a much longer sentence than you want to have to use.
 
 ### 10.3, Interactions
 
-TK
+By their notation, an interaction is like `height:weight`, which means
+
+`y ~ height:weight`
+
+translates to a model of
+
+$$y = \beta_0 + \beta_1 * \text{height} * \text{weight} + \text{error}$$
+
+Their example is more typical, where the individual predictors are included as
+well as their interaction.  And since one of their predictors is binary, the
+result is like fitting two univariate regressions on the two subsets of the
+data, split on the binary variable value.
+
+Their advice for looking for interaction candidates: "the first place we
+typically look for them is with predictors that have large coefficients when
+not interacted."
 
 ### 10.4, Indicator variables
 
