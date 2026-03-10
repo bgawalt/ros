@@ -74,7 +74,11 @@ not interacted."
 
 ### 10.4, Indicator variables
 
-TK
+This goes over one-hot encoding of categorical variables, which they call
+indicator variables.  They also close by discussing index variables, where each
+category is associated with a real-valued scalar (in their example, you could
+have an indicator variable for what school the observation came from, and an
+index variable for the school's average household income).
 
 ### 10.5, Formulating paired or blocked designs as a regression problem
 
