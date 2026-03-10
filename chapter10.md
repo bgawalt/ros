@@ -12,7 +12,14 @@ Three challenges of moving to multiple-predictor models:
 
 ### 10.1, Adding predictors to a model
 
-TK
+I get that they've pushed it into the next chapter, but it's interesting that
+they talk about using the single binary predictor to predict kid IQ, and then
+using the single continuous predictor, and in neither case provide a sense of
+how good a job the model is doing.  When they do combine the two into a model
+that leverages both predictors, they *do* include median and mad sd for the
+$\sigma$ error parameter.  (It's also a bit unfortunate that the coefficients
+are the same whether the predictor is used in the univariate or the multivariate
+model.)
 
 ### 10.2, Interpreting regression coefficients
 
