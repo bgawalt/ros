@@ -124,7 +124,31 @@ you.
 
 ### 10.7, Mathematical notation and statistical inference
 
-TK
+They use tilde-hats, $\tilde{y}$, for predictions derived from a model applied
+to new predictor data $\tilde{X}$.  That's in contrast to using normal-hats
+$\hat{sigma}$ for parameter estimates.  I'll try and keep those straight from
+here on.
+
+Nonidentifiable models are ones with "parameters that cannot be estimated
+uniquely -- or, to put it another way, have standard errors of infinity."
+The nonidentifed parameters are the ones you can wiggle around in some way
+without altering the likelihood value.  Collinearity (one predictor is height
+in inches, another is height in centimeters) is the easiest way to achieve this.
+
+Near-collinearity leads to poor identification.  The fitted regression is
+"unstable;" if you run it twice on two data sets, the weights can swing from
+being all on one predictor to all on its close-cousin.  You should see large
+standard errors on those near-collinear predictor coefficient estimates.
+
+On $t$ (is coefficent $k$ probably non-zero) and $F$ (do all the coefficients
+together probably have non-zero predictive power) tests, a familiar refrain:
+
+> We have essentially no interest in using hypothesis tests for regression
+> because we almost never encounter problems where it would make sense to think
+> of coefficients as being exactly zero. Thus, rejection of null hypotheses is
+> irrelevant, since this just amounts to rejecting something we never took
+> seriously in the first place. In the real world, with enough data, any
+> hypothesis can be rejected.
 
 ### 10.8, Weighted regression
 
