@@ -103,7 +103,24 @@ the $n$ subjects), and include group ID as an indicator variable.
 
 ### 10.6, Example: uncertainty in predicting congressional elections
 
-TK
+They fit a model that predicts 1988 Dem two-party vote share in each
+congressional district, given 1986 vote share an a "trinary" incumbency
+indicator variable.  They then use it to run simulation-based predictions of
+outcomes for the 1990 Congressional elections (including number of Dem seats).
+
+That last derived quantity, estimated number of seats won by Dems, is crucial
+for the point they make:
+
+> This estimate and standard deviation could not simply be calculated from the
+> estimates and uncertainties for the individual districts.  Simulation is the
+> only practical method of assessing the predictive uncertainty for this
+> nonlinear function of the predicted outcomes.
+
+They kind of speed through a rerun of "what are the chances a given race ends in
+a tie."  There's a bunch of heuristics offered, but it's a hard thing to give
+certainty to.  I think without knowing what you'd do with a precise estimate of
+tie-probability, it's hard to tell which of the several options is right for
+you.
 
 ### 10.7, Mathematical notation and statistical inference
 
