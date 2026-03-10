@@ -23,7 +23,35 @@ model.)
 
 ### 10.2, Interpreting regression coefficients
 
-TK
+"Change predictor $k$ while leaving the others constant" doesn't work when
+"the others" are linked to $k$; in their examples, where you have some
+predictors that are polynomials over other predictors.
+
+They fall back to first principles on interpreting coefficients:
+
+1.  *Predictive interpretation:* the coefficient $\beta_k$ tells you how much to
+    expect the average output to change between two groups that differ by one
+    unit in predictor $k$, while holding all other predictors constant.
+2.  *Counterfactual interpretation:* the causal inference case, where you're
+    saying "if I changed predictor $k$ to be one unit higher in this individual,
+    I should expect the output for this individual to be $\beta_k$ higher."
+
+They say be careful with the counterfactual interpretation; don't even use the
+common gentler rewording of "a change in $k$ is associated with a $\beta_k$
+change in $y$":
+
+> From the data alone, a regression only tells us about comparisons between
+> units, not about changes within units.
+
+Taking this seriously means you have to use the word "comparing" when describing
+what $\beta_k$ means, in a much longer sentence than you want to have to use.
+
+> \[Our guidelines prescribe\] an awkward way to put things, which helps explain
+> why people often prefer simpler formulations such as “a change of 1 in $x_k$
+> causes, or is associated with, a change of $\beta_k$ in $y$”—but those sorts
+> of expressions can be terribly misleading. You just have to accept that
+> regression, while a powerful data-analytic tool, can be difficult to
+> interpret.
 
 ### 10.3, Interactions
 
