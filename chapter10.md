@@ -152,7 +152,22 @@ together probably have non-zero predictive power) tests, a familiar refrain:
 
 ### 10.8, Weighted regression
 
-TK
+You can weight each observation when setting up your least squares objective.
+(This is probably a good reason for me to not use the ML-ish term "weight" when
+I mean what this book calls "a coefficient.")  Three reasons for weighting:
+
+1.  Reweight your sample so it better resembles some population,
+2.  Let one row of $X$ stand in for multiple duplicate observations (and have
+    the corresponding $y$ entry be the average outcome among those duplicates),
+3.  Account for unequal variances across your observations, where a weight $w_i$
+    implies $\text{sd}(\epsilon_i) \propto 1/\sqrt{w_i}$.
+
+Those three situations apply to a weight matrix $W$ that's diagonal.  They also
+talk about how you can make $W$ stand in for a covariance matrix (I think
+there's some semidefinite and symmetry constraints that come with this) to
+produce a regression model with correlated errors.  No word on whether the book
+will delve into that later, though it's important for "time series, spatial
+statistics, cluster samples, and other settings with structured data."
 
 ### 10.9, Fitting the same model to many datasets
 
