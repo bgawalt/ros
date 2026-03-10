@@ -93,7 +93,7 @@ what the model recovers: (1) perfect monotonicity between x and y value;
 ![Nine small multiples, one for each predictor included in a models predicting
 party identification.  The coefficient for each predictor is plotted as a time
 series in each multiple, showing how its estimate changed with each election.
-](./fig/fig10_9.png)
+](./fig/fig10_9_party_identification.png)
 
 ### 2.4, Data and analysis: trends in mortality rates
 

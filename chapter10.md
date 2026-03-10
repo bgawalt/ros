@@ -171,7 +171,19 @@ statistics, cluster samples, and other settings with structured data."
 
 ### 10.9, Fitting the same model to many datasets
 
-TK
+They present a precursor to multilevel modeling: just partitioning one big
+dataset into several smaller ones, and looking at the (unpooled) results all
+next to each other.
+
+I look at Figure 10.9 and just can't get much out of it.  The intercept term
+is jumping around so much, in a way that prevents me from bothering with the
+rest of the coefficients.  Does baseline rate of party identification really
+jump two to three buckets every four years?
+
+![Nine small multiples, one for each predictor included in a models predicting
+party identification.  The coefficient for each predictor is plotted as a time
+series in each multiple, showing how its estimate changed with each election.
+](./fig/fig10_9_party_identification.png)
 
 ## Exercises
 
