@@ -75,14 +75,31 @@ not interacted."
 ### 10.4, Indicator variables
 
 This goes over one-hot encoding of categorical variables, which they call
-indicator variables.  They also close by discussing index variables, where each
+indicator variables.  The `stan_glm` method picks one category as a baseline,
+and reports coefficients in terms of how much they nudge $y$ away from the
+average for that baseline category.  Put another way, a categorical predictor
+with $r$ categories produces $r-1$ binary entries in the feature vector.
+
+They also close by discussing index variables, where each
 category is associated with a real-valued scalar (in their example, you could
 have an indicator variable for what school the observation came from, and an
 index variable for the school's average household income).
 
 ### 10.5, Formulating paired or blocked designs as a regression problem
 
-TK
+They describe "paired designs," where $n$ subjects are grouped into $n/2$ pairs,
+one of each pair is given the treatment and held back as control, and the
+difference (treated subject minus control subject) within each pair is
+estimated.
+
+This can get posed as a regression over all $n$ subjects, where each subject
+gets their treatment status as an indicator variable, as well as an indicator
+for which of the $n/2$ pairs the subject was in.
+
+They don't explain why you'd do this pair design in the first place.  Their
+follow up, blocking, makes more sense -- it expands the "pair" (which has
+exactly two members) to a "block" (which can have any number of members among
+the $n$ subjects), and include group ID as an indicator variable.
 
 ### 10.6, Example: uncertainty in predicting congressional elections
 
