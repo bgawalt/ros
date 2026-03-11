@@ -195,7 +195,7 @@ Plots and computation powered by [Chapter10.ipynb](./notebooks/Chapter10.ipynb)
 > $y = b_0 + b_1x + b_2z + b_3xz + error$, with a continuous predictor $x$ and a
 > binary predictor $z$, coefficients $b = \{1, 2, -1, -2\}$, and errors drawn
 > independently from a normal distribution with mean 0 and standard deviation 3,
-> as follows. For each data point $i$, first draw $z_$i$ , equally likely to
+> as follows. For each data point $i$, first draw $z_i$ , equally likely to
 > take on the values 0 and 1. Then draw $x_i$ from a normal distribution with
 > mean $z_i$ and standard deviation 1. Then draw the error from its normal
 > distribution and compute $y_i$.
@@ -204,12 +204,35 @@ Plots and computation powered by [Chapter10.ipynb](./notebooks/Chapter10.ipynb)
 >     circles for the points with $z = 0$ and $1$, respectively.
 >
 > (b) Fit a regression predicting $y$ from $x$ and $z$ with no interaction. Make
-> a graph with the data and two parallel lines showing the fitted model.
+>     a graph with the data and two parallel lines showing the fitted model.
 > 
 > (c) Fit a regression predicting $y$ from $x$, $z$, and their interaction. Make
-> a graph with the data and two lines showing the fitted model.
+>     a graph with the data and two lines showing the fitted model.
 
-TK
+For the interaction-free model, the coefficient estimates are:
+
+coef.     | mean   | sd
+--------- | ------ | -----
+sigma     | 2.884  | 0.207
+Intercept | 0.599  | 0.425
+x         | 0.416  | 0.314
+z         | -0.946 | 0.631
+
+The parallel lines of that model look like:
+
+![Scatter plot as requested in part (b) of the question](./fig/ex10_01a_parallel.png)
+
+With the interaction, it looks quite different:
+
+coef.     | mean   | sd
+--------- | ------ | -----
+sigma     | 2.850  | 0.207
+Intercept | 0.602  | 0.424
+x         | 0.862  | 0.395
+z         | -0.334 | 0.708
+x:z       | -1.272 | 0.646
+
+![Scatter plot as requested in part (c) of the question](./fig/ex10_01b_interaction.png)
 
 ### 10.2, Regression with interactions
 
