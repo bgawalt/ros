@@ -407,12 +407,12 @@ prediction is pretty well covered, but not in an interesting way.
 
 ### 10.6, Regression models with interactions:
 
-> The folder `Beauty` contains data (use file `beauty.csv`) from Hamermesh and
-> Parker (2005) on student evaluations of instructors’ beauty and teaching
-> quality for several courses at the University of Texas. The teaching
-> evaluations were conducted at the end of the semester, and the beauty
-> judgments were made later, by six students who had not attended the classes
-> and were not aware of the course evaluations.
+> [The folder `Beauty` contains](https://github.com/avehtari/ROS-Examples/tree/master/Beauty/data)
+> data (use file `beauty.csv`) from Hamermesh and Parker (2005) on student
+> evaluations of instructors’ beauty and teaching quality for several courses at
+> the University of Texas. The teaching evaluations were conducted at the end
+> of the semester, and the beauty judgments were made later, by six students who
+> had not attended the classes and were not aware of the course evaluations.
 > 
 > (a) Run a regression using beauty (the variable `beauty`) to predict course
 >     evaluations (`eval`), adjusting for various other predictors. Graph the
@@ -426,7 +426,63 @@ prediction is pretty well covered, but not in an interesting way.
 > 
 > See also Felton, Mitchell, and Stinson (2003) for more on this topic.
 
-TK
+When I fit a simple linear model on the beauty rating, instructor age, and the
+binary indicators for gender, ethnicity, native language, and course level, I
+get coefficients:
+
+coef.          | mean   | sd
+-------------- | ------ | -----
+sigma          | 0.532  | 0.018
+Intercept      | 4.197  | 0.143
+beauty         | 0.140  | 0.033	
+female         | -0.199 | 0.052
+age            | -0.002 | 0.003
+minority       | -0.071 | 0.076
+nonenglish     | -0.274 | 0.111
+lower          | 0.098  | 0.053
+
+The number one thing to notice is that `sigma` is basically identical to the
+standard deviation of `eval` all on its own.  So the predictors are not
+explaining much of anything about evaluation scores.  (The intercept is within
+one standard error above the mean of `eval`.)
+
+That said, the beauty and gender features do seem to detect a meaningful slope.
+Language background and course level, too, but to a less certain extent. Coding
+as non-majority in either of those attributes *probably* decreases your expected
+course eval.  Teaching a lower division course probably increases it.
+
+For a teacher of average age (48 years old) who speaks English, is white, and
+teaches an upper level class, the model looks like this w.r.t. beauty and
+gender:
+
+![Big blobby cloud of (beauty, course eval) data points with two low-slope
+trendlines, one for each gender. The female trendline is parallel to and lower
+than the male trendline](./fig/ex10_06a_beauty_parallel.png)
+
+If I add an interaction term between beauty and gender, I get:
+
+coef.          | mean   | sd
+-------------- | ------ | -----
+sigma          | 0.531  | 0.017
+Intercept      | 4.184  | 0.149
+beauty         | 0.187  | 0.045	
+female         | -0.204 | 0.054
+beauty:female  | -0.101 | 0.064	
+age            | -0.002 | 0.003
+minority       | -0.043 | 0.078	
+nonenglish     | -0.295 | 0.110
+lower          | 0.092  | 0.053
+
+The coefficients for the intercept, age, language, and course level don't move
+much with the addition of the interaction term.  The coefficient for ethnicity
+probably reduced in magnitude.
+
+The real difference is to note that expected course eval increases at a greater
+rate as a function of beauty for men than it does for women:
+
+![Same big blobby cloud of (beauty, course eval) data points with two low-slope
+trendlines, one for each gender. The female trendline rises slower, and is
+everywhere lower, than the male trendline](./fig/ex10_06b_beauty_inter.png)
 
 ### 10.7, Predictive simulation for linear regression
 
