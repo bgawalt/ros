@@ -273,12 +273,14 @@ bulleted list](./fig/ex10_02.png)
 > regression to predict one from the other. Generate 1000 data points from a
 > normal distribution with mean 0 and standard deviation 1 by typing
 > `var1 <- rnorm(1000,0,1)` in R. Generate another variable in the same way
-> (call it var2). Run a regression of one variable on the other. Is the slope
+> (call it `var2`). Run a regression of one variable on the other. Is the slope
 > coefficient “statistically significant”? We do not recommend summarizing
 > regressions in this way, but it can be useful to understand how this works,
 > given that others will do so.
 
-TK
+I get a slope of -0.027, with a standard error of 0.032.  This is not
+statistically significant.  The mean estimate is within one standard error of
+zero slope.
 
 ### 10.4, Simulation study of statistical significance
 
@@ -294,20 +296,23 @@ TK
 > general, however, we prefer to initialize with NAs, because then when there is
 > a bug in the code, it sometimes shows up as NAs in the final results, alerting
 > us to the problem. Here is code to perform the simulation:
-> 
-> `  z_scores <- rep(NA, 100)`
-> `  for (k in 1:100) {`
-> `    var1 <- rnorm(1000, 0, 1)`
-> `    var2 <- rnorm(1000, 0, 1)`
-> `    fake <- data.frame(var1, var2)`
-> `    fit <- stan_glm(var2 ~ var1, data=fake)`
-> `    z_scores[k] <- coef(fit)[2] / se(fit)[2]`
-> `  }`
-> 
+
+```
+z_scores <- rep(NA, 100)
+for (k in 1:100) {
+  var1 <- rnorm(1000, 0, 1)
+  var2 <- rnorm(1000, 0, 1)
+  fake <- data.frame(var1, var2)
+  fit <- stan_glm(var2 ~ var1, data=fake)
+  z_scores[k] <- coef(fit)[2] / se(fit)[2]
+}
+```
+
 > How many of these 100 $z$-scores exceed 2 in absolute value, thus achieving
 > the conventional level of statistical significance?
 
-TK
+I got six stat-sig slopes, which is what you'd expect from a 95% confidence
+interval.
 
 ### 10.5, Regression modeling and prediction
 
