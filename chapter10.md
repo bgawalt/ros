@@ -238,17 +238,19 @@ x:z       | -1.272 | 0.646
 
 > Here is the output from a fitted linear regression of outcome $y$ on
 > pre-treatment predictor $x$, treatment indicator $z$, and their interaction:
-> 
-> `            Median MAD_SD`
-> `(Intercept) 1.2    0.2`
-> `x           1.6    0.4`
-> `z           2.7    0.3`
-> `x:z         0.7    0.5`
-> 
-> `Auxiliary parameter(s):`
-> `      Median MAD_SD`
-> `sigma 0.5 0.0`
-> 
+
+```
+            Median MAD_SD
+(Intercept) 1.2    0.2
+x           1.6    0.4
+z           2.7    0.3
+x:z         0.7    0.5
+ 
+Auxiliary parameter(s):
+      Median MAD_SD`
+sigma 0.5    0.0
+```
+
 > (a) Write the equation of the estimated regression line of $y$ on $x$ for the
 >     treatment group, and the equation of the estimated regression line of $y$
 >     on $x$ for the control group.
@@ -258,7 +260,11 @@ x:z       | -1.272 | 0.646
 >     data (using open circles for treated units and dots for controls) that are
 >     consistent with the fitted model.
 
-TK
+*  Treatment: $y = 3.9 + 2.3x$
+*  Control: $y = 1.2 + 1.6x$
+
+![Scatter plot, blue dots around each of the lines described in the above
+bulleted list](./fig/ex10_02.png)
 
 ### 10.3, Checking statistical significance
 
