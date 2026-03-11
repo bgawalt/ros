@@ -509,28 +509,6 @@ just not a very informative model!
 
 ![One green bell curve, mostly centered at zero](./fig/ex10_07b_hist_diff.png)
 
-### 10.8, How many simulation draws
-
-> Take the model from Exercise 10.6 that predicts course evaluations from beauty
-> and other predictors.
-> 
-> (a) Display and discuss the fitted model. Focus on the estimate and standard
->     error for the coefficient of beauty.
-> 
-> (b) Compute the median and mad sd of the posterior simulations of the
->     coefficient of beauty, and check that these are the same as the output
->     from printing the fit.
-> 
-> (c) Fit again, this time setting `iter = 1000` in your `stan_glm` call. Do
->     this a few times in order to get a sense of the simulation variability.
-> 
-> (d) Repeat the previous step, setting `iter = 100` and then `iter = 10`.
-> 
-> (e) How many simulations were needed to give a good approximation to the mean
->     and standard error for the coefficient of beauty?
-
-TK
-
 ### 10.9, Collinearity
 
 > Consider the elections and economy example from Chapter 7.
