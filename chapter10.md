@@ -316,7 +316,9 @@ interval.
 
 ### 10.5, Regression modeling and prediction
 
-> The folder `KidIQ` contains a subset of the children and mother data discussed
+> The
+> [folder `KidIQ`](https://github.com/avehtari/ROS-Examples/tree/master/KidIQ/)
+> contains a subset of the children and mother data discussed
 > earlier in the chapter. You have access to children’s test scores at age 3,
 > mother’s education, and the mother’s age at the time she gave birth for a
 > sample of 400 children.
@@ -340,7 +342,68 @@ interval.
 >     test scores for the next 200. Graphically display comparisons of the
 >     predicted and actual scores for the final 200 children.
 
-TK
+For `kid_score ~ mom_age`, I don't see a slope that's particularly indicative
+of a relationship one way or the other:
+
+coef.     | mean   | sd
+--------- | ------ | -----
+sigma     | 20.388 | 0.689
+Intercept | 70.891 | 8.447
+mom_age   | 0.698  | 0.370
+
+![Child's IQ Score vs. Mother's age at child's birth; all blue dots in the
+scatterplot are on integer age values](./fig/ex10_05a_age.png)
+
+I can't offer much advice as far as when to give birth if you want to maximize
+your child's IQ.  Later, I guess?  But there's nothing really going on in here.
+
+For `kid_score ~ mom_age + mom_hs`, I still see nothing special in terms of
+mother's-age-at-birth and eventual child IQ:
+
+coef.     | mean   | sd
+--------- | ------ | -----
+sigma     | 19.890 | 0.687
+Intercept | 70.398 | 8.148
+mom_age   | 0.330  | 0.362
+mom_hs    | 11.333 | 2.356
+
+![Same blue dots as above, though the ones associated with 'no high school' are
+now squares, and now with two parallel trendlines that are very flat, one for
+each of "Mom: No HS" and "Mom: Yes HS"](./fig/ex10_05b_linear.png)
+
+Including the "did mom finish high school" term just makes the age coefficient
+flatter.
+
+When we include the interaction term,
+`kid_score ~ mom_age + mom_hs + mom_age:mom_hs`, the sign has changed and the
+magnitude is close to two standard errors away from flat:
+
+coef.          | mean    | sd
+-------------- | ------- | -----
+sigma          | 19.709  | 0.671	
+Intercept      | 108.354 | 16.386
+mom_age        | -1.419  | 0.752
+mom_hs         | -38.780 | 18.701
+mom_age:mom_hs | 2.274   | 0.846
+
+![Same dots and squares as part (b), and now the No HS trend slopes down and the
+Yes HS trend slopes up](./fig/ex10_05c_inter.png)
+
+When we add in the interaction term to the age slope, the sign reverses.  Still
+a wide standard error associated with it, though.  I wouldn't make any actual
+recommendations based on this, though it's leaning towards "no HS? go early.
+yes HS? delay."
+
+If we look at posterior predictive ranges for the test set as described for
+part (d), we see a whole lotta nothin' goin' on:
+
+![A bunch of blue vertical lines with thick centers, they all run from 55 to 130
+no matter their x-value.  The x-axis is labeled "Actual Child IQ" and the y-axis
+is labeled "Predicted child IQ".](./fig/ex10_05d_predict.png)
+
+The thin lines are 95% credible intervals for a predicted observation, and the
+thick center lines are the 50% credible intervals.  The dashed line of perfect
+prediction is pretty well covered, but not in an interesting way.
 
 ### 10.6, Regression models with interactions:
 
