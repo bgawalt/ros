@@ -484,21 +484,30 @@ rate as a function of beauty for men than it does for women:
 trendlines, one for each gender. The female trendline rises slower, and is
 everywhere lower, than the male trendline](./fig/ex10_06b_beauty_inter.png)
 
+This doesn't much improve predictive power of the model, however.
+
 ### 10.7, Predictive simulation for linear regression
 
 > Take one of the models from the previous exercise.
 > 
 > (a) Instructor A is a 50-year-old woman who is a native English speaker and
-> has a beauty score of -1. Instructor B is a 60-year-old man who is a native
-> English speaker and has a beauty score of -0.5. Simulate 1000 random draws of
-> the course evaluation rating of these two instructors. In your simulation,
-> use `posterior_predict` to account for the uncertainty in the regression
-> parameters as well as predictive uncertainty.
+>     has a beauty score of -1. Instructor B is a 60-year-old man who is a
+>     native English speaker and has a beauty score of -0.5. Simulate 1000
+>     random draws of the course evaluation rating of these two instructors. In
+>     your simulation, use `posterior_predict` to account for the uncertainty in
+>     the regression parameters as well as predictive uncertainty.
 > 
 > (b) Make a histogram of the difference between the course evaluations for A
 >     and B. What is the probability that A will have a higher evaluation?
 
-TK
+Using 4,000 draws from the interaction model in 10.6(b) above:
+
+![Two largely overlapping, sort of right-skewed bell curve looking histograms](./fig/ex10_07a_hist_evals.png)
+
+There's a 42% chance Instructor A gets a higher eval than Instructor B.  It's
+just not a very informative model!
+
+![One green bell curve, mostly centered at zero](./fig/ex10_07b_hist_diff.png)
 
 ### 10.8, How many simulation draws
 
