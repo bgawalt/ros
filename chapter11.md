@@ -79,7 +79,19 @@ assumptions.
 
 ### 11.2, Plotting the data and fitted model
 
-TK
+This seems pretty redundant!  We have done this a lot already in this book!
+Novel points made:
+
+*  If you have a two-predictor model, where one is more obviously interesting
+    w.r.t. the outcome, consider plotting a few lines of the outcome vs. the
+    interesting predictor, for a few in-range values of the less-interesting
+    predictor.
+*  You can combine the previous advice with the advice of "make one plot for
+    each of the (two, implicitly, in this case) predictors."
+*  And you can reduce a $k$-predictor problem into a two-predictor problem by
+    just treating "b_0 + $\sum b_i x_i$ for the $k-1$ uninteresting $i$s" as a
+    synthesized single predictor.  A key case of this is when one of the
+    predictors is your "treatment or control" indicator predictor.
 
 ### 11.3, Residual plots
 
