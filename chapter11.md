@@ -1,8 +1,6 @@
-# Chapter 11: Chapter title
+# Chapter 11: Assumptions, diagnostics, and model evaluation
 
 [(Return to README)](./README.md)
-
-lorem epsom
 
 ## Subsection rundown
 
