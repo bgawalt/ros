@@ -2,11 +2,80 @@
 
 [(Return to README)](./README.md)
 
+Here come a bunch of different plots you can make to see what the data is doing
+to your model coefficients.  They go out of their way in the intro here to say
+this is a subset of checks you need to do, and not even the most important
+subset. "Some of the most important assumptions rely on the researcher's
+knowledge of the subject area and may not be testable from the data alone."
+
 ## Subsection rundown
 
 ### 11.1, Assumptions of regression analysis
 
-TK
+In decreasing order of importance:
+
+#### Validity
+
+Does the data you have, align with the question you want to answer?
+
+*  the outcome measure should accurately reflect the phenomenon of interest,
+*  the model should include all relevant predictors,
+*  and the model should generalize to the cases to which it will be applied.
+
+#### Representativeness
+
+The sample should be representative of the population of interest, and it's
+particularly crucial that the sampled outcomes look the the general distribution
+of those outcome values in the overall population.
+
+"Selection on $x$ does not interfere with inferences from the regression model,
+but selection on $y$ does."  This is not exactly true.  If the relationship
+is nonlinear, like $y \propto \sqrt{x}$, then a linear fit will depend heavily
+on what slice of $x$ values wind up in your sample.
+
+#### Additivity and linearity
+
+They mention that you can try some simple transformations of the predictors
+or output, but that really you just need more data to add nonlinear dynamics
+to the model.
+
+#### Independence of errors
+
+"The simple regression model assumes that the errors from the prediction line
+are independent, an assumption that is violated in time series, spatial, and
+multilevel settings."
+
+#### Equal variance of errors
+
+If you know this is a problem, and how it affects different observations, you
+can use the weighted least squares approach described last chapter.  It
+definitely makes probabilistic prediction harder.
+
+#### Normality of errors
+
+They claim "the assumption of normality is typically barely important at all."
+I think asymmetric noise would definitely yield incorrect coefficient estimates,
+and we've done some synthetic data generation (like in Exercise 8.4) where the
+noise distribution yields different max-likelihood estimates.
+
+#### Failures of the assumptions
+
+*  Validity problems? Try a measurement error model
+*  Unrepresentative data? Try a selection model
+*  Non-additivity or non-linearity? Try those data transforms as mentioned
+*  Dependence between observed values? Try correlated errors or latent variable
+    models
+*  And there are modeling options for heteroscedasticity and non-normal error
+    distribution, too.
+
+You can also just go back and get better/richer data.  Or just trim your
+research question down to whatever makes this data aligned.
+
+#### Causal inference
+
+To turn a regression coefficient into a causal prediction of "what happens to
+the outcome if I adjust this input", you need to take on even further
+assumptions.
 
 ### 11.2, Plotting the data and fitted model
 
