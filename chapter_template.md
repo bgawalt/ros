@@ -1,4 +1,4 @@
-# Chapter K: Chapter title
+# Chapter K: Assumptions, diagnostics, and model evaluation
 
 [(Return to README)](./README.md)
 
