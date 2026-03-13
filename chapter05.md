@@ -38,7 +38,7 @@ birth type, then flip the coin for number of girls born."
 
 ![Figure 5.1, "Histogram of 1000 simulated values for the number of girls born
 in a hospital from 400 births, as simulated from the model that includes the
-possibility of twins."](./fig/fig05_01_girls_w_twins.png)
+possibility of twins."](./fig/part1/fig05_01_girls_w_twins.png)
 
 Kind of a missed opportunity to overlay the with/without twin adjustment
 simulations....
@@ -151,11 +151,11 @@ Plots and computation powered by [Chapter05.ipynb](./notebooks/Chapter05.ipynb)
 > player will take and the proportion of shots that are successes.
 
 ![Histogram for part (b), most of the mass is at 4 or below, but it decays
-steadily until around 12 shots, and doesn't still entirely until 16](./fig/ex05_01_basket_hist.png)
+steadily until around 12 shots, and doesn't still entirely until 16](./fig/part1/ex05_01_basket_hist.png)
 
 ![Scatterplot for part (c), I added jitter noise, but the success rate just
 rises mechanically like a hyperbola headed for an asymptote of 1, though it
-doesn't get that close, since the scatter plot points peter out after around 12](./fig/ex05_01_basket_scatter.png)
+doesn't get that close, since the scatter plot points peter out after around 12](./fig/part1/ex05_01_basket_scatter.png)
 
 ### 5.2, Continuous probability simulation
 
@@ -210,7 +210,7 @@ Here's that overlaying the histogram of sums:
 ![A light blue histogram, x axis running from 0 to 20, where all the mass
 is between 5 and 15, and most of the mass is between 7.5 and 12.5, like a bell
 curve.  An actual normal distribution, mean 10, variance 5/3, is overlain in
-a red dotted line.](./fig/ex05_04_central_limit_thm.png)
+a red dotted line.](./fig/part1/ex05_04_central_limit_thm.png)
 
 
 ### 5.5, Distribution of averages and differences
@@ -244,7 +244,7 @@ so:
 $$\frac{1}{100}\sum_{i=1}^{100} x_i^{(m)} - \frac{1}{100}\sum_{i=1}^{100} x_i^{(w)} ~ N(69.1 - 63.7, \sqrt{0.29^2 + 0.27^2}) = N(5.4, 0.3962)$$
 
 ![A red histogram shaped like a bell curve, with the actual bell curve laid
-over top of it.](./fig/ex05_05_diff_avg_height.png)
+over top of it.](./fig/part1/ex05_05_diff_avg_height.png)
 
 ### 5.6, Propagation of uncertainty
 
@@ -265,7 +265,7 @@ From 10,000 simulations, using a truncated normal for the market sizes:
 *  95% coverage: -$110.1K to $570.8
 
 ![A green histogram shaped like a bell curve, though slightly bent to have
-more mass on the right-hand-side.](./fig/ex05_06_market_opportunity.png)
+more mass on the right-hand-side.](./fig/part1/ex05_06_market_opportunity.png)
 
 ### 5.7, Coverage of confidence intervals
 
@@ -282,12 +282,12 @@ of coverage of confidence intervals: the horizontal line shows the true
 parameter value, and dots and vertical lines show estimates and confidence
 intervals obtained from 100 random simulations from the sampling distribution.
 If the model is correct, 50% of the 50% intervals and 95% of the 95% intervals
-should contain the true parameter value, in the long run.](./fig/fig04_2_confidence_intervals.png)
+should contain the true parameter value, in the long run.](./fig/part1/fig04_2_confidence_intervals.png)
 
 And here's my reconstruction:
 
 ![Very similar chart to Fig 4.2 immmediately above, now with the coverage
-intervals and estimate markers in blue](./fig/ex05_07_coverage.png)
+intervals and estimate markers in blue](./fig/part1/ex05_07_coverage.png)
 
 ### 5.8, Coverage of confidence intervals
 
@@ -358,7 +358,7 @@ place.  Which is probably why the authors wrote the exercise this way.
 When the standard error on effectiveness is 1.0:
 
 ![Big blue cloud of uncorrelated dots, the x axis fuzzes from -500 to 1500,
-the y-axis fuzzes from 0 to 6](./fig/ex05_10_cost_effectiveness_se1.png)
+the y-axis fuzzes from 0 to 6](./fig/part1/ex05_10_cost_effectiveness_se1.png)
 
 *  Mean ratio: 238.533
 *  50% interval: 109.851 to 318.179
@@ -367,7 +367,7 @@ the y-axis fuzzes from 0 to 6](./fig/ex05_10_cost_effectiveness_se1.png)
 When the standard error on effectiveness increases to 2.0:
 
 ![Big blue cloud of uncorrelated dots, very similar to above, the x axis fuzzes
-from -500 to 1500, the y-axis now fuzzes from -2 to 10](./fig/ex05_10_cost_effectiveness_se2.png)
+from -500 to 1500, the y-axis now fuzzes from -2 to 10](./fig/part1/ex05_10_cost_effectiveness_se2.png)
 
 *  Mean ratio: 124.386
 *  50% interval: 63.576 to 308.149

@@ -98,7 +98,7 @@ distribution of their Bayesian inference of the economy-election dataset to
 show how there's a tendency for the intercept to be high when the slope is low,
 and vice versa.  Both kinds of line do an okay job of fitting the data.
 
-![Fig 8.1 and 8.2 from ROS](./fig/fig08_1_2_uncertainty_ellipse.png)
+![Fig 8.1 and 8.2 from ROS](./fig/part2/fig08_1_2_uncertainty_ellipse.png)
 
 There's no description, right now, of where the standard errors come from in
 Figure 8.1.
@@ -218,7 +218,7 @@ the top left and top right corners of the plot.  The right plot is titled
 "Slope fixed at 3.1" and has an x-axis labeled "Intercept" that goes from 40 to
 52.  Its plot is a green convex parabola that has a minimum at (46.2, 200), and
 its max values in the plot are around an RSS of 800 at the edges
-](./fig/ex08_01_rss_sweep.png)
+](./fig/part2/ex08_01_rss_sweep.png)
 
 ### 8.2, Maximum likelihood
 
@@ -235,7 +235,7 @@ sweeps of slope and intercept, with the other parameters frozen at their max
 likelihood estimates.  The third plot is not quite a parabola, it's a sweep of
 sigma from 2 to 5.  It still has one maximum point, at the value derived from
 the chapter equations as prescribed in the problem text.
-](./fig/ex08_02_loglikelihood.png)
+](./fig/part2/ex08_02_loglikelihood.png)
 
 ### 8.3, Least absolute deviation
 
@@ -273,13 +273,13 @@ with 2.4% income growth but only a 44.6% incumbent party vote share:
 
 ![The Hibbs election scatterplot with two similar lines of best fit overlain; 
 for OLS, y = 46.2 + 3.1x; for LAD, y = 46.0 + 3.5x
-](./fig/ex08_03_hibbs_lad_ols.png)
+](./fig/part2/ex08_03_hibbs_lad_ols.png)
 
 Here's the slope and intercept sweeps, just like the previous two exercises:
 
 ![Two plots, convex and somewhat parabola-like but with weird kinks like bent
 coat hangers, that help show how the LAD estimates are at a global minimum of
-best fit for the Hibbs data.](./fig/ex08_03_lad_minimum.png)
+best fit for the Hibbs data.](./fig/part2/ex08_03_lad_minimum.png)
 
 I can't account for those wonky shapes.  I believe it to be piecewise linear,
 but I haven't checked.
@@ -306,7 +306,7 @@ no-man's-land between the two $x = 10$ points.  I dunno?  Not great?
 the integers 1 to 10.  The y values from x=1 to x=9 are all 9.  Then there's
 two dots at x=10, one with y=1 and one y=10.  The OLS line slopes down,
 y ~ 10 - 0.3x.  The LAD line is perfectly horizontal at y ~ 9 + 0x.
-](./fig/ex08_04_lad_ols_diff.png)
+](./fig/part2/ex08_04_lad_ols_diff.png)
 
 In this way, LAD shows resistance to "outliers," if that's what you want to call
 whatever's happening at $x = 10$ in my fake data here.
@@ -320,7 +320,7 @@ The right-most point has an $x$ value farthest from $\bar{x}$ and so it has the
 most influence on the slope parameter:
 
 ![The scatterplot from the text book with a red arrow pointing at the right most
-data point labeling it "this one".](./fig/ex08_05_influence.png)
+data point labeling it "this one".](./fig/part2/ex08_05_influence.png)
 
 ### 8.6, Influence of individual data points
 
@@ -341,13 +341,13 @@ $\frac{|x_i - \bar{x}|}{\sum (x_i - \bar{x})^2}$:
 
 ![Blue dots in a scatterplot that track a v-shaped absolute value function
 centered at x = 3.06, maxing out at 0.08 at its edges
-](./fig/ex08_06a_hibbs_influence.png)
+](./fig/part2/ex08_06a_hibbs_influence.png)
 
 And here's the $n$ different slope parameters you get by adding 1 to each $y_i$
 in turn:
 
 ![Green dots on a straight line that range from 2.98 to 3.14.
-](./fig/ex08_06b_hibbs_add1.png)
+](./fig/part2/ex08_06b_hibbs_add1.png)
 
 You can see that the deviation from the original slope (the dashed black line)
 is the same as the absolute influence in the blue chart.

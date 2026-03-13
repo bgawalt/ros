@@ -183,7 +183,7 @@ jump two to three buckets every four years?
 ![Nine small multiples, one for each predictor included in a models predicting
 party identification.  The coefficient for each predictor is plotted as a time
 series in each multiple, showing how its estimate changed with each election.
-](./fig/fig10_9_party_identification.png)
+](./fig/part2/fig10_9_party_identification.png)
 
 ## Exercises
 
@@ -220,7 +220,7 @@ z         | -0.946 | 0.631
 
 The parallel lines of that model look like:
 
-![Scatter plot as requested in part (b) of the question](./fig/ex10_01a_parallel.png)
+![Scatter plot as requested in part (b) of the question](./fig/part2/ex10_01a_parallel.png)
 
 With the interaction, it looks quite different:
 
@@ -232,7 +232,7 @@ x         | 0.862  | 0.395
 z         | -0.334 | 0.708
 x:z       | -1.272 | 0.646
 
-![Scatter plot as requested in part (c) of the question](./fig/ex10_01b_interaction.png)
+![Scatter plot as requested in part (c) of the question](./fig/part2/ex10_01b_interaction.png)
 
 ### 10.2, Regression with interactions
 
@@ -264,7 +264,7 @@ sigma 0.5    0.0
 *  Control: $y = 1.2 + 1.6x$
 
 ![Scatter plot, blue dots around each of the lines described in the above
-bulleted list](./fig/ex10_02.png)
+bulleted list](./fig/part2/ex10_02.png)
 
 ### 10.3, Checking statistical significance
 
@@ -352,7 +352,7 @@ Intercept | 70.891 | 8.447
 mom_age   | 0.698  | 0.370
 
 ![Child's IQ Score vs. Mother's age at child's birth; all blue dots in the
-scatterplot are on integer age values](./fig/ex10_05a_age.png)
+scatterplot are on integer age values](./fig/part2/ex10_05a_age.png)
 
 I can't offer much advice as far as when to give birth if you want to maximize
 your child's IQ.  Later, I guess?  But there's nothing really going on in here.
@@ -369,7 +369,7 @@ mom_hs    | 11.333 | 2.356
 
 ![Same blue dots as above, though the ones associated with 'no high school' are
 now squares, and now with two parallel trendlines that are very flat, one for
-each of "Mom: No HS" and "Mom: Yes HS"](./fig/ex10_05b_linear.png)
+each of "Mom: No HS" and "Mom: Yes HS"](./fig/part2/ex10_05b_linear.png)
 
 Including the "did mom finish high school" term just makes the age coefficient
 flatter.
@@ -387,7 +387,7 @@ mom_hs         | -38.780 | 18.701
 mom_age:mom_hs | 2.274   | 0.846
 
 ![Same dots and squares as part (b), and now the No HS trend slopes down and the
-Yes HS trend slopes up](./fig/ex10_05c_inter.png)
+Yes HS trend slopes up](./fig/part2/ex10_05c_inter.png)
 
 When we add in the interaction term to the age slope, the sign reverses.  Still
 a wide standard error associated with it, though.  I wouldn't make any actual
@@ -399,7 +399,7 @@ part (d), we see a whole lotta nothin' goin' on:
 
 ![A bunch of blue vertical lines with thick centers, they all run from 55 to 130
 no matter their x-value.  The x-axis is labeled "Actual Child IQ" and the y-axis
-is labeled "Predicted child IQ".](./fig/ex10_05d_predict.png)
+is labeled "Predicted child IQ".](./fig/part2/ex10_05d_predict.png)
 
 The thin lines are 95% credible intervals for a predicted observation, and the
 thick center lines are the 50% credible intervals.  The dashed line of perfect
@@ -457,7 +457,7 @@ gender:
 
 ![Big blobby cloud of (beauty, course eval) data points with two low-slope
 trendlines, one for each gender. The female trendline is parallel to and lower
-than the male trendline](./fig/ex10_06a_beauty_parallel.png)
+than the male trendline](./fig/part2/ex10_06a_beauty_parallel.png)
 
 If I add an interaction term between beauty and gender, I get:
 
@@ -482,7 +482,7 @@ rate as a function of beauty for men than it does for women:
 
 ![Same big blobby cloud of (beauty, course eval) data points with two low-slope
 trendlines, one for each gender. The female trendline rises slower, and is
-everywhere lower, than the male trendline](./fig/ex10_06b_beauty_inter.png)
+everywhere lower, than the male trendline](./fig/part2/ex10_06b_beauty_inter.png)
 
 This doesn't much improve predictive power of the model, however.
 
@@ -502,12 +502,12 @@ This doesn't much improve predictive power of the model, however.
 
 Using 4,000 draws from the interaction model in 10.6(b) above:
 
-![Two largely overlapping, sort of right-skewed bell curve looking histograms](./fig/ex10_07a_hist_evals.png)
+![Two largely overlapping, sort of right-skewed bell curve looking histograms](./fig/part2/ex10_07a_hist_evals.png)
 
 There's a 42% chance Instructor A gets a higher eval than Instructor B.  It's
 just not a very informative model!
 
-![One green bell curve, mostly centered at zero](./fig/ex10_07b_hist_diff.png)
+![One green bell curve, mostly centered at zero](./fig/part2/ex10_07b_hist_diff.png)
 
 ### 10.9, Collinearity
 

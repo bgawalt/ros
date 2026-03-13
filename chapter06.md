@@ -81,7 +81,7 @@ heights:
 Height (inches) on the y-axis.  There's a wide cloud of dots in the middle,
 tilted up at about 45 degrees.  The regression model predictive line has a
 noticeably shallower slope than that, more like 30 degrees
-upward.](./fig/fig06_3.png)
+upward.](./fig/part2/fig06_3.png)
 
 That line of best fit is not what you'd get if you used principal component
 analysis to find the direction in 2D space that captures most of the variance.
@@ -93,7 +93,7 @@ Galton illustrated this with this famous oval:
 oval drawn like you would for the original scatterplot's PCA/covariance, plus
 lines for predicting mother from daughter, predicting daughter from mother, and
 the actual major axis of the covariance
-oval.](./fig/ch06_galton_smoothed_correlation.png)
+oval.](./fig/part2/ch06_galton_smoothed_correlation.png)
 
 ### 6.5, The paradox of regression to the mean
 
@@ -163,7 +163,7 @@ across the bottom 2/3rds of the space.  At right, the title reads:
 "Slope: [-0.96, -0.87]; Intercept: [79.0, 83.9]", the blue dots are labeled
 "N = 35" and are on a tight stripe across the space.  Both have lines
 across them indiciating their linear regression fit and each fit has a wider
-pale red stripe encoding some of the model uncertainty.](./fig/ex06_2_demo_regression.png)
+pale red stripe encoding some of the model uncertainty.](./fig/part2/ex06_2_demo_regression.png)
 
 ### 6.3, Variation, uncertainty, and sample size
 
@@ -178,7 +178,7 @@ sizes (each is its own resampling, they aren't telescoping sets):
 grid; the uncertainty around the line of best fit gets narrower.  Slope
 uncertainty goes: [0.11, 0.4] at n = 50, [0.22, 0.43] at n = 100, [0.22, 0.43]
 at n = 200, and [0.21, 0.32] at n = 400.  Intercept uncertainty goes [23.6, 39.2],
-[20.5, 33.4], [24.4, 31.8], [27.6, 33.9]](./fig/ex06_3_larger_samples.png)
+[20.5, 33.4], [24.4, 31.8], [27.6, 33.9]](./fig/part2/ex06_3_larger_samples.png)
 
 ### 6.4, Simulation study
 
@@ -197,7 +197,7 @@ samples (it is).
 ![Two side-by-side semilog plots.  At left, slope's y-axis goes from 0 to 0.8;
 its initial uncertainty is [0.2, 0.8] and slowly tightens to [0.21, 0.27].
 At right, intercept's y-axis goes from just below 0 to 45; its initial
-uncertainty is [0, 34] tightening to [29, 31].](./fig/ex06_4_uncertainty.png)
+uncertainty is [0, 34] tightening to [29, 31].](./fig/part2/ex06_4_uncertainty.png)
 
 ### 6.5, Regression prediction and averages
 
@@ -254,7 +254,7 @@ Graphically:
 ![A football-shaped cloud of light scatterplot dots, with Mother's Height on
 the x-axis and Daughter's Height on the y-axis.  Both axes run from 50 in. to
 75 in, though most of the dots are between 55 and.  The three slope-intercept
-lines from the table are drawn, in cyan, yellow, and magenta.](./fig/ex06_6_mother_daughter.png)
+lines from the table are drawn, in cyan, yellow, and magenta.](./fig/part2/ex06_6_mother_daughter.png)
 
 ### 6.7, Regression to the mean
 
@@ -287,7 +287,7 @@ and "... for 2024" (y axis), both running from 2^4 to 2^9.  The 739 blue dots
 representing each player-performance are uniformly spread, though they make
 a kind of acute isoceles triangle shape, point northeast -- narrowing by a
 factor of three (again, log scale) between low-score and high-score regions.
-A red line is overlain labeled "log(y) ~ 1.8 + 0.59 log(x)](./fig/ex06_07_nfl_idp.png)
+A red line is overlain labeled "log(y) ~ 1.8 + 0.59 log(x)](./fig/part2/ex06_07_nfl_idp.png)
 
 Important to note that the exercise here is loading the dice.  It explicitly
 instructs students to standardize both variables to zero mean and unit
@@ -339,4 +339,4 @@ praised group saw an average change of -0.6 points.
 ![A rectangle-turned-diagonal stripe of scatterplot points, colored as
 instructed for this exercise.  X- and y-axes run from 0 to 10 and are labelled
 "First/Second maneuver score".  There is a dashed cyan line denoting the linear
-model fit.](./fig/ex06_8_fake_pilots.png)
+model fit.](./fig/part2/ex06_8_fake_pilots.png)

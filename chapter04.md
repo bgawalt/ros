@@ -109,7 +109,7 @@ of coverage of confidence intervals: the horizontal line shows the true
 parameter value, and dots and vertical lines show estimates and confidence
 intervals obtained from 100 random simulations from the sampling distribution.
 If the model is correct, 50% of the 50% intervals and 95% of the 95% intervals
-should contain the true parameter value, in the long run.](./fig/fig04_2_confidence_intervals.png)
+should contain the true parameter value, in the long run.](./fig/part1/fig04_2_confidence_intervals.png)
 
 #### Standard error and confidence interval for a proportion when $y = 0$ or $y = n$
 
@@ -412,7 +412,7 @@ Just to get it out of the way, one of the bigger XKCD's is about this.
 ![Scientists are asked to study effects of jelly beans on acne; they find no
 effect; they're told to look for effects among particular colors of jelly bean;
 they find nothing 19 times and do find one for green jelly beans; the newspaper
-headlines freakout](./fig/ch04_a_xkcd_jellybeans.png)
+headlines freakout](./fig/part1/ch04_a_xkcd_jellybeans.png)
 
 The authors want to talk about the subtler variant of this.  Not just crude
 data dredging, not just malice-aforethought $p$-hacking.  Instead, it's that
@@ -454,7 +454,7 @@ which the estimated effect would pass a $p$ < 0.05 test are in red.  The
 negative effect tail is a Type S error, which has a 24% chance of arising under
 low power like this.  The positive effect tail is a Type M error: in order to
 have the proper sign and meet statsig, the estimate must be over 9 times larger
-than the true effect.](./fig/ch04_b_power_006.png)
+than the true effect.](./fig/part1/ch04_b_power_006.png)
 
 The book states this as:
 

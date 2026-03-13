@@ -37,7 +37,7 @@ everything up.
 mostly between 45 and 60.  The x-axis of this probability mass function plot is
 labeled "Clinton share of the two-party vote."  The area under the curve
 starting from 50% and heading right is shaded grey and labeled "Predicted 72%
-chance of Clinton victory."](./fig/fig07_3.png)
+chance of Clinton victory."](./fig/part2/fig07_3.png)
 
 *  "Why not instead use the economic data to directly predict who wins the
     election?"
@@ -72,7 +72,7 @@ linear regression!  Like
 [all of these common statistical tests:](https://lindeloev.github.io/tests-as-linear/)
 
 !["Cheat sheet" of how many statistical tests are actually linear models, from
-the above lindeloev.github link](./fig/ch07_linear_tests_cheat_sheet.png)
+the above lindeloev.github link](./fig/part2/ch07_linear_tests_cheat_sheet.png)
 
 This section introduces the jargon "indicator variable, which is a predictor
 that equals 1 or 0 to indicate whether a data point falls into a specified
@@ -114,12 +114,12 @@ by a straight line.  I will just look up the inflation data and find out:
 
 ![Two scatterplot series regressing incumbent party vote share in presidential
 elections against recent changes in personal income, with (blue) and without
-(red) adjusting for inflation](./fig/ex07_1a_inflation.png)
+(red) adjusting for inflation](./fig/part2/ex07_1a_inflation.png)
 
 It's a worse fit:
 
 ![Same pair of red and blue scatterplots, now with linear models fit to them and
-displayed as dashed lines](./fig/ex07_1b_models.png)
+displayed as dashed lines](./fig/part2/ex07_1b_models.png)
 
 The coefficient of determination (i.e., share of explained variance) is 58% when
 adjusting for inflation and only 3% when you don't.
@@ -147,7 +147,7 @@ LinRegress results:
 *  **PValue:** 0.00
 
 ![Scatterplot of fake data as requested in the problem, along with the line of
-best fit overlaid](./fig/ex07_2_fake_data.png)
+best fit overlaid](./fig/part2/ex07_2_fake_data.png)
 
 ### 7.3, Fake-data simulation and fitting the wrong model
 
@@ -178,7 +178,7 @@ LinRegress results:
 *  **PValue:** 0.78
 
 ![Scatterplot of a convex parabola and a dashed line that crosses it about a
-third the way up its full height](./fig/ex07_3_fake_parabola.png)
+third the way up its full height](./fig/part2/ex07_3_fake_parabola.png)
 
 ### 7.5, Convergence as sample size increases
 
@@ -202,7 +202,7 @@ $n$ | $\hat{b}$ | std. err
 ![A trio of line plots, with the y axis "Slope estimate, +/- 1 std err" between
 2.4 and 4.9, and the x-axis "Sample size" on a log scale from 7 to 3x10^4. 
 The three lines form a green band that stars very wide, from 3.1 to 4.8, and
-narrows to almost exactly 3](./fig/ex07_5_fake_data_slopes.png)
+narrows to almost exactly 3](./fig/part2/ex07_5_fake_data_slopes.png)
 
 ### 7.6, Formulating comparisons as regression models
 
@@ -238,7 +238,7 @@ of freedom.
 > context?
 
 ![The requested scatterplot in blue with red line of best fit,
-`y ~ 1.9 + 3.0x`](./fig/ex07_7.png)
+`y ~ 1.9 + 3.0x`](./fig/part2/ex07_7.png)
 
 *  **Slope:** 3.00
 *  **Slope stderr:** 0.08
@@ -280,7 +280,7 @@ Intercept coverage rate | 93.2% | 95%
 *  **Coef. of Determination:**  0.58
 
 ![The economy-elections plot, but with horizontal and vertical axes transposed.
-The line of best fit is `y ~ -8 + 0.2x`](./fig/ex07_9_retrocast.png)
+The line of best fit is `y ~ -8 + 0.2x`](./fig/part2/ex07_9_retrocast.png)
 
 There's obviously no causal relationship here. The $y$ can't be caused by $x$,
 since we don't know the election outcome (or even candidates) when the income

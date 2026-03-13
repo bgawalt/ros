@@ -106,7 +106,7 @@ distribution:
 where the distribution looks like a hill with a somewhat gently sloped mesa
 between 65 and 70 inches, and then bell curve tails outside that range.
 Caption: "Heights of all adults in the United States, which have the form of a
-mixture of two normal distributions, one for each sex."](./fig/fig03_06_height_distribution.png)
+mixture of two normal distributions, one for each sex."](./fig/part1/fig03_06_height_distribution.png)
 
 One outsized factor, sex, pushes it towards bimodality. But the
 distribution of *the sample mean* of heights can still be normal.  Sometimes my
@@ -156,7 +156,7 @@ distribution.  That's "pulling in"?
 distribution)" and "weights of men (lognormal distribution)". Caption: "Weights
 of men (which approximately follow a lognormal distribution, as predicted from
 the Central Limit Theorem from combining many small multiplicative factors),
-plotted on the logarithmic and original scales."](./fig/fig03_08_lognormal_weight.png)
+plotted on the logarithmic and original scales."](./fig/part1/fig03_08_lognormal_weight.png)
 
 Also, I get that you can't get into every detail, but, a sentence about why
 height is an aggregate of many additive factors but weight is and aggregate of
@@ -338,7 +338,7 @@ with voting-in-favor rates below that unweighted average.
 orange, it's N(-3, 4), it's very wide and its vertical max is of height 0.1;
 (2) the middle one is blue, it's N(0, 1), its vertical max is of height 0.4;
 (3) the rightmost one is green, it's N(6, 0.6), its vertical max is of height
-0.7](./fig/ex03_3_normals.png)
+0.7](./fig/part1/ex03_3_normals.png)
 
 ### 3.4, Probability distributions
 
@@ -347,7 +347,7 @@ orange, it's N(-3, 4), it's very wide and its vertical max is of height 0.1;
 ![Blue bar chart of a Poisson distribution, y-axis labelled "Probability" and
 x-axis labelled "Count", rises quickly from prob. of 0.03 at count 0 to a peak
 prob. of 0.21 at count 3, then decays to nothing by count 10 and 11, where the
-plot ends.](./fig/ex03_4_poisson.png)
+plot ends.](./fig/part1/ex03_4_poisson.png)
 
 ### 3.5 Probability distributions
 
@@ -357,7 +357,7 @@ plot ends.](./fig/ex03_4_poisson.png)
 ![Purple bar chart of a binomial distribution, y-axis labelled "Probability" and
 x-axis labelled "Count", rises from prob. of zero at count 0 to a peak prob. of
 0.19 at count 6, then decays to nothing by count 13 and 14, though the plot goes
-all the way to a count of 20](./fig/ex03_5_binom.png)
+all the way to a count of 20](./fig/part1/ex03_5_binom.png)
 
 ### 3.6 Linear transformations
 
@@ -386,7 +386,7 @@ The range of scores is now $[47.5, 122.5]$.
 segment represents the linear transform for the graded tests, it has large blue
 circles capping its endpoints of (0, 47.5) and (50, 122.5).  A red circle
 labels the mean test score at (35, 100), and two orange squares mark the mean
-plus/minus one standard deviation at (25, 85) and (45, 115).](./fig/ex03_6_linear_transform.png)
+plus/minus one standard deviation at (25, 85) and (45, 115).](./fig/part1/ex03_6_linear_transform.png)
 
 ### 3.7 Linear transformations
 
@@ -412,7 +412,7 @@ Like the good book says, the last shall be first, and the first shall be last.
 endcaps at (0, 152.5) and (50, 77.5). The blue and purple line segments
 intersect at the red mean circle, (35, 100). Two more orange squares mark the
 mean plus/minus one standard deviation for the bad transform at (25, 115) and
-(45, 85).](./fig/ex03_7_bad_transform.png)
+(45, 85).](./fig/part1/ex03_7_bad_transform.png)
 
 ### 3.8 Correlated random variables
 

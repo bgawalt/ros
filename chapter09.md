@@ -239,7 +239,7 @@ and "... for 2024" (y axis), both running from 2^4 to 2^9.  The 739 blue dots
 representing each player-performance are uniformly spread, though they make
 a kind of acute isoceles triangle shape, point northeast -- narrowing by a
 factor of three (again, log scale) between low-score and high-score regions.
-A red line is overlain labeled "log(y) ~ 1.8 + 0.59 log(x)](./fig/ex06_07_nfl_idp.png)
+A red line is overlain labeled "log(y) ~ 1.8 + 0.59 log(x)](./fig/part2/ex06_07_nfl_idp.png)
 
 I fit a regression in Bambi to this, and evaluated the predictive posterior
 distribution for players at the 25th, 50th, and 75th percentile IDP level
@@ -251,7 +251,7 @@ from 2 to 7.  All three histograms are nice bell curves, with what appears to be
 the same standard deviation; all mass is within 1.2 x-axis units of the mean.
 The top one, in blue, for a 25%-ile 2023 player, has a mean of 4.1.  The middle,
 in green, for the median '23 player, has a mean of 4.45. The bottom, in red,
-for a 75%-ile player, has mean 4.7.](./fig/ex09_02_idp_log.png)
+for a 75%-ile player, has mean 4.7.](./fig/part2/ex09_02_idp_log.png)
 
 If I redo the histogram after transforming the sampled predictions to the linear
 scale, you can see that the upside of drafting a 75%-ile player is in that
@@ -262,7 +262,7 @@ histograms are the above three, exponentiated back to a linear scale.  The
 shared x-axis is labeled "Predicted IDP Score, 2024" and runs from 0 to 400.
 The histograms no longer resemble each other.  They're all heavy tailed, but
 the tail gets much heavier as you go from 25% to 50% to 75%ile player.
-](./fig/ex09_02_idp_linear.png)
+](./fig/part2/ex09_02_idp_linear.png)
 
 ### 9.3, Uncertainty in the predicted expectation and the forecast
 

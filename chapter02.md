@@ -84,7 +84,7 @@ multiple shows a different dynamic between the x-value (just called "Value") and
 what the model recovers: (1) perfect monotonicity between x and y value; 
 (2) one fuzzy and one sharp cutpoint; (3) monotonic with one outlier; (4) only
 1's and 3's in the y values; (5) almost only 3's; (6) erratic/noisy data
-](./fig/fig15_6.png)
+](./fig/part3/fig15_6.png)
 
 *  Here's Figure 10.9, used as an example of "graph\[ing\] sets of estimated
    parameters."  I think I would try to come up with a smaller, discrete set of
@@ -93,7 +93,7 @@ what the model recovers: (1) perfect monotonicity between x and y value;
 ![Nine small multiples, one for each predictor included in a models predicting
 party identification.  The coefficient for each predictor is plotted as a time
 series in each multiple, showing how its estimate changed with each election.
-](./fig/fig10_9_party_identification.png)
+](./fig/part2/fig10_9_party_identification.png)
 
 ### 2.4, Data and analysis: trends in mortality rates
 
@@ -114,7 +114,7 @@ apart in Figure 2.11(c):
 non-Hispanic white people. One is the raw death rate, the other is an expected
 death rate you'd see based on the age distribution of peopl 45-54 each year.
 They have identical upward trends starting from around 2003.
-](./fig/fig02_11c.png)
+](./fig/part2/fig02_11c.png)
 
 Every time the lines cross, I have to guess which one is going which direction.
 I can decipher it using Figs. 2.11(a) and (b), but like: just use two distinct
@@ -142,7 +142,7 @@ Ta-daaaa:
 
 ![26 time series of the popularity of last letters among girls' names from
 1880 to 2010; the top five are A, E, N, Y, and H, the only ones to finish
-above 5% in the most recent yaer.](./fig/ex02_3.png)
+above 5% in the most recent yaer.](./fig/part1/ex02_3.png)
 
 ### 2.7, Reliability and validity
 
@@ -178,23 +178,23 @@ mortality", for the years 1968-1978; 1979-1998; and 1999-2016.
 Mortality nationwide:
 
 ![Emphysema mortality for the full US, 1968-2016
-](./fig/ex02_9_emphysema_all.png)
+](./fig/part1/ex02_9_emphysema_all.png)
 
 Mortality by sex:
 
 ![Emphysema mortality for the full US, 1968-2016, broken down by sex into 'M'
 or 'F'
-](./fig/ex02_9_emphysema_sex.png)
+](./fig/part1/ex02_9_emphysema_sex.png)
 
 Mortality by age (as bucketed by the CDC):
 
 Mortality by age:
 
 ![Emphysema mortality for the full US, broken down by age bucket, 1968-2016
-](./fig/ex02_9_emphysema_age.png)
+](./fig/part1/ex02_9_emphysema_age.png)
 
 Mortality by age and region:
 
 ![Four small multiples of emphysema mortality, one for each of four major
 census regions (west, midwest, northeast, south), broken down within each by
-age bucket, 1968-2016](./fig/ex02_9_emphysema_region_age.png)
+age bucket, 1968-2016](./fig/part1/ex02_9_emphysema_region_age.png)
