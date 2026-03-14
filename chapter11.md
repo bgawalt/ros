@@ -95,19 +95,76 @@ Novel points made:
 
 ### 11.3, Residual plots
 
-TK
+Important: plot residuals vs. predicted values, *not* vs. actual values.
+"\[F\]rom the regression model, the errors $\epsilon_i$ should be independent of
+the predictors $x_i$, but not the data $y_i$."  They use a fake data simulation
+where we're in total control and know we got the answer right, and show that
+residual-vs-output is still painting an alarming picture.
 
 ### 11.4, Comparing data to replications from a fitted model
 
-TK
+They demonstrate a case where the observed data has *something* going on other
+than sampling from a normal distribution.  It's obvious from just the histogram
+of the data that the minimum value is much, much lower than a normal
+distribution is likely to ever generate.  Figure 11.11 does actually do a good
+job of highlighting how this wrecks the model fit, even in the non-pathological
+range of the data:
+
+![Figure 11.11 Density estimates of the speed-of-light data y and 100
+replications, y^rep, from the predictive distribution under the normal model.
+Each density estimate displays the result of original data or drawing 66
+independent values y_i^rep i from a common normal distribution with mean and
+standard deviation (mu, sigma) simulated from the fitted
+model.](./fig/part2/fig11_11_bad_fit.png)
+
+I don't get much out of the rest, the test statistic of taking the minimum value
+of each simulated re-draw from the fit model.
+
+"In more complicated problems, more effort may be needed to effectively display
+the data and replications for useful comparisons, but the same general idea
+holds."  I guess?
 
 ### 11.5, Example: predictive simulation to check the fit of a time-series model
 
-TK
+The simulation routine is more involved here than in the 11.4 Newcomb case.
+They have to write out the iterative, autoregressive process that comes from
+predicting $y_{t+1}$ from $y_t$.  "We could not simply create these simulations
+using `posterior_predict` because with this time-series model we need to
+simulate each year conditional on the last."
 
-### 11.6, Residual standard deviation σ and explained variance $R^2$
+They come up with a test statistic -- number of times where the discrete-time
+first order derivative changes signs -- and show it's conspicuously higher in
+the simulated time series.  "In this case, 99% of the `n_sims = 4000`
+replications had more than 26 switches, with 80% in the range [31, 41], implying
+that this aspect of the data was not captured well by the model."
 
-TK
+I don't know how to trade that off against other test statistics you could
+gussy up.  Like do the simulated trajectories have comparable max and min
+values.  But I take their larger advice: find a bug, fix a bug.  In this case,
+their model has too many switches, so fix it.  If the fix introduces too much
+deviation in the max-min limits: fix it again.
+ 
+### 11.6, Residual standard deviation $\sigma$ and explained variance $R^2$
+
+A definition I understood in prose, but which is nice to see mathematicized:
+
+$$R^2 = 1 - \left(\hat{\sigma} / s^2_y\right)^2$$
+
+where $s_y^2$ is the sample standard deviation of the output variable.
+
+They also introduce a $V_{i=1}^n$ notation which is alien and useless to me.
+
+This metric, $R^2$, the share of output variance the model explains, is
+the same under scalings of $x$ or $y$.
+
+It's interesting to see their example where $\sigma$ can stay the same between
+two model evalaution runs, while $R^2$ differs a lot.  They do it with a subset
+operation that reduces $s_y^2$.
+
+In the Bayes case, where there are 1,000 linear rules fit by the MCMC sampler,
+you can work with an empirical distribution of $R^2$ values for each of those
+1,000 fits.  What does it mean that we don't just go with the single MCMC
+sampled line that has the best $R^2$?
 
 ### 11.7, External validation: checking fitted model on new data
 
