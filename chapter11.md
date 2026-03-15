@@ -164,15 +164,51 @@ operation that reduces $s_y^2$.
 In the Bayes case, where there are 1,000 linear rules fit by the MCMC sampler,
 you can work with an empirical distribution of $R^2$ values for each of those
 1,000 fits.  What does it mean that we don't just go with the single MCMC
-sampled line that has the best $R^2$?
+sampled line that has the best $R^2$?  Why isn't that $R^2$-maximizer not the
+mode of the sampled-line distribution?
 
 ### 11.7, External validation: checking fitted model on new data
 
-TK
+"The most fundamental way to test a model" is to just bring new, unseen data to
+it, and see if the model does a good job predicting the labels from the
+predictors.  Though if you get a bad eval from this, it's not necessarily that
+you did a bad job fitting the model over the original dataset: maybe the new
+data is just not compatible with models fit to the old data.
 
 ### 11.8, Cross validation
 
-TK
+Where can you find some new data to use for external validation?  Why not just
+carve out a subset of your original data?  Call that carve-out the hold-out set.
+"Cross validation removes the overfitting problem arising from using the same
+data for estimation and evaluation, but at the cost of requiring the model to be
+fit as many times as the number of partitions."
+
+It's neat to hear the strategy they took for fast leave-one-out crossvalidation.
+I want to hear more about that smoothing, though.  (I can't use their package
+in Python, or at least, I don't know how and won't look it up.)
+
+They introduce the log score as an alternative to $R^2$, which "measures only
+the prediction error relative to the mean of the predictive distribution,
+ignoring the uncertainty represented by the predictive distribution."  It's
+clear how to calculate this with a point estimate of the model coefficients, but
+not yet a talk about the Bayes case of 1,000 simulated coefficient sets.
+
+They also give a paragraph to Akaike information criterion, which is very
+similar to the log score, but with an adjustment for the number of predictors.
+"AIC is an estimate of the deviance that would be expected if the fitted
+model is used to predict new data.\[...\] We prefer to use cross validation as
+it is more general and directly interpretable as an estimate of prediction
+error, but for simple models the two methods should give similar answers."
+
+The talk about adding predictors that are pure random noise as a baseline to
+talk about differences in log score.  "\[A\]dding a linear predictor that is
+pure noise and with a weak prior on the coefficient should increase the log
+score of the fitted model by 0.5, in expectation, but should result in an
+expected *decrease* of 0.5 in the LOO log score."
+
+Their example, where they literally add noise predictors to a dataset, shows
+a mild boost in raw $R^2$, though the `sigma` auxiliary parameter hasn't
+changed.
 
 ## Exercises
 
