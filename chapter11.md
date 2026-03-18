@@ -446,7 +446,15 @@ dots](./fig/part2/ex11_5_pyth_labeled.png)
 >     confidence coverage for the 68% intervals for each of the three
 >     coefficients in the model.
 
-TK
+I only had the patience to run this 100 times -- Bambi runs take at least 2
+seconds each, mostly seemingly spent on initialization -- but this actually
+winds up looking pretty good.  Of 100 runs, 66 had a $\hat{b}_1$ within one
+standard error of the true coefficient value, and 70 such for $\hat{b}_2$.
+I guess it really doesn't matter?
+
+![Two very overlapping bell curve histograms showing (Actual - Estimate)/S.E.
+for b1 and b2 looking for all the world like
+N(0, 1)](./fig/part2/ex11_6_zscores.png)
 
 ### 11.7, Correlation and explained variance
 
