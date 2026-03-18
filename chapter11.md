@@ -265,7 +265,28 @@ Plots and computation powered by [Chapter11.ipynb](./notebooks/Chapter11.ipynb)
 > (b) Explain the difficulties of interpreting that coefficient as the effect of
 >     economic growth on the incumbent party’s vote share.
 
-TK
+"When considering two US presidential elections, where one takes place during a
+time when personal income growth is $x$ percentage points higher than the
+other election's corresponding growth rate, you should expect the incumbent
+party's share of the two-party vote to be $3.1x$ percentage points higher than
+in the lower-income-growth-scenario election."
+
+We don't actually know, from this data and regression, *why* this trend obtains.
+Maybe people like having more money, and reward incumbents strictly on that
+basis, straight up.  Or maybe the money is a side effect of some other behavior
+or accomplishment of the incumbent president.  Like maybe when the president
+is a great communicator and/or reassures people by reaching across the aisle or
+whatever, there's just a general groundswell of pro-social trust that both
+causes employers to trust that investing will pay off (where that investment
+is now becomes rising personal income), and for voters (totally unrelated to
+whether or not *their* incomes went up) to want to reward that calming and
+reassuring and comity-inspiring politicking.
+
+We aren't getting experiments where, at random, particular incumbent parties
+can suddenly make income rise for one year.  That's the outcome of a complicated
+system.  There's definitely ways, as an incumbent, to juice everyone's paychecks
+in a way that still makes you electorally unpopular, I'm sure.  Though I can't
+prove that from this data, either way.
 
 ### 11.3, Coverage of confidence intervals: Consider the following procedure:
 
