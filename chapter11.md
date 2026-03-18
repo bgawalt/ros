@@ -365,7 +365,65 @@ somewhat shallower) downward trend](./fig/part2/ex11_4_interaction_residual.png)
 > After doing this exercise, take a look at Gelman and Nolan (2017, section
 > 10.4) to see where these data came from.
 
-TK
+When I fit the model, I get:
+
+Param     | Mean  | S.D.
+--------- | ----- | -----
+sigma     | 0.929 | 0.111
+Intercept | 1.313 | 0.404
+x1        | 0.515 | 0.048
+x2        | 0.807 | 0.025
+
+Here are plots of that model fit (mean) and the residuals, which both seem fine:
+
+![Side-by-side subplots of the Pyth data, one with y vs x1 and the other y vs
+x2, with red trendlines showing the model prediction when holding the other x at
+its mean value](./fig/part2/ex11_5b_pyth_fit.png)
+
+![Scatter plot of the residuals, where there's a lot (3x) larger-magnitude error
+when y > y_hat when the actual is smaller than the
+prediction](./fig/part2/ex11_5c_pyth_resid.png)
+
+I wish the residuals were more symmetric -- the larger errors are all
+concentrated among underestimates, when $y > \hat{y}$ -- but I'll take it.
+
+Here's the predictions:
+
+$x_1$   | $x_2$   | $\hat{y}$
+------- | ------- | ---------
+9.87    | 10.43   | 14.81
+9.99    | 15.72   | 19.14
+8.39    | 0.35    | 5.92
+0.80    | 10.91   | 10.53
+9.58    | 15.82   | 19.01
+4.82    | 11.90   | 13.40
+2.97    | 2.46    | 4.83
+8.80    | 4.09    | 9.15
+6.07    | 1.80    | 5.89
+0.19    | 13.54   | 12.34
+4.19    | 19.13   | 18.91
+5.39    | 14.84   | 16.06
+6.58    | 5.28    | 8.96
+2.36    | 15.42   | 14.97
+2.37    | 4.12    | 5.86
+1.52    | 6.54    | 7.37
+2.07    | 2.67    | 4.53
+6.70    | 12.85   | 15.13
+2.02    | 8.36    | 9.10
+9.63    | 12.16   | 16.09
+
+Graphically:
+
+![Scatterplot of x2 on the vertical, x1 on the horizontal, and each dot coming
+from a row of the above table, with coloring encoding the predicted y value. 
+There's a clear gradient sloping up to northeast corner of the plot
+](./fig/part2/ex11_5d_pyth_preds.png)
+
+For comparison, here's what the Pyth data that came with $y$ labels looks like;
+it's pretty similar:
+
+![A very similar scatter plot as immediately prior, with twice as many
+dots](./fig/part2/ex11_5_pyth_labeled.png)
 
 ### 11.6, Fitting a wrong model
 
