@@ -89,7 +89,7 @@ Novel points made:
 *  You can combine the previous advice with the advice of "make one plot for
     each of the (two, implicitly, in this case) predictors."
 *  And you can reduce a $k$-predictor problem into a two-predictor problem by
-    just treating "b_0 + $\sum b_i x_i$ for the $k-1$ uninteresting $i$s" as a
+    just treating "$b_0 + \sum b_i x_i$ for the $k-1$ uninteresting $i$s" as a
     synthesized single predictor.  A key case of this is when one of the
     predictors is your "treatment or control" indicator predictor.
 
@@ -468,7 +468,30 @@ TK
 > Find time-series data and fit a first-order autoregression model to it. Then
 > use predictive simulation to check the fit of this model as in Section 11.5.
 
-TK
+Here's a recreation of the emphysema mortality data I used in Exercise 2.9,
+simply dropping any tracking of age/region/sex dimensions:
+
+![Emphysema mortality for the full US, 1968-2016
+](./fig/part2/ex11_8_emphysema_actual.png)
+
+The first-order autoregressive model looks like:
+
+Param        | mean  | sd
+------------ | ----- | -----
+`sigma`      | 1.474 | 0.160
+`Intercept`  | 0.467 | 0.763	
+`first_year` | 0.942 | 0.062
+
+So each year expects 95% of last year's mortality, plus anywhere from 1.5 to
+-0.5 people (per 100K).  The unexplained giant spike in 1988 is making itself
+felt here.
+
+This came out so much better than I was expecting:
+
+![A 4x4 grid of simulated traces of emphysema mortality rates, overlain on the
+above actual time series. They mostly line up!
+](./fig/part2/ex11_8_emph_sims.png)
+
 
 ### 11.9, Leave-one-out cross validation
 
