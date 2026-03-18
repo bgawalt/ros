@@ -222,7 +222,39 @@ Plots and computation powered by [Chapter11.ipynb](./notebooks/Chapter11.ipynb)
 > model, whether it seems reasonable, and how you might address violations of
 > the assumptions.
 
-TK
+*  **Validity:**
+    *  The outcome measure definitely reflects the phenomenon of interest,
+        though you could worry about whether it's too dismissive of third party
+        vote share.  Usually that's not a huge factor, though Perot '92 I think
+        counts as a counterexample.
+    *  The model includes *a* relevant predictor, but not all of them.  We
+        talked in previous exercises about how the inflation rate is also
+        relevant.  I think that starts being tricky because there's only 16
+        observations to fit with a model.
+    *  I do think this generalizes well.  My only concern here is, do we have
+        *reliable* personal income growth numbers in time to make a prediction
+        for a weeks-away presidential race?
+*  **Representativeness:** Definitely, the data is very representative.  The
+    two-party system was in effect for the full run of post-WW2 presidential
+    races, and there's no reason to think it will lose effect soon.  And the
+    data set just is a census of all those races.
+*  **Additivity and linearity:** There's probably not enough data volume to mine
+    for a more complicated rule than slope-and-intercept over the growth rate
+    for personal income.  It wouldn't surprise me if there were cliff effects,
+    where sustained lack of growth below some threshold has outsized importance
+    that has no symmetric counterpart.  I do think additivity is fine, though,
+    there's no reason to expect runaway compounding electoral performance given
+    good income growth.
+*  **Independence of errors:** This is a weak spot.  The same candidates are
+    running in multiple of these races, and it's reasonable to suspect there's
+    candidate-level effects that make those races coupled in terms of their
+    residual vs. the general linear trend across all races.
+*  **Equal variance of errors:** Hm, I dunno.  Seems very hard to check, again,
+    with only 16 elections to learn from.  I do suspect that you'd start to see
+    the polarization trend show up, where people are now just much less likely
+    to consider the party they didn't vote for last time.  That would compress
+    overall variance in the outcome among recent elections vs. older ones.
+*  **Normality of errors:** Jyeh.  Probably fine.
 
 ### 11.2, Descriptive and causal inference
 
