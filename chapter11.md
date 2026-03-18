@@ -334,7 +334,15 @@ into the estimate of the intercept term, leaving the slope estimate the same.
 > Sketch with pen on paper a residual plot that Barb could have seen after
 > fitting the regression without interaction.
 
-TK
+If I run this for the data:
+
+$$y = 1 - 2x_1 + 3x_2 - 4x_1x_2 + \text{error}$$
+
+I get the residual plot of:
+
+![A scatter plot where the solid blue dots for x2 = 0 are on an obvious upward
+trend and the hollow blue circles for x2 = 1 are on an equally obvious (if
+somewhat shallower) downward trend](./fig/part2/ex11_4_interaction_residual.png)
 
 ### 11.5, Residuals and predictions
 
