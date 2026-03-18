@@ -288,9 +288,11 @@ system.  There's definitely ways, as an incumbent, to juice everyone's paychecks
 in a way that still makes you electorally unpopular, I'm sure.  Though I can't
 prove that from this data, either way.
 
-### 11.3, Coverage of confidence intervals: Consider the following procedure:
+### 11.3, Coverage of confidence intervals
 
-> *  Set $n = 100$ and draw n continuous values $x_i$ uniformly distributed
+> Consider the following procedure:
+>
+> *  Set $n = 100$ and draw $n$ continuous values $x_i$ uniformly distributed
 >    between 0 and 10. Then simulate data from the model
 >    $y_i = a + bx_i + \text{error}_i$, for $i = 1, \ldots, n$, with $a = 2$,
 >    $b = 3$, and independent errors from a normal distribution.
@@ -298,6 +300,7 @@ prove that from this data, either way.
 > *  Regress $y$ on $x$. Look at the median and mad sd of $b$. Check to see if
 >    the interval formed by the median $\pm 2$ mad sd includes the true value,
 >    $b = 3$.
+>
 > *  Repeat the above two steps 1000 times.
 >
 > (a) True or false: the interval should contain the true value approximately
@@ -307,7 +310,13 @@ prove that from this data, either way.
 >     or false: the interval should contain the true value approximately 950
 >     times. Explain your answer.
 
-TK
+When I coded this up: yup, got coverage of $b = 3$ about 950 times.  I don't
+have a great explanation for *why* the noise distribution doesn't matter for
+our coverage of the slope.  In fact, I would hope that you *could* break
+coverage by, e.g., greatly increasing the number of large outliers among the
+small-$n$ data points by using Laplace or Cauchy noise as the error.  On the
+other hand, maybe that more-outliers noise would also increase the standard
+error?
 
 ### 11.4, Interpreting residual plots
 
