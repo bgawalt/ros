@@ -318,6 +318,10 @@ small-$n$ data points by using Laplace or Cauchy noise as the error.  On the
 other hand, maybe that more-outliers noise would also increase the standard
 error?
 
+This wasn't asked, but, it makes total sense to me why you don't care about
+zero-mean noise when estimating the slope.  Any non-zero mean just gets slurped
+into the estimate of the intercept term, leaving the slope estimate the same.
+
 ### 11.4, Interpreting residual plots
 
 > Anna takes continuous data $x_1$ and binary data $x_2$, creates fake data
