@@ -504,7 +504,36 @@ above actual time series. They mostly line up!
 > (b) Compare predictive errors pointwise. Are there some data points that have
 >     high predictive errors for all the fitted models?
 
-TK
+I tried three models, from simple, to medium-interesting, to very involved:
+
+*  **Gender**, a simple linear model that adjusts for gender while using beauty
+    to predict course eval: `eval ~ beauty + female`
+*  **Interaction**, an upgrade to *Gender* that adds an interaction between
+    beauty and gender: `eval ~ beauty + female + beauty:female`
+*  **Maximal**, using all the predictors in the dataframe, the interaction
+    between beauty and gender, and an interaction between age and gender:
+    `eval ~ beauty + female + beauty:female + age + age:female + minority + nonenglish + lower`
+
+When I use `arviz.compare` to run PSIS-LOO, I get... a lot of overlap in
+performance:
+
+Model       | ELPD_LOO | s.e.
+----------- | -------- | ----
+Maximal     | -366.4   | 15.2
+Interaction | -371.2   | 14.8
+Gender      | -371.9   | 14.8
+
+Visually (with `arviz.plot_compare`):
+
+![Three horizontal lines for each of the three models above, with dots at the
+central ELPD_LOO value and line width going out s.e. to the left and right
+](./fig/part2/ex11_9_elpd_loo.png)
+
+Unfortunately, I don't see a way to pull out the individual point predictions
+you get within the LOO as implemented inside `arviz.compare`.  There's supposed
+to be a `pointwise` bit I can pass to `arviz.loo` but it isn't working for me.
+I just get `"'ELPDData' object has no attribute 'elpd_i'"` when I try to access
+the pointwise ELPD scores.
 
 ### 11.10, K-fold cross validation
 
