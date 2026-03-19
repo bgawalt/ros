@@ -533,7 +533,8 @@ Unfortunately, I don't see a way to pull out the individual point predictions
 you get within the LOO as implemented inside `arviz.compare`.  There's supposed
 to be a `pointwise` bit I can pass to `arviz.loo` but it isn't working for me.
 I just get `"'ELPDData' object has no attribute 'elpd_i'"` when I try to access
-the pointwise ELPD scores.
+the pointwise ELPD scores.  This is probably because I'm many versions behind,
+both in that I'm on Python 3.10 and ArviZ 0.23.
 
 ### 11.10, K-fold cross validation
 
@@ -549,4 +550,9 @@ the pointwise ELPD scores.
 > (c) For each model, add up the sum of squared errors for the five steps in
 >     (b). Compare the different models based on this fit.
 
-TK
+Again, lots of overlap between the three models, but the median for Maximal
+is (slightly) lowest, and the central three results are tightly clustered near
+Maximal's median:
+
+![Three horizontal lines showing the range of five crossvalidation fold results,
+they all range from 23 to 31](./fig/part2/ex11_10_5fold.png)
