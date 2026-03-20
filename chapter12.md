@@ -56,7 +56,66 @@ your coefficients express "change in expected outcome per change by one unit."
 
 ### 12.2, Centering and standardizing for models with interactions
 
-TK
+We've seen lots of hard-to-reckon-with cases of intercepts that have to take on
+weird values because "all predictors have value zero" is so far outside the
+ranges observed in the dataset.
+
+Same thing happens in models with interaction predictors.  A binary feature that
+is included in the model, but the model also has an interaction with a
+continuous predictor, is serving as an alternative intercept for the data when
+the binary feature is 1.  And so, if the continuous predictor is never actually
+zero, the binary feature gets the same weird-intercept valuation as before.
+
+#### Centering by subtracting the mean of the data
+
+If you replace the raw predictors with zero-mean equivalents, "\[e\]ach main
+effect now corresponds to a predictive difference with the other input at its
+average value."
+
+In their example, with two main predictor and their interaction, the main
+effect coefficients change a lot.  But the interaction coefficient estimate
+doesn't change at all, not its median nor its mad sd.
+
+#### Using a conventional centering point
+
+You don't have to move to zero-mean predictors.  You could pick conventional
+options like "what a human would presume to be the central predictor value."
+Their example doesn't show a big change from the zero-mean transforms, because
+it just so happens that the conventional value and the dataset-mean values are
+close to each other.
+
+#### Standardizing by subtracting the mean and dividing by 2 standard deviations
+
+Zero-mean and dividing by 2x the standard deviation of a predictor gives a
+coefficient "corresponds to a change from 1 standard deviation below the mean,
+to 1 standard deviation above."
+
+#### Why scale by 2 standard deviations?
+
+So that a 50-50 binary variable winds up taking on the values $\pm 0.5$, and
+we've seen that this is still basically true even for 70-30 binaries.  That
+means the coefficient is on the scale that it was pre-transformation, where the
+the jump from "false" to "true" was 1 unit, just as it is in the 2-s.d.
+rescaling here (from -0.5 to +0.5).
+
+If you have a lot of predictors, you can leave the binaries alone as 0 or 1,
+and rescale the continuous predictors by 2 s.d., and they'll all be on
+comparable scales.
+
+I think this kind of gets hung up on "what does it mean for a binary predictor
+to change by one standard deviation."  They can't actually do that, they only
+have (at most) two possible numerical values under any continuous
+transformation.
+
+#### Multiplying each regression coefficient by 2 standard deviations of its predictor
+
+If you have a no-interactions model already fit, you can rescale *the
+coefficients** by multiplying them by 2-s.d. of their corresponding predictor:
+
+> This gives a sense of the importance of each variable, adjusting for all the
+> others in the linear model. As noted, scaling by 2 (rather than 1) standard
+> deviations allows these scaled coefficients to be comparable to unscaled
+> coefficients for binary predictors.
 
 ### 12.3, Correlation and “regression to the mean”
 
