@@ -119,7 +119,49 @@ coefficients** by multiplying them by 2-s.d. of their corresponding predictor:
 
 ### 12.3, Correlation and “regression to the mean”
 
-TK
+In the univariate regression case, where $x$ and $y$ are both zero-mean, unit
+variance, the slope term will just be the correlation between the two.
+Fun fact included here: "if a regression slope is more than 1 in absolute
+value, then the variance of $y$ must exceed that of $x$."  (Only for univariate
+regressions, I suppose.)
+
+#### The principal component line and the regression line
+
+Now this is what I'm talking about:
+
+![Figure 12.2 from the book: "Data simulated from a bivariate normal
+distribution with correlation 0.5. (a) The principal component line goes closest
+through the cloud of points. (b) The regression line, which represents the best
+prediction of y given x, has half the slope of the principal component line."
+](./fig/part2/fig12_2_pca_v_linreg.png)
+
+The PCA "miniz\[es\] the sum of squared distances between the points and the
+line."  But the regression line only cares about verticsl distance to the line.
+They note that, just like I would, asking people to draw a line-of-best-fit, 
+they'll draw the PCA line.
+
+This is worse for predictive purposes, they say, because look at the points
+at the extremes.  They all lie entirely above or below the PCA line.  Not so
+for the regression line, which goes through the vertical-middle of the far
+right and far left points.
+
+This is actually pretty clarifying, sitting back and thinking about it.  For one
+thing, if I only *have* access to an $x$ value sitting around: I know how to
+project that out to a $y$ value.  But projecting onto the PCA line, I need both
+$x$ and $y$.  I don't really know how to make predictions with just an $x$ and
+the PCA line, in that lots of points all share an $x$ while having noticeably
+different projection-points in the latent PCA value.
+
+#### Regression to the mean
+
+Repeating from earlier: if $x$ and $y$ are standardized (share a common
+standard deviation), the (univariate) regression coefficient must have magnitude
+less than 1.  So units with larger $x$ than average, will have usually have a
+$y$ that is larger than average, but not *as much* of a deviation as the $x$
+had.  They emphasize that the "regression to the mean" only applies as a tug on
+the output's conditional expected value, and when you get the error term added
+in, you can wind up with outputs that have greater deviations than their
+predictors had.
 
 ### 12.4, Logarithmic transformations
 
