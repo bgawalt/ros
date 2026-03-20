@@ -2,13 +2,57 @@
 
 [(Return to README)](./README.md)
 
-TK
+The intro talks about *standardization*, which "connects to 'regression to the
+mean'" by putting predictors and outcomes on a shared zero-mean, unit-variance
+scale.  And it also talks about "logarithmic and other transformations... in
+order to get more understandable models and better predictions."
 
 ## Subsection rundown
 
 ### 12.1, Linear transformations
 
-TK
+#### Scaling of predictors and regression coefficients
+
+Units matter!  A regression coefficient describes the expected change in the
+output given an increase in its predictor by "one unit".  But the same attribute
+can be expressed in small units (inches of distance) or large ones (miles) and
+that is going to dictate the scale of coefficient you get.
+
+Linear transformations of predictors or outcome don't affect the model fit or
+predicted values.  But they "can improve interpretability of coefficients and
+make a fitted model easier to understand."  (Unsaid: they can also make the
+numerical operations run during the model fit procedure go smoother.)
+
+#### Standardization using z-scores
+
+Linearly transform your predictors into versions with zero mean and unit
+variance.  That makes unit changes in the predictor correspond to moving up or
+down by one standard deviation:
+
+> This is helpful because standard deviations can be seen as a measure of
+> practical significance; in this case, a difference in one standard deviation
+> on the input scale is a meaningful difference in that it roughly reflects a
+> typical difference between the mean and a randomly drawn observation.
+
+Standardization like this requires you have reliable values of the mean and
+standard deviation for each predictor.  Maybe you estimate that from your data;
+we call using the sample means and standard deviations "$z$-scoring".
+Or maybe your data are too thin for that....
+
+#### Standardization using an externally specified population distribution
+
+If your data is too thin for that, look up good values of mean and standard
+deviation to use from some other authority.  One benefit of *not* using
+sample statistics is that it makes it easier to compare estimates of, e.g.,
+coefficients.  (You just directly compare them.)
+
+#### Standardization using reasonable scales
+
+You can also just be a normal human being and use the same units everyone does:
+inches, dollars, years, etc.  Maybe you adjust them a bit, to keep coefficients
+on a "human" scale, like picking "thousands of dollars" to express a personal
+income predictor.  Work backwards from what you want "one unit" to mean when
+your coefficients express "change in expected outcome per change by one unit."
 
 ### 12.2, Centering and standardizing for models with interactions
 
