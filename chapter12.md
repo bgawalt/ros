@@ -165,11 +165,66 @@ predictors had.
 
 ### 12.4, Logarithmic transformations
 
-TK
+For all-positive outcomes, the additivity-and-linearity structure of typical
+linear regression can't actually guarantee that predictions are also
+all-positive.  A log-transform of the outcome variable restores this (while also
+changing *how* changes in predictors influence outcome expectations).
+
+They implicitly advise transforming the predictors so that coefficients for
+predicting log-outcome typically fall between -1 and 1.  If you do that, and
+use the natural log (base $e$) for transforming the outcome, you get a handy
+approximate equivalence of where a coefficient of 0.05 corresponds to a 5%
+increase in the expected outcome for each unit increase of the predictor.
+Compared to using base 10, this makes it harder to interpret the predicted
+values by mentally exponentiating -- that's the trade off, easy interpretation
+of coefficients vs. predictions.
+
+They couch log-log model coefficients "as the expected proportional difference
+in $y$ per proportional difference in $x$."  A slope $b = 1.66$ means a 1%
+increase in the predictor makes for a 1.6% increase in the expected outcome.
+
+I don't quite follow their overall advice on when to take a log transformation.
+They note in closing that it only makes a difference when the dynamic range of
+a predictor is high (when the ratio of its max value to its min value is at
+least 2).
 
 ### 12.5, Other transformations
 
-TK
+*  **Square root:** Compresses the dynamic range of the predictor more mildly
+    than the log transform.  But doesn't leave you with an easily interpreted
+    coefficient.  And the predictions themselves windup both nonmonotonic and
+    very weird, since predictions on the transformed $\sqrt{y} ~ x$ scale can be
+    negative (what??) and when converted via squaring back to the original scale
+    means large negative and large positive predictions both map to large
+    positive orig-scale predictions.
+
+*  **Idiosyncratic/ad hoc:** Sometimes your data is calling out for a bespoke
+    transformation.  In their earnings prediction, so many of the outcomes are
+    $0 (for the 40% of Americans who don't work) that they float the idea of
+    splitting it into a prediction of zero-or-nonzero binary classification,
+    maybe followed by a if-nonzero,-how-much regression.  They also say, if
+    you know your data bucketizes in a nice, explainable way, make up your own
+    bucket scheme for it (and turn one continuous variable into a categorical
+    one).
+
+*  **Swap discrete for continuous:** Sometimes you'll have a pair of discrete
+    predictors -- "is Democrat", "is Republican" -- that naturally slot into a
+    continuous, ordinal predictor.
+
+*  **Swap continuous for discrete:** They don't recommend you do this with any
+    regularity.  It throws away information, relative to continuous
+    transformations.  But it is super convenient!  They *don't* talk about the
+    stability of bucketized coefficient estimates, vs. their
+    transform-coefficient counterparts: when using a continuous transform, you
+    pool info from the whole range of predictors into the coefficient(s). But
+    bucket coefficient estimates are all unable to leverage any trends from
+    "neighboring" buckets; the model has no idea they're structurally related.
+
+*  **Indices and indicators:** Some predictors are just plainly categorical in
+    and of themselves, like indicators for which of the 50 states the
+    observation comes from.  They represent a heightened risk for introducing
+    linear dependence among predictors, which makes models nonidentifiable and
+    their coefficient estimates unstable.
 
 ### 12.6, Building and comparing regression models for prediction
 
