@@ -228,7 +228,99 @@ least 2).
 
 ### 12.6, Building and comparing regression models for prediction
 
-TK
+They explain that the reason it's taken so long for the chapter to get around to
+actually building models using the above transformations, is because "it is
+usually easiest to start with a simple model and then build in additional
+complexity, taking care to check for problems along the way."
+
+Their list of general principles on how to (iteratively) build a model:
+
+1.  Include any predictor available that plausibly connects to the outcome.
+
+2.  However, it still counts as "including" a predictor if you preemptively
+    combine it with some other set of predictors.  "\[S\]ometimes several inputs
+    can be averaged or summed to create a 'total score' \[predictor\]."
+
+3.  If a predictor has a large effect, go back and try adding plausible
+    interactions.
+
+4.  Always keep an eye on standard errors (mad sd) when looking at coefficient
+    estimates.  (No word on how to use them to, like, disregard a "large effect"
+    finding in Step 3, not here anyway.)
+
+5.  Changing the predictor set:
+    *  Low s.e. coefficient estimates should definitely survive to the next
+        round of modeling
+    *  Large s.e. coefficients that don't have a strong prior reason to include,
+        should probably drop out in the next round.  Dropping it will tighten up
+        other coefficient estimates.
+    *  "Strong prior reason to include" means things like "this categorical
+        variable is the actual subject of our research question."  You then need
+        to handle their large uncertainty with a prior (in the Bayes sense) or
+        going out for more data.
+    *  If a coefficient set doesn't make sense, like its sign or magnitude seem
+        counterintuitive, look into it.  Is it explained by a large s.e.?
+        If the s.e. is small, is it because there's some subpopulation structure
+        going on w.r.t. the predictor taking on its particular values?
+
+They emphasize thinking all this through, gaming out things like "what if this
+coefficient's mean and s.e. are both large", *before* starting the model fit
+iterations.  "It’s always easier to justify a coefficient’s sign once we have
+seen it than to think hard ahead of time about what we expect."
+
+Finally, write down the decisions you make in model iterations, and their
+rationale, in real time.  If you can back up each step with a crossvalidation
+check, even better.  If you don't do these checks, and just go for as many
+iterations as possible, you'll wind up chasing noise artifacts in the data
+(since these modeling decisions are basically infinite degrees of freedom to
+fit the elephant and wiggle its trunk).
+
+#### Lessons from their example
+
+*  Their initial, simple model -- dump all the raw predictors value into a
+    straight linear model -- winds up looking pretty bad under their LOO
+    microscope.  One thing that happens is `p_loo` wound up noticeably higher
+    than the actual number of predictors.  Though I don't know what they mean
+    by "\[d\]iagnostics indicate that the approximate LOO computation is
+    unstable."  I don't know what they're reading out to reach that conclusion.
+
+*  The next model, log-transforming the outcome and all predictors (except for
+    the one binary predictor), does well under LOO analysis, at least in terms
+    of its stability.  (I now infer that stability comes from having
+    small/negative Pareto $k$ values from the PSIS stage of PSIS-LOO, and
+    having none above 0.7.)  The ELPD estimate is now much closer to zero, by
+    like a factor of 15.
+
+*  However, the ELPD values from the two model checks "are not directly
+    comparable.  When we compare models with transformed continuous outcomes, we
+    must take into account how the nonlinear transformation warps the continuous
+    variable."  Doing the appropriate correction still makes the log-transform
+    model look better than the linear, but not by 15x.
+
+*  They look back and say, ah, the better predictions must come from the
+    fact that now $\hat{y}$ can't be negative.
+
+*  They look at two predictors whose coefficients have high uncertainty, and
+    plot their simulated coefficient draws to show that (like you'd expect)
+    the coefficients are negatively correlated (because the predictors
+    themselves are noticeably positively correlated).
+
+*  When they go simpler, they get a nice stable univariate coefficient estimate,
+    but it winds up being worse under LOO than the richer model.  So they add
+    a bit more back in and achieve slightly-better-than-parity results.
+
+And a big block quote of what to make of "we went simpler and preffered it":
+
+> One reason we get as good or better performance and understanding from a
+> simpler model is that we are fitting all these regressions with weak prior
+> distributions. With weak priors, the data drive the inferences, and when
+> sample sizes are small or predictors are highly correlated, the coefficients
+> are poorly identified, and so their estimates are noisy. Excluding or
+> combining predictors is a way to get more stable estimates, which can be
+> easier to interpret without losing much in predictive power. An alternative
+> approach is to keep all the predictors in the model but with strong priors on
+> their coefficients to stabilize the estimates. Such a prior can be constructed
+> based on previous analyses or using a multilevel model.
 
 ### 12.7, Models for regression coefficients
 
