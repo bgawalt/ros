@@ -324,7 +324,38 @@ And a big block quote of what to make of "we went simpler and preffered it":
 
 ### 12.7, Models for regression coefficients
 
-TK
+They work another example, with many more predictors this time.  They
+$z$-standardize the predictors to get coefficient standard errors that are all
+roughly the same.  They look at the within-sample $R^2$ and compare it to the
+LOO $R^2$ to diagnose overfitting.  And the `p_loo` exactly matches the actual
+number of predictors, "which indicates the model is fitting to all predictors."
+
+They do a rundown of what the default priors are saying about the coefficients:
+twenty-six coefficients with zero mean and s.d. 2.5 comes to a "prior standard
+deviation of the modeled predictive means" of $2.5\sqrt{26} = 12.7$.  That's
+way bigger than the prior on the error term $\sigma$ allows for, so the $R^2$
+you expect from the prior is very close to 1.  "The priors often considered as
+weakly informative for regression coefficients turn out to be, in the multiple
+predictor case, highly informative for the explained variance."
+
+If you instead work backwards from "the prior on explained variance should peak
+at 0.3," you get a sense of how to rescale the individual coefficient priors:
+$\mathcal{N}(0, \sqrt{0.3/26}\text{sd}(y))$, with the prior on $\sigma$ getting
+an exponential prior $\text{Exp}(\sqrt{0.7}\text{sd}(y))$.  In this example,
+this reduces the difference between in-sample and LOO $R^2$.
+
+You can also work it from the direction of "I think there's about $p_0$
+coefficents that matter to this prediction."  They go through a complicated
+setup of a horseshoe prior, which they conflate with a spike-and-slab prior.
+In their example, this has a nice attribute of dropping a bunch of coefficients
+to near-zero (including a counterintuitive finding that increased study time
+means worse test-time performance).  They use this as a feature selection
+routine and fit a final model with just four predictors that survived the
+spike-and-slab (and show that the Bayesian v. LOO $R^2$ is a similar gap).
+
+Closing line: "ideally the selection and averaging of models should be made
+using formal decision-theoretic cost-benefit analysis, which is beyond the scope
+of this book."
 
 
 ## Exercises
