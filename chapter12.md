@@ -652,7 +652,22 @@ TK
 > 
 > (d) The relative proportion, $D_i/(D_i + R_i)$
 
-TK
+In general, I think the problem here is that dollar amounts are the most obvious
+example of "this quantity's numerical range spans several orders of magnitude."
+That's what I would be worried about with (a).  The *ratio* of these, as in (b),
+is going to be even more severely skewed.  (And it also compresses "the R's 
+spent appreciably more than the D's" into the space between 0 and 1, while the
+opposite case is spread out over the range $[1, \infty]$.)
+
+I kind of like (c), which is the log transform of (b).  If I wanted an
+easy-to-explain combo predictor, that also fits the data well: this one is much
+better than (a) or (b).
+
+The relative proportion of (d) also avoids a lot of the range anxiety of (a) and
+(b), but throws away data about the overall intensity of the spending.  A 50-50
+campaign balance where no one is spending, looks the same as a 50-50 campaign
+where they're running two spots every ad break for months, in terms of this
+quantity.
 
 ### 12.10, Special-purpose transformations
 
@@ -660,7 +675,16 @@ TK
 > idiosyncratic transformation as in the example on page 196 and discuss the
 > advantages and disadvantages of using it as a regression input.
 
-TK
+Bucketizing the spending is the most obvious play here.  It even lets you open
+up interactions between incumbency, out-party ID, in-part ID, out-party spend
+bucket (lo, medium, hi?), and in-party spend.  That's a lot of options to choose
+from, especially when you consider the degrees of freedom you have for setting
+the bin-count and bin-boundaries for the spend-buckets.
+
+I think, idiosyncratically, I would try out (d) from above, crossed with
+bucketized all-party spending (low, medium, hi).  We have hundreds of examples
+to look at, so I feel like there's breathing room to have these half-dozen
+predictors hanging around.
 
 ### 12.11, Elasticity
 
