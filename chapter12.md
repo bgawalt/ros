@@ -431,7 +431,9 @@ sigma 34.1    0.6
 >     with pen on paper the scatterplot, along with the above regression
 >     function, which will be discontinuous.
 
-TK
+![Same plot as 1.2, now with a piecewise constant red curve that varies between
+148, then 158, then 164, then 156 lbs.
+](./fig/part2/ex12_02_discretized_age_weight.png)
 
 ### 12.3, Scale of regression coefficients
 
