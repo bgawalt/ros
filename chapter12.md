@@ -457,7 +457,9 @@ sigma 34.1    0.6
 > Why are the coefficients for distance to border, distance to capital,
 > population, and GDP per capita so small?
 
-TK
+Because those are the predictors with values that three-to-seven digits long.
+These values themselves vary quite a lot, so they get tiny coefficients to bring
+them back in line with the scale of the outcome variable.
 
 ### 12.4, Coding a predictor as both categorical and continuous
 
@@ -468,25 +470,37 @@ TK
 > Sketch a graph of flexibility vs. age, showing what the fitted regression
 > might look like.
 
-TK
+It's piecewise linear, where all the linear segments have the same slope.  The
+breaks up and down between age buckets count as different per-age-bucket
+intercepts; here, they steadily decrease the intercept as the age bucket
+advances.
+
+![MS Paint doodle of a piecewise linear function that's always decreasing and
+always has the same (negative) slope](./fig/part2/ex12_04_flexibility.png)
 
 ### 12.5, Logarithmic transformation and regression
 
 > Consider the following regression:
 >
-> $$\log(weight) = -3.8 + 2.1 \log(height) + \text{error}$$
+> $$\log(\text{weight}) = -3.8 + 2.1 \log(\text{height}) + \text{error}$$
 > 
 > with errors that have standard deviation 0.25. Weights are in pounds and
 > heights are in inches.
 > 
 > (a) Fill in the blanks: Approximately 68% of the people will have weights
->     within a factor of and of their predicted values from the regression.
+>     within a factor of __ and of __ their predicted values from the
+>     regression.
 >
 > (b) Using pen and paper, sketch the regression line and scatterplot of
 >     log(weight) versus log(height) that make sense and are consistent with the
 >     fitted model. Be sure to label the axes of your graph.
 
-TK
+The lower bound is $\exp{-0.25} = 0.78$; the upper bound is $\exp{0.25} = 1.28$,
+so their actual weight should between 78% and 128% of their predicted weight.
+
+![x axis, log{height (in.)}, from 4.1 to 4.3; y axis log{weight (lbs)} from 4.6
+to 5.6; a red trend line as described; blue dots that trend up (with lots of
+noise) around the red trend](./fig/part2/ex12_05_loglog_height_weight.png)
 
 ### 12.6, Logarithmic transformations
 
