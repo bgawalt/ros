@@ -691,10 +691,18 @@ predictors hanging around.
 > An economist runs a regression examining the relations between the average
 > price of cigarettes, $P$, and the quantity purchased, $Q$, across a large
 > sample of counties in the United States, assuming the functional form,
-> $logQ = \alpha + \beta \log P$. Suppose the estimate for $\beta$ is -0.3.
+> $\log Q = \alpha + \beta \log P$. Suppose the estimate for $\beta$ is -0.3.
 > Interpret this coefficient.
 
-TK
+Lifting from section 12.4, page 195: For each 1% increase in price (as in,
+we go from $P_0$ to $1.01P_0$) the expected value of $\log Q$ changes as:
+
+$$\beta \log(1.01) = -0.3 \times 0.00995 = -0.003$$
+
+If we exponentiate that, we see that the 1% increase in $P_0$ suggests that
+$\hat{Q}$ drops to 99.7% of its original value.  At this scale, the numbers
+still work mostly linearly, such that a 10% increase in price suggests a 3% drop
+in quantity sold.
 
 ### 12.15, Models for regression coefficients
 
