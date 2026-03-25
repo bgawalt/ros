@@ -672,26 +672,6 @@ TK
 
 TK
 
-### 12.12, Sequence of regressions
-
-> Find a regression problem that is of interest to you and can be performed
-> repeatedly (for example, data from several years, or for several countries).
-> Perform a separate analysis for each year, or country, and display the
-> estimates in a plot as in Figure 10.9.
-
-TK
-
-### 12.13,  Building regression models
-
-> Return to the teaching evaluations data from Exercise 10.6. Fit regression
-> models predicting evaluations given many of the inputs in the dataset.
-> Consider interactions, combinations of predictors, and transformations, as
-> appropriate. Consider several models, discuss in detail the final model that
-> you choose, and also explain why you chose it rather than the others you had
-> considered.
-
-TK
-
 ### 12.15, Models for regression coefficients
 
 > Using the Portuguese student data from the `Student` folder, repeat the
