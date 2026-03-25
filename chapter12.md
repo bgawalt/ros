@@ -630,9 +630,37 @@ TK
 >     deviation of the regression.
 >
 > (b) Suppose the standard deviation of log weights is 20% in this population.
->     What, then, is the R2 of the regression model described here?
+>     What, then, is the $R^2$ of the regression model described here?
 
-TK
+For the equation:
+
+$$\log(w) = \alpha + \beta \log(h) + \text{error}$$
+
+we can plug in the first bullet point:
+
+$$\log(10) = \alpha + \beta \log(50) \Rightarrow \alpha = 2.30 - 3.91 \beta$$
+
+The second bullet point gives tells us that $\hat{w}_{hi}$, the weight of the
+1%-taller animal, is $1.02\hat{w}_{lo}$, the weight of the baseline animal.
+So:
+
+$$\begin{align}
+    \log(\hat{w}_{hi}) - \log(\hat{w}_{lo}) &= \log(1.02) \\
+    \beta \log(1.01h_{lo}) - \beta \log(h_{lo}) &= \log(1.02) \\
+    \beta &= \frac{\log(1.02)}{\log(1.01)} \\
+    & = 1.99 \\
+\Rightarrow \alpha &= 2.30 - 3.91 \times 1.99 = -5.48    
+\end{align}$$
+
+All together:
+
+$$\log(w) = -5.48 + 1.99\log(h) + \text{error}$$
+
+For the standard deviation of the error, we know that $\log(1.1)$ is equal to
+$2\sigma$, so $\sigma$ has a mean of 0.048.
+
+The standard deviation of log weights is 20%, and the residual here is about 5%,
+so the $R^2$ is around 0.75.
 
 ### 12.9, Linear and logarithmic transformations
 
