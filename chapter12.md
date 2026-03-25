@@ -504,13 +504,13 @@ noise) around the red trend](./fig/part2/ex12_05_loglog_height_weight.png)
 
 ### 12.6, Logarithmic transformations
 
-> The folder `Pollution` contains mortality rates and various environmental
-> factors from 60 U.S. metropolitan areas (see McDonald and Schwing, 1973). For
-> this exercise we shall model mortality rate given nitric oxides, sulfur
-> dioxide, and hydrocarbons as inputs. This model is an extreme
-> oversimplification, as it combines all sources of mortality and does not
-> adjust for crucial factors such as age and smoking. We use it to illustrate
-> log transformations in regression.
+> [The folder `Pollution`](https://github.com/avehtari/ROS-Examples/tree/master/Pollution)
+> contains mortality rates and various environmental factors from 60 U.S.
+> metropolitan areas (see McDonald and Schwing, 1973). For this exercise we
+> shall model mortality rate given nitric oxides, sulfur dioxide, and
+> hydrocarbons as inputs. This model is an extreme oversimplification, as it
+> combines all sources of mortality and does not adjust for crucial factors such
+> as age and smoking. We use it to illustrate log transformations in regression.
 >
 > (a) Create a scatterplot of mortality rate versus level of nitric oxides. Do
 >     you think linear regression will fit these data well? Fit the regression
@@ -532,7 +532,74 @@ noise) around the red trend](./fig/part2/ex12_05_loglog_height_weight.png)
 >     construct the model in (d), so this is not really cross validation, but it
 >     gives a sense of how the steps of cross validation can be implemented.
 
-TK
+You can tell from that one blue outlier, there's no way a linear model of
+`mort ~ nox` is going to work, even before you actually fit the red line as
+here:
+
+![Scatter plot of mortality vs. nitric oxide level](./fig/part2/ex12_06a_scatter.png)
+
+Due to that outlier, the linear model's residual plot looks like a mirror image
+of the data scatter:
+
+![Scatter plot of residuals for `mort ~ nox` model](./fig/part2/ex12_06a_resid.png)
+
+But if we run the nitric oxide level through a log-transform first, we get a
+model that does capture an upward trend (and isn't held hostage to one outlier):
+
+![Scatter plot of mortality vs. log of nitric oxide level](./fig/part2/ex12_06b_scatter.png)
+
+![Scatter plot of residuals for `mort ~ log(nox)` model](./fig/part2/ex12_06b_resid.png)
+
+The vertical range of the residuals doesn't seem much affected, but at least now
+the horizontal range of predictions is covering a more reasonable scale and with
+more reasonable variety in predictions.
+
+This log(nox) model has slope 15.3 (standard error: 6.6).  You can interpret
+this as, for every 10% increase in nitric oxide levels between two metro areas,
+you should expect an additional 1.5 deaths per 100K.
+
+In adding the two other predictors, we can check how they look on linear and log
+scales:
+
+![Four scatter plots of mortality vs. {hydrocarbons level, log of hydrocarbons,
+sulphur dioxide level, log of sulphur dioxide}
+](./fig/part2/ex12_06d_log_predictors.png)
+
+Yeah, let's log-transform them both.
+
+When I fit a model, `mort ~ log_nox + log_hc + log_so2`, I get coefficient
+estimates, summarized in this table, along with the interpretation of "a 10%
+rise in the chemical level means __ more deaths per 100K people":
+
+Coef.     | Mean  | s.e. | Add'l Deaths/100K
+--------- | ----- | ---- | -----------------
+sigma     |  55.2 |  5.2 | n/a
+Intercept | 923.5 | 21.5 | n/a
+`log_nox` |  55.6 | 21.7 |  5.3
+`log_hc`  | -54.9 | 19.4 | -5.2
+`log_so2` |  12.1 |  7.2 | 1.2
+
+We can plot the histograms of coefficient draws from the 4000 MCMC simulations:
+
+![Three histograms depicting the coefficient spreads summarized in the preceding
+table](./fig/part2/ex12_06d_coef_hist.png)
+
+And we can plot the per-simulation coefficient values against each other, to see
+that there's a strong colinearity tradeoff between hydrocarbons and nitric
+oxide, and a milder one for sulphur dioxide and nitric oxide, but no real
+colinearity between sulphur dioxide and hydrocarbons:
+
+![Three subplots, scatterplotting pairwise coefficient values from the 4000 MCMC
+simulations](./fig/part2/ex12_06d_coef_colinear.png)
+
+When training on the first half of the data, and testing on the second, I get
+a prediction-v-actual plot like:
+
+![Scatter plot of actuals vs predicted mortality that is not quite level with a
+45 degree line and seems to mostly be accurate up to plus or minus sixty deaths
+per 100K](./fig/part2/ex12_06e_cv.png)
+
+Not bad.
 
 ### 12.7, Cross validation comparison of models with different transformations of outcomes
 
@@ -595,7 +662,7 @@ TK
 
 TK
 
-## 12.11, Elasticity
+### 12.11, Elasticity
 
 > An economist runs a regression examining the relations between the average
 > price of cigarettes, $P$, and the quantity purchased, $Q$, across a large
