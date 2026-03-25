@@ -385,7 +385,7 @@ sigma 34.5    0.6
 >     weights; do not download the data.
 >
 > (b) Next, we define `age10_sq = (age/10)^2` and predict weight as a quadratic
-> function of age:
+>     function of age:
 
 ```
             Median MAD_SD
@@ -400,7 +400,10 @@ sigma 33.9    0.6
 
 > Draw this fitted curve on the graph you already sketched above.
 
-TK
+![x axis: age from 10 to 85; y axis: weight (pounds) from 0 to 300; a blue cloud
+of dots, none of which is below 90 with no clear tend to it; a solid red line
+for the linear trend and a dashed red line for the concave quadratic trend 
+(both are mostly flat)](./fig/part2/ex12_01_fake_age_weight.png)
 
 ### 12.2, Plotting regression with a continuous variable broken into categories
 
