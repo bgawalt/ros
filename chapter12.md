@@ -601,20 +601,6 @@ per 100K](./fig/part2/ex12_06e_cv.png)
 
 Not bad.
 
-### 12.7, Cross validation comparison of models with different transformations of outcomes
-
-> When we compare models with transformed continuous outcomes, we must take into
-> account how the nonlinear transformation warps the continuous variable. Follow
-> the procedure used to compare models for the mesquite bushes example on page
-> 202.
->
-> (a) Compare models for earnings and for log(earnings) given height and sex as
->     shown on pages 84 and 192. Use earnk and log(earnk) as outcomes.
->
-> (b) Compare models from other exercises in this chapter.
-
-TK
-
 ### 12.8, Log-log transformations
 
 > Suppose that, for a certain population of animals, we can predict log weight
