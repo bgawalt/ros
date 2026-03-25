@@ -193,9 +193,9 @@ least 2).
 *  **Square root:** Compresses the dynamic range of the predictor more mildly
     than the log transform.  But doesn't leave you with an easily interpreted
     coefficient.  And the predictions themselves windup both nonmonotonic and
-    very weird, since predictions on the transformed $\sqrt{y} ~ x$ scale can be
-    negative (what??) and when converted via squaring back to the original scale
-    means large negative and large positive predictions both map to large
+    very weird, since predictions on the transformed $\sqrt{y} \sim x$ scale can
+    be negative (what??) and when converted via squaring back to the original
+    scale means large negative and large positive predictions both map to large
     positive orig-scale predictions.
 
 *  **Idiosyncratic/ad hoc:** Sometimes your data is calling out for a bespoke
