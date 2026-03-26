@@ -494,4 +494,19 @@ TK: Use Bambi in place of `stan_glm`
 > previous exercise, and the estimated residual standard deviation from (8.5).
 > Explain what you did to create this discrepancy.
 
-TK
+This dataset:
+
+x  | y
+-- | ----
+ 0 | -200
+ 1 | 1
+ 2 | 1
+ 3 | 1
+ 4 | 200
+
+has a "Formula (8.5)" sigma of 73.0, but a LOO sigma of only 53.7.  When LOO
+drops the middle datapoint at $x=2$, it still recovers a model that perfectly
+predicts its outcome $y=1$.  That one perfectly-predictable point, and two
+points that aren't near as influential as the bookends, means LOO is kind of
+overestimating how likely the "real" data population is to have other
+perfectly-predictable points.
