@@ -411,7 +411,41 @@ Hooray!  They match!
 > (c) Repeat the two steps above, but try to create conditions for your
 >     simulation so that `lm` and `stan_glm` give much different results.
 
-TK
+The `stats.linregress` model fit I get from 100 random points:
+
+Coef.     | Mean | s.e.
+--------- | ---- | -----
+Intercept | 1.59 | 1.16
+slope     | 3.00 | 0.10
+
+I get very similar results from Bambi, a Bayesian regression library built on
+top of PyMC that feels a lot like StanGLM, when I use its default settings:
+
+Coef.     | Mean | s.e.
+--------- | ---- | ------
+sigma     | 5.55 | 0.40
+Intercept | 1.60 | 1.17
+x         | 3.00 | 0.10
+
+As you'd expect, the two trendlines from the two models wind up on top of each
+other:
+
+![Scatterplot ranging from [0, 20] on the x axis and [0, 70] on the y axis, where the dots are pretty concentrated around the two `y = 1.6 + 3x` trend lines
+](./fig/part2/ex08_08b_default_bambi.png)
+
+Now, for part (c), I'll just put a heinously strong prior on the coefficient
+associated with $x$.  Specifically, I'll use $\mathcal{N}(0, 0.1)$.  This
+pulls the posterior mean of the slope variable much, much closer towards zero:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | 16.09 | 1.25
+Intercept | 29.36 | 1.96
+x         | 0.33 | 0.11
+
+![Same scatterplot as in part (b), with the same two trend lines on top of each
+other, but now a third line as well, running as `y = 29 + 0.33x`
+](./fig/part2/ex08_08c_strong_bambi.png)
 
 ### 8.9, Leave-one-out cross validation
 
@@ -451,7 +485,7 @@ Results:
 $$\hat{\sigma} = 3.76$$
 $$\hat{\sigma}^\text{CV} = 3.91$$
 
-TODO: Use Bambi in place of `stan_glm`
+TK: Use Bambi in place of `stan_glm`
 
 ### 8.10, Leave-one-out cross validation
 
