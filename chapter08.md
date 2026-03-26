@@ -485,7 +485,16 @@ Results:
 $$\hat{\sigma} = 3.76$$
 $$\hat{\sigma}^\text{CV} = 3.91$$
 
-TK: Use Bambi in place of `stan_glm`
+When I use Bambi (with default priors), I get parameter/coefficent estimates of:
+
+Coef.         | Mean   | s.e.
+------------- | ------ | ------
+sigma         |  4.01  | 0.80
+Intercept     | 46.27  | 1.76
+income_growth |  3.04  | 0.74
+
+So its `sigma` is comfortably within one standard error of the other two
+estimates of the magnitude of the error noise.
 
 ### 8.10, Leave-one-out cross validation
 
