@@ -34,7 +34,30 @@ but going from 2.2 to 2.6 is only a jump from 90% to 93%.
 
 ### 13.2, Interpreting logistic regression coefficients and the divide-by-4 rule
 
-TK
+You can, just as a simple default, choose the mean predictors value as the
+baseline from which you assess how a predictor affects the output probability.
+Plug in $\bar{x}$, get a baseline probability of $y = 1$, then see how that
+changes when you increase $x_i$ from its mean value to mean-plus-one-unit.
+
+The steepest part of the inverse logit is at 0, where its slope is $\beta/4$ for
+the univariate linear predictor $\alpha + \beta x$.  The upshot is if you divide
+a coefficient by four, you get a sense of how much a unit increase in that
+predictor moves the predicted probability off of 0.5.
+
+They touch on the log-odds-ratio interpretation of the logistic regression,
+which is how I first learned it.  I agree that "the concept of odds can be
+somewhat difficult to understand, and odds ratios are even more obscure."
+And multiplicative effects on odds ratios are weirdest of all.  It really is
+easier to just think in terms of the inverse logit curve squashing the
+weighted-sum of the linear predictor into the [0, 1] range.
+
+While there's no `sigma` any more, we do still get standard errors for each
+coefficient estimate.  They work like usual: any value within $\pm 2$ of the
+mean estimate is consistent with the data.  Don't try and use them as a
+statistical significance filter, though, for the usual reasons: it's acting as a
+classifier of "real/not real effect" that's too error prone.  Soft decisions
+like "do we have certainty in this estimate" are different than hard decisions
+of "this estimate is right, that one is wrong."
 
 ### 13.3, Predictions and comparisons
 
