@@ -61,7 +61,31 @@ of "this estimate is right, that one is wrong."
 
 ### 13.3, Predictions and comparisons
 
-TK
+Once you have a model, you can produce the three kinds of prediction:
+
+*  **Point prediction:**  Take the mean coefficients, find their dot product
+    with $x^{new}$, and run that dot product through the inverse logit.
+
+*  **Linear predictor with uncertainty:** Use the many simulated draws from the
+    MCMC run to get an empirical posterior distribution of
+    $\beta \cdot x^{new}$.  As in, for 4000 simulations, you get 4000 dot
+    products representing the posterior of the linear predictor output.
+
+*  **Expected outcome with uncertainty:** Take the vector you got for "linear
+    predictor with uncertanty" and run them through the inverse logit to get
+    4000 probabilities.  Summarize those 4000 however you like.  You can even
+    use a weighted-coin-flipper to turn them into 4000 $y^{new} \in {0, 1}$
+    bits if you want.
+
+From there, the chapter goes into special cases like:
+
+*  **Just an intercept:** it's the same as estimating a proportion (i.e.,
+    an average of bits).
+*  **A single binary predictor:** it's the same as estimating a difference in
+    proportions.
+
+Not that you should use logistic regression for those estimates, they say, but
+just to emphasize their commonality.
 
 ### 13.4, Latent-data formulation
 
