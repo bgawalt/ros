@@ -2,11 +2,35 @@
 
 [(Return to README)](./README.md)
 
+This chapter introduces two modifications to the linear regressions run so far:
+a mechanism for bounding predictions such that they lie between 0 and 1, and a
+model framework that interprets those predictions as probabilities over some
+this-or-that outcome pair.  These modifications are will make stuff covered so
+far -- fitting models, interpreting coefficients -- a bit more complicated.
+
 ## Subsection rundown
 
 ### 13.1, Logistic regression with a single predictor
 
-TK
+When fitting the logistic regression, `stan_glm` doesn't output a `sigma`
+coefficient estimate, like it did for linear regression.  "Logistic regression
+has no separate variance term; its uncertainty comes from its probabilistic
+prediction of binary outcomes."  The $y$ value is itself the reflection of
+uncertainty.
+
+The model of the probability that $y = 1$ looks like:
+
+$$\text{logit}(z) = \log\left(\frac{z}{1 - z}\right)$$
+
+$$\text{logit}^{-1}(z) = \frac{e^z}{1 + e^z} = \frac{1}{1 + e^-z}$$
+
+$$\text{Pr}(y_i = 1) = \text{logit}^{-1}(X_i\beta)$$
+
+calling the $X\beta$ term the linear predictor.  The change in predicted
+probability you get from a fixed increase in the linear prediction depends on
+the starting probability.  They do the arithmetic around what happens when the
+linear predictor increases by 0.4; going from 0 to 0.4 is a jump from 50% to 60%
+but going from 2.2 to 2.6 is only a jump from 90% to 93%.
 
 ### 13.2, Interpreting logistic regression coefficients and the divide-by-4 rule
 
