@@ -409,7 +409,7 @@ When the parents earn $60k, then $z = a + 6b$:
 
 $$\begin{align}
     \text{Pr}(y = 1 | x = 6) &= \text{logit}^{-1}(a + 6b) \\
-    a + 60b &= \text{logit}(0.88) \\
+    a + 6b &= \text{logit}(0.88) \\
     \Rightarrow b &= \left(\text{logit}(0.88) - \text{logit}(0.27)\right)/6
 \end{align}
 $$
