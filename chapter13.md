@@ -378,14 +378,22 @@ height         0.28   0.02
 >     one inch in height, you’ll expect a difference of __ in the probability of
 >     being heavy.
 
-TK
+The 50-50 crossover takes place just below 6'5" tall:
+
+![x-axis: "Height (in.)" from 60 to 78; y-axis "Pr{Weight > 200 lbs.}" from 0% to 65%](./fig/part3/ex13_07_heavy.png)
+
+Near 6'5", I would expect a difference of 7% in heaviness probability when
+comparing two people differing by one inch of height.
 
 ### 13.8, Linear transformations
 
 > In the regression from the previous exercise, suppose you replaced height in
 > inches by height in centimeters. What would then be the intercept and slope?
 
-TK
+The intercept would stay the same, -21.51.
+
+There are 2.54 centimeters for every inch, so would expect the slope to be
+0.11 (which is 0.28 divided by 2.54).
 
 ### 13.9, The algebra of logistic regression with one predictor
 
