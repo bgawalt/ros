@@ -311,7 +311,10 @@ z            0.7    0.5
 > predictor taking on the values 0 and 1. Display the fitted model as two curves
 > on a graph of $\text{Pr}(y = 1)$ vs. $x$.
 
-TK
+![x-axis, "x", runs from 0 to 10; y-axis, "Pr{y = 1 | x, z}" runs from 0% to
+100%. A blue curve labeled "z = 0" starts at 17%, crosses 40% at 2 and 80% at
+4.5 and asymptotes at 100%.  A red curve labeled "z = 1" is the same curve,
+shifted left by 0.7 x-units](./fig/part3/ex13_04_two_preds.png)
 
 ### 13.5, Interpreting logistic regression coefficients
 
