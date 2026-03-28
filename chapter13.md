@@ -234,7 +234,9 @@ data point."
 
 ### 13.7, Building a logistic regression model: wells in Bangladesh
 
-TK
+They do some simple iterations through a logistic regression: rescaling the
+first variable; adding a second variable.  There's some recommendations about
+how to plot results.
 
 ## Exercises
 
