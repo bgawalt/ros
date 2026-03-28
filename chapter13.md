@@ -134,7 +134,84 @@ back when we introduced collinearity in a recent chapter.
 
 ### 13.5, Maximum likelihood and Bayesian inference for logistic regression
 
-TK
+When we did linear regression, there was a chapter section dedicated to pointing
+out that you could think of the ordinary least squares routine as the result of
+seeking a maximum likelihood parameter estimate assuming the error terms were
+normally distributed.  You don't have to think about your problem that way to
+have least squares make sense, but if you *do* think about your problem that
+way, it will *lead you* to using least squares.  They do that here for logistic
+regression.
+
+Formula (13.7):
+
+$$p(y | \beta, X) = \prod_{i=1}^n
+    \left(\text{logit}^{-1}(X_i\beta)\right)^{y_i}
+    \left(1 - \text{logit}^{-1}(X_i\beta)\right)^{1 - y_i}
+$$
+
+We tend to want to actually maximize the logarithm of this function, which they
+don't write out but I'll put down here:
+
+$$\begin{align}
+\log p(y | \beta, X) &= \log\left(\prod_{i=1}^n
+                    \left(\text{logit}^{-1}(X_i\beta)\right)^{y_i}
+                    \left(1 - \text{logit}^{-1}(X_i\beta)\right)^{1 - y_i}
+                   \right) \\
+&= \sum_{i=1}^n \log\left(\left(\text{logit}^{-1}(X_i\beta)\right)^{y_i}
+                    \left(1 - \text{logit}^{-1}(X_i\beta)\right)^{1 - y_i}
+                   \right) \\
+&= \sum_{i=1}^n \left[
+        y_i\log\left(\text{logit}^{-1}(X_i\beta)\right)
+        + (1 - y_i)\log\left(\text{logit}^{-1}(1 - X_i\beta)\right)
+    \right] \\
+&= \sum_{i=1}^n \left[
+        y_i\log\left(\frac{1}{1 + e^{-X_i\beta}}\right)
+        + (1 - y_i)\log\left(1 - \frac{1}{1 + e^{-X_i\beta}}\right)
+    \right] \\
+&= \sum_{i=1}^n \left[
+        -y_i\log\left(1 + e^{-X_i\beta}\right)
+        + (1 - y_i)\log\left(\frac{1 + e^{-X_i\beta} - 1}{1 + e^{-X_i\beta}}\right)
+    \right] \\
+&= \sum_{i=1}^n \left[
+        -y_i\log\left(1 + e^{-X_i\beta}\right)
+        + (1 - y_i)\log\left(\frac{1}{1 + e^{X_i\beta}}\right)
+    \right] \\
+&= -\sum_{i=1}^n \left[
+        y_i\log\left(1 + e^{-X_i\beta}\right)
+        + (1 - y_i)\log\left(1 + e^{X_i\beta}\right)
+    \right]
+\end{align}
+$$
+
+In terms of maximizing that (log) likelihood,
+
+*  When $y_i$ is 1,
+    *  we want $(1 + e^{-X_i\beta})$ to be as small as possible,
+    *  which means we want $X_i\beta$ to be as close to $+\infty$ as possible.
+*  When $y_i$ is 0,
+    *  we want $(1 + e^{X_i\beta})$ to be as small as possible,
+    *  which means we want $X_i\beta$ to be as close to $-\infty$ as possible.
+
+This is also what we want from our latent variables that drop out of the linear
+predictor: the negative examples should have $z_i$ below zero, and the more
+below zero, the more likely to be a negative example.
+
+Bayesian inference with a uniform (improper?) prior on the $\beta$ parameters
+will operate on a log posterior that's identical to the above log likelihood.
+
+The default priors for logistic regression in `stan_glm` gives a normal prior
+with zero mean and standard deviation $2.5/\text{sd}(x_k)$ to $\beta_k$,
+*except* for the intercept.  The intercerpt's prior is fun: it's applied as a
+prior on the output of the linear predictor evaluated at the mean predictor
+vector $\bar{x}$, normal with mean 0 and std. dev. 2.5.  "This is similar to the
+default priors for linear regression discussed on page 124, except that for
+logistic regression there is no need to scale based on the outcome variable."
+
+They provide a fun example of running the same data through the more-typical
+`glm` regression library, as well as `stan_glm` with an informative prior, and
+demostrate the shrinkage effect.  (And their results hint at the risks of
+getting large effect size estimates when data volume is low in the unregularized
+`glm` case.)
 
 ### 13.6, Cross validation and log score for logistic regression
 
