@@ -5,8 +5,8 @@
 This chapter introduces two modifications to the linear regressions run so far:
 a mechanism for bounding predictions such that they lie between 0 and 1, and a
 model framework that interprets those predictions as probabilities over some
-this-or-that outcome pair.  These modifications are will make stuff covered so
-far -- fitting models, interpreting coefficients -- a bit more complicated.
+this-or-that outcome pair.  These modifications will make stuff covered so far
+-- fitting models, interpreting coefficients -- a bit more complicated.
 
 ## Subsection rundown
 
@@ -215,7 +215,22 @@ getting large effect size estimates when data volume is low in the unregularized
 
 ### 13.6, Cross validation and log score for logistic regression
 
-TK
+It's not totally unheard of to evaluate a logistic regression with the Brier
+score, $\frac{1}{n}\sum_{i=1}^n(p_i - y_i)^2$.  You could use that as an
+analogue for the posterior residual standard deviation from Section 11.6, and
+then use $\frac{1}{n}\sum_{i=1}^np_i(1-p_i)$ as the other component of
+Bayesian $R^2$.
+
+But it's not a great fit: the residuals in logistic regression aren't additive,
+due to the logit's nonlinear nature.  A delta of 0.01 matters more around
+$p_i = 0.5$ than when $p_i << 0.1$.  They recommend log score instead.  And they
+recommend using LOO again (whether for log scoring or Brier scoring).
+
+The log score looks exactly like the log likelihood I developed in the previous
+section, applid to new data points: $\log p(y^{new} | \beta, X^{new})$.
+"The same idea applies more generally to any statistical model: the predictive
+log score is the sum of the logarithms of the predicted probabilities of each
+data point."
 
 ### 13.7, Building a logistic regression model: wells in Bangladesh
 
