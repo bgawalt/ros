@@ -397,7 +397,24 @@ TK
 > information. For simplicity, you may want to assume that income is measured in
 > units of $10,000.
 
-TK
+When the parents earn no income, the linear prediction is just $z = a$,
+
+$$\begin{align}
+    \text{Pr}(y = 1 | x = 0) &= \text{logit}^{-1}(a) \\
+    \Rightarrow a &= \text{logit}(0.27)
+\end{align}
+$$
+
+When the parents earn $60k, then $z = a + 6b$:
+
+$$\begin{align}
+    \text{Pr}(y = 1 | x = 6) &= \text{logit}^{-1}(a + 6b) \\
+    a + 60b &= \text{logit}(0.88) \\
+    \Rightarrow b &= \left(\text{logit}(0.88) - \text{logit}(0.27)\right)/6
+\end{align}
+$$
+
+That gets us $(a, b) = (-0.99, 0.5)$.
 
 ### 13.10, Expressing a comparison of proportions as a logistic regression
 
