@@ -89,7 +89,48 @@ just to emphasize their commonality.
 
 ### 13.4, Latent-data formulation
 
-TK
+You can imagine a latent variable, $z$, in between the linear prediction and the
+predicted probability, where the generative path looks like:
+
+1.  The predictors $x$ produce a linear prediction $x \cdot \beta$, using the
+    true coefficient values
+2.  Some noise $\ is sprinkled on top of the linear prediction; call $z$, as in
+    $z = x\cdot\beta + \mathbb{\epsilon}$.  That noise follows the logistic
+    distribution, whose pdf is the derivative of the inverse logit.  Which is
+    equivalent to $\text{Pr}(\mathbb{\epsilon} < x) = \text{logit}^{-1}(x)$.
+3.  The outcome $y$ is then a 1 if $z$ is positive and 0 else.
+
+The equation chain for Step 3 there is fun:
+
+$$\text{Pr}(y = 1) = \text{Pr}(z > 0) = \text{Pr}(\mathbb{\epsilon} > -x \cdot \beta) = \text{logit}^{-1}(x \cdot \beta)$$
+
+(This is different than I learned, where the outcome $y$ is not a thresholding
+of the latent variable, but a Bernoulli RV with mean $\text{logit}^{-1}(z)$,
+perhaps with no noise term added in the generation of $z$?  I never had much
+formal definition of it drilled in class.)
+
+The latent variables are a nice way of smushing the predictors together to
+provide a richer ordering of the outcomes than their binary values allow.
+They include a sentence about how you can bolster your confidence in their
+validity if your data has multiple ways of probing them: in their example, not
+just asking which candidate you'll vote for, but also questions about your
+one-to-five star ratings for each.
+
+They close out by discussing where the `sigma` parameter.  The answer is it's
+smothered by nonidentifiability.  For any model pair of $(\beta, \sigma)$,
+where $\beta$ are the "true" coefficient values and $\sigma$ is the scale of
+the error distribution, you can come up with an infinite number of other pairs
+that produce the same $y$ pattern just by scaling $(\beta, \sigma)$ by a common
+factor:
+
+> As we move from each of these models to the next, z is multiplied by 10, but
+> the sign of z does not change. Thus all the models have the same implications
+> for the observed data $y$.
+
+By convention, then, everyone who uses logistic regression just freezes the
+scale parameter for the error terms' logistic distribution to 1.0. This feels
+like a nice bit of compound interest payoff to discussions of identifiability
+back when we introduced collinearity in a recent chapter.
 
 ### 13.5, Maximum likelihood and Bayesian inference for logistic regression
 
