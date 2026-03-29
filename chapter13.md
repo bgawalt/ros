@@ -274,7 +274,7 @@ TK
 > 
 > (e) $\text{Pr}(y = 1) = \text{logit}^{-1}(-2x)$
 
-TK
+![The five sigmoid curves requested, running from -3 to 3](./fig/part3/ex13_02_invlogit.png)
 
 ### 13.3, Understanding logistic regression coefficients
 
