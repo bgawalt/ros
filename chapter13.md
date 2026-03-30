@@ -440,7 +440,15 @@ That gets us $(a, b) = (-0.99, 0.5)$.
 > 
 > (b) Compare to the results from Exercise 4.1.
 
-TK
+Coef.        | Mean  | s.e.
+------------ | ----- | ------
+Intercept    | -0.41 | 0.09
+incentivized |  0.40 | 0.12
+
+In Exercise 4.1, I had an estimated effect size of 0.1 (i.e., 10 percentage
+points) with a standard error of 0.03.  If you apply the divide-by-4 heuristic
+to the estimate of the `incentivized` coefficient in the model fit, you get the
+same results.  Hooray!
 
 ### 13.11, Building a logistic regression model
 

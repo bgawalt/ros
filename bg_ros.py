@@ -50,12 +50,16 @@ def linregress_plot(
 
 def bambi_markdown(
     model_fit: arviz.data.inference_data.InferenceData,
-    predictors: list[str]
+    predictors: list[str],
+    include_sigma: bool,
     ) -> str:
   """Returns a Markdown table of the mean and s.e. for the linear model."""
   summ = arviz.summary(model_fit)
-  sig_mu = summ["mean"]["sigma"]
-  sig_se = summ["sd"]["sigma"]
+  if include_sigma:
+    sig_mu = summ["mean"]["sigma"]
+    sig_se = summ["sd"]["sigma"]
+  else:
+    sig_mu = sig_se = float('nan')
   int_mu = summ["mean"]["Intercept"]
   int_se = summ["sd"]["Intercept"]
   out = textwrap.dedent(f"""\
