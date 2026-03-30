@@ -528,10 +528,11 @@ $$\begin{align} \textrm{se}_{\textrm{diff}} &= \sqrt{\textrm{se}_1^2 + \textrm{s
   &= \sqrt{0.4 \times 0.6 / 500} \\
   &= 0.0219 \\
 \textrm{se}_{\textrm{diff}} &= \sqrt{0.0224^2 + 0.0219^2} \\
-  &= 0.313 \\
+  &= 0.0313 \\
 \end{align}$$
 
-So a reasonable uncertainty interval in the effect size is $[3.7\%, 16.3\%]$.
+So a reasonable uncertainty interval in the effect size is probably between
+7% and 13%, and *very* likely to be with 4% and 16%.
 
 ### 4.2, Choosing sample size
 
