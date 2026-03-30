@@ -374,7 +374,44 @@ arsenic       0.46   0.04
 > (b) Use predictive simulation from the fitted model in R, under the assumption
 >     that these two people each live 50 meters from the nearest safe well.
 
-TK
+The divide-by-four rule says that at the 50-50 threshold, this model suggests
+one more unit of arsenic would mean, on average, an 11.5 percentage-point jump
+in probability of switching.  Because arsenic is only larger by 0.5 units in
+our hypothetical, the larger-arsenic person has on average a 5.75 pct. point
+increase in switching.  This has a standard error of 1 pct. point.
+
+The uncertainty in the intercept and distance coefficients amount to 0.13, which
+is about half the difference made on the linear predictor by the change in
+arsenic levels.
+
+I don't think I'm doing part (a) correctly, but I don't know what I'm supposed
+to do instead.
+
+Here's the model I fit in Bambi:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+Intercept |  0.00 | 0.08
+dist100   | -0.90 | 0.10
+arsenic   |  0.46 | 0.04
+
+It matches the book's numbers; that's good.
+
+Estimating the difference using the simulations, I get numbers:
+
+*  Mean diff: 2.9 pct. points
+*  Std. dev diff: 41.3 pct. points
+*  50% range: [-26.2, 33.1] pct. points
+*  95% range: [-76.3, 80.5] pct. points
+
+They're from this histogram of percentage point differeces:
+
+![Triangular shaped histogram that spans from -100 to +100, peaking around 0](./fig/part3/ex13_05_wells_hist.png)
+
+The good news here is that range I got with the divide-by-four answer does
+pretty much cover the mean I found from Bambi.  But I'm still without a clue how
+to get such (large) percentage point difference uncertainty ranges just from the
+regression output of (a).
 
 ### 13.6, Interpreting logistic regression coefficient uncertainties
 
