@@ -286,15 +286,47 @@ TK
 > $\text{Pr}(\text{vote} > 50) = \text{logit}^{-1}(a + b \times \text{growth})$.
 > Approximately what are the estimates of $(a, b)$?
 >
-> Figure this out in four steps: (i) use the fitted linear regression model to
-> estimate Pr(vote > 50) for different values of growth; (ii) second, plot these
-> probabilities and draw a logistic curve through them; (iii) use the
-> divide-by-4 rule to estimate the slope of the logistic regression model;
+> Figure this out in four steps:
+>
+> (i) use the fitted linear regression model to estimate Pr(vote > 50) for
+>     different values of growth;
+>
+> (ii) second, plot these probabilities and draw a logistic curve through them;
+>
+> (iii) use the divide-by-4 rule to estimate the slope of the logistic
+>    regression model;
+>
 > (iv) use the point where the probability goes through 0.5 to deduce the
-> intercept. Do all this using the above information, without downloading the
-> data and fitting the model. 
+>     intercept.
+>
+> Do all this using the above information, without downloading the data and
+> fitting the model.
 
-TK
+Here's the plot you get at step (ii):
+
+![x axis, Recent personal income growth rate, from -1% to 5%; 
+y axis, Incumbent party win probability, from 0 to 100%;
+The curve is a section of a sigmoid that rises from ~5% at -5% income growth to
+50% at around 1.3%, to full 100% asymptote at 4% income
+growth](./fig/part3/ex13_03b_inc_party_win_prob.png)
+
+That looks like it crosses 50% when the income growth rate is around 1.25%.  And
+the slope there is 20 percentage points of win probability (from 40% to 60%)
+between the income growth points of 0.95% and 1.5%.  So the maximum slope is
+(0.2 / 0.55) = 0.364.
+
+Applying the divide-by-four rule, the logistic regression should have a slope
+coefficient of 1.45.
+
+At the 50% point (growth rate: $x = 1.25$), $\alpha + \beta x = 0$, so:
+
+$$\alpha + 1.25\beta = 0 \Rightarrow \alpha = -1.25 \times 1.45 = -1.82$$
+
+The logistic regression model I would expect to get has
+$(\alpha, \beta) = (-1.82, 1.45)$.
+
+Note that this implies a win probability of $\text{logit}^{-1}(-1.82) = 14\%$
+when income growth is zero, which is within a point or two of the plot above.
 
 ### 13.4, Logistic regression with two predictors
 
