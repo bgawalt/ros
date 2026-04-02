@@ -414,18 +414,6 @@ pretty much cover the mean I found from Bambi.  But I'm still without a clue how
 to get such (large) percentage point difference uncertainty ranges just from the
 regression output of (a).
 
-### 13.6, Interpreting logistic regression coefficient uncertainties
-
-> In Section 14.2, there are two models, `fit_4` and `fit_5`, with distance and
-> arsenic levels as predictors along with an interaction term.  The model
-> `fit_5` differed by using centered predictors. Compare the reported
-> uncertainty estimates (mad sd) for the coefficients, and use for example the
-> `mcmc_pairs` function in the `bayesplot` package to examine the pairwise joint
-> posterior distributions. Explain why the mad sd values are different for
-> `fit_4` and `fit_5`.
-
-TK
-
 ### 13.7, Graphing a fitted logistic regression
 
 > We downloaded data with weight (in pounds) and age (in years) from a random
