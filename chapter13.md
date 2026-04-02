@@ -351,9 +351,11 @@ shifted left by 0.7 x-units](./fig/part3/ex13_04_two_preds.png)
 
 ### 13.5, Interpreting logistic regression coefficients
 
-> Here is a fitted model from the Bangladesh analysis predicting whether a
-> person with high-arsenic drinking water will switch wells, given the arsenic
-> level in their existing well and the distance to the nearest safe well:
+> Here is a fitted model
+> [from the Bangladesh analysis](https://github.com/avehtari/ROS-Examples/tree/master/Arsenic/)
+> predicting whether a person with high-arsenic drinking water will switch
+> wells, given the arsenic level in their existing well and the distance to the
+> nearest safe well:
 
 ```
 stan_glm(formula = switch ~ dist100 + arsenic, family=binomial(link="logit"), data=wells)
