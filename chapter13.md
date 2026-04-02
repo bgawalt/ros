@@ -245,10 +245,11 @@ Plots and computation powered by [Chapter13.ipynb](./notebooks/Chapter13.ipynb)
 
 ### 13.1, Fitting logistic regression to data
 
-> The folder NES contains the survey data of presidential preference and income
-> for the 1992 election analyzed in Section 13.1, along with other variables
-> including sex, ethnicity, education, party identification, and political
-> ideology.
+> The
+> [folder NES contains](https://github.com/avehtari/ROS-Examples/tree/master/NES/)
+> the survey data of presidential preference and income for the 1992 election
+> analyzed in Section 13.1, along with other variables including sex, ethnicity,
+> education, party identification, and political ideology.
 >
 > (a) Fit a logistic regression predicting support for Bush given all these
 >     inputs. Consider how to include these as regression predictors and also
@@ -259,7 +260,175 @@ Plots and computation powered by [Chapter13.ipynb](./notebooks/Chapter13.ipynb)
 > (c) For your chosen model, discuss and compare the importance of each input
 >     variable in the prediction.
 
-TK
+When I look at the fields `income` and `rvote`, I see two categorical variables:
+
+|         | year | income | rvote
+--------- | ---- | ------ | -----
+**count** | 1356.00 | 1356.00 | 1356.00
+**mean**  | 1992.00 | 3.11 | 0.35
+**std**   | 0.00 | 1.08 | 0.48
+**min**   | 1992.00 | 1.00 | 0.00
+**25%**   | 1992.00 | 2.00 | 0.00
+**50%**   | 1992.00 | 3.00 | 0.00
+**75%**   | 1992.00 | 4.00 | 1.00
+**max**   | 1992.00 | 5.00 | 1.00
+
+#### Model M1: `rvote['1'] ~ income`
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+Intercept | -1.46 | 0.18
+income    |  0.27 | 0.06
+
+Pretty good for such a simple model!
+
+#### Model M2: `rvote['1'] ~ C(income)`
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -1.18 | 0.19
+C(income)[2] | 0.33 | 0.24
+C(income)[3] | 0.51 | 0.21
+C(income)[4] | 0.78 | 0.21
+C(income)[5] | 1.03 | 0.28
+
+Those are pretty wide standard errors on the categorical random variables.
+And they also, funnily enough, look like their mean coefficient values are
+linearly spaced!
+
+When I compare them, turns out one coefficient for each income bucket does not
+help the LOO log scores, though there's substantial overlap in the uncertainty
+intervals:
+
+![elpd_loo uncertainty intervals for M1 and M2; M1 ranges from -880 to -855;
+M2 ranges from -900 to -861](./fig/part3/ex13_01_compM2.png)
+
+#### Model M3: `rvote['1'] ~ income + age_z + gender`
+
+I added age and gender as attributes, and $z$-scored age.  I left gender a
+binary categorical variable, though if I knew which gender 1 stood for, I would
+rename it.
+
+I looked at `union` as a feature, but over 75% of rows have a value of 2 for
+that attribute -- probably not a lot of lift there.
+
+When I fit this model, I see income is still pretty important, age somewhat
+important, and gender basically not at all (or, with high uncertainty).
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -1.52 | 0.21
+income    | 0.29 | 0.06
+age_z     | 0.10 | 0.06
+gender    | 0.01 | 0.12
+
+![elpd_loo uncertainty intervals for M1, M2, and M3; M3 ranges from -880 to -855
+just like M1 does, though very slightly more negative (more negative is a worse
+CV performance)](./fig/part3/ex13_01_compM3.png)
+
+#### Model M4: `rvote['1'] ~ income + age_z + gender + age_z:gender`
+
+When I add an interaction for age and gender, that interaction's coefficient is
+looking pretty strong relative; one standard error away from zero, anyway.
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -1.56 | 0.21
+income       | 0.29 | 0.06
+age_z        | 0.00 | 0.09
+gender       | 0.02 | 0.11
+age_z:gender | 0.18 | 0.11
+
+But its LOO CV score is idential to M1 and M3:
+
+![elpd_loo uncertainty intervals for M1 though M4; M4 ranges from -880 to -855
+just like M1 and M3 do](./fig/part3/ex13_01_compM4.png)
+
+#### Model M5: `rvote['1'] ~ income + age_z + gender + C(race)`
+
+When I add race as a categorical random variable (five categories, where more
+than 75% of respondents are Category 1), I see a big anybody-but-Bush effect
+for Category 2 (and a slight bump-up in the intercept, relative to M4):
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -1.20 | 0.21
+income     | 0.23 | 0.06
+age_z      | 0.08 | 0.06
+gender     | 0.04 | 0.12
+C(race)[2] | -2.19 | 0.32
+C(race)[3] | 0.78 | 0.44
+C(race)[4] | -0.12 | 0.35
+C(race)[5] | -0.17 | 0.28
+
+This is a *huge* improvement on the LOO CV metrics:
+
+![elpd_loo uncertainty intervals for M1 though M5; M5 ranges from -845 to -815,
+which is much higher and has no overlap with the next leading model, M1
+](./fig/part3/ex13_01_compM5.png)
+
+#### Model M6: `rvote['1'] ~ income + C(race) + income:C(race)`
+
+When I drop the weaker predictors of age and gender, and add an interaction
+between income and race, I still see a strong (anti-Bush) effect associated with
+Race-2's intercept, but no strong coefficients among the income-race interaction
+terms:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -1.12 | 0.20
+income            | 0.21 | 0.06
+C(race)[2]        | -1.35 | 0.64
+C(race)[3]        | 0.08 | 0.86
+C(race)[4]        | -0.56 | 0.78
+C(race)[5]        | -0.61 | 0.64
+income:C(race)[2] | -0.36 | 0.24
+income:C(race)[3] | 0.23 | 0.26
+income:C(race)[4] | 0.15 | 0.26
+income:C(race)[5] | 0.17 | 0.24
+
+The resulting LOO CV is identical to M5:
+
+![elpd_loo uncertainty intervals for M1 though M6; M6 ranges from -845 to -815,
+same as M5 does, and (still) much higher than the other four](./fig/part3/ex13_01_compM6.png)
+
+#### Model M7: `rvote['1'] ~ income + age_z + gender + C(race) + real_ideo`
+
+Finally, I add a feature for reported ideology of each respondent, on a 1-7
+scale, `real_ideo`:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | nan | nan
+Intercept | -5.02 | 0.41
+income     | 0.17 | 0.07
+age_z      | -0.04 | 0.07
+gender     | 0.18 | 0.15
+C(race)[2] | -2.45 | 0.42
+C(race)[3] | 0.49 | 0.52
+C(race)[4] | -0.22 | 0.44
+C(race)[5] | -0.23 | 0.37
+real_ideo  | 0.91 | 0.07
+
+It's strongly predictive!  And the LOO CV looks great:
+
+![elpd_loo uncertainty intervals for M1 though M7; M7 ranges from -570 to -540,
+absolutely miles ahead of the other six models](./fig/part3/ex13_01_compM7.png)
+
+#### Model M8: `rvote['1'] ~ real_ideo`
+
+If I just use ideology, all on its own: great model.  Second best overall.
+This gives a sense of how much/little the demographic characteristics (age,
+gender, race) are able to fill in the gaps of ideology as a predictor.
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -4.46 | 0.29
+real_ideo | 0.89 | 0.06
+
+![elpd_loo uncertainty intervals for M1 though M8; M8 ranges from -600 to -560,
+absolutely miles ahead of the first six models but not quite as good as M7
+](./fig/part3/ex13_01_compM8.png)
 
 ### 13.2, Sketching the logistic curve
 
@@ -576,18 +745,11 @@ When I fit the model once, I get:
 
 Coef.     | Mean   | s.e.
 --------- | ------ | ------
-Intercept | -0.44  | 0.61
-x         | 0.01   | 0.01
-z         | 0.56   | 0.66
+Intercept | -0.09 | 0.57
+x         | 0.01 | 0.01
+z         | 0.94 | 0.62
 
-The estimates do cover the true parameter values, and the means are even pretty
-close, but also the standard errors are very wide.  The particular question of
-whether $\theta$ is covered -- it is, but the s.e. is wide enough that it thinks
-the treatment might even be detrimental.
-
-The above estimate is reliably reproduced for one hundred resamples of fake
-data; $\theta$ is always covered but always by unhappily large standard errors
-(and consistently over-large mean estimates):
+TK: Describe
 
 ![100 coverage plots where a thin blue line goes +/- 1.96 * 0.66 and a thick
 blue line goes from +/- 0.67 * 0.66, and blue dots are around 0.56](./fig/part3/ex13_12_100resamples.png)
