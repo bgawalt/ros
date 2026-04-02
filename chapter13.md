@@ -22,7 +22,7 @@ The model of the probability that $y = 1$ looks like:
 
 $$\text{logit}(z) = \log\left(\frac{z}{1 - z}\right)$$
 
-$$\text{logit}^{-1}(z) = \frac{e^z}{1 + e^z} = \frac{1}{1 + e^-z}$$
+$$\text{logit}^{-1}(z) = \frac{e^z}{1 + e^z} = \frac{1}{1 + e^{-z}}$$
 
 $$\text{Pr}(y_i = 1) = \text{logit}^{-1}(X_i\beta)$$
 
@@ -94,10 +94,11 @@ predicted probability, where the generative path looks like:
 
 1.  The predictors $x$ produce a linear prediction $x \cdot \beta$, using the
     true coefficient values
-2.  Some noise $\ is sprinkled on top of the linear prediction; call $z$, as in
-    $z = x\cdot\beta + \mathbb{\epsilon}$.  That noise follows the logistic
-    distribution, whose pdf is the derivative of the inverse logit.  Which is
-    equivalent to $\text{Pr}(\mathbb{\epsilon} < x) = \text{logit}^{-1}(x)$.
+2.  Some noise $\epsilon$ is sprinkled on top of the linear prediction;
+    call $z$, as in $z = x\cdot\beta + \mathbb{\epsilon}$.  That noise follows
+    the logistic distribution, whose pdf is the derivative of the inverse logit. 
+    Which is equivalent to
+    $\text{Pr}(\mathbb{\epsilon} < x) = \text{logit}^{-1}(x)$.
 3.  The outcome $y$ is then a 1 if $z$ is positive and 0 else.
 
 The equation chain for Step 3 there is fun:
@@ -567,4 +568,36 @@ TK
 >     normal-theory 50% and 95% intervals (that is, the estimates $\pm0.67$ and
 >     1.96 standard errors).
 
-TK
+Deriving $(a, b, \theta)$ to match the problem spec:
+
+$$0.8 = \text{logit}^{-1}(a + 100b) \Rightarrow a + 100b = 1.39$$
+$$0.6 = \text{logit}^{-1}(a + 50b) \Rightarrow a + 50b = 0.41$$
+$$(100 - 50)b = 1.39 - 0.41$$
+$$b = \frac{1.39 - 0.41}{50} = 0.019$$
+$$a = 0.41 - 50(0.19) = -0.575$$
+$$0.7 = \text{logit}^{-1}(a + 50b + \theta)$$
+$$\Rightarrow \theta = 0.84 - a - 50b = 0.44$$
+
+So all in all, $(a, b, \theta) = (-0.58, 0.02, 0.44)$.  I did some checks and
+saw that if I force all $z_i$ to 1, then 70% of $y_i$s are 1, and only 60% are
+when I force all $z_i$ to be zero.
+
+When I fit the model once, I get:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -0.44  | 0.61
+x         | 0.01   | 0.01
+z         | 0.56   | 0.66
+
+The estimates do cover the true parameter values, and the means are even pretty
+close, but also the standard errors are very wide.  The particular question of
+whether $\theta$ is covered -- it is, but the s.e. is wide enough that it thinks
+the treatment might even be detrimental.
+
+The above estimate is reliably reproduced for one hundred resamples of fake
+data; $\theta$ is always covered but always by unhappily large standard errors
+(and consistently over-large mean estimates):
+
+![100 coverage plots where a thin blue line goes +/- 1.96 * 0.66 and a thick
+blue line goes from +/- 0.67 * 0.66, and blue dots are around 0.56](./fig/part3/ex13_12_100resamples.png)
