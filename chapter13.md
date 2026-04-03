@@ -694,7 +694,230 @@ same results.  Hooray!
 >     the general principles explained in Section 12.6. Discuss the coefficients
 >     for the ethnicity indicators in your model.
 
-TK
+When I load the dataset, I am able to parse for `rodent2` and `race` values, 
+getting back 1,551 rows (and discarding 197 where `rodent2` is `"NA"`).
+
+The dataframe I get looks like:
+
+|         | rodent2 | race
+--------- | ------- | ----
+**count** | 1551.00 | 1551.00
+**mean**  | 0.24 | 2.28
+**std**   | 0.43 | 1.41
+**min**   | 0.00 | 1.00
+**25%**   | 0.00 | 1.00
+**50%**   | 0.00 | 2.00
+**75%**   | 0.00 | 3.00
+**max**   | 1.00 | 7.00
+
+When I count up the number of rows with each distinct code number for `race`, I
+get:
+
+race code | count
+--------- | -----
+1 | 633
+2 | 404
+3 | 139
+4 | 223
+5 | 139
+6 | 6
+7 | 7
+
+So I added a filter and dropped codes 6 and 7; now the dataframe looks like:
+
+|         | rodent2 | race
+--------- | ------- | ----
+**count** | 1538.00 | 1538.00
+**mean**  | 0.24 | 2.24
+**std**   | 0.43 | 1.36
+**min**   | 0.00 | 1.00
+**25%**   | 0.00 | 1.00
+**50%**   | 0.00 | 2.00
+**75%**   | 0.00 | 3.00
+**max**   | 1.00 | 5.00
+
+When I fit Model R1, `rodent2['1'] ~ C(race)`, I get the following estimates:
+
+Coef.      | Mean  | s.e.
+---------- | ----- | ------
+Intercept  | -2.11 | 0.12
+C(race)[2] |  1.28 | 0.17
+C(race)[3] |  1.51 | 0.21
+C(race)[4] |  1.87 | 0.18
+C(race)[5] |  0.69 | 0.24
+
+All the standard errors are small relative to their means, with even Race 5's
+mean being two s.e.'s from zero.
+
+These correspond to the empirical fraction of respondents in the dataset of a
+particular rate that have a rodent infestation.  Every one is below 50%, but
+Race 1's is around 10% while Race 2, 3, and 4's are around 30, 40, and 45%.
+(Race 5 is around 20%).
+
+If I go back and grab a bunch more attributes, I get:
+
+|         | rodent2 | race | numunits | stories | extwin4_2 | extflr5_2 | old | extwin4_2_Mean | extflr5_2_Mean | old_Mean
+--------- | ------- | ---- | -------- | ------- | --------- | --------- | --- | -------------- | -------------- | --------
+**count** | 1465.00 | 1465.00 | 1465.00 | 1465.00 | 1465.00 | 1465.00 | 1465.00 | 1465.00 | 1465.00 | 1465.00
+**mean**  | 0.24 | 2.28 | 7.79 | 3.61 | 0.03 | 0.04 | 0.62 | 0.03 | 0.04 | 0.64
+**std**   | 0.43 | 1.41 | 3.97 | 1.99 | 0.17 | 0.20 | 0.49 | 0.02 | 0.04 | 0.19
+**min**   | 0.00 | 1.00 | 1.00 | 1.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.10
+**25%**   | 0.00 | 1.00 | 3.00 | 2.00 | 0.00 | 0.00 | 0.00 | 0.01 | 0.02 | 0.50
+**50%**   | 0.00 | 2.00 | 10.00 | 4.00 | 0.00 | 0.00 | 1.00 | 0.02 | 0.03 | 0.67
+**75%**   | 0.00 | 3.00 | 11.00 | 5.00 | 0.00 | 0.00 | 1.00 | 0.04 | 0.06 | 0.80
+**max**   | 1.00 | 7.00 | 12.00 | 7.00 | 1.00 | 1.00 | 1.00 | 0.11 | 0.14 | 0.96
+
+`extwin4_2` and `extflr5_2`, regarding respondent's building's window and
+flooring conditions, are binary variables that are too rarely 1 to be useful.
+I also checked `dilap` and `dilap_Mean`, asking if the respondent's building is
+dilapidated (or if the neighborhood has lots of dilapidated building): also too
+rare to bother including right now.
+
+For Model R2, I $z$-score-transformed the three `_Mean` neighborhood features,
+and fit the model: 
+
+```
+rodent2['1'] ~ C(race) + numunits + stories + old +
+       extwin4_2_Mean_z + extflr5_2_Mean_z + old_Mean_z
+```
+
+The features `numunits` and `stories` are ordinal category variables, but I'll
+try just fitting to them like a unit bump has a linear effect (even though it
+can mean adding a variable number of units or stories based on the bucket
+categories).
+
+When I fit R2, I get:
+
+Coef.            | Mean   | s.e.
+---------------- | ------ | ------
+Intercept        | -3.76 | 0.28
+C(race)[2]       | 1.30 | 0.18
+C(race)[3]       | 1.31 | 0.23
+C(race)[4]       | 1.52 | 0.19
+C(race)[5]       | 0.78 | 0.25
+numunits         | 0.27 | 0.04
+stories          | -0.29 | 0.09
+old              | 0.88 | 0.17
+extwin4_2_Mean_z | -0.04 | 0.08
+extflr5_2_Mean_z | 0.19 | 0.09
+old_Mean_z       | 0.10 | 0.09
+
+The intercept (important for Race 1, but also the baseline for the other four
+race categories) has dropped a lot now that other predictors are around to "soak
+up" or explain away rodent infestation.  However, the four race category
+coefficients have not themselves changed; the model increases its predicted
+probability of infestation for non-Race 1 households.
+
+The addition of these other predictors does meaningfully improve LOO CV:
+
+![ELPD_LOO plots for models R1, [-760, -715], and R2, [-710, -665]
+](./fig/part3/ex13_11_rodent_compR2.png)
+
+When I try Model R3,
+
+```
+rodent2['1'] ~ C(race) + C(numunits) + C(stories) +
+    old + extwin4_2_Mean_z + extflr5_2_Mean_z + old_Mean_z
+```
+
+the `numunit` coefficients are all quite uncertain, though the `stories`
+coefficients are narrower.  There is no effect on the `race` coefficients:
+
+Coef.            | Mean   | s.e.
+---------------- | ------ | ------
+Intercept        | -3.61 | 0.31
+C(race)[2]       | 1.25 | 0.19
+C(race)[3]       | 1.27 | 0.23
+C(race)[4]       | 1.46 | 0.20
+C(race)[5]       | 0.82 | 0.26
+C(numunits)[2]   | 0.23 | 0.80
+C(numunits)[3]   | 0.43 | 0.31
+C(numunits)[4]   | 0.51 | 0.74
+C(numunits)[5]   | 0.08 | 0.36
+C(numunits)[6]   | 0.47 | 0.39
+C(numunits)[7]   | 0.27 | 0.36
+C(numunits)[8]   | -0.53 | 0.53
+C(numunits)[9]   | 1.14 | 0.41
+C(numunits)[10]  | 0.95 | 0.32
+C(numunits)[11]  | 0.91 | 0.35
+C(numunits)[12]  | 1.00 | 0.37
+C(stories)[2]    | 0.89 | 0.28
+C(stories)[3]    | 0.69 | 0.31
+C(stories)[4]    | 1.31 | 0.33
+C(stories)[5]    | 0.57 | 0.32
+C(stories)[6]    | 0.08 | 0.37
+C(stories)[7]    | -0.97 | 0.52
+old              | 0.57 | 0.18
+extwin4_2_Mean_z | -0.03 | 0.09
+extflr5_2_Mean_z | 0.17 | 0.09
+old_Mean_z       | 0.09 | 0.09
+
+LOO CV is not really improved by this:
+
+![ELPD_LOO plots for models R1, R2, and now R3, which runs from [-700, -660]
+](./fig/part3/ex13_11_rodent_compR3.png)
+
+If I add in some interaction terms to make Model R4:
+
+```
+rodent2['1'] ~ C(race) + numunits + stories + old + 
+        extwin4_2_Mean_z + extflr5_2_Mean_z + old_Mean_z +
+        C(race):numunits + C(race):stories + C(race):old
+```
+
+Coef.               | Mean   | s.e.
+------------------- | ------ | ------
+sigma               | nan | nan
+Intercept           | -3.33 | 0.36
+C(race)[2]          | 0.65 | 0.50
+C(race)[3]          | 0.43 | 0.70
+C(race)[4]          | 1.33 | 0.58
+C(race)[5]          | -0.82 | 0.68
+C(race):numunits[2] | 0.07 | 0.09
+C(race):numunits[3] | 0.12 | 0.12
+C(race):numunits[4] | -0.01 | 0.10
+C(race):numunits[5] | 0.12 | 0.12
+C(race):stories[2]  | 0.09 | 0.17
+C(race):stories[3]  | -0.02 | 0.22
+C(race):stories[4]  | 0.12 | 0.19
+C(race):stories[5]  | 0.09 | 0.23
+numunits            | 0.22 | 0.06
+stories             | -0.34 | 0.12
+old                 | 0.99 | 0.30
+extwin4_2_Mean_z    | -0.05 | 0.08
+extflr5_2_Mean_z    | 0.17 | 0.08
+old_Mean_z          | 0.11 | 0.09
+
+This *does* pull weight off the per-race intercept terms.  But the interactions
+themselves are all low-certainty estimates.  And they hurt LOO CV:
+
+![ELPD_LOO plots for models R1 through R4; R4 runs from [-710, -665], which is
+worse than both R2 and R3](./fig/part3/ex13_11_rodent_compR4.png)
+
+Let's close out with Model R5, introducing "is the household income below the
+poverty line, or below 2x the poverty line":
+
+Coef.            | Mean   | s.e.
+---------------- | ------ | ------
+Intercept        | -3.78 | 0.29
+C(race)[2]       | 1.28 | 0.18
+C(race)[3]       | 1.27 | 0.23
+C(race)[4]       | 1.50 | 0.20
+C(race)[5]       | 0.75 | 0.25
+numunits         | 0.26 | 0.04
+stories          | -0.29 | 0.09
+old              | 0.88 | 0.17
+extwin4_2_Mean_z | -0.03 | 0.08
+extflr5_2_Mean_z | 0.17 | 0.09
+old_Mean_z       | 0.09 | 0.09
+poverty          | -0.07 | 0.20
+povertyx2        | 0.17 | 0.18
+
+The coefficients suggest no strong predictive strength to poverty on its own.
+
+![ELPD_LOO plots for models R1 through R4; R5 runs from [-710, -665], which is
+worse than both R2 and R3 and very very similar to R4
+](./fig/part3/ex13_11_rodent_compR5.png)
 
 ### 13.12, Fake-data simulation to evaluate a statistical procedure
 
