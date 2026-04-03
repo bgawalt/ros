@@ -1,10 +1,113 @@
 """Brian Gawalt's library for Regression and Other Stories."""
 
+import itertools
 import textwrap
+import typing
+
+from collections import abc
 
 import arviz
+import pandas
 
 from matplotlib import pyplot
+
+
+class DATFileParser:
+  """Parses the non-CSV text files that seem built for R into Pandas."""
+
+  def __init__(self, path: str):
+    with open(path, 'rt') as infile:
+      lines = infile.readlines()
+    self._fields = tuple(f.strip('"') for f in lines[0].split())
+    self._field_col = {field: i for i, field in enumerate(self._fields)}
+    self._table = tuple(tuple(line.split()[1:]) for line in lines[1:])
+    for row_id, row in enumerate(self._table):
+      assert(len(row) == len(self._fields) for row in self._table), (
+        f"Bad row length for row id {row_id}"
+      )
+    self._int_filters = {}
+    self._float_filters = {}
+
+  @property
+  def fields(self) -> tuple[str, ...]:
+    return self._fields
+  
+  def add_int_filter(self, field: str, filter: typing.Callable[[int], bool]):
+    """Retain rows where the predicate is true for the given int field."""
+    field_id = self._field_col[field]
+    if field_id not in self._int_filters:
+      self._int_filters[field_id] = []
+    self._int_filters[field_id].append(filter)
+  
+  def add_float_filter(
+      self,
+      field: str,
+      filter: typing.Callable[[float], bool]
+      ):
+    """Retain rows where the predicate is true for the given float field."""
+    field_id = self._field_col[field]
+    if field_id not in self._float_filters:
+      self._float_filters[field_id] = []
+    self._float_filters[field_id].append(filter)
+  
+  def _apply_filters(self, row: tuple[str, ...]) -> bool:
+    for int_fid, filters in self._int_filters.items():
+      val = int(row[int_fid])
+      for filt in filters:
+        if not filt(val):
+          return False
+    for float_fid, filters in self._float_filters.items():
+      val = float(row[float_fid])
+      for filt in filters:
+        if not filt(val):
+          return False
+    return True
+  
+  def parse(
+      self,
+      int_fields: abc.Sequence[str],
+      float_fields: abc.Sequence[str]
+      ) -> tuple[pandas.DataFrame, dict[str, int]]:
+    """Parse the DAT file into a DataFrame with the requested fields.
+    
+    Includes a counter for number of rows removed due to a field being "NA".
+    """
+    assert len(int_fields) == len(set(int_fields)), (
+      "Duplicate field in `int_fields`")
+    assert len(float_fields) == len(set(float_fields)), (
+      "Duplicate field in `float_fields`")
+    int_field_ids = tuple(self._field_col[field] for field in int_fields)
+    float_field_ids = tuple(self._field_col[field] for field in float_fields)
+    data = {field: [] for field in itertools.chain(int_fields, float_fields)}
+    na_counts = {}
+    for row_id, row in enumerate(self._table):
+      if not self._apply_filters(row):
+        continue
+      updates = {}
+      for fid, field in zip(int_field_ids, int_fields):
+        if row[fid] == 'NA':
+          na_counts[field] = na_counts.get(field, 0) + 1
+          break
+        try:
+          val = int(row[fid])
+        except ValueError:
+          print(f'row_id {row_id} had non-int value for {field}')
+          break
+        updates[field] = val
+      for fid, field in zip(float_field_ids, float_fields):
+        if row[fid] == 'NA':
+          na_counts[field] = na_counts.get(field, 0) + 1
+          break
+        try:
+          val = float(row[fid])
+        except ValueError:
+          print(f'row_id {row_id} had non-float value for {field}')
+          break
+        updates[field] = val
+      if len(updates) == len(data):
+        for k, v in updates.items():
+          data[k].append(v)
+    return pandas.DataFrame(data=data), na_counts
 
 
 def linregress_predict(lm, x_new: float) -> float:
