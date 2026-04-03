@@ -720,8 +720,16 @@ in quantity sold.
 
 ### 12.15, Models for regression coefficients
 
-> Using the Portuguese student data from the `Student` folder, repeat the
-> analyses in Section 12.7 with the same predictors, but using as outcome the
-> Portuguese language grade rather than the mathematics grade.
+> Using the Portuguese student data from 
+> [the `Student` folder](https://github.com/avehtari/ROS-Examples/blob/master/Student/),
+> repeat the analyses in Section 12.7 with the same predictors, but using as
+> outcome the Portuguese language grade rather than the mathematics grade.
 
-TK
+Recreating Figure 12.10, where the predictors are left as-is (in blue on the
+left) or $z$-scaled (in red on the right):
+
+![Recreation of Figure 12.10 whose caption is "Marginal posterior density
+estimates for a linear regression predicting student grades from many predictors
+using regression with default weak priors. Models are fit and displayed
+(a) without and (b) with standardization of the predictors.
+](./fig/part2/ex12_15_zscale.png)
