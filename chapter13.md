@@ -745,11 +745,18 @@ When I fit the model once, I get:
 
 Coef.     | Mean   | s.e.
 --------- | ------ | ------
-Intercept | -0.09 | 0.57
-x         | 0.01 | 0.01
-z         | 0.94 | 0.62
+Intercept | -0.51 | 0.60
+x         | 0.02 | 0.01
+z         | 0.16 | 0.63
 
-TK: Describe
+That does a good job matching $b$ but $\theta$ gets a wiiiiide standard error.
+It's covered, though!
 
-![100 coverage plots where a thin blue line goes +/- 1.96 * 0.66 and a thick
-blue line goes from +/- 0.67 * 0.66, and blue dots are around 0.56](./fig/part3/ex13_12_100resamples.png)
+When I re-ran 150 times, I got a 45% of mean estimates in the $\pm 0.67$ s.e.
+band, and 95% of mean estimates in the $\pm 1.96$ s.e. band:
+
+![150 coverage plots where a thin blue line goes +/- 1.96 * se and a thick
+blue line goes from +/- 0.67 * se, and blue dots at the mean estimate.  The
+y-axis goes from -2 to 3, and the vertical lines (all the same basic length)
+randomly jitter within that range.  A pink horizontal line encodes the true
+value of theta at 0.44.](./fig/part3/ex13_12_150resamples.png)
