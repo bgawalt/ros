@@ -110,6 +110,31 @@ class DATFileParser:
     return pandas.DataFrame(data=data), na_counts
 
 
+def dataframe_describe_markdown(df: pandas.DataFrame) -> str:
+    desc = df.describe()
+    cols = desc.columns
+    out = "|         | " + " | ".join(cols) + "\n"
+    out += "--------- | " + " | ".join(['-' * len(col) for col in cols]) + '\n'
+    quantities = [
+        "count",
+        "mean",
+        "std",
+        "min",
+        "25%",
+        "50%",
+        "75%",
+        "max",
+    ]
+    for q in quantities:
+        bold_q = f'**{q}**'
+        out += (
+            f'{bold_q.ljust(9)} | ' +
+            " | ".join(f'{desc[col][q]:0.2f}' for col in cols) +
+            '\n'
+        )            
+    return out
+
+
 def linregress_predict(lm, x_new: float) -> float:
   """Predict the outcome for `a + b*x_new` via the `stats.linregress` model."""
   return lm.intercept + lm.slope * x_new
