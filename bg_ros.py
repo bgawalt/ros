@@ -22,7 +22,7 @@ class DATFileParser:
     self._field_col = {field: i for i, field in enumerate(self._fields)}
     self._table = tuple(tuple(line.split()[1:]) for line in lines[1:])
     for row_id, row in enumerate(self._table):
-      assert(len(row) == len(self._fields) for row in self._table), (
+      assert len(row) == len(self._fields), (
         f"Bad row length for row id {row_id}"
       )
     self._int_filters = {}
