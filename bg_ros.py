@@ -51,25 +51,21 @@ def linregress_plot(
 def bambi_markdown(
     model_fit: arviz.data.inference_data.InferenceData,
     predictors: list[str],
-    include_sigma: bool,
     ) -> str:
   """Returns a Markdown table of the mean and s.e. for the linear model."""
   summ = arviz.summary(model_fit)
-  if include_sigma:
-    sig_mu = summ["mean"]["sigma"]
-    sig_se = summ["sd"]["sigma"]
-  else:
-    sig_mu = sig_se = float('nan')
+  just_len = max(max(len(name) for name in predictors), len('Intercept'))
+  sig_mu = summ["mean"].get("sigma", float('nan'))
+  sig_se = summ["sd"].get("sigma", float('nan'))
   int_mu = summ["mean"]["Intercept"]
   int_se = summ["sd"]["Intercept"]
   out = textwrap.dedent(f"""\
-    Coef.     | Mean   | s.e.
-    --------- | ------ | ------
-    sigma     | {sig_mu:0.2f} | {sig_se:0.2f}
-    Intercept | {int_mu:0.2f} | {int_se:0.2f}
+    {'Coef.'.ljust(just_len)} | Mean   | s.e.
+    {'-' * just_len} | ------ | ------
+    {'sigma'.ljust(just_len)} | {sig_mu:0.2f} | {sig_se:0.2f}
+    {'Intercept'.ljust(just_len)} | {int_mu:0.2f} | {int_se:0.2f}
     """
   )
-  just_len = max(len(p) for p in (predictors + ["Intercept",]))
   for pred in predictors:
     justname = pred.ljust(just_len)
     mu = summ["mean"][pred]
