@@ -7,9 +7,11 @@ import typing
 from collections import abc
 
 import arviz
+import numpy
 import pandas
 
 from matplotlib import pyplot
+from scipy import stats
 
 
 class DATFileParser:
@@ -200,3 +202,56 @@ def bambi_markdown(
     se = summ["sd"][pred]
     out += f"{justname} | {mu:0.2f} | {se:0.2f}\n"
   return out
+
+
+def bambi_flatten(
+    model_fit: arviz.data.inference_data.InferenceData,
+    predictors: abc.Sequence[str],
+    num_chains: int = 4,
+    ) -> dict[str, tuple[float]]:
+  out = {pred: [] for pred in predictors}
+  for chain in range(num_chains):
+    sims = model_fit.posterior.sel(chain=chain).to_dataframe()
+    for _, row in sims.iterrows():
+      for pred in predictors:
+        out[pred].append(row[pred])
+  return {k: tuple(v) for k, v in out.items()}
+
+
+def plot_ridge(
+    ax: pyplot.Axes,
+    model_fit: arviz.data.inference_data.InferenceData,
+    predictors: abc.Sequence[str],
+    num_chains: int = 4,
+    color: str = 'b',
+    ):
+  flat = bambi_flatten(model_fit, predictors, num_chains)
+  bell_height = 0.7
+  for i, pred in enumerate(predictors):
+    vals = flat[pred]
+    kde = stats.gaussian_kde(vals)
+    mu = numpy.mean(vals)
+    se = numpy.std(vals)
+    xs = numpy.arange(mu - 3 * se, mu + 3 * se, 0.01)
+    ys_raw = kde.evaluate(xs)
+    scale = bell_height / max(ys_raw)
+    ys = i + scale * ys_raw
+
+    iqr_xs = numpy.arange(mu - 0.67 * se, mu + 0.67 * se, 0.01)
+    iqr_ys_raw = kde.evaluate(iqr_xs)
+    iqr_ys = i + scale * iqr_ys_raw
+    ax.fill_between(iqr_xs, [i for _ in iqr_xs], iqr_ys, color=color, alpha=0.3)
+    ax.plot([min(xs), max(xs)], [i, i], linestyle='-', color=color)
+    ax.plot(
+      [mu, mu],
+      [i, i + scale * (kde.evaluate(mu)[0])],
+      linestyle='-',
+      color=color
+    )
+    ax.plot(xs, ys, linestyle='-', color=color)
+  ax.set_yticks([i for i in range(len(predictors))], predictors)
+  ax.grid()
+  ax.axvline(x=0, linestyle='--', color='k', zorder=100, alpha=0.5)
+  ax.set_axisbelow(True)
+  ax.set_xlabel('Coefficient estimate')
+  ax.set_ylim(-0.2, len(predictors) - 1 + bell_height + 0.2)
