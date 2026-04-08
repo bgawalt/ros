@@ -731,5 +731,20 @@ left) or $z$-scaled (in red on the right):
 ![Recreation of Figure 12.10 whose caption is "Marginal posterior density
 estimates for a linear regression predicting student grades from many predictors
 using regression with default weak priors. Models are fit and displayed
-(a) without and (b) with standardization of the predictors.
+(a) without and (b) with standardization of the predictors."
 ](./fig/part2/ex12_15_zscale.png)
+
+And similarly for Figure 12.12, where priors are applied.  At left, all
+predictors are given a prior of
+$\mathcal{N}(0, \sqrt{0.3/26}\text{sd}(y) = 0.32)$.  (That winds up being *too*
+strong, I believe; all the coefficients have wide uncertainty crossing 0.)
+At right, I apply the regularized horseshoe prior with the $p_0$, global scale,
+and slab scale parameters described in the text.  It works just like the book's
+did, where all but eight of the coefficient estimates have lots of mass around
+zero.
+
+![Recreation of Figure 12.12 whose caption is "Posterior distributions for
+coefficients in the regression predicting student grades from many predictors,
+using two different priors: (a) normal prior scaled with the number of
+predictors, and (b) regularized horseshoe prior."
+](./fig/part2/ex12_15_priors.png)
