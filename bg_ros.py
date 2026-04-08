@@ -237,7 +237,8 @@ def plot_ridge(
     scale = bell_height / max(ys_raw)
     ys = i + scale * ys_raw
 
-    iqr_xs = numpy.arange(mu - 0.67 * se, mu + 0.67 * se, 0.01)
+    iqr = numpy.quantile(vals, [0.25, 0.75])
+    iqr_xs = numpy.arange(iqr[0], iqr[1], 0.01)
     iqr_ys_raw = kde.evaluate(iqr_xs)
     iqr_ys = i + scale * iqr_ys_raw
     ax.fill_between(iqr_xs, [i for _ in iqr_xs], iqr_ys, color=color, alpha=0.3)
