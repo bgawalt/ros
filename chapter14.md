@@ -13,11 +13,16 @@ Now that we can fit logistic regressions, we can build on them with:
 *  better evaluation methods, using binned residual plots and predictive errors,
 *  better handling of sparse, discrete data.
 
+
 ## Subsection rundown
 
 ### 14.1, Graphing logistic regression and binary data
 
-TK
+When $y$ is binary, scatter plotting $y$ vs. $x$ doesn't really work any more.
+The dots wind up too piled on top of each other.  For univariate data, consider
+binning by $x$ and plotting the proportion of $y = 1$ (i.e., mean of $y$) in
+each bin.  For 2-D data, consider scatter plotting $x_2$ vs. $x_1$, with
+different color dots for depending on $y$'s value.
 
 ### 14.2, Logistic regression with interactions
 
