@@ -98,7 +98,28 @@ predictor.
 
 ### 14.5, Residuals for discrete-data regression
 
-TK
+If you repeat "residual vs. predicted value" for logistic regression, you just
+get two pretty similar downward sloping lines, separated by the intercept
+offset of $y = 0$ vs. $y = 1$.  They recommend instead binning by predicted
+value, then plotting the average (actual) $y$ value within each bin. Their 
+example uses variable width bins, such that a constant number of
+observations falls in each bin.  This is a good way to spot problems where your
+model is failing in one region or another.
+
+You can also do this with a particular predictor on the x-axis; as in, the
+predictor value for an observation on the x-axis, and that observation's
+residual on the y-axis.  That makes a good diagnosis, too, on a per-feature
+basis.  Their example shows a residual that's way outside the expected
+uncertainty interval for a low-end value of a particular predictor.  They use
+their domain expertise to know that a non-linear transformation (quadratic or
+logarithmic) would help, so they go with logarithmic and reap a big LOO score 
+win.
+
+In discussing error rates vs. the null-model error rate, (a) the delta in error
+rate depends on whether most of the data is near the central values (where
+"just guess the mean label" is most effective), and (b) can be *very* misleading
+when the average label is quite close to 0 (or to 1).  They call error rate "an
+incomplete summary" for their hypothetical example of (b).
 
 ### 14.6, Identification and separation
 
