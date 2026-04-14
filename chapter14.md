@@ -123,8 +123,23 @@ incomplete summary" for their hypothetical example of (b).
 
 ### 14.6, Identification and separation
 
-TK
+The same issue of collinearity from linear regression arises in logistic
+regression: if the two predictors are basically perfect proxies for each other,
+you get wide uncertainty around whether the predictive lift is all due to one, 
+the other, or some halfway mix of the two.
 
+There's another identifiability failure mode, new to logistic regression, where
+if a particular predictor has a perfect threshold that separates the $y = 1$
+from $y = 0$ cases, the associated coefficient goes infinite.  (The same thing
+happens if any linear combo of predictors perfectly separates the observations
+by label: at least one of the coefficients for a predictor in the combo will be
+infinite.)
+
+They recommend the Bayesian resolution of just applying a prior to shrink the
+estimates away from non-finiteness.  They conclude the chapter saying a prior
+doesn't necessarily have to encode all you know about a data dynamic, and you'll
+always have to stop adding complexity to the model before you've actually
+encoded everything you know or believe in advance.
 
 ## Exercises
 
