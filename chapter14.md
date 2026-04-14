@@ -71,7 +71,11 @@ improvement in LOO scores.
 
 ### 14.3, Predictive simulation
 
-TK
+They fit a simpler arsenic well switch model, just based on distance to the
+nearest clean well, and reach into the individual coefficient samples to
+produce (a) a graph of a few random curves implied by some of the coefficient
+pairs, (b) predictions on ten new subjects, which can be aggregated across the
+4,000 simulations into single probability-of-switching estimates.
 
 ### 14.4, Average predictive comparisons on the probability scale
 
