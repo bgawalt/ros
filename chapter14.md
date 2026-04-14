@@ -79,7 +79,22 @@ pairs, (b) predictions on ten new subjects, which can be aggregated across the
 
 ### 14.4, Average predictive comparisons on the probability scale
 
-TK
+When you compare the difference in expected outcomes between subjects where
+predictor $i$ varies over some range, the individual expectations are sensitive
+to all predictor (and coefficient) values.  They do not recommend you just pick
+some frozen set of values for the other predictors and all coefficients and then
+calculate the expectations: whatever "central value" you pick for those
+arguments can be arbitrarily unrealistic, if, e.g., the predictors are all
+binary or strongly bimodal or something.
+
+Instead, they say, just take the mean coefficient estimates, and apply them to
+the $n$ datapoints to get predictions where your particular predictor is either
+at the top or bottom of the range of interest.  Make a synthetic dataset of size
+$2n$ from your $n$ actual observations, where in the first $n$ you clobber the
+predictor of interest with the high value, in the second $n$ you use the low
+value, and then apply the mean-coefficient model to all $2n$ to come up with
+an estimate of the effect of going from high to low on that particular
+predictor.
 
 ### 14.5, Residuals for discrete-data regression
 
