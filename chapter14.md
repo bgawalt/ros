@@ -26,7 +26,48 @@ different color dots for depending on $y$'s value.
 
 ### 14.2, Logistic regression with interactions
 
-TK
+The arsenic-wells example from Chapter 13 is revisited, this time adding an
+interaction term between distance to nearest clean well and local well's
+arsenic level.  The coefficients for non-interaction/pure-linear terms are
+interpreted by plugging in the mean values of one-or-both predictors and using
+the divide-by-four rule to describe what a unit change in a particular predictor
+(or the intercept) does to predicted probability of switching, in terms of
+percentage point shift.
+
+The interaction term interpretation is interesting.  For each predictor, they
+describe how a unit increase in *that* predictor changes the *other* predictor's
+coefficient:
+
+> Looking from one direction, for each additional unit of arsenic, the value
+> −0.18 is added to the coefficient for distance.... Looking at it the other
+> way, for each additional 100 meters of distance to the nearest well, the value
+> −0.18 is added to the coefficient for arsenic.
+
+When the predictor inputs are centered to be zero-mean, this makes no difference
+to the predictor coefficients (though does change the intercept).  It makes it
+a bit easier to do the coefficients, now that mean values don't need plugging in
+to interpret the coefficients' impact on predicted probability of switching.
+
+They look at LOO log score differences when the interaction term is, vs. isn't,
+included in the model, and find that the two models are fairly equivalently
+accurate on the held-out samples.
+
+When they add a predictor for education level (on an ordinal scale of grades
+completed, divided by four to bring into a more typical order of magnitude) and
+a binary predictor for "are you in any community associations", they find a
+low-s.e. coefficient around education and a medium-high-s.e. for association,
+and so just keep the education predictor "for clarity and stability." (The
+association estimate was also of a counterintuitive sign, which I think really
+sunk it, in combo with the s.e. width.) The LOO comparison *probably* favors
+inclusion of the new predictors, but with wide uncertainty.
+
+Because the education coefficient's s.e. was so narrow, they try out 
+interactions between education and local arsenic level, and find pretty
+decent coefficient estimates for them.  They then repeat the interpretation
+routine for these two interaction coefficients.  (The inputs have all been
+centered.)  When they compare this model, with education plus two education
+interactions, to one that omits education level, they definitely find
+improvement in LOO scores.
 
 ### 14.3, Predictive simulation
 
