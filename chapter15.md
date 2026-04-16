@@ -51,7 +51,79 @@ Some examples, byeond the linear and logistic regressions we've run so far:
 
 ### 15.2, Poisson and negative binomial regression
 
-TK
+#### Poisson model
+
+The model:
+
+$$y_i \sim \text{Poisson}\left(e^{X_i\beta}\right)$$
+
+"The linear predictor $X_i\beta$ is the logarithm of the expected value of
+measurement $y_i$." You should expect variation in the outcomes on the order of
+$\sqrt{\text{E}(y)}$.
+
+#### Overdispersion and underdispersion
+
+If you look at your actual outcomes relative to the Poisson regression central
+trend plus-or-minus that $\sqrt{\text{E}(y)}$ standard error, and see a bunch
+of "outliers", you probably have overdispersion.  (Or, rarely, you see a 
+too-tight clustering around the central trend, and you have underdispersion).
+
+#### Negative binomial model for overdisperson
+
+They don't go into the probability distribution or its sampling procedure, but,
+they talk about how the negative binomial model brings in a reciprocal
+dispersion parameter, $\phi > 0$, to set:
+
+$$\text{sd}(y | x) = \sqrt{\text{E}(y | x) + \text{E}(y | x)^2/\phi}$$
+
+As $\phi$ increases, we recover the original Poisson model.
+
+#### Interpreting Poisson or negative binomial regression coefficients
+
+The $X\beta$ linear predictor is being exponentiated, so $e^{\beta_j}$ gives you
+the multiplicative effect on the expected change in $y_i$ when $x_i$ has a unit
+increase in its $j$th predictor.
+
+#### Exposure
+
+Let's introduce the per-observation term $u_i$ to be the *exposure* of
+observation $i$.  If we're observing count data, it can be useful to note the
+absolute max value the count could have been: if you're modeling traffic
+accidents at intersections as a function of intersection attribute, it can be
+useful to use "number if cars that pass through the intersection" as that
+intersection's exposure attribute.
+
+$$y_i \sim \text{negative binomial}(u_i\theta_i, \phi),~~ \theta_i = e^{X_i\beta}$$
+
+The equivalent term is *offset*, meaning, $\log(u_i)$.  The upshot is that
+the $\beta$ coefficients now reflect change in outcomes per exposure unit per 
+unit of predictor, rather than just outcomes per unit of predictor.
+
+#### Including log(exposure) as a predictor in a Poisson or negative binomial regression
+
+You can always just shove $\log(u_i)$ into one more column of $X$, and either
+(a) force its coefficient to be 1, or (b) learn its coefficient value just like
+any other predictor.  The float of (b) can make interpreting the other 
+coefficients harder, but, it *could* allow for a better fit of model to data.
+
+#### Differences between the binomial and Poisson or negative binomial models
+
+If you have a natural limit on your outcomes, use a binomial model (which, when
+$n_i = 1 \forall i$, is the logistic), and add overdispersion if needed.  
+Otherwise, when the outcomes have no upper bound, use the log link function of
+Poisson/negative binomial.  Though if the limit is much, much larger (like,
+many orders of magnitude) than the expected outcome, you can use Poisson in that
+case, too.
+
+#### Example: zeroes in count data
+
+A good way to check whether your estimated level of overdispersion matches the
+data is to count zeros in the actual and predicted data.  Their example
+(counting trapped roaches in apartments, where each apartment has an exposure
+value of "number of days the traps were out") shows how Poisson regression does
+bad on this front, but the negative binomial regression does okay.  (The NB
+estimates many 1,000+ and even 1,000,000+ roach apartments, which never comes
+close to being observed in the data.)
 
 ## Exercises
 
