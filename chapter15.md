@@ -203,6 +203,35 @@ The chapter ends by basically punting on what to do if you have *un*ordered
 categorical outcomes.  They recommend fitting one model per category (which
 definitely throws out information).
 
+### 15.6, Robust regression using the $t$ model
+
+The $t$ distribution's heavier tails means that coefficient estimates are less
+sensitive to large-error observations, when used in a linear regression setting.
+
+The logistric regression model can be swapped for the robit model, where the
+noise applied to the linear predictor is a $t$ distribution with $\nu$ degrees
+of freedom (and scaled so that it has unit variance;
+$\epsilon_i \sim t_\nu(0, \sqrt{(\nu - 2)/\nu})$).  This allows for crazy Ivans,
+where data can flip from 1 to 0 or vice versa no matter how far along the
+central trend the predictors lie.
+
+Robit regression leads to sharper sigmoids than the logistic model, since it
+is happier to disregard the wacky outlier bitflips that the logistic model needs
+to accommodate:
+
+![From the book, Figure 15.7, whose caption reads "Hypothetical data to be
+fitted using logistic regression: (a) a dataset with an “outlier” (the
+unexpected y = 1 value near the upper left); (b) data simulated from a logistic
+regression model, with no outliers. In each plot, the dotted and solid lines
+show the fitted logit and robit regressions, respectively. In each case, the
+robit line is steeper—especially for the contaminated data—because it
+effectively downweights the influence of points that do not appear to fit the 
+model](./fig/part3/fig15_07_robit.png)
+
+Turns out robit and probit are linked: taking $\nu$ to infinity recovers the
+probit model, and any value above $\nu = 7$ is basically indistinguishable from
+probit.
+
 
 
 ## Exercises
