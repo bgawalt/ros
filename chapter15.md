@@ -181,7 +181,28 @@ instead, up to a 1.6x scaling factor.  There's... no reason to use it?
 
 ### 15.5, Ordered and unordered categorical regression
 
-TK
+For $K$ ordered categorical outcomes, you can introduce coefficients
+$c_j, j = 1, \ldots, K-1$ with the relationship:
+
+$$\text{Pr}(y > j) = \text{logit}^{-1}(X\beta - c_j)$$
+
+with $c_1 = 0$ frozen for the sake of identifiability.  These $c_j$ represent
+cutpoints, defining boundaries between the $K$ ordinal-categorical zones claimed
+over the linear predictor range.  The cutpoints are constrained to be strictly
+increasing in $j$.
+
+There are lots of ways to reparametrize this, especially in the univariate case.
+
+And there are lots of ways to approach the problem other than the ordinal
+logistic they fit as their example.  Use probit as the noise model instead of
+logit.  Fit a linear regression, especially if $K$ is large and mostly high
+entropy.  Fit a bunch of nested/sequential binary logistic regressions, one for
+each this-category-or-higher cutoff.
+
+The chapter ends by basically punting on what to do if you have *un*ordered
+categorical outcomes.  They recommend fitting one model per category (which
+definitely throws out information).
+
 
 
 ## Exercises
