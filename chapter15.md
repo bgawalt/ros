@@ -135,8 +135,8 @@ The binomial distribution (like the Poisson) locks you into a strict
 relationship between the mean and the variance.  They lay out a chi-squared test
 you can use to see if the following standardized residuals:
 
-$$begin{align}
-    z_i &= \frac{y_i - \hat{y}_i}{\text{sd}(\hat{y}_i)} \
+$$\begin{align}
+    z_i &= \frac{y_i - \hat{y}_i}{\text{sd}(\hat{y}_i)} \\
         &= \frac{y_i - \hat{y}_i}{\sqrt{n_i\hat{p}_i(1 - \hat{p}_i)}}
 \end{align}$$
 
@@ -153,6 +153,36 @@ goes away?  They say, "Overdispersion at the level of the individual data points
 cannot occur in the binary model, which is why we did not introduce
 overdispersed models in those earlier chapters."  But they don't talk about
 what's eating the overdispersion sin by moving count data to binary data.
+
+### 15.4, Probit regression: normally distributed latent data
+
+Take the logistic regression model, and then swap the logistic distribution
+for a normal distribution:
+
+$$\text{Pr}(y_i = 1) = \Phi(X_i\beta)$$
+
+or, in latent variable mode:
+
+$$\begin{align}
+    y_i &= \left\{\begin{align*}
+        ~1 & ~\text{if}~z_i > 0 \\
+        ~0 & ~\text{if}~z_i < 0,
+    \end{align*}\right. \\
+    z_i &= X_i\beta + \epsilon_i, \\
+    \epsilon_i &\sim \mathcal{N}(0, 1),
+\end{align}$$
+
+where we freeze the variance of the $\epsilon$ RVs for identifiability.  (As
+in Chapter 13, you can just scale that variance up and down alongside $\beta$
+and get equivalent fits).
+
+This has basically no effect on coefficient estimates w.r.t. using the logistic
+instead, up to a 1.6x scaling factor.  There's... no reason to use it?
+
+### 15.5, Ordered and unordered categorical regression
+
+TK
+
 
 ## Exercises
 
