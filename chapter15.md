@@ -125,6 +125,35 @@ bad on this front, but the negative binomial regression does okay.  (The NB
 estimates many 1,000+ and even 1,000,000+ roach apartments, which never comes
 close to being observed in the data.)
 
+### 15.3, Logistic-binomial model
+
+If you have many observations with identical predictors, all with binary
+outcomes, you can bundle the identical-groups together as binomial outcomes
+$y_i = k$ from $n_i$ trials.
+
+The binomial distribution (like the Poisson) locks you into a strict
+relationship between the mean and the variance.  They lay out a chi-squared test
+you can use to see if the following standardized residuals:
+
+$$begin{align}
+    z_i &= \frac{y_i - \hat{y}_i}{\text{sd}(\hat{y}_i)} \
+        &= \frac{y_i - \hat{y}_i}{\sqrt{n_i\hat{p}_i(1 - \hat{p}_i)}}
+\end{align}$$
+
+are distributed like a normal with zero mean and unit var  Teiance.
+
+If they *aren't* distributed like a standard normal, then you have
+overdispersion (or, very rarely, underdispersion).
+
+They talk about how you can translate the binomial model's data matrix into
+a binary logistic model instead, but, they then leave out what to do about
+overdispersion in that case.  We had overdispersion in the count-data model,
+and yet when we translate it to the equivalent binary-data model, the problem...
+goes away?  They say, "Overdispersion at the level of the individual data points 
+cannot occur in the binary model, which is why we did not introduce
+overdispersed models in those earlier chapters."  But they don't talk about
+what's eating the overdispersion sin by moving count data to binary data.
+
 ## Exercises
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
