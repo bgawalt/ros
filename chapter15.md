@@ -232,6 +232,47 @@ Turns out robit and probit are linked: taking $\nu$ to infinity recovers the
 probit model, and any value above $\nu = 7$ is basically indistinguishable from
 probit.
 
+### 15.7, Constructive choice models
+
+They now repose the exact same regression operation (map input predictors to
+output outcomes) as balancing incentives to reach a decision.  The version of
+regression we've used so far is "a descriptive tool" for linking the outcome
+and predictor variables.  They introduce here the choice model.
+
+To build a choice model, you specify a value function, which defines a
+particular preference value for each possible decision.  By convention, true
+indifference to a decision option means the value function returns zero.
+The value function considers both the decision option, plus the predictor terms
+that describe the decider's situation at the time of the decision.
+
+They look at the arsenic-well dataset again, and run a univariate regression to
+predict "switched?" from "distance to nearest clean well (units: 100 m)".
+The choice model gives every observed subject a triplet of random varaibles,
+$(a_i, b_i, c_i)$ that determine:
+
+*  $a_i$, the benefit of switching from an unsafe well to a safe one
+*  $b_i + c_ix_i$, the cost of switching to a well $x_i$ distance away
+
+They then say that $y_i = 1$, a switch for subject $i$, is dependent on those
+random variables turning out the right way:
+
+$$\text{Pr}(y_i = 1) = \text{Pr}(a_i > b_i + c_ix_i) = \text{Pr}\left(\frac{a_i - b_i}{c_i} > x_i\right)$$
+
+If you define $d_i = (a_i - b_i)/c_i$, then you recover logistic regression if
+the $d_i$ all follow a logistic distribution, and probit regression if they all
+follow a normal distribution.  You never get to actually observe the RV triples
+$(a_i, b_i, c_i)$ for subject $i$, only $(x_i, y_i)$.
+
+This extends to multiple dimensions, and again, certain lucky breaks on how the
+latent RVs are distributed means the model can recover familiar forms like
+logistic or probit regression.
+
+Fitting these requires more complicated software than the book is prepared to
+introduce.
+
+## 15.8, Going beyond generalized linear models
+
+TK
 
 
 ## Exercises
