@@ -268,11 +268,62 @@ latent RVs are distributed means the model can recover familiar forms like
 logistic or probit regression.
 
 Fitting these requires more complicated software than the book is prepared to
-introduce.
+introduce.  The RV triplets (or, $n$-tuples) for choice models are just
+re-expressions of the error terms we've been using heretofor.  I like them,
+I like the flexibility they offer.  The fact that the existing regressions we
+have fit have interpretations under the choice model is a fun sensibility check.
 
-## 15.8, Going beyond generalized linear models
+### 15.8, Going beyond generalized linear models
 
-TK
+#### Extending existing models
+
+Easy extensions (using Stan or PyMC directly, which the book doesn't get into) 
+include:
+
+*  Heteroscedasticity.  Let the scale of the error term also depend on the
+    predictors.
+*  Baseline random binary outcomes.
+    *  If there's a four-option multiple choice question, random guessing gets 
+        you a 25% chance of success.  So go with
+        $\text{Pr}(y = 1) = 0.25 + 0.75\text{logit}^{-1}(X\beta)$. I feel like
+        there's some overlap here with having an intercept term, but, maybe this
+        is like a useful prior constraint, like you're forcing the intercept to
+        be 25%-success.
+    *  If you have random data errors, where outcomes are just randomly toggled,
+        you can go with
+        $\text{Pr}(y = 1) = \epsilon_1 + (1 - (\epsilon_0 + \epsilon_1))\text{logit}^{-1}(X\beta)$.
+        It lets your $\beta$ off the hook for trying to fit the random bit flip
+        outcomes. 
+
+#### Mixed discrete/continuous data
+
+If you have an ostensibly continuous outcome, like income, but which also has
+a single quite-common value, like "earned no income", you can fit two
+regressions to be used sequentially at inference time:
+
+1.  A classifier for "is this datapoint from the spike, or not"
+2.  A regressor for "what is the outcome for this non-spike datapoint"
+
+#### Latent-data models
+
+Another way to handle the above is that everyone has a latent variance of their
+earnings, but we only observe earnings when $y > 0$.  They namecheck Tobit
+regression for this.
+
+#### Cockroaches and the zero-inflated negative binomial model
+
+In the binomial and Poisson models, where the coefficients describe a latent
+rate at which an event occurs, that continuous rate can also have spiky discrete
+aspects.  This is very similar to the previous two cases, but in their example,
+some apartments just are permanently cockroach-free, and always have $y_i = 0$
+no matter the predictor values, whereas others operate under the 
+cockroach-susceptible negative binomial model.  You can have a whole nother
+binary classifier for deciding which of the two apply to subject $i$.
+
+#### Prediction and Bayesian inference
+
+If you do fit the above models, you have to use both the discrete and the
+continuous to produce inferences, including to plot results.
 
 
 ## Exercises
