@@ -28,6 +28,8 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 12](./chapter12.md): Transformations and regression
 *  Part 3: Generalized linear models
     *  [Chapter 13](./chapter13.md): Logistic regression
+    *  [Chapter 14](./chapter14.md): Working with logistic regression
+    *  [Chapter 15](./chapter15.md): Other generalized linear models
 
 ## Jupyter and Bambi
 
