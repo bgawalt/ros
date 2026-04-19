@@ -143,10 +143,201 @@ encoded everything you know or believe in advance.
 
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter14.ipynb](./notebooks/Chapter14.ipynb)
 
-### K.x, Exercise italic title
+### 14.1, Graphing binary data and logistic regression
 
-> The problem statement
+> Reproduce Figure 14.1 with the model,
+> $\text{Pr}(y =1) = \text{logit}^{-1}(0.4 - 0.3x)$, with 50 data points $x$
+> sampled uniformly in the range $[A, B]$. (In Figure 14.1 the $x$’s were drawn
+> from a normal distribution.) Choose the values $A$ and $B$ so that the plot
+> includes a zone where values of $y$ are all 1, a zone where they are all 0,
+> and a band of overlap in the middle.
 
-The answer
+TK
+
+### 14.2, Logistic regression and discrimination lines
+
+> Reproduce Figure 14.2 with the model,
+> $\text{Pr}(y = 1) = \text{logit}^{-1}(0.4 - 0.3x_1 + 0.2x_2)$, with $(x1, x2)$
+> sampled uniformly from the rectangle $[A_1, B_1] \times [A_2, B_2]$. Choose
+> the values $A_1, B_1, A_2, B_2$ so that the plot includes a zone where values
+> of $y$ are all 1, a zone where they are all 0, and a band of overlap in the
+> middle, and with the three lines corresponding to
+> $\text{Pr}(y = 1) = 0.1, 0.5,$ and 0.9 are all visible.
+
+TK
+
+### 14.3, Graphing logistic regressions
+
+> The well-switching data described in Section 13.7 are in the folder `Arsenic`.
+>
+> (a) Fit a logistic regression for the probability of switching using
+>     log(distance to nearest safe well) as a predictor.
+>
+> (b) Make a graph similar to Figure 13.8b displaying $\text{Pr(switch)}$ as a
+>     function of distance to nearest safe well, along with the data.
+>
+> (c) Make a residual plot and binned residual plot as in Figure 14.8.
+>
+> (d) Compute the error rate of the fitted model and compare to the error rate
+>     of the null model.
+>
+> (e) Create indicator variables corresponding to dist < 100; dist between 100
+>     and 200; and dist > 200. Fit a logistic regression for $\text{Pr(switch)}$
+>     using these indicators. With this new model, repeat the computations and
+>     graphs for part (a) of this exercise.
+
+TK
+
+### 14.4, Working with logistic regression
+
+> Perform a logistic regression for a problem of interest to you. This can be
+> from a research project, a previous class, or data you download. Choose one
+> variable of interest to be the outcome, which will take on the values 0 and 1
+> (since you are doing logistic regression).
+>
+> (a) Analyze the data in R.
+> 
+> (b) Fit several different versions of your model. Try including different
+>     predictors, interactions, and transformations of the inputs.
+> 
+> (c) Choose one particular formulation of the model and do the following:
+> 
+>     i. Describe how each input affects Pr( y = 1) in the fitted model. You
+>         must consider the estimated coefficient, the range of the input
+>         values, and the nonlinear inverse logit function.
+> 
+>     ii. What is the error rate of the fitted model? What is the error rate of
+>         the null model?
+> 
+>     iii. Compare the fitted and null models using leave-one-out cross
+>         validation (see Section 11.8). Does the improvement in fit seem to be
+>         real?
+> 
+>     iv. Use the model to make predictions for some test cases of interest.
+> 
+>     v. Use the simulations from the stan_glm output to create a 50% interval
+>         for some nonlinear function of parameters (for example,
+>         $\beta_1/\beta_2$).
+
+TK
+
+### 14.5, Working with logistic regression
+
+> In a class of 50 students, a logistic regression is performed of course grade
+> (pass or fail) on midterm exam score (continuous values with mean 60 and
+> standard deviation 15). The fitted model is
+> $\text{Pr(pass)} = \text{logit}^{-1}(-24 + 0.4x)$.
+> 
+> (a) Graph the fitted model. Also on this graph put a scatterplot of
+>     hypothetical data consistent with the information given.
+> 
+> (b) Suppose the midterm scores were transformed to have a mean of 0 and
+>     standard deviation of 1. What would be the equation of the logistic
+>     regression using these transformed scores as a predictor?
+> 
+> (c) Create a new predictor that is pure noise; for example, in R you can
+>     create `newpred <- rnorm(n,0,1)`. Add it to your model. How much does the
+>     leave-one-out cross validation score decrease?
+
+TK
+
+### 14.6, Limitations of logistic regression
+
+> Consider a dataset with $n = 20$ points, a single predictor $x$ that takes on
+> the values $1, \ldots, 20$, and binary data $y$. Construct data values
+> $y_1, \ldots, y_{20}$ that are inconsistent with any logistic regression on
+> $x$. Fit a logistic regression to these data, plot the data and fitted curve,
+> and explain why you can say that the model does not fit the data.
+
+TK
+
+### 14.7, Model building and comparison
+
+> Continuing with the well-switching example:
+>
+> (a) Fit a logistic regression for the probability of switching using, as
+>     predictors, distance, log(arsenic), and their interaction. Interpret the
+>     estimated coefficients and their standard errors.
+> 
+> (b) Make graphs as in Figure 14.3 to show the relation between probability of
+>     switching, distance, and arsenic level.
+> 
+> (c) Following the procedure described in Section 14.4, compute the average
+>     predictive differences corresponding to:
+> 
+>     i. A comparison of `dist` = 0 to `dist` = 100, with `arsenic` held
+>         constant.
+> 
+>     ii. A comparison of `dist` = 100 to `dist` = 200, with `arsenic` held
+>         constant.
+> 
+>     iii. A comparison of `arsenic` = 0.5 to `arsenic` = 1.0, with `dist` held
+>         constant.
+> 
+>     iv. A comparison of `arsenic` = 1.0 to `arsenic` = 2.0, with `dist` held
+>         constant.
+> 
+> Discuss these results.
+
+TK
+
+### 14.8, Learning from social science data
+
+> The General Social Survey (GSS) has been conducted in the United States every
+> two years since 1972.
+>
+> (a) Go to the GSS website and download the data. Consider a question of
+>     interest that was asked in many rounds of the survey and convert it to a
+>     binary outcome, if it is not binary already. Decide how you will handle
+>     nonresponse in your analysis.
+> 
+> (b) Make a graph of the average response of this binary variable over time,
+>     each year giving $\pm1$ standard error bounds as in Figure 4.3.
+> 
+> (c) Set up a logistic regression of this outcome variable given predictors for
+>     age, sex, education, and ethnicity. Fit the model separately for each year
+>     that the question was asked, and make a grid of plots with the time series
+>     of coefficient estimates $\pm$ standard errors over time.
+> 
+> (d) Discuss the results and how you might want to expand your model to answer
+>     some social science question of interest.
+
+TK
+
+### 14.9, Linear or logistic regression for discrete data
+
+> Simulate continuous data from the regression model,
+> $z = a + bx + \text{error}$. Set the parameters so that the outcomes $z$ are
+> positive about half the time and negative about half the time.
+> 
+> (a) Create a binary variable $y$ that equals 1 if $z$ is positive or 0 if $z$
+>     is negative. Fit a logistic regression predicting $y$ from $x$.
+> 
+> (b) Fit a linear regression predicting $y$ from $x$: you can do this, even
+>     though the data $y$ are discrete.
+> 
+> (c) Estimate the average predictive comparison -- the expected difference in
+>     $y$, corresponding to a unit difference in $x$ -- based on the fitted
+>     logistic regression in (a). Compare this average predictive comparison to
+>     the linear regression coefficient in (b).
+
+TK
+
+### 14.10,  Linear or logistic regression for discrete data
+
+> In the setup of the previous exercise:
+> 
+> (a) Set the parameters of your simulation so that the coefficient estimate in
+>     (b) and the average predictive comparison in (c) are close.
+> 
+> (b) Set the parameters of your simulation so that the coefficient estimate in
+>     (b) and the average predictive comparison in (c) are much different.
+> 
+> (c) In general, when will it work reasonably well to fit a linear model to
+>     predict a binary outcome?
+> 
+> See also Exercise 13.12.
+
+TK
