@@ -328,10 +328,240 @@ continuous to produce inferences, including to plot results.
 
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter15.ipynb](./notebooks/Chapter15.ipynb)
 
-### K.x, Exercise italic title
+### 15.1, Poisson and negative binomial regression
 
-> The problem statement
+> The folder `RiskyBehavior` contains data from a randomized trial targeting
+> couples at high risk of HIV infection. The intervention provided counseling
+> sessions regarding practices that could reduce their likelihood of contracting
+> HIV. Couples were randomized either to a control group, a group in which just
+> the woman participated, or a group in which both members of the couple
+> participated. One of the outcomes examined after three months was "number of
+> unprotected sex acts."
+> 
+> (a) Model this outcome as a function of treatment assignment using a Poisson 
+>     regression. Does the model fit well? Is there evidence of overdispersion?
+> 
+> (b) Next extend the model to include pre-treatment measures of the outcome and
+>     the additional pre-treatment variables included in the dataset. Does the
+>     model fit well? Is there evidence of overdispersion?
+> 
+> (c) Fit a negative binomial (overdispersed Poisson) model. What do you
+>     conclude regarding effectiveness of the intervention?
+> 
+> (d) These data include responses from both men and women from the
+>     participating couples. Does this give you any concern with regard to our
+>     modeling assumptions?
 
-The answer
+TK
+
+### 15.2, Offset in a Poisson or negative binomial regression
+
+> Explain why putting the logarithm of the exposure into a Poisson or negative
+> binomial model as an offset, is equivalent to including it as a regression
+> predictor, but with its coefficient fixed to the value 1.
+
+TK
+
+### 15.3, Binomial regression
+
+> Redo the basketball shooting example on page 270, making some changes:
+> 
+> (a) Instead of having each player shoot 20 times, let the number of shots per
+>     player vary, drawn from the uniform distribution between 10 and 30.
+> 
+> (b) Instead of having the true probability of success be linear, have the true
+>     probability be a logistic function, set so that $\text{Pr(success)} = 0.3$
+>     for a player who is 5'9" and 0.4 for a 6' tall player.
+
+TK
+
+### 15.4, Multinomial logit
+
+> Using the individual-level survey data from the 2000 National Election Study
+> (data in folder `NES`), predict party identification (which is on a five-point
+> scale) using ideology and demographics with an ordered multinomial logit
+> model.
+> 
+> (a) Summarize the parameter estimates numerically and also graphically.
+> 
+> (b) Explain the results from the fitted model.
+> 
+> (c) Use a binned residual plot to assess the fit of the model.
+
+TK
+
+### 15.5, Comparing logit and probit
+
+> Take one of the data examples from Chapter 13 or 14. Fit these data using both
+> logit and probit models. Check that the results are essentially the same after
+> scaling by factor of 1.6 (see Figure 15.4).
+
+TK
+
+### 15.6, Comparing logit and probit
+
+> Construct a dataset where the logit and probit models give clearly different
+> estimates, not just differing by a factor of 1.6.
+
+TK
+
+### 15.7, Tobit model for mixed discrete/continuous data
+
+> Experimental data from the National Supported Work example are in the folder
+> `Lalonde`. Use the treatment indicator and pre-treatment variables to
+> predict post-treatment (1978) earnings using a Tobit model. Interpret the
+> model coefficients.
+
+TK
+
+### 15.8, Robust linear regression using the $t$ model
+
+> The folder `Congress` has the votes for the Democratic and Republican
+> candidates in each U.S. congressional district in 1988, along with the
+> parties' vote proportions in 1986 and an indicator for whether the incumbent
+> was running for reelection in 1988. For your analysis, just use the elections
+> that were contested by both parties in both years.
+> 
+> (a) Fit a linear regression using `stan_glm` with the usual
+>     normal-distribution model for the errors predicting 1988 Democratic vote
+>     share from the other variables and assess model fit.
+> 
+> (b) Fit the same sort of model using the brms package with a $t$ distribution,
+>     using the `brm` function with the `student` family. Again assess model
+>     fit.
+> 
+> (c) Which model do you prefer?
+
+TK
+
+### 15.9, Robust regression for binary data using the robit model
+
+> Use the same data as the previous example with the goal instead of predicting
+> for each district whether it was won by the Democratic or Republican
+> candidate.
+> 
+> (a) Fit a standard logistic or probit regression and assess model fit.
+> 
+> (b) Fit a robit regression and assess model fit.
+> 
+> (c) Which model do you prefer?
+
+TK
+
+### 15.10, Logistic regression and choice models
+
+> Using the individual-level survey data from the election example described in
+> Section 10.9 (data in the folder `NES`), fit a logistic regression model for
+> the choice of supporting Democrats or Republicans. Then interpret the output
+> from this regression in terms of a utility/choice model.
+
+TK
+
+### 15.11, Multinomial logistic regression and choice models
+
+> Repeat the previous exercise but now with three options: Democrat, no opinion,
+> Republican. That is, fit an ordered logit model and then express it as a
+> utility/choice model.
+
+TK
+
+### 15.12, Spatial voting models
+
+> Suppose that competing political candidates A and B have positions that can be
+> located spatially in a one-dimensional space (that is, on a line). Suppose
+> that voters have "ideal points" with regard to these positions that are
+> normally distributed in this space, defined so that voters will prefer
+> candidates whose positions are closest to their ideal points. Further suppose
+> that voters' ideal points can be modeled as a linear regression given inputs
+> such as party identification, ideology, and demographics.
+> 
+> (a) Write this model in terms of utilities.
+> 
+> (b) Express the probability that a voter supports candidate S as a probit
+>     regression on the voter-level inputs.
+> 
+> See Erikson and Romero (1990) and Clinton, Jackman, and Rivers (2004) for
+> background.
+
+TK
+
+### 15.13,1 Multinomial choice models
+
+> Pardoe and Simonton (2008) fit a discrete choice model to predict winners of
+> the Academy Awards. Their data are in the folder `AcademyAwards`.
+> 
+> (a) Fit your own model to these data.
+> 
+> (b) Display the fitted model on a plot that also shows the data.
+> 
+> (c) Make a plot displaying the uncertainty in inferences from the fitted
+>     model.
+
+TK
+
+### 15.14, Model checking for count data
+
+> The folder `RiskyBehavior` contains data from a study of behavior of couples
+> at risk for HIV; see Exercise 15.1.
+> 
+> (a) Fit a Poisson regression predicting number of unprotected sex acts from
+>     baseline HIV status. Perform predictive simulation to generate 1000
+>     datasets and record the percentage of observations that are equal to 0 and
+>     the percentage that are greater than 10 (the third quartile in the
+>     observed data) for each. Compare these to the observed value in the
+>     original data.
+> 
+> (b) Repeat (a) using a negative binomial (overdispersed Poisson) regression.
+> 
+> (c) Repeat (b), also including ethnicity and baseline number of unprotected
+>     sex acts as inputs.
+
+TK
+
+### 15.15, Summarizing inferences and predictions using simulation
+
+> Exercise 15.7 used a Tobit model to fit a regression with an outcome that had
+> mixed discrete and continuous data. In this exercise you will revisit these
+> data and build a two-step model: (1) logistic regression for zero earnings
+> versus positive earnings, and (2) linear regression for level of earnings
+> given earnings are positive. Compare predictions that result from each of
+> these models with each other.
+
+TK
+
+### 15.16, Average predictive comparisons
+
+> (a) Take the roach model of well switching from Section 15.2 and estimate the
+>     average predictive comparisons for logarithm of roach count, for each of
+>     the input variables in the model.
+> 
+> (b) Do the same thing but estimating average predictive comparisons for roach
+>     count itself.
+
+TK
+
+### 15.17, Learning from social science data
+
+> The General Social Survey (GSS) has been conducted in the United States every
+> two years since 1972.
+> 
+> (a) Go to the GSS website and download the data. Consider a question of
+>     interest that was asked in many rounds of the survey and which is a count
+>     variable. Decide how you will handle nonresponse in your analysis.
+> 
+> (b) Make a graph of the average response of this count variable over time,
+>    each year giving $\pm1$ standard error bounds, as in Figure 4.3, computing
+>    the standard error for each year as $\text{sd}(y)/\sqrt{n}$ using the data
+>    from that year.
+> 
+> (c) Set up a negative binomial regression for this outcome given predictors
+>     for age, sex, education, and ethnicity. Fit the model separately for each
+>     year that the question was asked, and make a grid of plots with the time
+>     series of coefficient estimates $\pm$ standard errors over time.
+> 
+> (d) Discuss the results and how you might want to expand your model to answer
+>     some social science question of interest.
+
+TK
