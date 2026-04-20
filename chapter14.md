@@ -289,7 +289,38 @@ of -14.95.](./fig/part3/ex14_05b_loo.png)
 > $x$. Fit a logistic regression to these data, plot the data and fitted curve,
 > and explain why you can say that the model does not fit the data.
 
-TK
+I went with:
+
+$$x_i = 1;~~y_i = x_i \% 2$$
+
+so just constantly bouncing between 0 and 1 every other datum.
+
+Result of fitting `y ~ x` is basically a null model:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept |  -0.25 | 0.83
+x         |   0.03 | 0.07
+
+It looks like this:
+
+![Scatter plot of blue points alternating between 0 and 1, and a mildly upward
+dashed red line that represents y ~ x passing from 0.4 at the left to 0.6 at the
+right.](./fig/part3/ex14_06a_scatter.png)
+
+If I fit literally a null model, `y ~ 1`, I get
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept |   0.00 | 0.44
+
+And it winds up performing way better than the one that tries and fails to use
+$x$ as a predictor:
+
+![ELPD LOO comparison plot where y ~ 1 is a single point, zero uncertainty,
+located at -14.81, and the uncertainty width for y ~ x runs from -16.2 to
+-15.35](./fig/part3/ex14_06b_compare.png)
+
 
 ### 14.7, Model building and comparison
 
