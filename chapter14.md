@@ -154,7 +154,18 @@ Plots and computation powered by [Chapter14.ipynb](./notebooks/Chapter14.ipynb)
 > includes a zone where values of $y$ are all 1, a zone where they are all 0,
 > and a band of overlap in the middle.
 
-TK
+We want the $x$ values to reach into the "saturated" region of the logit
+sigmoid, which means the $z$ values of the linear predictor applied to $x$ has
+to hit -6 and +6.  Working backwards from that, we get the $[A, B]$ range of:
+
+$$[A, B] = [-18.7,  21.3]$$
+
+Here's some simulated data from that range, plus the prescribed curve:
+
+![Recreation of Figure 14.1, fifty simulated datapoints in blue, x axis ranging
+from -18.7 to 23, with the left half of the blue dots mostly at y = 1 and the
+right half mostly at y = 0, with mixing happening between -5 and 5 (and also two
+fluke y = 1s around x = 9 and x = 10)](./fig/part3/ex14_01_sim.png)
 
 ### 14.2, Logistic regression and discrimination lines
 
