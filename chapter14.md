@@ -177,7 +177,18 @@ fluke y = 1s around x = 9 and x = 10)](./fig/part3/ex14_01_sim.png)
 > middle, and with the three lines corresponding to
 > $\text{Pr}(y = 1) = 0.1, 0.5,$ and 0.9 are all visible.
 
-TK
+If I gamble on (0, 0) being fairly central to the rectangle of interest -- not
+a bad bet, since logit(0.4) is not *too* far from 50% -- I can repeat the same
+procedure I used in x. 14.1 to calculate upper and lower bounds on $x_1$ and
+$x_2$ to get good coverage of $y = 1$, $y = 0$, and their mixture:
+
+$$[A_1, B_1] = [-18.7, 21.3]$$
+$$[A_2, B_2] = [-32.0, 28.0]$$
+
+![Recreation of Figure 14.2 under the new generating model, where the lines of
+equal probability now slope upward.  Empty red circles are in the northwest half
+of the graph, and filled-in blue circles are in the southeast, with some mixing
+in the middle.](./fig/part3/ex14_02_sim2d.png)
 
 ### 14.3, Graphing logistic regressions
 
