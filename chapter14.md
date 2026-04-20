@@ -276,7 +276,10 @@ noise     |   0.02 | 0.03
 The LOO comparison shows that removing the noise predictor probably helps, but
 there's considerable uncertainty around that:
 
-![dfsds](./fig/part3/ex14_05b_loo.png)
+![Model comparison chart with ELPD_LOO on the x-axis. The midterm + noise model
+has an uncertainty range from -18 to -12.5 with a mean at -15.3.  The
+midterm-only model has an uncertainty range from -17.1 to -12.5, with a mean
+of -14.95.](./fig/part3/ex14_05b_loo.png)
 
 ### 14.6, Limitations of logistic regression
 
