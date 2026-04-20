@@ -230,7 +230,53 @@ TK
 >     create `newpred <- rnorm(n,0,1)`. Add it to your model. How much does the
 >     leave-one-out cross validation score decrease?
 
-TK
+The fitted model, along with the simulated data, looks like:
+
+![An x-axis running from 0 to 100 labeled Midterm Score, and a y-axis with
+three ticks labeled (top to bottom) "Pass", "50-50", "Fail".  Blue dots align
+with Fail in the range ~30 to just below 60; other blue dots align with Pass
+from the range ~55 to ~90.  A red sigmoid is flat till about 50, then rises,
+passing through 50-50 at midterm score 60, then saturating around 70.
+](./fig/part3/ex14_05a_midterm.png)
+
+If we transformed the midterm scores to have zero mean and unit variance, into
+a variable called $x^{(s)}$ as in "$x$, standardized," we'd have:
+
+$$x^{(s)} = \frac{x - 60}{15}$$
+$$x = 60 + 15x^{(s)}$$
+$$\begin{align}
+    z &= -24 + 0.4x  \\
+      &= -24 + 0.4(60 + 15x^{(s)}) \\
+      &= -24 + 2.4 + 6x^{(s)} \\
+      &= -21.6 + 6x^{(s)}
+    \end{align}
+$$
+$$\text{Pr}(y = 1) = \text{logit}^{-1}(-21.6 + 6x^{(s)})$$
+
+When I fit a logistic regression to the 50 simulated data points, I get:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -10.14 | 2.32
+midterm   |   0.17 | 0.04
+
+(Which does *not* do a great job matching the true model, hmmm....  When I
+increased the dataset size from 50 to 1000, I started recovering the true model
+again.)
+
+When I add the noise predictor and repeat, nothing much changes about the
+coefficient linked to midterm score:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -11.61 | 3.04
+midterm   |   0.17 | 0.04
+noise     |   0.02 | 0.03
+
+The LOO comparison shows that removing the noise predictor probably helps, but
+there's considerable uncertainty around that:
+
+![dfsds](./fig/part3/ex14_05b_loo.png)
 
 ### 14.6, Limitations of logistic regression
 
