@@ -14,6 +14,17 @@ from matplotlib import pyplot
 from scipy import stats
 
 
+class PRNGBuilder:
+  """Build new numpy default RNGs from seed phrases."""
+
+  def __init__(self, base_seed: str):
+    self._base_seed = base_seed
+  
+  def new(self, seed: str) -> numpy.random.Generator:
+    seed_int = abs(hash(self._base_seed + seed) % (2 **32))
+    return numpy.random.default_rng(seed_int)
+
+
 class DATFileParser:
   """Parses the non-CSV text files that seem built for R into Pandas."""
 
