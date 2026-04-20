@@ -201,39 +201,6 @@ TK
 
 TK
 
-### 14.4, Working with logistic regression
-
-> Perform a logistic regression for a problem of interest to you. This can be
-> from a research project, a previous class, or data you download. Choose one
-> variable of interest to be the outcome, which will take on the values 0 and 1
-> (since you are doing logistic regression).
->
-> (a) Analyze the data in R.
-> 
-> (b) Fit several different versions of your model. Try including different
->     predictors, interactions, and transformations of the inputs.
-> 
-> (c) Choose one particular formulation of the model and do the following:
-> 
->     i. Describe how each input affects Pr( y = 1) in the fitted model. You
->         must consider the estimated coefficient, the range of the input
->         values, and the nonlinear inverse logit function.
-> 
->     ii. What is the error rate of the fitted model? What is the error rate of
->         the null model?
-> 
->     iii. Compare the fitted and null models using leave-one-out cross
->         validation (see Section 11.8). Does the improvement in fit seem to be
->         real?
-> 
->     iv. Use the model to make predictions for some test cases of interest.
-> 
->     v. Use the simulations from the stan_glm output to create a 50% interval
->         for some nonlinear function of parameters (for example,
->         $\beta_1/\beta_2$).
-
-TK
-
 ### 14.5, Working with logistic regression
 
 > In a class of 50 students, a logistic regression is performed of course grade
