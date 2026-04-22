@@ -534,7 +534,28 @@ TK
 >     logistic regression in (a). Compare this average predictive comparison to
 >     the linear regression coefficient in (b).
 
-TK
+My $x$ data are distributed as $\mathcal{N}(-2, 1.5)$, and the latent variables
+$z = 0.4 + 0.2$.  About 40% of the $y$ outcomes are 1 in this simulation.
+
+When I fit the logistic regression of part (a), I get:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | 4.99 | 0.98
+x         | 2.52 | 0.44
+
+For the linear regression of part (b), `y ~ x`, I get the coefficients:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | 0.30 | 0.03
+Intercept | 1.08 | 0.07
+x         | 0.29 | 0.03
+
+The average predictive comparison (adding one to every $x_i$ and comparing the
+prediction, to the prediction on that same $x_i$ without the 1) is an increase
+of 0.25.  That's really close to the linear model's coefficent, and covered by
+the linear model coefficient's standard error.
 
 ### 14.10,  Linear or logistic regression for discrete data
 
@@ -551,4 +572,32 @@ TK
 > 
 > See also Exercise 13.12.
 
-TK
+For part (a): done.  They're close.
+
+For part(b), the $x$ variables are drawn from a mixture of two equal and
+opposite normals, $\mathcal{N}(-4, 1)$ and $\mathcal{N}(4, 1)$.
+
+The linear model fit:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | 0.12 | 0.01
+Intercept | 0.48 | 0.01
+x         | 0.12 | 0.00
+
+The logistic regression model fit:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | -----
+Intercept | -0.14 | 0.51
+x         | 0.85 | 0.14
+
+And the average predictive comparison from a unit increase in $x$ for the
+logistic regression is (a mere) 0.04.  That's considerably less than the 0.12
+that the linear model achieves.
+
+I picked this distribution of $x$ on the intuition that the linear model will
+fit discrete data better when the predictor tends to be in the unsaturated part
+of the logistic sigmoid.  That's what worked in Exercise 14.9.  And the
+converse -- pushing all the $x$ values out to the saturated part of the
+sigmoid -- worked to thwart agreement in this exercise.
