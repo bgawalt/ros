@@ -198,8 +198,8 @@ def bambi_markdown(
   just_len = max(max(len(name) for name in predictors), len('Intercept'))
   sig_mu = summ["mean"].get("sigma", float('nan'))
   sig_se = summ["sd"].get("sigma", float('nan'))
-  int_mu = summ["mean"]["Intercept"]
-  int_se = summ["sd"]["Intercept"]
+  int_mu = summ["mean"].get("Intercept", float('nan'))
+  int_se = summ["sd"].get("Intercept", float('nan'))
   out = textwrap.dedent(f"""\
     {'Coef.'.ljust(just_len)} | Mean   | s.e.
     {'-' * just_len} | ------ | ------
