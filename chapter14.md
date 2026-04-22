@@ -420,7 +420,79 @@ located at -14.81, and the uncertainty width for y ~ x runs from -16.2 to
 > 
 > Discuss these results.
 
-TK
+I added a column to the wells dataframe that's log(arsenic).  (`arsenic` is
+always positive, so only normal numbers should result from taking its
+logarithm.)
+
+Here are the coefficient estimates for
+
+Coef.               | Mean  | s.e.
+------------------- | ----- | ------
+Intercept           |  0.49 | 0.07
+dist100             | -0.87 | 0.14
+log_arsenic         |  0.98 | 0.11
+dist100:log_arsenic | -0.23 | 0.18
+
+I interpret these coefficients as:
+
+*  The intercept starts off with a reasonable chance of switching, as a baseline
+*  On its own, each additional 100 meters to a safe well decreases the chance
+    of an otherwise-typical household switching by 20 percentage points
+*  On its own, each 2.7x'ing of arsenic level increases switching probability by
+    25 percentage points
+*  As an interaction:
+    *  An additional 100 meters of distance decreases the arsenic association.
+        Instead of a 25 pct-pt. decrease, it's merely a 18 pct-pt. decrease.
+    *  A 2.7x'ing of arsenic concentration reinforces the association for
+        distance: a decrease of 20 pct-pts. becomes a decrease of 26 pct-pts.
+
+(Note: From now on, I will always do my log transforms in base-2; it makes
+interpretation of them much easier.)
+
+
+For the charts, let's look at typical values for the predictors:
+
+|         | switch | arsenic | dist
+--------- | ------ | ------- | ----
+**count** | 3020.00 | 3020.00 | 3020.00
+**mean**  | 0.58 | 1.66 | 48.33
+**std**   | 0.49 | 1.11 | 38.48
+**min**   | 0.00 | 0.51 | 0.39
+**25%**   | 0.00 | 0.82 | 21.12
+**50%**   | 1.00 | 1.30 | 36.76
+**75%**   | 1.00 | 2.20 | 64.04
+**max**   | 1.00 | 9.65 | 339.53
+
+The graphs of model predictions:
+
+![Two plots side by side, describing when households will switch away from a
+nearby well with unsafe levels of arsenic, as a function of (a) that arsenic
+level, and (b) distance to the nearest clean well.  They share a y-axis labeled
+"Pr(switching)" that goes from 0 to 1. The left plot has an x-axis of "Distance
+(in meters) to nearest safe well", running from 0 to 350.  There are two clouds
+of blue dots, jittered around y= 0 and y=1, that are mostly concentrated between
+0 and 150 and don't seem to have much different about them. There are three
+lines added representing a model's predictions of switching probability, for
+arsenic levels of 0.75 (yellow), 1.5 (orange), and 3.0 (red).  They each slowly,
+~linearly decay to about Pr=8% at d=350m, but start at different levels for
+d=0m.  The yellow line starts at Pr=58%, the orange line starts at 70%, and the
+red starts at 81%. The right plot has an x-axis of "Arsenic concentration in
+well water" running from 0 to 10. It also has two clouds of blue dots around
+y=0 and y=1, with the y=1 cloud spread from 0 to 5 while the y=0 cloud is more
+limited to 0 to 3.5.  There are yellow, orange, and red prediction curves, all
+shaped like logarithms, all starting at Pr=5% for Ars=0. The yellow curve
+represents a well distance of 20m, and rises highest to Pr=92% at Ars=10. The
+orange curve, dist = 40m, rises to 90% at Ars=10. The red curve, dist=80m, rises
+to around 82%.](./fig/part3/ex14_07b_logarsenic.png)
+
+*  "`dist` = 0 to `dist` = 100, with `arsenic` held is associated with an
+    average decrease in switching by 21 pct-pt.
+*  "`dist` = 100 to `dist` = 200, with `arsenic` held is (also) associated with
+    an average decrease in switching by 21 pct-pt.
+*  "`arsenic` = 0.5 to `arsenic` = 1.0, with `dist` held constant" is associated
+    with an average increase in switching by 15 pct-pt. 
+*  "`arsenic` = 1.0 to `arsenic` = 2.0, with `dist` held constant" is associated
+    with an average increase in switching by 16 pct-pt. 
 
 ### 14.8, Learning from social science data
 
