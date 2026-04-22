@@ -27,7 +27,7 @@ linear model:
 5.  (Optional) other parameters like variances, overdispersions, and cutpoints,
     that apply to any of the above four ingredients
 
-Some examples, byeond the linear and logistic regressions we've run so far:
+Some examples, beyond the linear and logistic regressions we've run so far:
 
 *  **Poisson:** each outcome is a non-negative integer.  The link function is
     the logarithm, so $g^{-1}(z) = \exp(z)$.
@@ -140,7 +140,7 @@ $$\begin{align}
         &= \frac{y_i - \hat{y}_i}{\sqrt{n_i\hat{p}_i(1 - \hat{p}_i)}}
 \end{align}$$
 
-are distributed like a normal with zero mean and unit var  Teiance.
+are distributed like a normal with zero mean and unit variance.
 
 If they *aren't* distributed like a standard normal, then you have
 overdispersion (or, very rarely, underdispersion).
