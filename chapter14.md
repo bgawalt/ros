@@ -192,7 +192,8 @@ in the middle.](./fig/part3/ex14_02_sim2d.png)
 
 ### 14.3, Graphing logistic regressions
 
-> The well-switching data described in Section 13.7 are in the folder `Arsenic`.
+> The well-switching data described in Section 13.7 are in the 
+> [folder `Arsenic`](https://github.com/avehtari/ROS-Examples/tree/master/Arsenic/).
 >
 > (a) Fit a logistic regression for the probability of switching using
 >     log(distance to nearest safe well) as a predictor.
@@ -210,7 +211,76 @@ in the middle.](./fig/part3/ex14_02_sim2d.png)
 >     using these indicators. With this new model, repeat the computations and
 >     graphs for part (a) of this exercise.
 
-TK
+#### Log(dist) model
+
+Fitting the model with forumla `switch['1'] ~ log(dist)` produces:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+Intercept |  1.02 | 0.16
+log(dist) | -0.20 | 0.04
+
+![Reproduction of Fig 13.8b, with slight modifications; I reword its caption as
+"Graphical expression of the fitted logistic regression, Pr (switching wells) =
+logit^{−1}(1.02 - 0.2 ∗ log(dist)), with (jittered) data overlaid. The
+predictor dist is distance to the nearest safe well in
+meters.](./fig/part3/ex14_03b_wells_log.png)
+
+The binned residual plot looks not great, not terrible:
+
+![Binned residuals for the log(dist) model](./fig/part3/ex14_03c_resids.png)
+
+The predictions are all in a narrow range between 0.5 and 0.7, which isn't cool.
+There's four residuals outside the two-standard-errors bars, which is too many,
+I think.
+
+The null model would just always vote $\text{Pr}(y = 1) = 0.575$, the mean
+value of $y$ for this model.  That means any no-switch observation counts as an
+error under the null model.  That's a null-model error rate of 42.5%.
+
+This model has an error rate of 42%.  Identical.
+
+#### Indicator variable model
+
+I created the indicator variables in a new dataframe:
+
+|         | switch  | dist_low | dist_mid | dist_hi
+--------- | ------- | -------- | -------- | -------
+**count** | 3020.00 |  3020.00 |  3020.00 | 3020.00
+**mean**  |    0.58 |     0.90 |     0.10 |    0.00
+**std**   |    0.49 |     0.30 |     0.30 |    0.05
+**min**   |    0.00 |     0.00 |     0.00 |    0.00
+**25%**   |    0.00 |     1.00 |     0.00 |    0.00
+**50%**   |    1.00 |     1.00 |     0.00 |    0.00
+**75%**   |    1.00 |     1.00 |     0.00 |    0.00
+**max**   |    1.00 |     1.00 |     1.00 |    1.00
+
+Almost no observations have a distance above 200 meters, though it's not
+literally zero of them.
+
+I fit the model with the formula
+`switch['1'] ~ 0 + dist_low + dist_mid + dist_hi` (where the "`0 + `" is there
+to suppress the usual intercept term):
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+dist_low  |   0.38 | 0.04
+dist_mid  |  -0.28 | 0.11
+dist_hi   |  -1.43 | 0.87
+
+![Same Fig 13.8b style scatter plot, with the same blue dots as above, but now
+the trendline is a red staircase at levels p = 0.6, 0.42, 0.2, breaking at
+the distances 100 and 200 m](./fig/part3/ex14_03_eb_wells_indicators.png)
+
+The binned residual plots here are unworkable here.  The indicator variables are
+just taking the average switching proportion within each distance bin.  The
+average residual is mechanically driven to zero; we're just plotting
+quantization error if we try and visualize anything from that.
+
+The indicator model's error rate is 40.9%.  With ~3,000 datapoints, the standard
+error for that is just under 0.9 percentage points, so the uncertainty range
+is \[39.1%, 42.7%\], which does somewhat overlap with the log-dist model's
+error rate uncertainty range.
 
 ### 14.5, Working with logistic regression
 
