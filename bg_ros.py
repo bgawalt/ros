@@ -123,9 +123,18 @@ class DATFileParser:
     return pandas.DataFrame(data=data), na_counts
 
 
-def dataframe_describe_markdown(df: pandas.DataFrame) -> str:
+def dataframe_describe_markdown(
+    df: pandas.DataFrame,
+    columns: abc.Sequence[str] = list()
+    ) -> str:
+    """Describes a DataFrame with a Markdown table.
+    
+    If you pass in a non-empty set of column names, the table will only describe
+    those columns.  (If you leave it empty, it assumes you want all columns
+    described.)
+    """
     desc = df.describe()
-    cols = desc.columns
+    cols = columns if columns else desc.columns
     out = "|         | " + " | ".join(cols) + "\n"
     out += "--------- | " + " | ".join(['-' * len(col) for col in cols]) + '\n'
     quantities = [
