@@ -478,9 +478,10 @@ height    |   0.18 | 0.02
 ### 15.4, Multinomial logit
 
 > Using the individual-level survey data from the 2000 National Election Study
-> (data in folder `NES`), predict party identification (which is on a five-point
-> scale) using ideology and demographics with an ordered multinomial logit
-> model.
+> (data
+> [in folder `NES`](https://github.com/avehtari/ROS-Examples/tree/master/NES/)),
+> predict party identification (which is on a five-point scale) using ideology
+> and demographics with an ordered multinomial logit model.
 > 
 > (a) Summarize the parameter estimates numerically and also graphically.
 > 
@@ -488,7 +489,46 @@ height    |   0.18 | 0.02
 > 
 > (c) Use a binned residual plot to assess the fit of the model.
 
-TK
+Here is a summary of the demographic data, plus party ID, pulled out of
+`nes.txt`:
+
+|         | year | income | age | gender | race | real_ideo | martial_status | partyid7
+--------- | ---- | ------ | --- | ------ | ---- | --------- | -------------- | --------
+**count** | 474.00 | 474.00 | 474.00 | 474.00 | 474.00 | 474.00 | 474.00 | 474.00
+**mean**  | 2000.00 | 3.03 | 47.61 | 1.53 | 1.53 | 4.31 | 2.01 | 3.82
+**std**   | 0.00 | 1.11 | 15.84 | 0.50 | 1.18 | 1.41 | 1.44 | 2.16
+**min**   | 2000.00 | 1.00 | 18.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00
+**25%**   | 2000.00 | 2.00 | 36.00 | 1.00 | 1.00 | 3.00 | 1.00 | 2.00
+**50%**   | 2000.00 | 3.00 | 45.00 | 2.00 | 1.00 | 4.00 | 1.00 | 4.00
+**75%**   | 2000.00 | 4.00 | 57.75 | 2.00 | 1.00 | 5.00 | 3.00 | 6.00
+**max**   | 2000.00 | 5.00 | 91.00 | 2.00 | 5.00 | 7.00 | 7.00 | 7.00
+
+The coefficient estimates:
+
+Coef.        | Mean   | s.e.
+------------ | ------ | ------
+threshold[0] | -0.39 | 0.33
+threshold[1] |  0.42 | 0.33
+threshold[2] |  1.17 | 0.33
+threshold[3] |  1.51 | 0.33
+threshold[4] |  2.27 | 0.34
+threshold[5] |  3.31 | 0.35
+income       |  0.09 | 0.07
+age          | -0.02 | 0.01
+gender       | -0.58 | 0.15
+real_ideo    |  0.65 | 0.06
+
+![Ridge plot of the above coefficients table, except for the
+thresholds](./fig/part3/ex15_04_ridge.png)
+
+I could not quite figure out how to get class predictions out of this model, in
+a way that I trust.  And the book has no examples of residual plots for
+ordinal regression.  So I hacked this together: boxplot distributions of linear
+predictor values by the observations actual party ID class, along with the
+thresholds fit by the model:
+
+![A series of boxplots, all pretty wide, but trending correctly with
+category](./fig/part3/ex15_04_boxplots.png)
 
 ### 15.5, Comparing logit and probit
 
