@@ -586,11 +586,13 @@ TK
 
 ### 15.8, Robust linear regression using the $t$ model
 
-> The folder `Congress` has the votes for the Democratic and Republican
-> candidates in each U.S. congressional district in 1988, along with the
-> parties' vote proportions in 1986 and an indicator for whether the incumbent
-> was running for reelection in 1988. For your analysis, just use the elections
-> that were contested by both parties in both years.
+> The
+> [folder `Congress` has](https://github.com/avehtari/ROS-Examples/tree/master/Congress/)
+> the votes for the Democratic and Republican candidates in each U.S.
+> congressional district in 1988, along with the parties' vote proportions in
+> 1986 and an indicator for whether the incumbent was running for reelection
+> in 1988. For your analysis, just use the elections that were contested by both
+> parties in both years.
 > 
 > (a) Fit a linear regression using `stan_glm` with the usual
 >     normal-distribution model for the errors predicting 1988 Democratic vote
@@ -602,7 +604,43 @@ TK
 > 
 > (c) Which model do you prefer?
 
-TK
+For the model formula `v88 ~ v86 + inc86 + inc88`, the normal model coefficients
+are:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | 0.07 | 0.00
+Intercept | 0.17 | 0.02
+v86       | 0.66 | 0.04
+inc86     | -0.03 | 0.01
+inc88     | 0.10 | 0.01
+
+and the $t$ model coefficients are identical:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | 0.06 | 0.00
+Intercept | 0.16 | 0.02
+v86       | 0.66 | 0.04
+inc86     | -0.03 | 0.01
+inc88     | 0.10 | 0.01
+
+So suspiciously close that I checked the priors on the noise in the $t$ model:
+
+```
+        Auxiliary parameters
+            nu ~ Gamma(alpha: 2.0, beta: 0.1)
+            sigma ~ HalfStudentT(nu: 4.0, sigma: 0.1928)
+```
+
+Yup, as advertised.
+
+The model LOO performance comparison bears this out:
+
+![ELPD LOO model comparison of the two models and their ranges are both between
+400 and 428](./fig/part3/ex15_08_compare.png)
+
+So, I suppose for simplicity's sake, I prefer the normal error model.
 
 ### 15.9, Robust regression for binary data using the robit model
 
