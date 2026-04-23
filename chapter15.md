@@ -536,7 +536,37 @@ category](./fig/part3/ex15_04_boxplots.png)
 > logit and probit models. Check that the results are essentially the same after
 > scaling by factor of 1.6 (see Figure 15.4).
 
-TK
+I choose the arsenic-wells dataset from Exercise 14.7, using the interaction
+model specified with:
+
+`switch['1'] ~ dist100 + log_arsenic + dist100:log_arsenic`.
+
+The logit model coefficient estimates:
+
+Coef.               | Mean  | s.e.
+------------------- | ----- | ------
+Intercept           |  0.49 | 0.07
+dist100             | -0.88 | 0.13
+log_arsenic         |  0.98 | 0.11
+dist100:log_arsenic | -0.23 | 0.18
+
+And the probit model coefficient estimates:
+
+Coef.               | Mean  | s.e.
+------------------- | ----- | ------
+Intercept           |  0.30 | 0.04
+dist100             | -0.54 | 0.08
+log_arsenic         |  0.59 | 0.07
+dist100:log_arsenic | -0.12 | 0.11
+
+The four ratios here are {1.63, 1.63, 1.66, 1.92}, which, yep, essentially the
+same up to that scale factor of -1.6.  The interaction terms is a little off,
+though those are also the higher-uncertainty coefficient estimates.
+
+Also essentially the same in terms of ELPD LOO performance:
+
+![Two identical uncertainty intervals over the ELPD LOO axis from -1970 to
+-1936](./fig/part3/ex15_05_compare.png)
 
 ### 15.6, Comparing logit and probit
 
