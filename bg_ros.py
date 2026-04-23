@@ -229,6 +229,7 @@ def bambi_flatten(
     predictors: abc.Sequence[str],
     num_chains: int = 4,
     ) -> dict[str, tuple[float]]:
+  """Returns coefficent samples of the form {pred: (coefs, ...)}."""
   out = {pred: [] for pred in predictors}
   for chain in range(num_chains):
     sims = model_fit.posterior.sel(chain=chain).to_dataframe()
