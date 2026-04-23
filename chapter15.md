@@ -332,13 +332,14 @@ Plots and computation powered by [Chapter15.ipynb](./notebooks/Chapter15.ipynb)
 
 ### 15.1, Poisson and negative binomial regression
 
-> The folder `RiskyBehavior` contains data from a randomized trial targeting
-> couples at high risk of HIV infection. The intervention provided counseling
-> sessions regarding practices that could reduce their likelihood of contracting
-> HIV. Couples were randomized either to a control group, a group in which just
-> the woman participated, or a group in which both members of the couple
-> participated. One of the outcomes examined after three months was "number of
-> unprotected sex acts."
+> The
+> [folder `RiskyBehavior`](https://github.com/avehtari/ROS-Examples/tree/master/RiskyBehavior/)
+> contains data from a randomized trial targeting couples at high risk of HIV
+> infection. The intervention provided counseling sessions regarding practices
+> that could reduce their likelihood of contracting HIV. Couples were randomized
+> either to a control group, a group in which just the woman participated, or a
+> group in which both members of the couple participated. One of the outcomes
+> examined after three months was "number of unprotected sex acts."
 > 
 > (a) Model this outcome as a function of treatment assignment using a Poisson 
 >     regression. Does the model fit well? Is there evidence of overdispersion?
@@ -354,7 +355,91 @@ Plots and computation powered by [Chapter15.ipynb](./notebooks/Chapter15.ipynb)
 >     participating couples. Does this give you any concern with regard to our
 >     modeling assumptions?
 
-TK
+The numerical columns from `risky.csv`:
+
+|         | couples | women_alone | bupacts | fupacts
+--------- | ------- | ----------- | ------- | -------
+**count** | 434.00 | 434.00 | 434.00 | 434.00
+**mean**  | 0.37 | 0.34 | 25.91 | 16.49
+**std**   | 0.48 | 0.47 | 31.92 | 26.83
+**min**   | 0.00 | 0.00 | 0.00 | 0.00
+**25%**   | 0.00 | 0.00 | 5.00 | 0.00
+**50%**   | 0.00 | 0.00 | 15.00 | 5.00
+**75%**   | 1.00 | 1.00 | 36.00 | 20.93
+**max**   | 1.00 | 1.00 | 300.00 | 200.00
+
+From looking at
+[the actual publication](https://pmc.ncbi.nlm.nih.gov/articles/PMC1447878/), it
+seems like `fupacts` is "follow-up unprotected acts" (vs. `bupacts`, "baseline
+unprotected acts").
+
+When I fit the model prescribed in (a), `fupacts ~ couples + women_alone`,
+I get narrow uncertainty ranges for all coefficients:
+
+Coef.       | Mean  | s.e.
+----------- | ----- | ------
+Intercept   |  3.09 | 0.02
+couples     | -0.32 | 0.03
+women_alone | -0.58 | 0.03
+
+Makes sense that the widths are low, this is just fitting the mean to each
+treatment group, modulo that shared intercept.
+
+Here is a plot of (a) density of actually-observed outcomes and (b) posterior
+predicted outcomes. This sure looks like the overdispersion examples seen in the
+book.
+
+![y-axis, density, no tick labels.  x-axis, '# acts', log-spaced 2^k for k = 1
+to 7. A blue curve that starts very high at the left and drops quickly, so,
+lots of zero- and low-count values, labeled 'Observed'.  A bunch of fuzzy red
+traces that are a bell curve centered at 2^4 labeled 'Posterior': basically no
+zero- to low-count values.](./fig/part3/ex15_01a_poisson.png)
+
+Per part (b), the model is extended with the additional predictors (including
+the categorical `sex` and `bs_hiv`) as
+`fupacts ~ couples + women_alone + sex + bs_hiv + bupacts`:
+
+Coef.            | Mean  | s.e.
+---------------- | ----- | ------
+Intercept        |  2.78 | 0.03
+couples          | -0.41 | 0.03
+women_alone      | -0.67 | 0.03
+sex[woman]       |  0.11 | 0.02
+bs_hiv[positive] | -0.44 | 0.04
+bupacts          |  0.01 | 0.00
+
+Still quite narrow uncertainty ranges, that's neat!
+
+But still overdispersed, so, not a great fit:
+
+![Very similar histogram plot as in part (a), though the red bell curve does
+somewhat shift mass to the left, covering lower-count
+outcomes](./fig/part3/ex15_01b_poisson_richer.png)
+
+When I change the link function to negative binomial, I get the coefficients:
+
+Coef.            | Mean  | s.e.
+---------------- | ----- | ------
+Intercept        |  2.46 | 0.18
+couples          | -0.35 | 0.19
+women_alone      | -0.73 | 0.19
+sex[woman]       | -0.02 | 0.15
+bs_hiv[positive] | -0.55 | 0.20
+bupacts          |  0.02 | 0.00
+
+And when I check the dispersion -- yes, that's what we like to see:
+
+![Same blue density line as the previous two, and now the red fuzzy densities
+are right on top of it](./fig/part3/ex15_01c_negbin.png)
+
+I check the models' performances with the LOO utility:
+
+[ELPD_LOO model comparison; part (a)'s is worst, between -8000 and -6500,
+part (b)'s is a real improvement, between -6200 and -5200, and the negative
+binomial of part (c) is miles better with no uncertainty width at
+-1400](./fig/part3/ex15_01_compare.png)
+
+Yeah, all checks out.
 
 ### 15.2, Offset in a Poisson or negative binomial regression
 
