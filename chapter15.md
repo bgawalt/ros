@@ -460,7 +460,20 @@ TK
 >     probability be a logistic function, set so that $\text{Pr(success)} = 0.3$
 >     for a player who is 5'9" and 0.4 for a 6' tall player.
 
-TK
+Working out the logistic regression parameters:
+
+$$\text{logit}(0.3) = a + 69b$$
+$$\text{logit}(0.4) = a + 72b$$
+$$b = (\text{logit}(0.4) - \text{logit}(0.3)) / 3 = 0.15$$
+$$a = \text{logit}(0.4) - 72(0.15) = -11.01$$
+
+When I fit a logistic binomial to `p(hits, shots) ~ height`, the correct
+parameters are recovered:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+Intercept | -13.54 | 1.29
+height    |   0.18 | 0.02
 
 ### 15.4, Multinomial logit
 
