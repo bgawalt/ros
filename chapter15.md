@@ -588,23 +588,6 @@ TK
 
 TK
 
-### 15.10, Logistic regression and choice models
-
-> Using the individual-level survey data from the election example described in
-> Section 10.9 (data in the folder `NES`), fit a logistic regression model for
-> the choice of supporting Democrats or Republicans. Then interpret the output
-> from this regression in terms of a utility/choice model.
-
-TK
-
-### 15.11, Multinomial logistic regression and choice models
-
-> Repeat the previous exercise but now with three options: Democrat, no opinion,
-> Republican. That is, fit an ordered logit model and then express it as a
-> utility/choice model.
-
-TK
-
 ### 15.12, Spatial voting models
 
 > Suppose that competing political candidates A and B have positions that can be
