@@ -654,7 +654,10 @@ So, I suppose for simplicity's sake, I prefer the normal error model.
 > 
 > (c) Which model do you prefer?
 
-TK
+(Have to pass on this: it's not a
+[link function that comes standard](https://github.com/bambinos/bambi/blob/5110615e2aff5e4689af1b8325fdf447a8531b0a/bambi/families/link.py#L96)
+in Bambi, and I don't know how to implement a $t$ distribution's CDF as a
+PyTensor backend.)
 
 ### 15.12, Spatial voting models
 
