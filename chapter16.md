@@ -196,15 +196,74 @@ including yours.
 
 ### 16.4, Interactions are harder to estimate than main effects
 
-TK
+Interactions: important to cover!  Frequently requested!
+
+Loosely, interactions cut a sample into half, as a best case scenario.  So the
+estimation within those half-size subsamples will have standard errors (which
+go as $1/sqrt{n}$) that are $2^2 = 4$ times as large.
+
+The only way you come out ahead is if the interaction term meaningfully
+reduces the residual standard deviation -- the interaction-free model measures
+the main effect with s.e. $2\sigma^{(main)}/\sqrt{n}$, and the interaction of
+the main effect with a 50-50 split binary variable of
+$4\sigma^{(inter)}/\sqrt{n}$.  So you gotta hope you cut the residual standard
+error in *half* by including the interaction, which is a high bar to clear.
+
+> This \[the fact that interactions take 4x as much data to match a main
+> effect's uncertainty width\] implies a big problem with the common plan of
+> designing a study with a focus on the main effect and then looking to see what
+> shows up in the interactions.  Or, even worse, designing a study, not finding
+> the anticipated main effect, and then using the interactions to bail you out.
+> The problem is not just that this sort of analysis is "exploratory"; it’s that
+> these data are a lot noisier than you realize, so what you think of as
+> interesting exploratory findings could be just a bunch of noise.
+
+I did not especially follow the case made with the pure-noise example, where
+shifting from (-0.5, 0.5) to (0, 1) caused a 40% increase in standard error.
 
 ### 16.5, Design calculations after the data have been collected
 
-TK
+They revisit the implausible sex-ratios-and-beauty study from earlier, which
+found a mean effect of 8% more girls among beautiful parents than uggos, when
+most sex ratio studies never find a sex ratio shift greater than 0.5%.
+
+They trace three possible scenarios for hypothetical effect sizes that are
+consistent with prior work, while maintaining *this* study's 3 pct-pt standard
+error:
+
+1.  True difference of zero: just wildly good luck mixed perhaps with some
+    wiggling around of researcher degrees of freedom (what's the dividing line
+    between beauty and uggo?) to produce a normal Type I error.
+2.  True difference of 0.2%: `1 - pnorm(6, 0.2, 3)` gives a 2.7% chance of
+    finding a positive-and-significant estimate, and `pnorm(-6, 0.2, 3)` adds
+    another 1.9% chance of negative-and-significant.  So conditional on landing
+    in the "found statsig" bucket, that's a 42% chance of Type S error.  And
+    any statsig estimate will be 30x higher than the true difference.
+3.  True difference of 0.5%: Same calculations mean 4.8% chance of statsig,
+    at least 12x too large an estimate and 31% chance of a Type S error.
+
+> A sample of this size is just not useful for estimating variation on the order
+> of half a percentage points or less, which is why most studies of the human
+> sex ratio use much larger samples, typically from demographic databases. The
+> example shows that if the sample is too small relative to the expected size of
+> any differences, it is not possible to draw strong conclusions even when
+> estimates appear strong in the sense of being more than two standard errors
+> from zero.
+
+They emphasize that even Case (3) there is still way bigger than any other
+published effect/coefficient for sex ration shifts.
 
 ### 16.6, Design analysis using fake-data simulation
 
-TK
+This is fun.  The important advice is, keep an eye on the standard error of
+the coefficient of interest.  Is it too wide to be of practical interest, given
+the effect size you'd expect from prior experience?
+
+They also introduce a neat trick to simulate selection bias, where the
+control-or-treatment coin toss is governed by a logistic sigmoid that uses the 
+same underlying latent parameter that governs the outcome values.  It's pretty
+neat that simply adjusting for this latent parameter corrects the selection bias
+and I'm sure we'll hear more about this in the section on causal inference.
 
 
 ## Exercises
