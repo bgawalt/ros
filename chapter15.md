@@ -575,15 +575,6 @@ Also essentially the same in terms of ELPD LOO performance:
 
 TK
 
-### 15.7, Tobit model for mixed discrete/continuous data
-
-> Experimental data from the National Supported Work example are in the folder
-> `Lalonde`. Use the treatment indicator and pre-treatment variables to
-> predict post-treatment (1978) earnings using a Tobit model. Interpret the
-> model coefficients.
-
-TK
-
 ### 15.8, Robust linear regression using the $t$ model
 
 > The
@@ -765,19 +756,6 @@ instead) doesn't help at all:
 
 ![Histograms for part (c), sadly looks identical to
 part (b)](./fig/part3/ex15_14c_nb2.png)
-
-
-
-### 15.15, Summarizing inferences and predictions using simulation
-
-> Exercise 15.7 used a Tobit model to fit a regression with an outcome that had
-> mixed discrete and continuous data. In this exercise you will revisit these
-> data and build a two-step model: (1) logistic regression for zero earnings
-> versus positive earnings, and (2) linear regression for level of earnings
-> given earnings are positive. Compare predictions that result from each of
-> these models with each other.
-
-TK
 
 ### 15.16, Average predictive comparisons
 
