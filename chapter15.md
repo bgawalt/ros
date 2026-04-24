@@ -447,7 +447,40 @@ Yeah, all checks out.
 > binomial model as an offset, is equivalent to including it as a regression
 > predictor, but with its coefficient fixed to the value 1.
 
-TK
+The Poisson's likelihood assumes that:
+
+$$y_i \sim \mathbb{E}[\exp(x_i^T\beta)]$$
+
+The exposure is a multiplier associated with each observation that's supposed to
+scale the expected outcome up and down.  If we're counting lattes sold among
+stores with/without in-store ads pushing them, it's reasonable to scale that by
+"how many customers came in while we were counting."
+
+$$y_i \sim \mathbb{E}[u_i\exp(x_i^T\beta)]$$
+
+We can just pull that number-of-customers exposure value $u_i$ up into the
+exponent:
+
+$$\begin{align}
+    y_i &\sim \mathbb{E}[\exp(\log u_i)\exp(x_i^T\beta)] \\
+     &\sim \mathbb{E}[\exp(\log u_i + x_i^T\beta)]
+\end{align}$$
+
+That is equivalent to the original equation but with (a) concatenating a
+$\log u_i$ term into the predictor vector $x_i$, and (b) concatenating a 1
+into the $\beta$ coefficient vector:
+
+$$x_i \in \mathbb{R}^p \rightarrow
+    x_i := [\log u_i, x_{i1}, \ldots, x_{ip}] \in \mathbb{R}^{p+1}$$
+$$\beta \in \mathbb{R}^p \rightarrow
+    \beta := [1, \beta_1, \ldots, \beta_p] \in \mathbb{R}^{p+1}$$
+
+So, a new coefficient, frozen at 1 forever.  This freezing has the same value
+proposition as any prior info: you *could* make the model learn a coefficient to
+multiply $\log u$ to maximize predictive power, but if that estimate winds up
+with high uncertainty (due to low data volume relative to your sample size and
+predictor covariance structure) you might accidentally get told an inappropriate
+value.  Maybe take the sure thing, freeze it at 1, and call that good enough.
 
 ### 15.3, Binomial regression
 
