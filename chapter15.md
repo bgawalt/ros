@@ -679,10 +679,11 @@ PyTensor backend.)
 
 TK
 
-### 15.13,1 Multinomial choice models
+### 15.13 Multinomial choice models
 
 > Pardoe and Simonton (2008) fit a discrete choice model to predict winners of
-> the Academy Awards. Their data are in the folder `AcademyAwards`.
+> the Academy Awards. Their data are in
+> [the folder `AcademyAwards`](https://github.com/avehtari/ROS-Examples/tree/master/AcademyAwards).
 > 
 > (a) Fit your own model to these data.
 > 
@@ -691,7 +692,41 @@ TK
 > (c) Make a plot displaying the uncertainty in inferences from the fitted
 >     model.
 
-TK
+I trimmed down the large CSV to just the rows of Best Picture nominees, and
+built three columns: did the movie *win* Best Picture, how many total Oscar
+nominations did it have, and how many other best picture awards (Golden Globes
+or PGA) did it win.  The resulting dataframe:
+
+|         | best_picture | total_noms | other_wins
+--------- | ------------ | ---------- | ----------
+**count** |       453.00 |     453.00 | 453.00
+**mean**  |         0.17 |       6.43 |   0.34
+**std**   |         0.38 |       2.89 |   0.63
+**min**   |         0.00 |       1.00 |   0.00
+**25%**   |         0.00 |       4.00 |   0.00
+**50%**   |         0.00 |       6.00 |   0.00
+**75%**   |         0.00 |       8.00 |   1.00
+**max**   |         1.00 |      14.00 |   2.00
+
+When I fit the logistic regression model
+`best_picture['1'] ~ total_noms + other_wins` I get the coefficent estimates:
+
+Coef.      | Mean  | s.e.
+---------- | ----- | ------
+Intercept  | -4.11 | 0.46
+total_noms |  0.23 | 0.06
+other_wins |  1.55 | 0.22
+
+Here are three plots showing the data and model when the movie got zero, one, or
+two other major best picture awards:
+
+![Three scatter plots with logistic curves overlain](./fig/part3/ex15_13b_scatter.png)
+
+I can convey some of the model uncertainty by tracing logistic curves governed
+by individual coefficient draws from the MCMC routine:
+
+![Same three logistic curves now with pale curves governed by alternative
+coefficient draws from the MCMC routine](./fig/part3/ex15_13c_uncertain.png)
 
 ### 15.14, Model checking for count data
 
