@@ -434,7 +434,7 @@ are right on top of it](./fig/part3/ex15_01c_negbin.png)
 
 I check the models' performances with the LOO utility:
 
-[ELPD_LOO model comparison; part (a)'s is worst, between -8000 and -6500,
+![ELPD_LOO model comparison; part (a)'s is worst, between -8000 and -6500,
 part (b)'s is a real improvement, between -6200 and -5200, and the negative
 binomial of part (c) is miles better with no uncertainty width at
 -1400](./fig/part3/ex15_01_compare.png)
