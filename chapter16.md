@@ -115,13 +115,84 @@ $$\begin{align}
         &\lt \frac{0.5}{\sqrt{nf_1(1 - f_1)}}
 \end{align}$$
 
-You need to set $n$ such that the hypothesized effect size is greater than
-$2.8\text{se}$.
-
+You need to set $n$ such that the hypothesized effect size (i.e., hypothetical
+difference in proportions) is greater than $2.8\text{se}$.
 
 ### 16.3, Sample size and design calculations for continuous outcomes
 
-TK
+Extending the previous section, designs for non-binary outcomes work the same
+way, except the mean and variance of the outcome at the population level are
+now decoupled.
+
+(It's fun for the book to elide that we just learned in Chapter 15 that we can
+decouple mean and variance in binary outcomes with the beta-binomial
+distribution.  I guess this rarely pays off, vs. handling overdispersion in
+count outcomes.)
+
+For a population standard deviation $\sigma$, estimating the population mean
+$\theta$:
+
+*  Achieve a particular standard error level by setting
+    $n > (\sigma/\text{se})^2$
+*  Achieve 80% power of detecting a difference between $\theta$ and $\theta_0$
+    by setting $n > \left(\frac{2.8\sigma}{\theta - \theta_0}\right)^2$
+
+Except you probably don't *know* $\sigma$, and need to estimate it from the
+same set of observed outcomes.  If you back off from "my sample mean is
+distributed normally with variance $\sigma$" to "my sample mean is distributed
+as a $t$ with $n - 2$ degrees of freedom," you have to pick different
+multipliers than the 1.96 and 0.84 used in Fig 16.3.
+
+They demonstrate this as:
+
+*  `qnorm(0.8) + qnorm(0.975)` was our normal-distribution s.e. count needed to
+    escape zero 80% of the time
+*  But `qt(0.8, n - 2) + qt(0.975, n - 2)` being what's needed for the new
+    $t$-dist case of 80% power
+
+For $n = 12$, this means an increase from 2.8 to 3.1.  So like, ten percent
+more data?  Pretty close, and as $n$ grows the difference will only shrink.
+"We usually don’t worry about the $t$ correction because it is minor except when
+sample sizes are very small."
+
+For comparing two means,
+
+$$\text{se}[\bar{y}_1 - \bar{y}_2] = \sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2}$$
+
+They don't break down the general case in deriving this, but for 80% power when
+detecting a difference of $\Delta$:
+
+$$n > 2(\sigma_1^2 + \sigma_2^2)(2.8 / \Delta)^2$$
+
+When upgrading from "no predictors" when estimating means as above, to "some
+predictors", the noise pattern is reduced.  You swap the population $\sigma$ for
+the residual standard deviation.  "Adding relevant predictors should decrease
+the residual standard deviation and thus reduce the required sample size for any
+specified level of precision or power."
+
+If you have a wide uncertainty interval for a regression coefficient, they
+advise you use the "standard errors fall as $1/\sqrt{n}$" proportionality to
+intuit how much larger the sample size would need to be for a range still
+centered on the mean estimate to exclude zero.
+
+They noodle through some design calculations, then say:
+
+> This design calculation is close to meaningless, however, because it makes the
+> very strong assumption that the true value of $\beta$ is 0.018%, the estimate
+> that we happened to obtain from our survey. But the estimate from the
+> regression is $0.018\% \pm 0.015\%$, which implies that these data are
+> consistent with a low, zero, or even negative value of the true $\beta$....
+> If the true $\beta$ is actually less than 0.018, then even a sample size of
+> 9000 would be insufficient for 80% power.  This is not to say the design
+> analysis is useless but just to point out that, even when done correctly, it
+> is based on an assumption that is inherently untestable from the available
+> data (hence the need for a larger study).
+
+They conclude saying, look, even if you did have a larger sample size, you'd
+just immediately spring for a bigger model with more interactions.  And then
+you'd have wide uncertainties again, among some of the coefficients.  So just
+work with what you have and cop to the limited certainty any sample can provide,
+including yours.
 
 ### 16.4, Interactions are harder to estimate than main effects
 
