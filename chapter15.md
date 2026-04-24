@@ -766,7 +766,31 @@ part (b)](./fig/part3/ex15_14c_nb2.png)
 > (b) Do the same thing but estimating average predictive comparisons for roach
 >     count itself.
 
-TK
+When I fit the negative binomial regression of
+`y ~ roach100 + treatment + senior + offset(log(exposure2))`, I get the
+coefficient estimates of:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+alpha     |  0.27 | 0.03
+Intercept |  2.85 | 0.24
+roach100  |  1.32 | 0.25
+treatment | -0.78 | 0.25
+senior    | -0.33 | 0.27
+
+Where `alpha` controls the variance: for mean $\mu$, the variance is
+$\frac{\mu^2}{\alpha} + \mu$.
+
+The average predictive comparisons for log of roach count is just equal to those
+values above.  The exposure terms all cancel out, and the log-count just moves
+by that coefficient amount on average, for a unit increase in the predictor
+value.
+
+In terms of actual roach count, the average predictive comparison comes to:
+
+*  `roach100`: 171.3 more roaches expected for every 100 roaches seen pre-study
+*  `treatment`: -34.0 roaches if you apply the treatment
+*  `senior`: -17.7 if it's an apartment complex for seniors
 
 ### 15.17, Learning from social science data
 
