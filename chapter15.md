@@ -679,7 +679,7 @@ PyTensor backend.)
 
 TK
 
-### 15.13 Multinomial choice models
+### 15.13, Multinomial choice models
 
 > Pardoe and Simonton (2008) fit a discrete choice model to predict winners of
 > the Academy Awards. Their data are in
@@ -745,7 +745,28 @@ coefficient draws from the MCMC routine](./fig/part3/ex15_13c_uncertain.png)
 > (c) Repeat (b), also including ethnicity and baseline number of unprotected
 >     sex acts as inputs.
 
-TK
+In the original data, 29% of the outcomes have count zero, and 36% of the
+outcomes have a count above 10.
+
+The Poisson model is terrible on this score, there's literally never any
+zero-count predictions:
+
+![Histograms for part (a), there are never any zero-count predictions, and the
+share of 10+ counts is between 80 and 90 pct](./fig/part3/ex15_14a_poisson.png)
+
+Switching to a negative binomial helps a lot:
+
+![Histograms for part (b), much better fits where the zero-count histogram goes
+between 17 pct and 35 pct and the 10+ count histogram goes between 27 pct and
+41 pct.](./fig/part3/ex15_14b_nb1.png)
+
+Unfortunately, adding those predictors (there was no ethnicity, so I used sex
+instead) doesn't help at all:
+
+![Histograms for part (c), sadly looks identical to
+part (b)](./fig/part3/ex15_14c_nb2.png)
+
+
 
 ### 15.15, Summarizing inferences and predictions using simulation
 
