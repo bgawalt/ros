@@ -270,8 +270,259 @@ and I'm sure we'll hear more about this in the section on causal inference.
 
 Plots and computation powered by [Chapter16.ipynb](./notebooks/Chapter16.ipynb)
 
-### K.x, Exercise italic title
+### 16.1, Sample size calculations for estimating a proportion
 
-> The problem statement
+> (a) How large a sample survey would be required to estimate, to within a
+>     standard error of $\pm$3%, the proportion of the U.S. population who
+>     support the death penalty?
+>
+> (b) About 14% of the U.S. population is Latino. How large would a national
+>     sample of Americans have to be in order to estimate, to within a standard
+>     error of $\pm$3%, the proportion of Latinos in the United States who
+>     support the death penalty?
+>
+> (c) How large would a national sample of Americans have to be in order to
+>     estimate, to within a standard error of $\pm$1%, the proportion who are
+>     Latino?
 
-The answer
+If I go with the convenient approximation $0.5/\sqrt{n}$ for standard error of
+a proportion between 30 and 70, and I want 0.03 to be the upper bound on that
+standard error, then:
+
+$$0.03 \gt 0.5/\sqrt{n}$$
+$$\sqrt{n} \gt 0.5 / 0.03$$
+$$n \gt 277.7$$
+
+So 278 or more people sampled to get an estimate of the national proportion.
+
+To get the same precision when estimating the level of support among Latinos, we
+need 278 Latinos in our sample.  A national sample will have a "standard
+error" of $\sqrt{0.14(1 - 0.14)/n} = 0.35/\sqrt{n}$ of its Latino respondent
+proportion.  So we want 14%, minus two of those standard errors, times the 
+sample size, to be at least 278 respondents:
+
+$$\left(0.14 - 2\frac{0.35}{\sqrt{n}}\right)n = 278$$
+$$0.14n - 0.69\sqrt{n} = 278$$
+
+If I let $z = \sqrt{n}$ I can use the quadratic equation:
+
+$$0.14z^2 - 0.69z - 278 = 0$$
+$$\begin{align}
+    z &= -\frac{(-0.69)}{2 \cdot 0.14} \pm \frac{1}{2 \cdot 0.14}\sqrt{0.69^2 - 4(0.14)(-278)}$$
+        &= 2.48 \pm 3.57\sqrt{156.16}
+        &= 47.11
+\end{align}$$
+$$n = z^2 = 2219.2$$
+
+So 2,220 people to be sure we get a standard error of 3% for our estimate of the
+proportion among Latinos.  This lines up pretty good with the heuristic of,
+"Latinos are one seventh of the US population, so to sample 278 Latinos, we need
+278-times-7-equals-1,946 respondents.  We're just buying some insurance against
+unluckily low Latino response rate due to sampling error with the extra 300
+respondents I've added.
+
+To estimate the proportion of Latinos to a standard error of 1%, that's easy
+again, going off the ballpark estimate of 14%,
+
+$$0.35 / \sqrt{n} \lt 0.01$$
+$$\sqrt{n} \gt 0.35 / 0.01$$
+$$n > 1204$$
+
+So, 1,204 respondents to get an estimate of the Latino share of the population
+to within a 1% standard error.
+
+### 16.2, Sample size calculation for estimating a difference
+
+> Consider an election with two major candidates, Aand B, and a minor candidate,
+> C, who are believed to have support of approximately 45%, 35%, and 20% in the
+> population. A poll is to be conducted with the goal of estimating the
+> difference in support between candidates A and B. How large a sample would you
+> estimate is needed to estimate this difference to within a standard error of 5
+> percentage points? (Hint: consider an outcome variable that is coded as +1,
+> -1, and 0 for supporters of A, B, and C, respectively.)
+
+TK
+
+### 16.3, Power
+
+> Following Figure 16.3, determine the power (the probability of getting an
+> estimate that is "statistically significantly" different from zero at the 5%
+> level) of a study where the true effect size is X standard errors from zero.
+> Answer for the following values of X: 0, 1, 2, and 3.
+
+TK
+
+### 16.4, Power, type M error, and type S error
+
+> Consider the experiment shown in Figure 16.1 where the true effect could not
+> realistically be more than 2 percentage points and it is estimated with a
+> standard error of 8.1 percentage points.
+>
+> (a) Assuming the estimate is unbiased and normally distributed and the true
+>     effect size is 2 percentage points, use simulation to answer the following
+>     questions: What is the power of this study? If only "statistically
+>     significant" results are reported, what is the average type M error and
+>     what is the type S error rate?
+>
+> (b) Assuming the estimate is unbiased and normally distributed and the true
+>     effect size is no more than 2 percentage points in absolute value, what
+>     can you say about the power, average type M error, and type S error rate?
+
+TK
+
+### 16.5, Design analysis for an experiment
+
+> You conduct an experiment in which half the people get a special
+> get-out-the-vote message and others do not. Then you follow up after the
+> election with a random sample of 500 people to see if they voted.
+>
+> (a) What will be the standard error of your estimate of effect size? Figure
+>     this out making reasonable assumptions about voter turnout and the true
+>     effect size.
+>
+> (b) Check how sensitive your standard error calculation is to your
+>     assumptions.
+>
+> (c) For a range of plausible effect sizes, consider conclusions from this
+>     study, in light of the statistical significance filter. As a researcher,
+>     how can you avoid this problem?
+
+TK
+
+### 16.6, Design analysis with pre-treatment information
+
+> A new teaching method is hoped to increase scores by 5 points on a certain
+> standardized test. An experiment is performed on $n$ students, where half get
+> this intervention and half get the control. Suppose that the standard
+> deviation of test scores in the population is 20 points. Further suppose that
+> a pre-test is available which has a correlation of 0.8 with the post-test
+> under the control condition. What will be the standard error of the estimated
+> treatment effect based on a fitted regression, assuming that the treatment
+> effect is constant and independent of the value of the pre-test?
+
+TK
+
+### 16.7, Decline effect
+
+> After a study is published on the effect of some treatment or intervention, it
+> is common for the estimated effect in future studies to be lower. Give five
+> reasons why you might expect this to happen.
+
+TK
+
+### 16.8, Effect size and sample size
+
+> Consider a toxin that can be tested on animals at different doses. Suppose a
+> typical exposure level for humans is 1 (in some units), and at this level the
+> toxin is hypothesized to introduce a risk of 0.01% of death per person.
+>
+> (a) Consider different animal studies, each time assuming a linear
+>     dose-response relation (that is, 0.01% risk of death per animal per unit
+>     of the toxin), with doses of 1, 100, and 10,000. At each of these exposure
+>     levels, what sample size is needed to have 80% power of detecting the
+>     effect?
+>
+> (b) This time assume that response is a logged function of dose and redo the
+>     calculations in (a).
+
+TK
+
+### 16.9, Cluster sampling with equal-sized clusters
+
+> A survey is being planned with the goal of interviewing n people in some
+> number $J$ of clusters. For simplicity, assume simple random sampling of
+> clusters and a simple random sample of size $n/J$ (appropriately rounded)
+> within each sampled cluster.
+>
+> Consider inferences for the proportion of Yes responses in the population for
+> some question of interest. The estimate will be simply the average response
+> for the $n$ people in the sample.
+>
+> Suppose that the true proportion of Yes responses is not too far from 0.5 and
+> that the standard deviation among the mean responses of clusters is 0.1.
+>
+> (a) Suppose the total sample size is $n = 1000$. What is the standard error
+>     for the sample average if $J = 1000$? What if $J = 100, 10, 1$?
+>
+> (b) Suppose the cost of the survey is $50 per interview, plus $500 per
+>     cluster. Further suppose that the goal is to estimate the proportion of
+>     Yes responses in the population with a standard error of no more than 2%.
+>     What values of $n$ and $J$ will achieve this at the lowest cost?
+
+TK
+
+### 16.10, Simulation for design analysis
+
+> The folder `ElectricCompany` contains data from the Electric Company
+> experiment analyzed in Chapter 19. Suppose you wanted to perform a new
+> experiment under similar conditions, but for simplicity just for second
+> graders, with the goal of having 80% power to find a statistically significant
+> result (at the 5% level) in grade 2.
+>
+> (a) State clearly the assumptions you are making for your design calculations.
+>     (Hint: you can set the numerical values for these assumptions based on the
+>     analysis of the existing Electric Company data.)
+>
+> (b) Suppose that the new data will be analyzed by simply comparing the average
+>     scores for the treated classrooms to the average scores for the controls.
+>     How many classrooms would be needed for 80% power?
+>
+> (c) Repeat (b), but supposing that the new data will be analyzed by comparing
+>     the average gain scores for the treated classrooms to the average gain
+>     scores of the controls.
+>
+> (d) Repeat, but supposing that the new data will be analyzed by regression,
+>     adjusting for pre-test scores as well as the treatment indicator.
+
+TK
+
+### 16.11, Optimal design
+
+> (a) Suppose that the zinc study described in Section 16.3 would cost $150 for
+>     each treated child and $100 for each control. Under the assumptions given
+>     in that section, determine the number of control and treated children
+>     needed to attain 80% power at minimal total cost. You will need to set up
+>     a loop of simulations as illustrated for the example in the text.  Assume
+>     that the number of measurements per child is fixed at $K = 7$ (that is,
+>     measuring every two months for a year).
+>
+> (b) Make a generalization of Figure 16.1 with several lines corresponding to
+>     different values of the design parameter $K$, the number of measurements
+>     for each child.
+
+TK
+
+### 16.12, Experiment with pre-treatment information
+
+> An intervention is hoped to increase voter turnout in a local election from
+> 20% to 25%.
+>
+> (a) In a simple randomized experiment, how large a sample size would be needed
+>     so that the standard error of the estimated treatment effect is less than
+>     2 percentage points?
+>
+> (b) Now suppose that previous voter turnout was known for all participants in
+>     the experiment. Make a reasonable assumption about the correlation between
+>     turnout in two successive elections. Under this assumption, how much would
+>     the standard error decrease if previous voter turnout was included as a
+>     pre-treatment predictor in a regression to estimate the treatment effect?
+
+TK
+
+### 16.13, Sample size calculations for main effects and interactions
+
+> In causal inference, it is often important to study varying treatment effects:
+> for example, a treatment could be more effective for men than for women, or
+> for healthy than for unhealthy patients. Suppose a study is designed to have
+> 80% power to detect a main effect at a 95% confidence level. Further suppose
+> that interactions of interest are half the size of main effects.
+>
+> (a) What is its power for detecting an interaction, comparing men to women
+>     (say) in a study that is half men and half women?
+>
+> (b) Suppose 1000 studies of this size are performed. How many of the studies
+>     would you expect to report a "statistically significant" interaction? Of
+>     these, what is the expectation of the ratio of estimated effect size to
+>     actual effect size?
+
+TK
