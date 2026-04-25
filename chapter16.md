@@ -308,8 +308,8 @@ If I let $z = \sqrt{n}$ I can use the quadratic equation:
 
 $$0.14z^2 - 0.69z - 278 = 0$$
 $$\begin{align}
-    z &= -\frac{(-0.69)}{2 \cdot 0.14} \pm \frac{1}{2 \cdot 0.14}\sqrt{0.69^2 - 4(0.14)(-278)}$$
-        &= 2.48 \pm 3.57\sqrt{156.16}
+    z &= -\frac{(-0.69)}{2 \cdot 0.14} \pm \frac{1}{2 \cdot 0.14}\sqrt{0.69^2 - 4(0.14)(-278)} \\
+        &= 2.48 \pm 3.57\sqrt{156.16} \\
         &= 47.11
 \end{align}$$
 $$n = z^2 = 2219.2$$
@@ -397,7 +397,23 @@ X  | Power
 >     effect size is no more than 2 percentage points in absolute value, what
 >     can you say about the power, average type M error, and type S error rate?
 
-TK
+For part (a), the power is 5%, the average type M error is 9.7, and the type S
+error rate is 1.2%.
+
+I can repeat this in a loop for uniformly spaced values between -2 and 2 to use
+as the true effect.  Average type M error size is the most dramatic, spiking to
+an asymptote around $\mu = 0$.  The other two are gentler, and their
+trajectories make sense. (Stronger effects mean higher power and lower odds of a
+type S error rate, though our effect is never getting too big relative to its
+large standard error.)
+
+![Three plots sharing a common true-effect-size x axis that goes from -2 to 2.
+At top, the power is a very gentle convex parabola with its minimum at mu = 0,
+and everywhere between 0.48 and 0.52. The middle, average type M error size,
+looks like 1/x^2, spiking to over 500 at mu = 0 but dropping to below 50 by
+mu = +/- 0.5.  The bottom is type S error rate, concave symmetric piecewise
+linear, maximum at mu = 0 with a rate of 0.025, dropping to 0.015 by the time
+mu = +/- 2](./fig/part4/ex16_04_pms.png)
 
 ### 16.5, Design analysis for an experiment
 
