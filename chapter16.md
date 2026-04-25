@@ -370,7 +370,16 @@ two-person vote.  I dunno, seems close?
 > level) of a study where the true effect size is X standard errors from zero.
 > Answer for the following values of X: 0, 1, 2, and 3.
 
-TK
+Figure 16.3 makes it clear what we want is, for a zero-mean, unit-variance
+normal curve centered at X, what is the area under the curve from 1.96 to
+infinity.  This is the same as one minus the CDF of a N(0, 1) evaluated at 1.96.
+
+X  | Power
+-- | ------
+ 0 |  2%
+ 1 | 17%
+ 2 | 52%
+ 3 | 85%
 
 ### 16.4, Power, type M error, and type S error
 
