@@ -333,15 +333,35 @@ to within a 1% standard error.
 
 ### 16.2, Sample size calculation for estimating a difference
 
-> Consider an election with two major candidates, Aand B, and a minor candidate,
-> C, who are believed to have support of approximately 45%, 35%, and 20% in the
-> population. A poll is to be conducted with the goal of estimating the
-> difference in support between candidates A and B. How large a sample would you
-> estimate is needed to estimate this difference to within a standard error of 5
-> percentage points? (Hint: consider an outcome variable that is coded as +1,
-> -1, and 0 for supporters of A, B, and C, respectively.)
+> Consider an election with two major candidates, A and B, and a minor
+> candidate, C, who are believed to have support of approximately 45%, 35%, and
+> 20% in the population. A poll is to be conducted with the goal of estimating
+> the difference in support between candidates A and B. How large a sample would
+> you estimate is needed to estimate this difference to within a standard error
+> of 5 percentage points? (Hint: consider an outcome variable that is coded as
+> +1, -1, and 0 for supporters of A, B, and C, respectively.)
 
-TK
+The hint suggests a "continuous" outcome $y$ that has a standard deviation
+$\sigma$ of:
+
+$$\mathbb{E}[y] = 0.45(1) + 0.35(-1) + 0.2(0) = 0.1$$
+$$\mathbb{E}[y^2] = 0.45(1^2) + 0.35\left((-1)^2\right) + 0.2(0^2) = 0.7$$
+$$\text{Var}[y] = \mathbb{E}[y^2] - \mathbb{E}[y] = 0.6$$
+$$\sigma = \sqrt{\text{Var}[y]} = 0.77$$
+
+That mean of that outcome, $y$, is the difference in proportions between A's
+support and B's support, and its standard error is $0.77/\sqrt{n}$.  So,
+
+$$0.77/\sqrt{n} \lt 0.05$$
+$$\sqrt{n} \gt 0.77 / 0.05$$
+$$n \gt 240$$
+
+If you sample 240 or more people, you should get the precision you want.
+
+Note that you'd expect around 180 to 205 of those 240 respondents to be A-or-B
+supporters, using two standard errors around C's support.  With 180 respondents,
+you would have a standard error of 3.5 pct-pts in estimating A's share of the
+two-person vote.  I dunno, seems close?
 
 ### 16.3, Power
 
