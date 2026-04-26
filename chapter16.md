@@ -522,7 +522,39 @@ plan comes together.
 > is common for the estimated effect in future studies to be lower. Give five
 > reasons why you might expect this to happen.
 
-TK
+1.  Many studies require, for ethical reasons, a strong prior sense that your
+    intervention will work.  (No human guinea pigs, please.)  And so the
+    researchers will deliberately design the study around subjects most likely
+    to respond strongly to the intervention.  If the study is reproduced with a
+    less-targeted sample, the repro study will find a smaller effect estimate
+    than the original.
+
+2.  If a study has a large standard error relative to the (true) underlying mean
+    effect, any estimate that passes the statsig filter will have a high
+    chance that its mean effect estimate is several multiples larger than that
+    true effect size.  A repro study will likely see a regression to the mean,
+    i.e., an estimate closer to that true mean effect size.  I am restating the
+    type M error phenomenon of Figure 16.1.
+
+3.  Researchers lots of room to make individual choices around excluding some
+    data as outliers, setting the boundaries that turn continuous variables into
+    ordinal categories, in ways that help strengthen the eventual observed
+    relationship between treatment and outcome.  Repros may not feel the same
+    instincts or motivation to take similar steps.
+
+4.  If the original study used regression on pre-treatment predictors when
+    estimating the treatment effect, they perhaps overfit the regression.  The
+    original study's numbers may have been based on an unduly low estimate of
+    the outcome variance.  The later repro has more unexplained variance in the
+    outcomes, meaning greater chance of landing well below the original
+    estimate.
+
+5.  The original study may have sampled from "the most obvious" population to
+    test the treatment on, ones where the treatment is most reliably applied
+    and outcomes most reliably measured and subjects most easily found.  If
+    later repros are focusing on harder-to-reach populations, that could
+    increase their standard errors, meaning a greater chance of null results
+    or of underestimating the effect.
 
 ### 16.8, Effect size and sample size
 
