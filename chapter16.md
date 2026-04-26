@@ -475,7 +475,6 @@ Two things we could do to help:
     to help explain the variance in turning out will help reduce the standard
     error in our effect size.
 
-
 ### 16.6, Design analysis with pre-treatment information
 
 > A new teaching method is hoped to increase scores by 5 points on a certain
@@ -487,7 +486,35 @@ Two things we could do to help:
 > treatment effect based on a fitted regression, assuming that the treatment
 > effect is constant and independent of the value of the pre-test?
 
-TK
+The predictor has a correlation coefficient of 0.8 with the outcome, so it
+explains a $0.8^2 = 0.64$ share of the outcome's variance.  The outcome on its
+own has a variance of $20^2 = 400$, and if a $(1 - 0.64) = 0.36$ share of it is
+unexplained, then the residual variance is $0.36 \cdot 400 = 144$.  Take the
+square root of that, and the residual standard deviation is 12 points.
+
+Because the treatment does not affect the variance in test scores, we plug
+$\sigma_1 = \sigma_2 = 12$ along with $n_1 = n_2 = (n/2)$ into the above
+equation from section 16.3:
+
+$$\begin{align}
+    \text{se}[\bar{y}_1 - \bar{y}_2] &= \sqrt{\sigma_1^2/n_1 + \sigma_2^2/n_2} \\
+        &= \sqrt{\frac{12^2}{n / 2} + \frac{12^2}{n / 2}} \\
+        &= \sqrt{\frac{4 \cdot 144}{n}} \\
+        &= \sqrt{576 / n}
+\end{align}$$
+
+For fun, let's also plug in these values into the
+"what's required for power > 80" equation:
+
+$$\begin{align}
+    n >& 2(\sigma_1^2 + \sigma_2^2)(2.8 / \Delta)^2 \\
+        & 2(12^2 + 12^2)\left(\frac{2.8}{5}\right)^2 \\
+        & 181
+\end{align}$$
+
+If I plug 181 into $\sqrt{576 / n}$ answer, I get 4.99 as the standard error.
+That's juuuuust under the true effect, exactly as predicted!  I love it when a
+plan comes together.
 
 ### 16.7, Decline effect
 
