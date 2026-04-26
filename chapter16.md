@@ -621,7 +621,7 @@ fine, after all.
 
 ### 16.9, Cluster sampling with equal-sized clusters
 
-> A survey is being planned with the goal of interviewing n people in some
+> A survey is being planned with the goal of interviewing $n$ people in some
 > number $J$ of clusters. For simplicity, assume simple random sampling of
 > clusters and a simple random sample of size $n/J$ (appropriately rounded)
 > within each sampled cluster.
@@ -641,7 +641,105 @@ fine, after all.
 >     Yes responses in the population with a standard error of no more than 2%.
 >     What values of $n$ and $J$ will achieve this at the lowest cost?
 
-TK
+Let's model the cluster means as a beta distribution, so that our cluster
+counts follow a beta-binomial distribution.  We'll restrict to beta distribution
+parameter sets that have $\alpha = \beta > 1$.  The variance of such a
+distribution is:
+
+$$\text{Var}(\Beta(\alpha, \alpha))
+    = \frac{\alpha^2}{(2\alpha)^2(2\alpha+1)}
+    = \frac{1}{8\alpha + 4}$$
+
+If the standard deviation of our beta prior is 0.1, then:
+
+$$\begin{align}
+    \frac{1}{8\alpha + 4} &= 0.1^2 \\
+    8\alpha + 1 &= 0.1^{-2} \\
+    \alpha &= \frac{0.1^{-2} - 1}{8} \\
+        &= 12.375
+\end{align}$$
+
+A beta-binomial distribution whose beta parameters are $(\alpha, \alpha)$ and
+whose number-of-trials parameter is $k$ will have:
+
+$$\text{Var}(k, \alpha, \alpha) =
+    \frac{ k\alpha^2(2\alpha + k) }{ (2\alpha)^2 (2\alpha + 1) }
+    = \frac{ k(2\alpha + k) }{8\alpha + 4}
+$$
+
+Plugging in $\alpha = 12.375$ and $k = n / J$:
+
+$$\text{Var}(n/J, 12.375, 12.375) 
+    = \frac{ (n/J)(24.75 + n/J) }{103}
+$$
+
+So we have our standard error for our Yes-count for cluster $j = 1, \ldots, J$;
+it's the square root of above.
+
+The standard error for our overall count will be the standard error you get from
+summing $J$ identical such R.V.s:
+
+$$\text{se(count)} = \sqrt{J \cdot \text{se}_j^2}
+    = \sqrt{ \frac{ n(24.75 + n/J) }{103} }
+$$
+
+The standard error we're after, the one associated with our overall Yes-share
+$p$, will be the standard error of the count divided by $n$:
+
+$$\begin{align}
+    \text{se}(p) &= \frac{1}{n}\text{se(count)} \\
+        &= \sqrt{ \frac{ 24.75 + n/J }{103n} }
+\end{align}$$
+
+Sweeping $J$ for $n = 1000$ gives us our answer for part (a):
+
+$J$  | se(p)
+---- | ------
+1000 |  1.6%
+100  |  1.8%
+10   |  3.5%
+1    | 10.0%
+
+It's reassuring that the $J = 1$ case just recapitulates the standard deviation
+we assumed between clusters.
+
+If we want to hit a particular standard error for $p$, like 2% in part (b), we
+can work that out:
+
+$$\begin{align}
+    \text{se}(p) &= 0.02 \\
+    \text{se}(p)^2 &= 0.02^2 = 0.0004 \\
+    \frac{ 24.75 + n/J }{103n} &= 0.0004 \\
+    24.75 + (1 / J)n &= 0.0412n 
+\end{align}$$
+
+The two sides of that equation need to align for a positive $n$, which means we
+need
+
+$$0.0412 > (1 / J) \Rightarrow J > (1 / 0.0412) = 25$$
+
+If we have that, then:
+
+$$n = \frac{24.75J}{0.0412J - 1}$$
+
+which the cost for $J$ clusters is:
+
+$$\text{cost}(J) = 500J + 50n = 500J + \frac{1237.5J}{0.0412J - 1}$$
+
+I could do this with calculus, but, I'll just do it with a calculator instead:
+
+![A green curve on a semilog-y plot, x-axis "Num. Clusters" from 25 to 1000,
+y-axis "Total Cost (USD) from 2^16 to 2^20. The curve starts at (25, 2^20),
+descends rapidly to a minimum somewhere around J = 50, then steadily rises
+again.](./fig/part4/ex16_09_j1000.png)
+
+If we zoom in we can see the minimum more clearly on a linear scale, and make
+use of `numpy.argmin` to actually find the final answer: $J$ = 62 clusters;
+$n$ > 1,009 samples.  It costs $80,360.
+
+![Zoom on the green curve, now on a linear y-axis from 80K to 97.5K, num
+clusters on the x-axis running from 40 to 120, the U shape has a minimum at
+J = 62](./fig/part4/ex16_09_j120.png)
 
 ### 16.10, Simulation for design analysis
 
