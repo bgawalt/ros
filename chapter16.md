@@ -432,7 +432,49 @@ mu = +/- 2](./fig/part4/ex16_04_pms.png)
 >     study, in light of the statistical significance filter. As a researcher,
 >     how can you avoid this problem?
 
-TK
+For (a): voter turnout is 60% in presidential elections (higher in the last two)
+and closer to 40% in midterm elections (also higher in the last two).  So I'll
+just go with 50% as the baseline turnout rate, as it's both variance-maximizing
+and plausible.
+
+I will assume that the effect is no more than 2 pct-pts -- elections are not
+obscure events, it's hard to imagine moving peoples attitudes on them with "a
+message" against a backdrop of many, many similar passively- and
+actively-targeted messages.
+
+So, plugging in $p_1 = 0.5$, $p_2 = 0.52$, $n_1 = n_2 = 250$ for the equation
+in Section 16.2 above:
+
+$$\begin{align}
+    \text{se}[\hat{p}_1 - \hat{p}_2] &= \sqrt{p_1(1-p_1)/n_1 + p_2(1-p_2)/n_2} \\
+      &= \sqrt{0.5 \cdot 0.5 / 250 + 0.52 \cdot 0.48 / 250} \\
+      &= 0.045    
+\end{align}$$
+
+So, standard error, 4.5 pct-pts.
+
+If I try the baseline turnouts of 40%, 50%, and 60%, while sweeping the true
+effect from -1 pct-pts to 3 pct-pts, I see... pretty much identical standard
+error numbers.
+
+![fsd](./fig/part4/ex16_05_stderrs.png)
+
+So, no escaping, under this design, a standard error that's twice the size of
+the expected effect.  That means a high chance of a large magnitude error, and
+a large chance of a sign error, if we use a statsig filter.  In general, just
+lots of uncertainty.
+
+Two things we could do to help:
+
+1.  We could shrink the standard error by a factor of four, if we increase the
+    sample size by a factor of 16 (8,000 respondents).  Maybe that's affordable?
+2.  We could also come up with some pre-treatment predictors of
+    will-this-person-vote.  Do we have voter roll data that says how often they
+    have voted in previous elections?  Does it help to know if the race is
+    going to be close in their precinct/district or not?  Anything we could do
+    to help explain the variance in turning out will help reduce the standard
+    error in our effect size.
+
 
 ### 16.6, Design analysis with pre-treatment information
 
