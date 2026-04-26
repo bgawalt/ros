@@ -571,7 +571,53 @@ plan comes together.
 > (b) This time assume that response is a logged function of dose and redo the
 >     calculations in (a).
 
-TK
+These are animal studies, so I am going to assume the baseline rate that these
+animals die is zero.  That gives us, for a dose-based probability of death of
+$p_1 = p$ and a baseline death rate $p_2 = 0$:
+
+$$\begin{align}
+    n &\gt 2\cdot\left[p_1(1 - p_1) + p_2(1 - p_2)\right] \cdot \left[2.8 / (p_1 - p_2)\right]^2 \\
+      &\gt 2\left[p(1 - p)\right]\frac{2.8^2}{p^2} \\
+      &\gt 15.7\frac{1-p}{p}
+\end{align}$$
+
+For part (a), we get:
+
+Dose   | Pr(Death) | n
+------ | --------- | -------
+1      |     0.01% | 156,784
+100    |        1% | 1,552
+10,000 |      100% | 0
+
+That last one -- if it kills every animal every time, which would otherwise
+*not* die every time, then the standard error of the difference becomes zero.
+
+For the log-scale, let's assume they mean that dose $d$ produces death risk $p$
+by way of some relationship parameter $\alpha$, such that $d = 0$ gives $p = 0$.
+To me, that says we want:
+
+$$\log(1 + \alpha d) = p$$
+
+If $d = 1$ unit means a death rate of $p = 0.01\% = 0.0001$:
+
+$$\log(1 + \alpha \cdot 1) = 0.0001$$
+$$\alpha = \exp(0.0001) - 1 = 0.0001$$
+
+Dose    | Pr(Death) | n
+------- | --------- | -------
+1       |     0.01% | 156,784
+100     |     1.00% |   1,560
+10,000  |    69.32% |       7
+
+I didn't like my answers here.  If you kill even one rat, where the control rats
+are death-free, then: effect detected!  (Not sure why you want a control group
+when they never die anyway, you can just compare to the assumed $p_2 = 0$ rate,
+but, whatever.)
+
+But when I did some checking, at a 70% death rate, you really do need three rats
+to have more than a 95% chance of killing at least one rat.  Double those three
+rats to get a control group, and there's your $n = 7$.  So it hangs together
+fine, after all.
 
 ### 16.9, Cluster sampling with equal-sized clusters
 
