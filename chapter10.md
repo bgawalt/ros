@@ -589,4 +589,57 @@ and realize (near) collinearity is to blame here.
 > inflation rate in the year of the election, etc. Discuss the difficulties in
 > interpretation of the fitted model.
 
-TK
+I hunted down numbers on unemployment and inflation rates, as measured on
+November 1 of each year:
+
+|         | year    | growth | vote  | inflation | unemp | interest
+--------- | ------- | ------ | ----- | --------- | ----- | --------
+**count** |   16.00 |  16.00 | 16.00 | 16.00 | 16.00 | 16.00
+**mean**  | 1982.00 |   1.90 | 52.05 |  3.42 |  5.69 |  4.52
+**std**   |   19.04 |   1.40 |  5.61 |  2.81 |  1.60 |  2.80
+**min**   | 1952.00 |  -0.39 | 44.60 |  0.10 |  2.80 |  0.75
+**25%**   | 1967.00 |   0.92 | 48.35 |  1.62 |  4.67 |  3.00
+**50%**   | 1982.00 |   2.00 | 50.76 |  3.30 |  5.40 |  4.06
+**75%**   | 1997.00 |   2.92 | 55.50 |  4.03 |  7.25 |  5.57
+**max**   | 2012.00 |   4.21 | 61.79 | 12.50 |  7.80 | 11.47
+
+The means and standard deviations of these rates are not wildly out of line with
+the existing growth-rate predictor, so I decline to process them further.
+No $z$-scaling.
+
+On my first fit attempt, another post-tuning diversion!  So I again upped
+`target_accept` to 0.9 during the tuning phase, and re-fit.
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     |   3.83 | 0.91
+Intercept |  36.02 | 5.79
+growth    |   4.06 | 1.07
+inflation |   0.04 | 0.85
+unemp     |   1.57 | 0.82
+interest  |  -0.16 | 0.84
+
+The computational difficulties in fitting the model under the default settings
+tells us these three new predictors, plus the initial growth predictor, are
+cumulatively quasi-collinear.
+
+If we plot the MCMC coefficient draws against each other, in 4-choose-2
+comparison subplots, we can see that growth's coefficient value is somewhat
+correlated with all three other coefficients, and that inflation and interest
+are *strongly* correlated:
+
+![Six scatterplots of coefficient draws from the MCMC inference in a 2 row,
+3 col grid. inflation v growth (blue), unemp v growth (red) and interest v
+growth (green) are all ellipses, with a tighter aspect ratio than a gridiron
+football (inflation and unemp are positively correlated with the growth
+coefficient, and interest is anticorrelated).  unemp v inflation (cyan) is a
+circular cloud with no correlation.  interest coef and inflation coef (magenta)
+are like a straight dry-erase-marker line of negative correlation.
+unemp v interest (yellow) is another circular cloud again, no
+correlation](./fig/part2/ex10_10_coef_scatters.png)
+
+Because these predictors are all circling the same few underlying economic
+phenomenon, the model can't tell for sure which of them is most deserving of
+predicting the vote-share outcome.  They're good proxies for each other, and the
+result is wider-than-desirable standard errors (about 2.5x higher than when
+growth was used in a univariate model).
