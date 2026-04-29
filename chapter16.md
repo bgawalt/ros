@@ -20,7 +20,6 @@ always a chance that you find $p$ < 0 with a low-data study, just by luck.
 So if the study is cheap, go for it.  Except we already know that comes with
 large chances of sign and magnitude errors for the mean coefficent estimates.
 
-
 They officially introduce the graphic I snipped in for Chapter 4, as Figure
 16.1.  The version I found looked:
 
@@ -743,11 +742,12 @@ J = 62](./fig/part4/ex16_09_j120.png)
 
 ### 16.10, Simulation for design analysis
 
-> The folder `ElectricCompany` contains data from the Electric Company
-> experiment analyzed in Chapter 19. Suppose you wanted to perform a new
-> experiment under similar conditions, but for simplicity just for second
-> graders, with the goal of having 80% power to find a statistically significant
-> result (at the 5% level) in grade 2.
+> The
+> [folder `ElectricCompany`](https://github.com/avehtari/ROS-Examples/blob/master/ElectricCompany/)
+> contains data from the Electric Company experiment analyzed in Chapter 19.
+> Suppose you wanted to perform a new experiment under similar conditions, but
+> for simplicity just for second graders, with the goal of having 80% power to
+> find a statistically significant result (at the 5% level) in grade 2.
 >
 > (a) State clearly the assumptions you are making for your design calculations.
 >     (Hint: you can set the numerical values for these assumptions based on the
@@ -764,7 +764,62 @@ J = 62](./fig/part4/ex16_09_j120.png)
 > (d) Repeat, but supposing that the new data will be analyzed by regression,
 >     adjusting for pre-test scores as well as the treatment indicator.
 
-TK
+Here's some headlines stats for the Electric Company dataset, filtered down to
+just the second graders:
+
+|         | post_test | pre_test | grade | treatment 
+--------- | --------- | -------- | ----- | --------- 
+**count** |  68.00 | 68.00 | 68.00 | 68.00 
+**mean**  |  97.39 | 73.30 |  2.00 |  0.50 
+**std**   |  11.81 | 12.48 |  0.00 |  0.50 
+**min**   |  66.40 | 40.80 |  2.00 |  0.00 
+**25%**   |  93.18 | 66.55 |  2.00 |  0.00 
+**50%**   | 100.35 | 73.75 |  2.00 |  0.50 
+**75%**   | 104.80 | 81.47 |  2.00 |  1.00 
+**max**   | 114.60 | 97.70 |  2.00 |  1.00
+
+I'll assume that future studies will have the same basic means and standard
+deviations for the treat/control groups as the original study.
+
+For (b), comparing the average treatment score to average control score, Figure
+19.2 shows that the original study had a mean difference of 9 points.  The
+treatment group had a standard deviation of 10 and the control group had a
+standard deviation of 12. If I want 80% power detecting a difference at least
+half that large, I want
+
+$$\begin{align}
+    n^{(b)} &= 2(\sigma_1^2 + \sigma_2^2)(2.8 / \Delta)^2 \\
+        &= 2(12^2 + 10^2)(2.8 / 4.5)^2 \\
+        &= 189
+\end{align}$$
+
+For (c), the second graders in the control group had a mean pre-post score
+difference of 22.5 points, and a standard deviation in that diff of 5.92 points.
+The treatment group second graders had a mean diff of 25.7 points, and a
+standard deviation of 5.95 points.  Plugging that in to detect an overall
+$\Delta = (25.7 - 22.5) / 2 = 1.58$:
+
+$$\begin{align}
+    n^{(c)} &= 2(\sigma_1^2 + \sigma_2^2)(2.8 / \Delta)^2 \\
+        &= 2(5.92^2 + 5.96^2)(2.8 / 1.58)^2 \\
+        &= 440
+\end{align}$$
+
+For (d), regressing on the pre-test performance explains 70% of the treatment
+group variance and 81% of the control group variance.  That tells me the
+residual standard deviation is $\sqrt{0.3} \times 10 = 5.5$ for the treatment group
+and $\sqrt{0.19} \times 5.3$ for the control group.  If I drop that into the
+above from part (b):
+
+$$\begin{align}
+    n^{(d)} &= 2(\sigma_1^2 + \sigma_2^2)(2.8 / \Delta)^2 \\
+        &= 2(5.299^2 + 5.477^2)(2.8 / 4.5)^2 \\
+        &= 45
+\end{align}$$
+
+Though if I drop that to the 1 pct-pt effect seen on the low side of the
+uncertainty intervals of Figure 19.4(b), $n^{(d)}$ jumps up to over 911
+classrooms.
 
 ### 16.11, Optimal design
 
