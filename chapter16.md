@@ -199,7 +199,7 @@ Interactions: important to cover!  Frequently requested!
 
 Loosely, interactions cut a sample into half, as a best case scenario.  So the
 estimation within those half-size subsamples will have standard errors (which
-go as $1/sqrt{n}$) that are $2^2 = 4$ times as large.
+go as $1/\sqrt{n}$) that are $2^2 = 4$ times as large.
 
 The only way you come out ahead is if the interaction term meaningfully
 reduces the residual standard deviation -- the interaction-free model measures
