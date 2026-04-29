@@ -870,4 +870,13 @@ TK
 >     these, what is the expectation of the ratio of estimated effect size to
 >     actual effect size?
 
-TK
+The main effect is 2.8 se from zero, by the design.  If the interaction effects
+are half that size, then they are merely 1.4 se from zero.  An RV distributed
+as $\mathcal{N}(1.4, 1)$ has a 29% chance of being greater than 1.96 (and
+basically no chance of being less than -1.96).
+
+I'd expect between 262 and 322 statsig interactions detected, with power of 29%
+and 1000 studies run.  (The standard deviation of a binomial with
+$(n, p) = (1000, 0.29)$ is 14, so, double that in each direction from the mean.)
+The average detected effect size should be around 2.6, which is 1.8x bigger than
+the assumed value of 1.4.
