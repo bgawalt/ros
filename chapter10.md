@@ -524,7 +524,63 @@ just not a very informative model!
 >     regression predicting election outcome given economic growth and this new
 >     predictor you have created, and again describe and explain what happens.
 
-TK
+Here's the Hibbs election-economy data, with the two new features added,
+`hibbs_scale` for a predictor that's 0.9x the actual growth rate, and
+`hibbs_noise` which is the actual growth rate plus some noise to yield a Pearson
+correlation coefficient of 0.9 with the original predictor:
+
+|         | year | growth | vote | growth_scale | growth_noise
+--------- | ---- | ------ | ---- | ------------ | ------------
+**count** | 16.00 | 16.00 | 16.00 | 16.00 | 16.00
+**mean**  | 1982.00 | 1.90 | 52.05 | 1.71 | 1.82
+**std**   | 19.04 | 1.40 | 5.61 | 1.26 | 1.30
+**min**   | 1952.00 | -0.39 | 44.60 | -0.35 | -0.46
+**25%**   | 1967.00 | 0.92 | 48.35 | 0.83 | 1.02
+**50%**   | 1982.00 | 2.00 | 50.76 | 1.80 | 1.76
+**75%**   | 1997.00 | 2.92 | 55.50 | 2.63 | 2.63
+**max**   | 2012.00 | 4.21 | 61.79 | 3.79 | 4.08
+
+The model for part (b), `vote ~ growth + growth_noise`, immediately had trouble:
+
+```
+There were 26 divergences after tuning. Increase `target_accept` or reparameterize.
+```
+
+That error message tells me the model couldn't be fit by the MCMC sampler.
+We're triggering
+[the folk theorem of statistical computing](https://statmodeling.stat.columbia.edu/2008/05/13/the_folk_theore/): 
+"When you have computational problems, often there’s a problem with your model." 
+And yeah! We're causing a problem on purpose here, with this collinear feature
+addition.
+
+I increased `target_accept` to 0.9 and re-ran the fit.  It worked without any
+concerns from the sampler this time, yielding:
+
+Coef.        | Mean  | s.e.
+------------ | ----- | ------
+sigma        |  4.03 | 0.81
+Intercept    | 46.27 | 1.79
+growth       |  1.55 | 6.94
+growth_scale |  1.67 | 7.72
+
+The sum of those two coefficient means comes to the usual "3 points of vote
+share for every point of personal income growth."  But the standard errors are
+now huge, about 10x what we saw in
+[Exercise 9.3](./chapter09.md#93-uncertainty-in-the-predicted-expectation-and-the-forecast)
+
+When I run the model for part (c), I get lots of uncertainty on both parameters,
+about 5x the usual:
+
+Coef.        | Mean  | s.e.
+------------ | ----- | ------
+sigma        |  3.75 | 0.78
+Intercept    | 45.49 | 1.73
+growth       |  1.05 | 1.40
+growth_noise |  2.51 | 1.49
+
+Though, it didn't have any computational troubles this time.  I think this is a
+good reason to add one model at a time; I wouldn't look at a table like this
+and realize (near) collinearity is to blame here.
 
 ### 10.10, Regression with few data points and many predictors
 
