@@ -836,7 +836,31 @@ classrooms.
 >     the standard error decrease if previous voter turnout was included as a
 >     pre-treatment predictor in a regression to estimate the treatment effect?
 
-TK
+I am going to have to get creative on this one, and hybridize the "discrete" and
+"continuous" approaches given in the chapter.  I'll follow the roadmap of
+"continuous" but draw the standard error calculations from an underlying
+binomial/Bernoulli model of voter turnout.
+
+*  The $\Delta$ I want to measure: 25 - 20 = 5 pct-pts.
+*  The standard errors:
+    *  $\sigma_C = \sqrt{0.2(1 - 0.2)} = 0.4$
+    *  $\sigma_T = \sqrt{0.25(1 - 0.25)} = 0.43$
+
+So, for 80% power:
+
+$$n = 2(0.4^2 + 0.43^2)(2.8/0.05)^2 = 2180$$
+
+Let's assume that the regression on prior-voting-habit predictors explains
+80 percent of voter turnout variation.
+
+*  $\sigma_{C, resid}^2 = 0.2 \sigma_C \Rightarrow \sigma_{C, resid} = 0.283$
+*  $\sigma_{T, resid}^2 = 0.2 \sigma_C \Rightarrow \sigma_{T, resid} = 0.294$
+
+And so
+
+$$n_{resid} = 2(0.2 \cdot 0.4^2 + 0.2 \cdot 0.43^2)(2.8/0.05)^2 = 436$$
+
+Big savings!
 
 ### 16.13, Sample size calculations for main effects and interactions
 
