@@ -25,7 +25,6 @@ class PRNGBuilder:
     return numpy.random.default_rng(seed_int)
 
 
-
 _HIBBS_DAT = '''year growth vote inc_party_candidate other_candidate
 1952 2.4 44.6 "Stevenson" "Eisenhower"
 1956 2.89 57.76 "Eisenhower" "Stevenson"
@@ -45,18 +44,109 @@ _HIBBS_DAT = '''year growth vote inc_party_candidate other_candidate
 2012 .95 52.00 "Obama" "Romney"'''
 
 
-def hibbs_df() -> pandas.DataFrame:
-  """Returns the Hibbs election-economy dataset."""
-  xs = []
-  ys = []
-  years = []
-  for line in _HIBBS_DAT.split('\n')[1:]:
-      spline = line.split()
-      years.append(int(spline[0]))
-      xs.append(float(spline[1]))
-      ys.append(float(spline[2]))
+# https://www.investopedia.com/inflation-rate-by-year-7253832
+_HIBBS_INFLATION = {
+  1952: 0.8,
+  1956: 3,
+  1960: 1.4,
+  1964: 1,
+  1968: 4.7,
+  1972: 3.4,
+  1976: 4.9,
+  1980: 12.5,
+  1984: 3.9,
+  1988: 4.4,
+  1992: 2.9,
+  1996: 3.3,
+  2000: 3.4,
+  2004: 3.3,
+  2008: 0.1,
+  2012: 1.7,
+}
 
-  return pandas.DataFrame(data={'year': years, 'growth': xs, 'vote': ys})
+
+# From FRED's US UNRATE, https://fred.stlouisfed.org/series/UNRATE
+# Always the Nov 1 entry.
+_HIBBS_UNEMP = {
+  1952: 2.8,
+  1956: 4.3,
+  1960: 6.1,
+  1964: 4.8,
+  1968: 3.4,
+  1972: 5.3,  
+  1976: 7.8,
+  1980: 7.5,
+  1984: 7.2,
+  1988: 5.3,
+  1992: 7.4,
+  1996: 5.4,
+  2000: 3.9,
+  2004: 5.4,
+  2008: 6.8,
+  2012: 7.7,
+}
+
+
+# From FRED's US Interest Rate, Discount rate; always the Nov. 1 entry.
+# https://fred.stlouisfed.org/series/INTDSRUSM193N
+_HIBBS_INTEREST = {
+  1952: 1.75,
+  1956: 3.00,
+  1960: 3.00,
+  1964: 3.62,
+  1968: 5.25,
+  1972: 4.50,
+  1976: 5.43,
+  1980: 11.47,
+  1984: 8.83,
+  1988: 6.50,
+  1992: 3.00,
+  1996: 5.00,
+  2000: 6.00,
+  2004: 3.00,
+  2008: 1.25,
+  2012: 0.75,
+}
+
+
+def hibbs_df(
+    with_inflation: bool = False,
+    with_unemp: bool = False,
+    with_interest: bool = False
+    ) -> pandas.DataFrame:
+  """Returns the Hibbs election-economy dataset."""
+  votes = []
+  years = []
+  growths = []
+  infls = []
+  unemps = []
+  inters = []
+  for line in _HIBBS_DAT.split('\n')[1:]:
+    spline = line.split()
+    year = int(spline[0])
+    years.append(year)
+    growths.append(float(spline[1]))
+    votes.append(float(spline[2]))
+    if with_inflation:
+      infls.append(_HIBBS_INFLATION[year])
+    if with_unemp:
+      unemps.append(_HIBBS_UNEMP[year])
+    if with_interest:
+      inters.append(_HIBBS_INTEREST[year])
+    
+  data = {
+    'year': years,
+    'growth': growths,
+    'vote': votes,
+  }
+  if with_inflation:
+    data['inflation'] = infls
+  if with_unemp:
+    data['unemp'] = unemps
+  if with_interest:
+    data['interest'] = inters
+
+  return pandas.DataFrame(data=data)
 
 
 class DATFileParser:
