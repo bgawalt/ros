@@ -821,22 +821,6 @@ Though if I drop that to the 1 pct-pt effect seen on the low side of the
 uncertainty intervals of Figure 19.4(b), $n^{(d)}$ jumps up to over 911
 classrooms.
 
-### 16.11, Optimal design
-
-> (a) Suppose that the zinc study described in Section 16.3 would cost $150 for
->     each treated child and $100 for each control. Under the assumptions given
->     in that section, determine the number of control and treated children
->     needed to attain 80% power at minimal total cost. You will need to set up
->     a loop of simulations as illustrated for the example in the text.  Assume
->     that the number of measurements per child is fixed at $K = 7$ (that is,
->     measuring every two months for a year).
->
-> (b) Make a generalization of Figure 16.1 with several lines corresponding to
->     different values of the design parameter $K$, the number of measurements
->     for each child.
-
-TK
-
 ### 16.12, Experiment with pre-treatment information
 
 > An intervention is hoped to increase voter turnout in a local election from
