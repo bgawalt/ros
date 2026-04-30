@@ -90,6 +90,66 @@ close cousin of the omitted variable bias; you can't rule out some unobserved
 (and so, unadjusted-for) factor is driving missingness.  The cope is to just
 include as many predictors as possible and hope missingness is now at random.
 
+### 17.4, Simple approaches for handling missing data
+
+*  **Complete-case analysis:** just throw away units missing any data.  This
+    breaks when:
+    *  the complete cases are systematically different than the incomplete ones,
+        which would mean the rule you learn is biased w.r.t. the overall unit
+        population
+    *  there are enough predictors that the cumulative chances of having *none*
+        of them missing drops to near zero, completely trashing your sample size
+
+*  **Available-case analysis:** if you have multiple aspects you want to study,
+    take one subset of the sample at a time, where each subset excludes only the
+    units that are missing an attribute necessary for that aspect.  (So, subsets
+    don't include complete-cases only, but do have standards for excluding at
+    least some.)  A special case is when the researcher just tosses a predictor
+    entirely because it's just missing too often.  But:
+    *  As with complete-case analysis, if there's systematic difference between
+        units that are missing an attribute and those that aren't, then you get
+        a biased analysis for that aspect
+    *  Each aspect is studied with a different subset of the sample, and so
+        might not be consistent with each other.  Like depending on nonresponse
+        to certain attributes, some aspect studies may have units that are
+        Blacker or whiter than the other subsets used for other aspects studies.
+    *  Omitting predictors, even frequently missing ones, can cause you to
+        violate assumptions needed for analyses like causal inference.
+
+*  **Nonresponse weighting:** if complete-case analysis throws out a bunch of
+    units, can you just reweight the remaining units and restore
+    representativeness?  They provide a guide for doing this if exactly one
+    predictor has missing values: build a model that predicts nonresponse of
+    that one flaky predictor, toss out incomplete cases, and reweight the
+    remaining complete-cases by (the inverse of) their predicted "Pr{present}"
+    scores.
+
+*  **Simple missing data approaches that retain all the data:** why not just
+    fill in the missing data and pretend they're all complete-case units?
+    This is loading in a lot of undeserved certainty; if you just replace the
+    missing elements with a single value, you're acting like there's no
+    uncertainty to your guessed-at imputation.  But here's some options:
+    *  **Mean imputation:** each missing value gets the mean of all the
+        non-missing values for that predictor.  This lowers the observed
+        variance of that predictor, and pulls its correlations will all other
+        predictors and the output towards zero.
+    *  **Last value carried forward:** the example use case they have in mind
+        for this are where a pre-treatment predictor is measured.  If the
+        post-treatment outcome is never recorded, just impute it as whatever the
+        pre-treatment measure was.  Because real data has reversion-to-the-mean
+        effects, and this imputation can't ape that, you can wind up with
+        distortions.  This is especially bad if the outcome is missing more
+        often in the treatment group vs. the control group or vice versa.
+    *  **Using information from related observations:** if you want to know
+        something about a subject's father, but he doesn't fill in the survey,
+        why not ask the mother for the information in her survey, and then use
+        that to make the subject case-complete?  This might help, but also,
+        maybe there's distortions in how correctly and under what conditions the
+        mother's response is given.
+    *  **Imputation based on logical rules:** if earnings is unreported, but
+        hours-worked is reported as zero, sure, just impute earnings as also
+        zero.
+
 
 ## Exercises
 
