@@ -15,7 +15,8 @@ throughout, esp. Jupyter notebooks.
 *  Part 1: Fundamentals
     *  [Chapter 1](./chapter01.md): Overview
     *  [Chapter 2](./chapter02.md): Data and measurement
-    *  [Chapter 3](./chapter03.md): Some basic methods in mathematics and probability
+    *  [Chapter 3](./chapter03.md): Some basic methods in mathematics and
+        probability
     *  [Chapter 4](./chapter04.md): Statistical inference
     *  [Chapter 5](./chapter05.md): Simulation
 *  Part 2: Linear Regression
@@ -24,7 +25,8 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 8](./chapter08.md): Fitting regression models
     *  [Chapter 9](./chapter09.md): Prediction and Bayesian inference
     *  [Chapter 10](./chapter10.md): Linear regression with multiple predictors
-    *  [Chapter 11](./chapter11.md): Assumptions, diagnostics, and model evaluation
+    *  [Chapter 11](./chapter11.md): Assumptions, diagnostics, and model
+        evaluation
     *  [Chapter 12](./chapter12.md): Transformations and regression
 *  Part 3: Generalized linear models
     *  [Chapter 13](./chapter13.md): Logistic regression
@@ -32,7 +34,8 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 15](./chapter15.md): Other generalized linear models
 *  Part 4: Before anad after fitting a regression
     *  [Chapter 16](./chapter16.md): Design and sample size decisions
-
+    *  [Chapter 17](./chapter17.md): Poststratification and missing-data
+        imputation
 
 ## Jupyter and Bambi
 
