@@ -150,6 +150,84 @@ include as many predictors as possible and hope missingness is now at random.
         hours-worked is reported as zero, sure, just impute earnings as also
         zero.
 
+### 17.5, Understanding multiple imputation
+
+Single values make it hard to convey uncertainty, so for each missing element,
+impute multiple values.  Like, if you fit a Bayesian regression to generate
+missing elements from observed elements, then you have our usual posterior
+predictive distribution to draw sample imputations from.
+
+Multiple imputation leaves you with $M$ distinct datasets, each made up of
+complete cases.  Models fit to predict the outcome on a single dataset $m$,
+$m = 1, \ldots, M$, have "internal" uncertainty in model parameters, the sort of
+standard errors we've been looking at for ten chapters.  And now, newly, there's
+"external" uncertainty, which is how the estimates vary across the $M$ imputed
+datasets.
+
+For a scalar coefficient $\beta$, we get estimate $\hat{\beta}_m$ with standard
+error $\text{se}_m$ from dataset $m$, and we get an overall estimate by
+averaging them: $\hat{\beta} = \frac{1}{M}\sum_{i=1}^M \hat{\beta}_m$.
+
+$$se_\beta = \sqrt{W + \left(1 + \frac{1}{M}\right)B}$$
+
+$$W := \frac{1}{M}\sum_{m=1}^M \text{se}_m^2$$
+
+$$B := \frac{1}{M - 1} \sum_{m=1}^M \left(\hat{\beta}_m - \hat{\beta}\right)^2$$
+
+#### Simple random imputation
+
+If you're missing elements for a particular predictor $x_j$, just fill in those
+blanks by randomly sampling $x_j$ values that *aren't* missing.  But this not
+that smart, and will make weird imputations that don't make sense paired with
+the other predictor values.
+
+Like if "total earnings" is your imputation target, and "wage earnings" is a
+predictor, simple random imputation will happily pick a total earnings from the
+observed value set that's less than this unit's wage earnings.
+
+#### Random regression imputation
+
+Smarter would be to use the existing predictors to predict the missing value.
+That way you will get more sensible value pairs across the units of the
+imputed datasets.
+
+Make sure to use the posterior-predict approach, where you bring draw on the
+spread/uncertainty of the model coefficients when making predictions.  
+Otherwise, if you just take the expected value or point prediction, the imputed
+values will be too-low-variance relative to the observed/true values.
+
+The book emphasizes that you're just going for predictive accuracy with this
+imputing model.  You don't have to have the predictors make sense in terms of
+their relationship to the output, just so long as they make for better
+predictions.  (I.e., good prediction due to reverse-causality is fine.)
+
+They walk through a case where prediction benefits from the two-step process of
+(a) use a logistic regression to decide "is the value zero, or not", then
+(b) decide "what is the value for this" as trained on the non-zero-value-having
+cases.
+
+#### Multivariate imputation
+
+When more than one predictor is allowed to be missing from a case, the routine
+approach is to grab an off-the-shelf multiple-outputs regression modeler.  They
+say that these tend to default to assuming multivariate normal or $t$
+distributions governing the set of missing values.  "\[T\]his automatic approach
+is easy enough that it can be a good place to start."
+
+They conclude by recommending iterative regression imputation:
+
+1.  Start by completing the data matrix with simple random imputation.
+2.  Loop over each predictor $j$ that needs imputation:
+    *  fit an imputation model for $j$ with whatever the current matrix looks
+        like currently, starting from the simple randoms of (1)
+    *  replace $j$'s missing values with the imputation model you just trained
+    *  move on to $j+1$, now using the somewhat-smarter-imputations for $j$ as
+        the basis of $j+1$'s imputation model
+3.  Repeat (2) a bunch of times (ten, in their example)
+
+Model checking is hard here.  Histograms of imputed vs. observed values are
+useful.
+
 
 ## Exercises
 
