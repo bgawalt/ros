@@ -242,10 +242,117 @@ now.
 
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter17.ipynb](./notebooks/Chapter17.ipynb)
 
-### K.x, Exercise italic title
+### 17.1, Regression and poststratification
 
-> The problem statement
+> Section 10.4 presents some models predicting weight from height and other
+> variables using survey data in the
+> [folder `Earnings`](https://github.com/avehtari/ROS-Examples/tree/master/Earnings/data).
+> But these data are not representative of the population. In particular, 62% of
+> the respondents in this survey are women, as compared to only 52% of the
+> general adult population. We also know the approximate distribution of heights
+> in the adult population: normal with mean 63.7 inches and standard deviation 
+> 2.7 inches for women, and normal with mean 69.1 inches and standard deviation
+> 2.9 inches for men.
+>
+> (a) Use poststratification to estimate the average weight in the general
+>     population, as follows:
+> 
+> > (i) fit a regression of linear weight on height and sex;
+> >
+> > (ii) use `posterior_epred` to make predictions for men and women for each
+> >     integer value of height from 50 through 80 inches;
+> > 
+> > (iii) poststratify using a discrete approximation to the normal
+> >     distribution for heights given sex, and the known proportion of men and
+> >     women in the population.
+>
+>    Your result should be a set of simulation draws representing the population
+>    average weight. Give the median and mad sd of this distribution: this
+>    represents your estimate and uncertainty about the population average
+>    weight.
+>
+> (b) Repeat the above steps, this time including the `height:female`
+>     interaction in your fitted model before poststratifying.
+>
+> (c) Repeat (a) and (b), this time performing a regression of log(weight) but
+>     still with the goal of estimating average weight in the population, so you
+>     will need to exponentiate your predictions in step (ii) before
+>     poststratifying.
 
-The answer
+In fitting the regression model, I'll decline to $z$-scale or standardize the
+data.  The gender indicator is binary, and the height indicator is on the order
+of "dozens", so, there shouldn't be much numerical concern about fitting a good
+model.  The two predictors are within a factor of like 60 of each other; not
+great, not terrible.
+
+In assembling the postratification table, the heights considered cover 99.998%
+of people (assuming those normal approximations to height distributions).
+
+Here's the dataset I loaded:
+
+|         | weight | height | male
+--------- | ------ | ------ | ----
+**count** | 1789.00 | 1789.00 | 1789.00
+**mean**  | 156.31 | 66.59 | 0.38
+**std**   | 34.62 | 3.84 | 0.48
+**min**   | 80.00 | 57.00 | 0.00
+**25%**   | 130.00 | 64.00 | 0.00
+**50%**   | 150.00 | 66.00 | 0.00
+**75%**   | 180.00 | 70.00 | 1.00
+**max**   | 342.00 | 82.00 | 1.00
+
+And here's the model fit for `weight ~ height + male`:
+
+Coef.     | Mean    | s.e.
+--------- | ------- | ------
+sigma     |   28.70 |  0.48
+Intercept | -107.30 | 16.18
+height    |    3.89 |  0.25
+male      |   11.80 |  1.97
+
+Note that this is not a model with especially high predictive accuracy.  That
+`sigma` value is "accuracy to within $\pm52$ pounds.
+
+The result: I predict the average weight in the overall population is
+156.3 lbs., with a standard error of 0.7 lbs.
+
+For the model `weight ~ height + male + height:male`, I get coefficient
+estimates of:
+
+Coef.       | Mean   | s.e.
+----------- | ------ | ------
+sigma       |  28.60 | 0.48
+Intercept   | -61.39 | 21.15
+height      |   3.18 | 0.33
+male        | -96.80 | 32.56
+height:male |   1.61 | 0.48
+
+The `sigma` parameter has changed... not at all.
+
+And so the estimated population average weight hasn't, either: 156.2 lbs, with a
+standard error of 0.7.
+
+For part (c), the `log(weight) ~ height + male` model gives:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     | 0.17 | 0.00
+Intercept | 3.37 | 0.10
+height    | 0.03 | 0.00
+male      | 0.08 | 0.01
+
+for an estimate of (154.0 lbs, se 0.7).
+
+The `log(weight) ~ height + male + height:male` model gives:
+
+Coef.       | Mean   | s.e.
+----------- | ------ | ------
+sigma       | 0.17 | 0.00
+Intercept   | 3.54 | 0.13
+height      | 0.02 | 0.00
+male        | -0.32 | 0.19
+height:male | 0.01 | 0.00
+
+For an estimate of (153.9 lbs, se 0.65).
