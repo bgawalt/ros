@@ -32,7 +32,7 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 13](./chapter13.md): Logistic regression
     *  [Chapter 14](./chapter14.md): Working with logistic regression
     *  [Chapter 15](./chapter15.md): Other generalized linear models
-*  Part 4: Before anad after fitting a regression
+*  Part 4: Before and after fitting a regression
     *  [Chapter 16](./chapter16.md): Design and sample size decisions
     *  [Chapter 17](./chapter17.md): Poststratification and missing-data
         imputation
