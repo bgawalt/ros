@@ -1,5 +1,6 @@
 """Brian Gawalt's library for Regression and Other Stories."""
 
+import csv
 import itertools
 import textwrap
 import typing
@@ -147,6 +148,30 @@ def hibbs_df(
     data['interest'] = inters
 
   return pandas.DataFrame(data=data)
+
+
+def census_df() -> pandas.DataFrame:
+  with open('/home/bgawalt/ros/datasets/census_age_race_sex.csv') as csvfile:
+    rows = list(csv.DictReader(csvfile))
+  ages = []
+  males = []
+  races = []
+  counts = []
+  for row in rows:
+    race_sex = row['race_sex']
+    sprace_sex = race_sex.split('_')
+    assert len(sprace_sex) == 2
+    race, sex = sprace_sex
+    races.append(race)
+    males.append(1 if sex == 'male' else 0)
+    ages.append(row['age'])
+    counts.append(int(row['count'].replace(',', '')))
+  return pandas.DataFrame(data={
+    'race': races,
+    'age': ages,
+    'male': males,
+    'counts': counts,
+  })
 
 
 class DATFileParser:
