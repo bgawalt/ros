@@ -228,6 +228,17 @@ They conclude by recommending iterative regression imputation:
 Model checking is hard here.  Histograms of imputed vs. observed values are
 useful.
 
+### 17.6, Nonignorable missing-data models
+
+Sometimes the missingness of the data is itself a powerful signal that bears on
+your question of interest.  "Age at event" models don't have outcomes for
+units where the event hasn't happened yet.  But that it hasn't happened yet for
+those units is valuable info; you have a lower bound on the age.  Certainly just
+throwing out those observations is suboptimal.
+
+They don't go into how to handle these, they're just planting the seeds right
+now.
+
 
 ## Exercises
 
