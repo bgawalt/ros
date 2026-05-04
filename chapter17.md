@@ -356,3 +356,65 @@ male        | -0.32 | 0.19
 height:male | 0.01 | 0.00
 
 For an estimate of (153.9 lbs, se 0.65).
+
+### 17.2, Regression and poststratification with fake data
+
+> Repeat the fake-data simulation of Section 17.2, replacing the made-up
+> population numbers and the assumption that sex, age, and ethnicity are
+> statistically independent in the population, instead using Census numbers for
+> the distribution of sex $\times$ age $\times$ education of adults in the
+> United States. You can keep the same 32 demographic categories; just use the
+> actual numbers.
+>
+> (a) Compare your newly created vector `poststrat$N` to the vector
+>     `poststrat$N` constructed in Section 17.2.
+>
+> (b) You have done a fake-data simulation, so you can compare inferences to the
+>     true values. Your baseline is the true population mean of the outcome
+>     under your model, so compute that first.
+>
+> (c) Compute the sample mean in your simulated data, $y$, and the corresponding
+>     standard error based on the (incorrect) binomial model corresponding to
+>     independent sampling with equal probabilities. Compare these to the true
+>     population mean.
+>
+> (d) Examine the posterior estimate and standard error obtained by
+>     poststratification
+
+Here are two scatter plots, where solid markers indicate male and empty markers
+are female, and the colors correspond to white (blue), Black (red), Asian
+(green), and other (cyan).  On linear and log-log scale:
+
+![x-axis, 'Real US Census Count (Millions)'; y-axis 'Fake Sec 17.2 Count
+(Millions)'; both run from 0 to 35.  The eight blue dots in the rectangle
+x: (10, 35), y: (15, 30).  The 24 other dots are all crammed into the rectangle
+x: (0, 8), y: (2, 5)](./fig/part4/ex17_2_scatter.png)
+
+![Log-log plot of above](./fig/part4/ex17_2_loglog.png)
+
+The two poststratification tables are in surprisingly okay correspondence with
+each other, though we can see from the log-log plot that the real data takes
+on a much larger range of count values.  The fake data basically falls between
+$2^21$ and $2^22$ for non-white categories, and $2^24$ to $2^25$ otherwise.
+
+The baseline true population mean is 58.7%.
+
+The mean in the simulated data is 58.3%, with a standard error of 1.6 pct-pts.
+This covers the true answer!  Even though I can confirm that the sample is
+about 5 pct-pts less male than it should be (so the skewed response rate routine
+seems to be in effect).
+
+Here's the logistic regression model fit to the 1,000 person sample:
+
+Coef.       | Mean   | s.e.
+----------- | ------ | ------
+Intercept   | 1.02 | 0.37
+race[black] | 0.03 | 0.32
+race[other] | 0.34 | 0.57
+race[white] | -0.29 | 0.27
+age[25-44]  | 0.06 | 0.28
+age[45-64]  | -0.40 | 0.27
+age[65+]    | -0.44 | 0.26
+male        | -0.38 | 0.13
+
+The poststratification mean? 60.2%.  It didn't work!  It got worse!
