@@ -418,3 +418,39 @@ age[65+]    | -0.44 | 0.26
 male        | -0.38 | 0.13
 
 The poststratification mean? 60.2%.  It didn't work!  It got worse!
+
+### 17.4 Bias in deterministic imputation
+
+> Suppose you are imputing missing responses for income in a social survey of
+> American households, using for the imputation a regression model given
+> demographic variables. Which of the following two statements is basically
+> true?
+>
+> (a) If you impute income deterministically using a fitted regression model
+>     (that is, imputing using $X\beta$  rather than $X\beta + \epsilon$), you
+>     will tend to impute too many people as rich or poor: A deterministic
+>     procedure overstates your certainty, making you more likely to impute
+>     extreme values.
+>
+> (b) If you impute income deterministically using a fitted regression model
+>     (that is, imputing using $X\beta$ rather than $X\beta + \epsilon$), you
+>     will tend to impute too many people as middle class: By not using the
+>     error term, you’ll impute too many values in the middle of the
+>     distribution.
+
+It's (b); $X\beta$ is the expected value of subject income, but there's always
+predictive uncertainty (i.e., unexplained/residual variance).  Figures 17.6 and
+17.7 are the book's illustrations:
+
+![Figure 17.6 Histogram of earnings (in thousands of dollars) in the Social
+Indicators Survey: (a) for the 988 respondents who answered the question and had
+positive earnings, (b) deterministic imputations for the 241 missing values from
+a regression model, (c) random imputations from that model. All values are
+topcoded at 100, with zero values excluded.](./fig/part4/fig17_6_histograms.png)
+
+![Figure 17.7 Gray dots show observed data, and black dots show deterministic
+and random imputations for the 241 missing values of earnings in the Social
+Indicators Survey. (a) The deterministic imputations are exactly at the
+regression predictions and ignore predictive uncertainty. (b) In contrast, the
+random imputations are more variable and better capture the range of earnings in
+the data.](./fig/part4/fig17_7_scatter.png)
