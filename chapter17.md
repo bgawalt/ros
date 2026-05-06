@@ -419,7 +419,7 @@ male        | -0.38 | 0.13
 
 The poststratification mean? 60.2%.  It didn't work!  It got worse!
 
-### 17.4 Bias in deterministic imputation
+### 17.4, Bias in deterministic imputation
 
 > Suppose you are imputing missing responses for income in a social survey of
 > American households, using for the imputation a regression model given
@@ -454,3 +454,109 @@ Indicators Survey. (a) The deterministic imputations are exactly at the
 regression predictions and ignore predictive uncertainty. (b) In contrast, the
 random imputations are more variable and better capture the range of earnings in
 the data.](./fig/part4/fig17_7_scatter.png)
+
+### 17.5, Using simulation to evaluate missing-data procedures
+
+> Take a complete dataset (with no missingness) of interest to you with two
+> variables, $x$ and $y$. Call this the "full data."
+>
+> (a) Write a program in R to cause approximately half of the values of $x$ to
+>     be missing. Design this missingness mechanism to be at random but not
+>     completely at random; that is, the probability that $x$ is missing should
+>     depend on $y$. Call this new dataset, with missingness in $x$, the
+>     "available data."
+>
+> (b) Perform the regression of $x$ on $y$ (that is, with $y$ as predictor and
+>     $x$ as outcome) using complete-case analysis (that is, using only the data
+>     for which both variables are observed) and show that it is consistent with
+>     the regression on the full data.
+>
+> (c) Perform the complete-case regression of $y$ on $x$ and show that it is not
+>     consistent with the corresponding regression on the full data.
+>
+> (d) Using just the available data, fit a model in R for $x$ given $y$, and use
+>     this model to randomly impute the missing $x$ data. Perform the regression
+>     of $y$ on $x$ using this imputed dataset and compare to your results from
+>     (c).
+
+I choose the dataset from the
+[folder `RiskyBehavior`](https://github.com/avehtari/ROS-Examples/tree/master/RiskyBehavior/),
+used, e.g., in
+[Exercise 15.1](./chapter15.md#151-poisson-and-negative-binomial-regression).
+I pick `bupacts`, a pre-treatment measure of a subject-couple's frequency of
+unprotected sex, as the $x$ predictor, and `fupacts`, the frequency of
+unprotected sex measured at the post-treatment follow-up, as the $y$ outcome.
+Those values look like:
+
+|         | bupacts | fupacts
+--------- | ------- | -------
+**count** |  434.00 | 434.00
+**mean**  |   25.91 | 16.49
+**std**   |   31.92 | 26.83
+**min**   |    0.00 | 0.00
+**25%**   |    5.00 | 0.00
+**50%**   |   15.00 | 5.00
+**75%**   |   36.00 | 20.93
+**max**   |  300.00 | 200.00
+
+I will sample 217 $(x, y)$ pairs, without replacement, from this dataset.
+And I will weight the samples so that lower values of `fupacts` correspond to
+a greater chance of "responding to the survey", where responsiveness is maximal
+at $x = 0$ and crosses the 0.5 level at the value of $x = 36$.  Three out of
+four respondents have a `fupacts` below 21, so 36 is quite upper-end, and they
+still are about about half as likely to respond to the lowest end:
+
+$$\text{Pr}(\text{responds} | x) = \text{logit}^{-1}\left(-\frac{1}{10}(x - 36)\right)$$
+
+![A sigmoid that starts very near 1.0 at 0, crosses 0.5 at 36, and is near 0.2
+at 50.  The x-axis is labeled `fupacts` and the y-axis is labeled
+`Pr{Responds}`](./fig/part4/ex17_5a_responsiveness.png)
+
+The sampled/fully-available data set in blue (along with the missing points in
+red):
+
+![Log-log scatterplot, fupacts on y and bupacts on x, where the blue "Sampled"
+dots are all from the lower y-values, like all below 2^6, while the red
+"Missing" dots go as high as 2^8](./fig/part4/ex17_5a_sample.png)
+
+The regression of $x$-on-$y$ (predicting `bupacts` from `fupacts`) yields
+these coefficients on the complete-case dataset:
+
+Coef.     | Mean | s.e.
+--------- | ---- | -----
+Intercept | 14.98 | 1.88
+slope     | 0.46 | 0.15
+
+and a very similar set of estimates on the full data:
+
+Coef.     | Mean | s.e.
+--------- | ---- | -----
+Intercept | 16.39 | 1.57
+slope     | 0.58 | 0.05
+
+But the other direction, $y$-on-$x$, produces these estimates on the
+complete-cases set:
+
+Coef.     | Mean | s.e.
+--------- | ---- | -----
+Intercept | 4.92 | 1.03
+slope     | 0.11 | 0.04
+
+but a very different slope (and somewhat different intercept) on the full data:
+
+Coef.     | Mean | s.e.
+--------- | ---- | -----
+Intercept | 5.92 | 1.45
+slope     | 0.41 | 0.04
+
+When I impute the missing `bupacts` using the model built above from the
+complete-cases, and *then* predict `fupacts` from `bupacts` I get:
+
+Coef.     | Mean | s.e.
+--------- | ---- | -----
+Intercept | 2.22 | 1.48
+slope     | 0.63 | 0.05
+
+That's much better, though still not "correct," for sure.  Part of this is I'm
+just not trying very hard to model this in any direction; I don't even think
+the OLS models I'm using for any of these are a great fit.
