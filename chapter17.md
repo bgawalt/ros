@@ -71,7 +71,7 @@ Four main ways data are missing:
 2.  Missing at random.  (But not *completely* at random!)  Whether or not an
     element is missing is derived, up to a random factor, entirely from
     other observed attributes.  As long as your model adjusts for all the
-    attributes that drive missingness, throwing out rows won't introduce bia.
+    attributes that drive missingness, throwing out rows won't introduce bias.
 
 3.  Missing due to unobserved predictors.  If some un-noted aspect of your data
     subjects is driving missingness, then you can't use it in your regression,
