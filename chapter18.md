@@ -148,6 +148,99 @@ neighborhood.
 If you're treating at the group level, just make the groups the subject of
 analysis.  Make the outcome an aggregate of within-group outcomes.
 
+### 18.6, Properties, assumptions, and limitations of randomized experiments
+
+A rundown of different attributes and pitfalls associated with different
+randomization schemes.
+
+#### Ignorability
+
+Completely randomized experiments have no link between treatment assignment and
+either potential outcome value.  It's totally random; treatment assignment is
+statistically independent of all subject attributes.  When this independence
+assumption holds, then on average, the treatment and control groups will be
+balanced.  *On average!*  There will still be imbalance between the groups in
+terms of any of the subject attributes, for any one study.
+
+Note that this independence only applies to *pre-treatment* predictors.  Any
+predictors measured after the treatment is/isn't applied are no longer
+guaranteed to be independent of $z$.  
+
+> In general, the relevant cutoff time is when the treatment is assigned, not
+> when it is implemented, because people can adjust their behavior based on the
+> anticipation of a treatment to which they have been assigned.
+
+Applying ignorability to block-randomized experiments means the treatment is now
+merely *conditionally* independent of the potential outcomes, given the block
+ID.  In the example where older blocks got more treatment allotments, and we
+know age is associated with potential outcome values, there's not full-on
+independence between treatment and potential outcomes.  But condition on the
+block ID, and independence is restored, because assignment is random within each
+block.
+
+When the blocking is now pairwise matching, it can get tough to just include
+an indicator for each of the $n/2$ blocks.  The book says wait until Chapter 20,
+when multilevel models will help analyze these situations.  You don't have to;
+you can just take a simple difference in means and get an unbiased estimate.
+But the multilevel model will let you make a similar estimate with less
+variance.
+
+#### Efficiency
+
+When the treatment and control groups are basically similar, the less variance
+you have to worry about when estimating the treatment effect.  Ideally, the
+similarity would hold for the potential outcome distributions in the two
+groups, but you can hope that if they're similar in pre-treatment predictor
+values, then the potential outcomes will also be similar.
+
+Blocking is supposed to help with this.  The blocks are all built around
+corralling similar units together, so that randomization within the block makes
+for even apportionment of each "type" of subject between treatment group.
+
+Adjusting to pre-treatment predictors (both the ones that established whatever
+blocking your design used, plus the rest) will only serve to reduce the
+standard error in your treatment effect estimate.  Even without blocking, if
+you do collect useful-for-blocking predictors pre-treatment, a regression using
+those attributes will (probably) recover a lot of the explanatory power, and
+you will efficiently estimate the treatment effect.
+
+#### Stable unit treatment value assumption (SUTVA): no interference among units and no hidden versions of the treatment
+
+This assumption is that the outcome seen for subject $i$ is a function *only*
+on treatment $z_i$.  It doesn't change when $z_j,~j\ne i$ changes.  As well,
+SUTVA implies that the treatment is the same for all subjects in the treatment
+group.  They give a lot of examples of how easy it is to break this assumption
+in practice.  This links back to our "involuntary blocking" at the end of 
+Section 18.5, where you just randomize at the neighborhood/metro area/site
+level, and treat those natural blocks as the new individual units of study.
+
+#### External validity: Difficulty of extrapolating to new individuals and situations
+
+Randomized experiments get their "gold standard" reputation because of their
+internal validity.  But external validity is harder.
+
+*  Studies will seek out particular kinds of subjects.  For ethical or
+    cost-effectiveness reasons, they want to maximize power by amping up
+    expected effect size, as discussed in Chapter 16.
+
+*  Particular kinds of subjects will seek out studies to join, rather than
+    getting subjects volunteering purely at random.
+
+*  Joining a study will cause participants to change their behavior, called the
+    Hawthorne effect.  Scientists are measuring you!  You will change up your
+    patterns in anticipation of the measurement.  Or if you know you're in the
+    control group, you may try to do what the treatment group is doing anyway,
+    now that you know that's an option (and a potentially beneficial one).
+
+*  Researchers doing measurements, if they know a subject's treatment status,
+    consciously or unconsciously change up their measuring habits as a function
+    that status.
+
+*  Your treatment subjects might refuse the treatment, either altogether, or
+    halfway through.  Your control subjects might get bored and walk away before
+    they can have their outcome measured.  Noncompliance works against the
+    benefits of randomization by introducing a selection bias.
+
 
 ## Exercises
 
