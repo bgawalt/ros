@@ -90,6 +90,22 @@ particular $z$ grouping.  You can hope that pre-treatment predictors correct for
 this selection bias (or, sampling variance, if the imbalance between the two
 groups is just bad luck) when used in a regression model.  But maybe not!
 
+### 18.3, Randomized experiments
+
+Randomize the treatment/control assignment to reduce risk of selection bias.
+(Your subjects may still later get a veto, but, you can at least try at the
+design stage to keep the two groups balanced.)
+
+Every unit has the same chance of getting a particular $z$ value as every other
+unit.  Take your vector that's half $z = 0$ and half $z = 1$, of length equal to
+your sample size, shuffle it, and that shuffled vector is the treatment
+assignment for each subject $i$.
+
+Sometimes this works fine at keeping representative balance between the two
+groups, but not always (especially at low sample sizes).  "Randomization ensures
+balance on average but not in any given sample, and imbalance can be large when
+sample size is small."
+
 
 ## Exercises
 
