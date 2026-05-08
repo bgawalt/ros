@@ -36,6 +36,9 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 16](./chapter16.md): Design and sample size decisions
     *  [Chapter 17](./chapter17.md): Poststratification and missing-data
         imputation
+*  Part 5: Causal inference
+    *  [Chapter 18](./chapter18.md): Causal inference and randomized experiments
+
 
 ## Jupyter and Bambi
 
