@@ -61,6 +61,35 @@ And if the multiple treatments can be given concurrently, you can either bucket
 all the cross-product combinations as separate treatments, or model them
 individually as treatments $z_i$, along with their interactions.
 
+### 18.2, Average causal effects
+
+Since we don't have access to both potential outcomes for every sample subject,
+let alone the population, we have to settle for estimates based on the factual 
+outcomes.  This has the families:
+
+*  **Sample average treatment effect (SATE):** If $\tau_i = y_i^1 - y_i^0$, then
+    $\mathbb{E}[\tau] = \mathbb{E}[y^1] - \mathbb{E}[y^0].  The sample averages
+    of the treated and untreated outcomes give us good estimates of that
+    expectation.
+
+*  **Conditional average treatment effect (CATE):** You can also make the above
+    expectations conditional on pre-treatment predictors $x$:
+    $\mathbb{E}[\tau | x] = \mathbb{E}[y^1 | x] - \mathbb{E}[y^0 | x]$.
+    Fit regression models to the treatment and control groups and put them to
+    use.
+
+*  **Population average treatment effect (PATE):** You may be interested in what
+    your study's data implies about a larger population of interest.  If the
+    sample is a representative/random draw from that popular, then cool, the
+    SATE estimate is an unbiased estimate of the PATE.  Otherwise, you'll have
+    to apply some postratification-style methods to retarget the SATE estimate
+    to the actual demographics of the general population.
+
+All these estimates hit snags if there's selection bias among who gets either
+particular $z$ grouping.  You can hope that pre-treatment predictors correct for
+this selection bias (or, sampling variance, if the imbalance between the two
+groups is just bad luck) when used in a regression model.  But maybe not!
+
 
 ## Exercises
 
