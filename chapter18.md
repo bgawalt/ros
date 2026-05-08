@@ -117,6 +117,37 @@ act -- blocking, matching, etc. -- attentuates one source of variation and so
 narrows the eventual standard error of the estimate.  A lower $\sigma$ in the
 numerator $\sigma/\sqrt{n}$.
 
+### 18.5, Using additional information in experimental design
+
+You can split your subjects into disjoint blocks, and then perform different
+randomization within each block.  The book examples splits 16 subjects into
+four blocks of 4, grouped by age.  The younger blocks get a lower allotment of
+$z = 1$, with the extras going to the older blocks.
+
+You can untangle this design in the later analysis.  Instead of just taking
+simple means of the treatment and control outcomes, calculate effects within
+each block, then average over the blocks.  One implementation of this is to
+fit a regression with indicators of block ID as predictors.
+
+When blocking is done as a function of a predictor thought to have substantial
+correlation/linkage to the outcome, the within-block treatment estimates will
+be more precise.
+
+When blocks are all of size 2, that's matching.  You pair up each subject with
+another subject that's quite similar (the most similar?).  If the two subjects
+wind up having similar potential outcomes (just like their pre-treatment
+predictors were similar), you get very nice efficiency gains.
+
+Occasionally, the blocking/grouping is not something you can practically
+control.  Maybe for practical reasons, you have to treat an entire neighborhood
+of subjects identically.  Or maybe you think that treating one subject will mean
+the treatment "rubs off" on nearby neighbors in ways that wash out your
+treatment effect estimate, and so need to bundle group assignment by site or
+neighborhood.
+
+If you're treating at the group level, just make the groups the subject of
+analysis.  Make the outcome an aggregate of within-group outcomes.
+
 
 ## Exercises
 
