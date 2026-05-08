@@ -106,6 +106,17 @@ groups, but not always (especially at low sample sizes).  "Randomization ensures
 balance on average but not in any given sample, and imbalance can be large when
 sample size is small."
 
+### 18.4, Sampling distributions, randomization distributions, and bias in estimation
+
+This section reads a lot like Chapters 4 and 16: averages of random sampling
+gives unbiased estimates of population means, with variance in those estimates
+dropping with larger sample sizes.  The one addition this time is that for our
+case, balance in the pre-treatment predictor attributes of the subjects can
+also directly lower the variance of treatment effect estimates.  The balancing
+act -- blocking, matching, etc. -- attentuates one source of variation and so
+narrows the eventual standard error of the estimate.  A lower $\sigma$ in the
+numerator $\sigma/\sqrt{n}$.
+
 
 ## Exercises
 
