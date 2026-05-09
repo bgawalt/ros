@@ -288,3 +288,55 @@ Reshuffled again to $z = \{0, 1, 1, 0, 0, 0, 1, 1\}$
 
 *  **Average treatment effect among the treated:** 0.25
 *  **Simple comparison of treatment and control:** -0.5
+
+### 18.5, Potential outcomes
+
+> The table below describes a hypothetical experiment on 2400 people. Each row
+> of the table specifies a category of person, as defined by his or her
+> pre-treatment predictor $x$, treatment indicator $z$, and potential outcomes
+> $y^0$, $y^1$. For simplicity, we assume unrealistically that all the people
+> in this experiment fit into these eight categories.
+> 
+> Category | # people in category | $x$ | $z$ | $y^0$ | $y^1$
+> -------- | -------------------- | --- | --- | ----- | -----
+> 1 | 300 | 0 | 0 |  4 | 6
+> 2 | 300 | 1 | 0 |  4 | 6
+> 3 | 500 | 0 | 1 |  4 | 6
+> 4 | 500 | 1 | 1 |  4 | 6
+> 5 | 200 | 0 | 0 | 10 | 12
+> 6 | 200 | 1 | 0 | 10 | 12
+> 7 | 200 | 0 | 1 | 10 | 12
+> 8 | 200 | 1 | 1 | 10 | 12
+> 
+> In making the table we are assuming omniscience, so that we know both $y^0$
+> and $y^1$ for all observations. But the (non-omniscient) investigator would
+> only observe $x$, $z$, and $y^z$ for each unit. For example, a person in
+> category 1 would have $x =0, z=0, y =4$, and a person in category 3 would have
+> $x =0, z=1, y =6$.
+>
+> (a) What is the average treatment effect in this sample of 2400 people?
+> 
+> (b) Another summary is the mean of $y$ for those who received the treatment
+>     minus the mean of $y$ for those who did not. What is the relation between
+>     this summary and the average treatment effect (ATE)?
+>
+> (c) Is it plausible to believe that these data came from a completely
+>     randomized experiment? Defend your answer.
+> 
+> (d) For these data, is it plausible to believe that treatments were assigned
+>     using randomized blocks conditional on given $x$? Defend your answer.
+
+(a) The ATE is 2.00.
+
+(b) The different in mean outcomes is 1.31.  When the $z$ values are randomly
+    assigned, this value will eventually converge to the ATE.  Under random
+    assignment, there's no systematic difference in the $y^0$ as a function of
+    our study observing them.  So the mean of the factual in the control group
+    is an unbiased estimate of the mean of the *counter*factual in the treatment
+    group.
+
+This seems plausibly a completely randomized experiment.  There's no imbalance
+in $x$ values between treatment and control, nor in the category sizes.  If
+this was from blocking conditional on $x$, we'd expect to see some difference in
+$z$ values across the levels of $x$ -- that's the whole point of randomized
+block designs.
