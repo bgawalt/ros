@@ -244,10 +244,47 @@ internal validity.  But external validity is harder.
 
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter18.ipynb](./notebooks/Chapter18.ipynb)
 
-### K.x, Exercise italic title
+### 18.4, Average treatment effects
 
-> The problem statement
+> The table below describes a hypothetical experiment on 8 people.  Each row of
+> the table gives a participant and her pre-treatment predictor $x$, treatment
+> indicator $z$, and potential outcomes $y^0$ and $y^1$.
+> 
+> |    | $x$ | $z$ | $y^0$ | $y^1$
+> ---- | --- | --- | ----- | -----
+> Anna |   3 |   0 |     5 |  5
+> Beth |   5 |   0 |     8 | 10
+> Cari |   2 |   1 |     5 |  3
+> Dora |   8 |   0 |    12 | 13
+> Edna |   5 |   0 |     4 |  2
+> Fala |  10 |   1 |     8 |  9
+> Geri |   2 |   1 |     4 |  1
+> Hana |  11 |   1 |     9 | 13
+> 
+> (a) Give the average treatment effect in the sample, the average treatment
+>     effect among the treated, and the estimated treatment effect based on a
+>     simple comparison of treatment and control.
+>
+> (b) Simulate a new completely randomized experiment on these 8 people; that
+>     is, resample $z$ at random with the constraint that equal numbers get the
+>     treatment and the control.  Report your new randomization and give the
+>     corresponding answers for (a).
 
-The answer
+With the original group assignments:
+
+*  **Average treatment effect:** 0.12
+*  **Average treatment effect among the treated:** 0.0
+*  **Simple comparison of treatment and control:** -0.75
+
+Reshuffled to $z = \{0, 0, 0, 0, 1, 1, 1, 1\}$ (dumb luck!):
+
+*  **Average treatment effect:** 0.12  (doesn't depend on $z$)
+*  **Average treatment effect among the treated:** 0.0  (sheer luck)
+*  **Simple comparison of treatment and control:** -1.25
+
+Reshuffled again to $z = \{0, 1, 1, 0, 0, 0, 1, 1\}$
+
+*  **Average treatment effect among the treated:** 0.25
+*  **Simple comparison of treatment and control:** -0.5
