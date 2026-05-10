@@ -613,3 +613,51 @@ different dosages or different durations or different exposures, per subject).
 To believe these estimates, I need to assume that $z$ and $x$ are independent of
 each other, which I definitely do in this case.  I believe the PRNG I rolled is
 sufficiently chaotic that $z$ and $x$ can't be predicted from each other.
+
+### 18.13, Varying treatment effect
+
+> Now you will explore a situation where treatment effect varies by a known
+> covariate.
+>
+> (a) Simulate data from the following response surface and plot both curves,
+>
+>  $$y^0 = \beta_0^0 + \beta_1^0x + \epsilon^0,$$
+>  $$y^1 = \beta_0^1 + \beta_1^1x + \epsilon^1,$$
+>
+>  where $\beta_0^0 = 35$, $\beta_1^0 = 0.6$, $\beta_0^1 = 15$,
+>     $\beta_1^1 = 1$, and $\epsilon^0$ and $\epsilon^1$ are drawn independently
+>     from normal distributions with mean 0 and standard deviation 1.
+>
+> (b) Comment on your findings. In particular, there is no longer a $\tau$
+>     included in the data-generating process. Is there still a sample average
+>     treatment effect? What is it? How do you interpret the average treatment
+>     effect in this setting?
+>
+> (c) Is the treatment effect the same for all students? If not, is there a
+>     pattern to the way it varies?  Why should you care about variation in the
+>     treatment effect?
+>
+> (d) Plot the response surface versus $x$. What does this plot reveal,
+>     particularly as compared to the plot from the previous question?
+
+Here's the response surface for $N = 1000$ data points,
+$x ~ \mathcal{N}(65, 3)$:
+
+![Similar to the above repsonse surface scatter plot, though now, the magenta
+Treatment cloud tilts upwards more than the cyan Control cloud does.  They very
+slightly overlap for pre-test scores below 60.](./fig/part5/ex18_13_varied_effect.png)
+
+Again, the treatment outcomes are consistently higher than the control outcomes.
+There is indeed a SATE -- we can calculate it at 5.92 points this time.
+
+But the treatment clearly varies.  When the pre-test score is below 62 or so, we
+start to see some overlap, where control outcomes exceed treatment outcomes.
+In the previous exercise, that basically never happened.
+
+We care about this because if this treatment is going to become a standard
+practice, we need to make sure everyone understands whether we're saying the
+treatment achieves its average lift by affecting everyone basically to the same
+degree, or if the gains are concentrated in one group or another.  Knowing how
+the treatment effect varies tells us what follow-up treatments to look for next:
+like, for *this* treatment, it's telling us that we should target the next
+treatment to students who are currently scoring lower than average.
