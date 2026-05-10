@@ -661,3 +661,76 @@ degree, or if the gains are concentrated in one group or another.  Knowing how
 the treatment effect varies tells us what follow-up treatments to look for next:
 like, for *this* treatment, it's telling us that we should target the next
 treatment to students who are currently scoring lower than average.
+
+### 18.14, Completely randomized experiment
+
+> In a completely randomized experiment, the number of treatment and control
+> units is decided in advance, and each unit has the same probability of being
+> assigned to receive the treatment.  This exercise extends Exercise 18.12 by
+> comparing the same estimates with respect to both bias and efficiency.
+>
+> You will operationalize these properties by appealing to randomization-based
+> inference.  Therefore you will create a randomization distribution (similar to
+> a sampling distribution) for each estimate.  This distribution only considers
+> the variability in estimates that would manifest as a result of the randomness
+> in who is assigned to receive the treatment.
+>
+> (a) Simulate the dataset from Exercise 18.12.  You will use this as your
+>     observed data.
+>
+> (b) Now create a randomization distribution for each estimate by following
+>     these steps:
+>
+> > i. Create a vector of length 10,000 for each estimate to save these
+> >     estimates across simulated datasets. These could be named, for instance,
+> >     `dm_res` and `ols_res`.
+> >
+> > ii. For the $r^{\text{th}}$ simulated draw, generate a new treatment
+> >     assignment vector using the `rbinom()` or `sample()` function in R.
+> >     Use it to generate a new outcome vector, recalling that
+> >     $y = (1 - z) y^0 + z y^1$.
+> >
+> > iii. Apply each of the estimates (difference in means and linear regression
+> >     with the one covariate) to the newly generated dataset. Save each
+> >     estimate as the rth item in the results vector.
+> >
+> > iv. Repeat 10 000 times.
+>
+> (c) We will use these estimates to create a Monte Carlo estimate of a
+>     randomization distribution for each of these estimates for the sample
+>     average treatment effect.
+>
+> (d) Plot the randomization distribution for each of the two estimates:
+>     difference in means and regression.  Either overlay the plots (with
+>     different colors for each) or make sure the x-axis range on both plots is
+>     the same. Also add vertical lines (using different colors) for the SATE
+>     and the mean of the randomization distribution.
+>
+> (e) Use these distributions to calculate the bias of each of these two
+>     methods.  What is the difference between methods with respect to bias?
+>
+> (f) Use these distributions to calculate the efficiency of each of these two
+>     methods. What is the difference between methods with respect to
+>     efficiency?
+>
+> (g) Re-run the simulation by first generating data as in Exercise 18.12 but
+>     with a zero coefficient for the pre-treatment score. Does the zero
+>     coefficient lead to a different bias and efficiency estimate compared to
+>     when the coefficient for pre-treatment score was at 1.1 from before?
+
+Yup, regression that includes the pre-treatment predictor is much more
+sample efficient than the difference-of-means that just hopes the pre-treatment
+predictors cancel out eventually:
+
+![Two overlapping and slightly transparent histograms of estimated treatment
+effect sizes.  In blue, the difference of means treatment effect estimator has
+a much wider spread, from 4.6 to 5.4.  In red, there's a tighter spread between
+4.9 and 5.2.  The SATE has a vertical black line at 5.06.
+](./fig/part5/ex18_14_histograms.png)
+
+When we zero out the effect of the pre-treatment predictor, the diff-of-means
+method is just as efficient as the regression method:
+
+![Same as the immediately preceding figure, but now the histograms are both
+concentrated in the same 4.9 to 5.2 range
+](./fig/part5/ex18_14g_hist_no_pretest.png)
