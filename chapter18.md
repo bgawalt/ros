@@ -340,3 +340,56 @@ in $x$ values between treatment and control, nor in the category sizes.  If
 this was from blocking conditional on $x$, we'd expect to see some difference in
 $z$ values across the levels of $x$ -- that's the whole point of randomized
 block designs.
+
+### 18.7,  Before-after comparisons
+
+> The
+> [folder `Sesame`](https://github.com/avehtari/ROS-Examples/tree/master/Sesame/data)
+> contains data from an experiment in which a randomly selected group of
+> children was encouraged to watch the television program Sesame Street and the
+> randomly selected control group was not.
+>
+> (a) The goal of the experiment was to estimate the effect on child cognitive
+>     development of watching more Sesame Street. In the experiment,
+>     encouragement but not actual watching was randomized. Briefly explain why
+>     you think this was done. Think of practical as well as statistical
+>     reasons.
+>
+> (b) Suppose that the investigators instead had decided to test the
+>     effectiveness of the program simply by examining how test scores changed
+>     from before the intervention to after.  What assumption would be required
+>     for this to be an appropriate causal inference?  Use data on just the
+>     control group from this study to examine how realistic this assumption
+>     would have been.
+>
+> We return to this example in Chapter 21.
+
+(a) Randomizing the actual watching would have meant having some reliable way of
+    making sure the subject followed through with the prescribed watch time.
+    This is expensive if you need to set up a monitoring protocol at the
+    home of each subject.  Or it drives down participation if you require
+    subjects to come on-site for monitoring the watch-time.  (The first one
+    is gonna drive down participation, too.)  And finally, in terms of
+    estimating effects in the real world, the general population is not going to
+    have any kind of monitoring set up.  So your design should reflect your
+    actual research question: what would happen if we encouraged more families
+    to watch Sesame Street?
+
+(b) To just do a pre-post design, you'd have to assume that absent the
+    intervention, test scores would remain the same.  This is implausible!
+    For one thing, families and schools want kids to learn, and will try and
+    get them to be smarter in ways that will show up in improved test scores,
+    even without being told to watch Sesame Street.
+
+We can see that this doesn't hold by scatterplotting the post-intervention test
+scores against pre-intervention test scores, just among the control group.
+In general, they go up!  They aren't even noisily clustered around the dashed
+line where `pre = post`.  (These two particular tests are chosen because they're
+of interest in Exercise 18.8.)
+
+![Two subplots of scatterplots.  At left, blue dots show 'Letters post-test
+score' on the y-axis and 'Letters pre-test score' on the x-axis.  At right, red
+dots show 'Numbers post-test score' on the y-axis and 'Numbers pre-test score'
+on the x-axis.  There are dashed grey lines of equality on each subplot; each
+subplot goes from 0 to 58 on each axis.  In general, dots tend to fall above the
+dashed line of equality](./fig/part5/ex18_07_ctrlgroup.png)
