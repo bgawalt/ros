@@ -458,3 +458,158 @@ The evidence of a useful treatment effect is even weaker here.
 But.  We haven't actually talked about how to pose these models.  I'm just
 dumping all these predictors in the top of a meat grinder and turning the crank.
 
+### 18.12, Simulating potential outcomes
+
+> In this exercise, you will simulate an intervention study with a
+> pre-determined average treatment effect.  The goal is for you to understand 
+> the potential outcome framework, and the properties of completely randomized
+> experiments through simulation.
+>
+> The setting for our hypothetical study is a class in which students take two
+> quizzes.  After quiz 1 but before quiz 2, the instructor randomly assigns half
+> the class to attend an extra tutoring session.  The other half of the class
+> does not receive any additional help.  Consider the half of the class that
+> receives tutoring as the treated group.  The goal is to estimate the effect of
+> the extra tutoring session on average test scores for the retake of quiz 1.
+> Assume that the stable unit treatment value assumption is satisfied.
+>
+> (a) Simulating all observed and potentially observed data (omniscient mode).
+>     For this section, you are omniscient and thus know the potential outcomes
+>     for everyone.  Simulate a dataset consistent with the following
+>     assumptions.
+>
+> > i. The average treatment effect on all the students, $\tau$, equals 5.
+> >
+> > ii. The population size, $N$, is 1000.
+> >
+> > iii. Scores on quiz 1 approximately follow a normal distribution with mean
+> >     of 65 and standard deviation of 3.
+> >
+> > iv. The potential outcomes for quiz 2 should be linearly related to the
+> >     pre-treatment quiz score. In particular they should take the form,
+> >
+> > $$y^0 = \beta_0 + \beta_1x + 0 + \epsilon^0,$$
+> > $$y^1 = \beta_0 + \beta_1x + \tau + \epsilon^1,$$
+> >
+> > where the intercept $\beta_0 = 10$ and the slope $\beta_1 = 1.1$.  Draw the
+> > errors $\epsilon^0$ and $\epsilon^1$ independently from normal distributions
+> > with mean 0 and standard deviations 1.
+>
+> (b) Calculating and interpreting average treatment effects (omniscient mode).
+>     Answer the following questions based on the data-generating process or
+>     using your simulated data.
+>
+> > i. What is your interpretation of $\tau$?
+> >
+> > ii. Calculate the sample average treatment effect (SATE) for your simulated
+> >     dataset.
+> > 
+> > iii. Why is SATE different from $\tau$?
+> >
+> > iv. How would you interpret the intercept in the data-generating process
+> >     for $y^0$ and $y^1$?
+> >
+> > v. How would you interpret $\beta_1$?
+> >
+> > vi. Plot the response surface versus $x$. What does this plot reveal?
+>
+> (c) Random assignment (researcher mode).  For the remaining parts of this
+>     exercise, you are a mere researcher!  Return your goggle of omniscience
+>     and use only the observed data available to the researcher; that is, you
+>     do not have access to the counterfactual outcomes for each student.
+>     Using the same simulated dataset generated above, randomly assign students 
+>     to treatment and control groups. Then, create the observed dataset, which
+>     will include pre-treatment scores, treatment assignment, and observed $y$.
+>
+> (d) Difference in means (researcher mode).
+>
+> > i. Estimate SATE using a difference in means.
+> >
+> > ii. Is this estimate close to the true SATE?  Divide the difference between
+> >     SATE and estimated SATE by the standard deviation of the observed
+> >     outcome, $y$.
+> >
+> > iii. Why is $\hat{\text{SATE}}$ different from SATE and $\tau$?
+>
+> (e) Researcher view: linear regression.
+>
+> > i. Now you will use linear regression to estimate SATE for the observed data
+> >     created as above.  With this setup, you will begin to better understand
+> >     some fundamental assumptions crucial for the R homework assignments in
+> >     the following chapters.
+> >
+> > ii. What is gained by estimating the average treatment effect using linear
+> >     regression instead of the mean difference estimate from above?
+> >
+> > iii. What assumptions do we need to make in order to believe this estimate?
+> >     Given how you generated the data, do you believe these assumptions have
+> >     been satisfied?
+
+#### 18.12(b)
+
+$\tau$ is the difference the treatment makes, on average.  When a subject is
+given the treatment, their score on the next test should be expected to rise by
+5 points above the original test score.
+
+The SATE is 5.02, which is close to $\tau$'s value of 5, plus some sampling
+error.
+
+The intercept term, $\beta_0$, is the amount that you should expect every
+student's score to rise between the pre-test and the post-test.  Everyone's
+spent an additional few months in class, and in expectation, that will increase
+everyone's scores by 10 points.
+
+The slope term, $\beta_1$, is how much a student's score is expected to increase
+as a function of their pre-test score.  That it's 1.1 indicates that everyone is
+expected to do 10% better than their pre-test value, on top of the 10 points
+gain that applies universally.  That 10% means that students who did well on the
+first test, will gain more absolute points (in expectation) than the students
+who scored lower.  Kind of a compound interest, rich get richer thing.
+
+The response surface shows that, adjusting for pre-treatment test score, the
+treatment effect $\tau$ is clearly shifting post-treatment test scores up.
+There's basically no overlap between the two clouds for the $y^0$ and $y^1$
+potential outcomes:
+
+![Scatterplot. x-axis: Pre-test score, 50 to 80.  y-axis: Post-test score, 70 to
+100.  Two high-eccentricity elliptical clouds, tilting upwards at a roughly 45
+degree angle, are plotted, with x values between 55 and 72, save a few outliers.
+In magenta, treatment outcomes have a vertical range of 75 to 95.  In cyan,
+lower than the other, control outcomes have a vertical range of 70 to 90.
+](./fig/part5/ex18_12b_responsesurface.png)
+
+#### 18.12(d)
+
+The estimated SATE is 4.7, versus our earlier omniscient SATE of 5.0.  If
+$s_y$ is the sample standard deviation of $y$, that's a difference of $0.08s_y$.
+This is a close estimate.
+
+$\tau$, SATE, and $\hat{\text{SATE}}$ are all different due to sampling, with
+the last link (from SATE to estimated SATE) being due to the random assignment
+of treat/control.  With SATE we had access to all potential outcomes; now, we
+have some sampling noise around which ones wound up in treatment and control.
+Also, we have half as much data going into the means of the treatment and
+control outcomes, so standard errors of those mean estimates are also quite
+a bit wider.
+
+#### 18.12(e)
+
+When I fit the model `y ~ x + z`, I get the coefficient estimates:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+sigma     |  0.99 | 0.02
+Intercept | 10.28 | 0.71
+x         |  1.09 | 0.01
+z         |  4.98 | 0.07
+
+These coefficients are all bang-on accurate relative to the true values I coded
+into the simulation.
+
+By using linear regression, I am making it *much* easier to incorporate (a) more
+pre-treatment predictors, and (b) richer expressions of the treatment (like,
+different dosages or different durations or different exposures, per subject).
+
+To believe these estimates, I need to assume that $z$ and $x$ are independent of
+each other, which I definitely do in this case.  I believe the PRNG I rolled is
+sufficiently chaotic that $z$ and $x$ can't be predicted from each other.
