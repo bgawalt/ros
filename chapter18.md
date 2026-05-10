@@ -393,3 +393,68 @@ dots show 'Numbers post-test score' on the y-axis and 'Numbers pre-test score'
 on the x-axis.  There are dashed grey lines of equality on each subplot; each
 subplot goes from 0 to 58 on each axis.  In general, dots tend to fall above the
 dashed line of equality](./fig/part5/ex18_07_ctrlgroup.png)
+
+### 18.8, Evaluating an encouragement design
+
+> Return to the Sesame Street example from the previous exercise. Did
+> encouragement (the variable viewenc) lead to an increase in post-test scores
+> for letters (`postlet`) and numbers (`postnumb`)?  Fit an appropriate model to
+> address this question.
+
+I fit the Letters test model with
+
+```
+postlet ~ encour + regular + sex + age + viewcat + setting + prelet + prenumb + peabody
+```
+
+and get the coefficients:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+sigma     |  9.22 | 0.42
+Intercept | -8.29 | 6.04
+encour    |  1.16 | 1.45
+regular   |  2.06 | 2.37
+sex       |  1.05 | 1.22
+age       |  0.01 | 0.11
+viewcat   |  3.66 | 0.86
+setting   |  1.78 | 1.34
+prelet    |  0.44 | 0.10
+prenumb   |  0.25 | 0.10
+peabody   |  0.14 | 0.05
+
+So, no, I don't see strong evidence that the treatment (coded as the `encour`
+predictor, where 0 is control and 1 is treatment) definitely or substantially
+improved test scores.  The mean is small compared to the residual noise
+(`sigma`), and its standard error is large compared to the mean.
+
+(I didn't do any scaling of the predictors, so they can't be especially compared
+to each other on a consistent basis.)
+
+I fit the Numbers test model with
+
+```
+postnumb ~ encour + regular + sex + age + viewcat + setting + prelet + prenumb + peabody
+```
+
+Similar results for the `encour` coefficient:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+sigma     |  8.80 | 0.41
+Intercept | -7.45 | 5.67
+encour    |  0.45 | 1.39
+regular   |  2.46 | 2.20
+sex       |  0.81 | 1.15
+age       |  0.15 | 0.10
+viewcat   |  2.44 | 0.80
+setting   |  1.80 | 1.29
+prelet    |  0.09 | 0.10
+prenumb   |  0.52 | 0.09
+peabody   |  0.11 | 0.04
+
+The evidence of a useful treatment effect is even weaker here.
+
+But.  We haven't actually talked about how to pose these models.  I'm just
+dumping all these predictors in the top of a meat grinder and turning the crank.
+
