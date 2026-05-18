@@ -734,3 +734,100 @@ method is just as efficient as the regression method:
 ![Same as the immediately preceding figure, but now the histograms are both
 concentrated in the same 4.9 to 5.2 range
 ](./fig/part5/ex18_14g_hist_no_pretest.png)
+
+### 18.15, Randomized block design with interactions
+
+> In a randomized block design, randomization occurs separately within blocks,
+> and the ratio of treatment to control observations is allowed to vary across
+> blocks.  And, as always, the underlying treatment effect can vary across
+> blocks.
+>
+> For this exercise, you will simulate datasets for a randomized block design
+> that includes sex as a blocking variable.  You will then estimate the average
+> treatment with two estimates: one that accounts for the blocking structure and
+> one that does not.  You will compare the bias and efficiency of these
+> estimates. We will walk you through this in steps.
+> 
+> (a) First simulate the blocking variable and potential outcomes. In
+>     particular:
+> 
+> *  Generate sex as a blocking variable, with 30% female and 70% male.
+> *  Generate y0 and y1 with the following features:
+>    *  The intercept of the regression of $y$ on treatment indicator, block
+>          indicator, and their interaction, is 70.
+>    *  The residual standard deviation is 1.
+>    *  Treatment effect varies by block: the average treatment effect is 7 for
+>          women and 3 for men. Further assume that men and women have no 
+>          average difference under the control.
+>
+> (b) Calculate the sample average treatment effect (SATE) overall and for each
+>     block.
+>
+> (c) Now create a function for assigning the treatment.  In particular, within
+>     each block create different assignment probabilities:
+>
+>  $$\text{Pr}(z = 1 | \text{male}) = 0.6,$$
+>  $$\text{Pr}(z = 1 | \text{female}) = 0.4.$$
+>
+> (d) Generate the treatment and create a vector for the observed outcomes
+>     implied by that treatment.  We will use this to create a randomization
+>     distribution for two different estimates for the SATE. Take 100,000 draws
+>     from that distribution.
+>
+> (e) Plot the Monte Carlo estimate of the randomization distribution for each
+>     of the two estimates: difference in means and regression.  Either overlay
+>     the plots (with different colors for each) or make sure the x-axis on both
+>     plots is the same.
+>
+> (f) Calculate the bias and efficiency of each estimate.  Also calculate the
+>     root mean squared error.
+>
+> (g) Consider the estimate that ignores the blocking. Why is it biased?  Is the
+>     efficiency meaningful here?  Why did we ask you to calculate the root mean
+>     squared error?
+>
+> (h) Describe one possible real-life scenario where treatment assignment
+>     probabilities or treatment effects vary across levels of a covariate.
+>
+> (i) How could you use a regression to estimate the treatment effects
+>     separately by group?  Calculate estimates for our original sample and
+>     treatment assignment.
+
+The SATE estimates:
+
+*  SATE: 4.22
+*  SATE for men: 3.07
+*  SATE for women: 7.09
+
+When calculating from the factual outcomes only, and re-drawing the $z$
+assingments 100 times, we get the histograms:
+
+![Two histograms of estimated treatment effect, running from 3.5 to 4.5 on the
+x-axis.  In cyan, the diff-of-means estimates are spread from 3.6 to 4.4.  In
+magenta, the regression estimates range from 4.0 to just under 4.5.  The actual
+SATE is 4.3, which the magenta histogram is centered around (but the cyan
+histogram isn't).](./fig/part5/ex18_15_histograms.png)
+
+*  Difference of means: mean 4.02, std. dev. 0.20
+*  Regression: mean 4.30, std. dev. 0.15
+
+So the difference-of-means approach is about one standard error away from SATE
+(which is not bad; it covered the spread).  The regression method, though,
+is much closer in expectation, and also lower variance.
+
+If I fit the model `y ~ x + z + x:z`, I get:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+sigma     |  0.95 | 0.06
+Intercept | 70.26 | 0.19
+x         | -0.16 | 0.24
+z         |  6.92 | 0.34
+x:z       | -4.17 | 0.39
+
+This looks good to me!  It's recovering the residual noise level, plus the
+intercept term, exactly.  The default treatment effect (where $x$ is 0) is the
+value of 7 that we coded in part (a).  It's got an effect on the gender
+predictor that is basically nil, but that is because it's moved that (important)
+effect into the interaction term `x:z`.  For male subjects, the effect of $z$ is
+reduced from 7 to 3, just like we coded into the data synthesis.
