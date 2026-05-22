@@ -38,6 +38,8 @@ throughout, esp. Jupyter notebooks.
         imputation
 *  Part 5: Causal inference
     *  [Chapter 18](./chapter18.md): Causal inference and randomized experiments
+    *  [Chapter 19](./chapter19.md): Causal inference using regression on the
+        treatment variable
 
 
 ## Jupyter and Bambi
