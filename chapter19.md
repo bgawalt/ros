@@ -217,6 +217,49 @@ regression model, but I guess it's hard?).  But it also says if you're using a
 more complicated model, sure, go ahead and include the intermediate output's
 mechanisms as part of it.
 
+### 19.7, Intermediate outcomes and causal paths
+
+Opening of this section emphasizes that the randomized experiment is a black
+box: treatment values go in, outcomes come out, we link the two with a
+regression analysis.  We can get these SATEs, but we aren't left with much room
+to establish a mechanism to explain the pathway from "treatment applied" to
+"expected outcome increases."
+
+One thing you *can't* do: run the model twice, once with just pre-treatment
+covariates, again with pre- and post-treatment covariates, and take the
+difference between the SATEs found in each case.  If the treatment affects the
+values of the post-treatment covariates, then you're necessarily skewing
+the covariate distributions between the treat and control groups.
+
+> The regression adjusting for the intermediate outcome thus implicitly compares
+> unlike groups \[...\] and underestimates the treatment effect, because the
+> treatment group in this comparison is made up of lower-\[valued outcomes\],
+> on average.
+
+They put forward the technique of principal stratification: dividing up the
+subjects into categories based on their intermediate potential outcomes.
+But you don't get to observe the counterfactual intermediate outcome, so instead
+you're just making educated guesses as to what they would have been.  That's no
+longer a clean, randomized experiment, it's an analysis of observational data
+like before.
+
+They say to keep an eye out for *instrumental variable* techniques, coming in
+Chapter 21.
+
+This chapter closes by looping back to trying to draw casual inferences from
+regression analysis of observational studies.  It's all tripped up by the fact
+that asking "how much would a unit increase in covariate $x_i$, and only $x_i$,
+*cause* the output to increase?" assumes $x_i$ can be treated independently from
+the other covariates.  If there's no data, or if in the real world, no one ever
+sees an increased $x_i$ without seeing an increased $x_j$, the question is
+asking about the outcome of an impossible input.  If an increase in $i$ requires
+an increase in $j$, then the change in the outcome can't be traced back to
+either covariate shift in isolation.
+
+This applies to the randomized-experiment-with-intermediate-outcome case because
+the post-treatment covariate has this same "no one sees a bigger $z$ without a
+bigger post-intermediate output $q$" phenomenon that made causal interpretaion
+of observational study coefficients a non-starter.
 
 ## Exercises
 
