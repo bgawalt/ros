@@ -171,7 +171,52 @@ interpretation of the regression coefficient as a treatment effect steers you
 wrong) is not an analysis of a randomized experiment, but an analysis of
 many results from randomized experiments.
 
-TK
+In this case, different studies decided their operating parameters (i.e.,
+covariate values) in a vacuum.  There was no overarching randomization of *all*
+design parameters; only the treatment/control split within each study was
+randomized.  So studies finding a strong effect might have been conducted in
+areas where researchers were more likely to set the covariates to particular
+values, and now you have risk of committing the omitted-variable fallacy.
+
+This feels like a weird thing to include.  It's useful as an example, but most
+of the causal inference material assumes we're working at the single-study
+level.  We just went over the crucial importance of randomization all last
+chapter, so this actually-an-observational-study example seems like a weird
+digression.
+
+### 19.6, Do not adjust for post-treatment variables
+
+The reason not to: those post-treatment variables are likely influenced by
+the treatment variable's value.  This breaks the conditional independence
+assumptions, that the two potential outcome values are independent of the
+treatment value, given the other covariates.
+
+I'm lost here, too.  I feel like earlier sections either didn't mention, or
+didn't hit hard enough for me to notice, why it's bad that "the coefficient of
+$z$ represents a comparison of families that differ fundamentally in their
+underlying characteristics."
+
+I bet there's a Bayes Ball diagram that would clear this right up, but this book
+doesn't get that deep into the Bayes Weeds.  My attempt at drawing the Bayes net
+the authors are thinking of didn't get me anywhere.
+
+Best I can do for this is to say that the counterfactual intermediate outcome
+acts as an omitted variable, which was fatal in the example in Section 19.5
+above.
+
+Googling around got me this blog post:
+
+https://statmodeling.stat.columbia.edu/2009/07/05/disputes_about/
+
+which doesn't bring any clarity, but that's because it winds up being much more
+equivocal about whether you should/shouldn't include the post-treatment info in
+the analysis.  The link in the post-script says you're better off skipping it if
+your analysis is just going to be regression (you *could* back out causal
+treatment effect estimates even with the intermediate covariates in the
+regression model, but I guess it's hard?).  But it also says if you're using a
+more complicated model, sure, go ahead and include the intermediate output's
+mechanisms as part of it.
+
 
 ## Exercises
 
