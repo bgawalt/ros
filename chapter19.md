@@ -294,3 +294,26 @@ $$\bar{y^T} = a + b \mathcal{E}(\text{pre_test}) + 10 = 60$$
 
 and the standard deviation of the post-test scores in the treatment group
 matches that of the control group, 20.5.
+
+### 19.6, Sketching the regression model for causal inference
+
+> Assume that linear regression is appropriate for the regression of an outcome,
+> $y$, on treatment indicator, $z$, and a single confounding covariate, $x$.
+> With pen on paper, sketch hypothetical data (plotting $y$ versus $x$, with
+> treated and control units indicated by circles and dots, respectively) and
+> regression lines (for treatment and control group) that represent each of the
+> following situations:
+>
+> (a) No treatment effect,
+> 
+> (b) Constant treatment effect,
+>
+> (c) Treatment effect increasing with $x$.
+
+![Three scatter plots in a row, all on x-axes ranging from 0 to 10.  Control
+data in all three is forty points with x values uniform between 0 and 10, and
+y values trending down as 20 - 3x, plus normally distributed noise of standard
+deviation 2.  Each plot has its own treatment data points as well, where
+(a) looks just like control, (b) looks like control translated upwards by 6
+units, and (c) looks like the same 2-unit SD noise around a trend of 26 - 2x
+](./fig/part5/ex19_06_sketches.png)
