@@ -317,3 +317,75 @@ deviation 2.  Each plot has its own treatment data points as well, where
 (a) looks just like control, (b) looks like control translated upwards by 6
 units, and (c) looks like the same 2-unit SD noise around a trend of 26 - 2x
 ](./fig/part5/ex19_06_sketches.png)
+
+### 19.7, Linearity assumptions and causal inference
+
+> Consider a study with an outcome, $y$, a treatment indicator, $z$, and a
+> single confounding covariate, $x$. Draw a scatterplot of treatment and control
+> observations that demonstrates each of the following:
+>
+> (a) A scenario where the difference in means estimate would not capture the
+>     true treatment effect but a regression of $y$ on $x$ and $z$ would yield
+>     the correct estimate.
+>
+> (b) A scenario where a linear regression would yield the wrong estimate but a
+>     nonlinear regression would yield the correct estimate.
+
+For part (a), when the $x$ covariates are not distributed similarly across
+treatment and control, diff-in-means can give you a misleading answer.
+I simulated an experiment where the treatment effect is -0.5, but the outcomes
+are positively correlated with $x$.  And if the treat group has the
+higher-than-average $x$ values, then the result can be a wash.
+
+Here's what my data looked like:
+
+![Scatter plot where the control series is solid blue dots, trending upwards
+over an x range of 0 to 1, with y ranging from 0 to 1.  The treatment group
+ranges over an x range of 0.5 to 1.5, and the y also ranges from 0 to 1 (because
+the treatment itself causes a -0.5 intercept shift).](./fig/part5/ex19_07a.png)
+
+The diff-in-means estimate of the effect is -0.05, ten times less than the true
+value.
+
+When I run the regression, `y ~ x + z`, though:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     |   0.10 | 0.01
+Intercept |  -0.00 | 0.02
+x         |   1.06 | 0.04
+z         |  -0.57 | 0.03
+
+Not quite exact (sample size here is 100 points total), but much much closer
+than a 10x underestimate.
+
+For part(b), the treatment is a constant +10, but the outcome $y$ rises as the
+square of the covariate $x$ under both treatment conditions.  If we also get
+a skewed sample -- in this case, treatment units only cover [2, 6] while control
+saw the full [0, 10] range -- then ignoring the quadratic component of $x$
+gives a bad SATE.
+
+Here's the data:
+
+![In solid dots, a somewhat noisy parabola that looks like y = x^2 from 0 to 10.
+In hollow dots (treatment), the same noisy parabola lifted upwards by 10 units,
+but only covering the range from 2 to 6](./fig/part5/ex19_07b.png)
+
+The model `y ~ x + z` gives an underestimate of the treatment effect:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     |   5.92 | 0.42
+Intercept | -13.29 | 1.55
+x         |   9.49 | 0.26
+z         |   2.51 | 1.21
+
+But using the true model, `y ~ x + x^2 + z`, gives an accurate estimate:
+
+Coef.     | Mean  | s.e.
+--------- | ----- | ------
+sigma     |  1.14 | 0.09
+Intercept |  0.76 | 0.41
+x         | -0.26 | 0.21
+x2        |  1.02 | 0.02
+z         |  9.81 | 0.28
