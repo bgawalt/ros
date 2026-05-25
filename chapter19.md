@@ -261,12 +261,36 @@ the post-treatment covariate has this same "no one sees a bigger $z$ without a
 bigger post-intermediate output $q$" phenomenon that made causal interpretaion
 of observational study coefficients a non-starter.
 
+
 ## Exercises
 
-Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
+Plots and computation powered by [Chapter19.ipynb](./notebooks/Chapter19.ipynb)
 
-### K.x, Exercise italic title
+### 19.4, Pre-test and post-test
 
-> The problem statement
+> 100 students are given a pre-test, then a treatment or control is randomly
+> assigned to each, then they get a post-test.  Given the following regression
+> model:
+>
+> $$\text{post\_test} = a + b \cdot \text{pre\_test} + \theta \cdot z + \text{error},$$
+>
+> where $z = 1$ for treated units and 0 for controls.  Further suppose that
+> `pre_test` has mean 40 and standard deviation 15.  Suppose $b = 0.7$ and
+> $\theta = 10$ and the mean for `post_test` is 50 for the students in the
+> control group. Further suppose that the residual standard deviation of the 
+> regression is 10.
+>
+> (a) Determine a.
+>
+> (b) What is the standard deviation of the post-test scores for the students in
+>     the control group?
+>
+> (c) What are the mean and standard deviation of the post-test scores in the
+>     treatment group?
 
-The answer
+$$a = 50 - b \mathcal{E}(\text{pre_test}) = 22$$
+$$\text{sd}\left(y^C) = 0.7 \cdot 15 + 10 = 20.5$$
+$$\bar{y^T} = a + b \mathcal{E}(\text{pre_test}) + 10 = 60$$
+
+and the standard deviation of the post-test scores in the treatment group
+matches that of the control group, 20.5.
