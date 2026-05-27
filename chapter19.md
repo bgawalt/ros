@@ -389,3 +389,111 @@ Intercept |  0.76 | 0.41
 x         | -0.26 | 0.21
 x2        |  1.02 | 0.02
 z         |  9.81 | 0.28
+
+### 19.8, Messy randomization
+
+> The
+> [folder `Cows` contains data](https://github.com/avehtari/ROS-Examples/tree/master/Cows)
+> from an agricultural experiment that was conducted on 50 cows to estimate the
+> effect of a feed additive on 6 outcomes related to the amount of milk fat
+> produced by each cow.
+>
+> Four diets (treatments) were considered, corresponding to different levels of
+> the additive, and three variables were recorded before treatment assignment:
+> lactation number (seasons of lactation), age, and initial weight of the cow.
+>
+> Cows were initially assigned to treatments completely at random, and then the
+> distributions of the three covariates were checked for balance across the
+> treatment groups; several randomizations were tried, and the one that produced
+> the "best" balance with respect to the three covariates was chosen.  The
+> treatment depends only on fully observed covariates and not on unrecorded
+> variables such as the physical appearances of the cows or the times at which
+> the cows entered the study, because the decisions of whether to re-randomize
+> are not explained.
+>
+> We shall consider different estimates of the effect of additive on the mean
+> daily milk fat produced.
+>
+> (a) Consider the simple regression of mean daily milk fat on the level of
+>     additive.  Compute the estimated treatment effect and standard error, and
+>     explain why this is not a completely appropriate analysis given the
+>     randomization used.
+>
+> (b) Add more predictors to the model. Explain your choice of which variables
+>     to include.  Compare your estimated treatment effect to the result from
+>     (a).
+>
+> (c) Repeat (b), this time considering additive level as a categorical
+>     predictor with four levels.  Make a plot showing the estimate (and
+>     standard error) of the treatment effect at each level, and also showing
+>     the inference from the model fit in part (b).
+
+Loaded the `Cows` data, using the codebook as a guide to what columns to
+extract (and how to generate the `milk_fat` outcome):
+
+|         | age | lactation | initial_weight | level | milk | fat | milk_fat
+--------- | --- | --------- | -------------- | ----- | ---- | --- | --------
+**count** | 50.00 | 50.00 | 50.00 | 50.00 | 50.00 | 50.00 | 50.00
+**mean**  | 42.16 | 2.38 | 1258.06 | 0.15 | 59.54 | 3.58 | 213.09
+**std**   | 18.59 | 1.32 | 181.21 | 0.11 | 9.36 | 0.48 | 45.38
+**min**   | 21.00 | 1.00 | 900.00 | 0.00 | 40.24 | 2.65 | 130.81
+**25%**   | 26.25 | 1.00 | 1118.75 | 0.10 | 53.11 | 3.27 | 179.85
+**50%**   | 37.00 | 2.00 | 1266.50 | 0.15 | 59.52 | 3.46 | 207.32
+**75%**   | 49.00 | 3.00 | 1369.00 | 0.20 | 66.66 | 3.91 | 248.43
+**max**   | 95.00 | 6.00 | 1656.00 | 0.30 | 76.60 | 4.96 | 328.63
+
+For part (a), I fit the model `milk_fat ~ level`, and get back:
+
+Coef.     | Mean   | s.e.
+--------- | ------ | ------
+sigma     |  44.37 | 4.59
+Intercept | 194.43 | 10.50
+level     | 124.45 | 56.23
+
+The `sigma` value is basically identical to the standard deviation of `milk_fat`
+in the dataframe description above.  So that's bad news; the `level` treatment
+is not a good explainer all on its own.
+
+For part (b), I fit the model
+`milk_fat ~ level + age + lactation + initial_weight`, including the three
+pre-treatment predictors (and left all the post-treatment ones out of the
+dataframe parsing) and get back:
+
+Coef.          | Mean   | s.e.
+-------------- | ------ | ------
+sigma          |  36.22 | 3.80
+Intercept      |  45.81 | 45.72
+level          | 106.85 | 46.66
+age            |  -2.15 | 1.06
+lactation      |  31.23 | 14.06
+initial_weight |   0.13 | 0.05
+
+The new `sigma` parameter is an actual improvement, though, not by all that
+much.  The standard error of `level` has dropped, which is nice, but again, not
+that much.  Adjusting for pre-treatment predictors has also shrunk the mean
+estimate for the effect of the treatment.
+
+For part (c), I made a new string column, `level_cat`, just as a can't-lose
+form of discretizing the `level` treatment variable.  I then fit the model
+`milk_fat ~ C(level_cat) + age + lactation + initial_weight`, and got:
+
+Coef.             | Mean  | s.e.
+----------------- | ----- | ------
+sigma             | 37.02 |  4.07
+Intercept         | 42.52 | 48.55
+C(level_cat)[0.1] | 17.52 | 15.08
+C(level_cat)[0.2] | 25.48 | 15.39
+C(level_cat)[0.3] | 32.70 | 16.06
+age               | -2.16 |  1.13
+lactation         | 31.64 | 14.75
+initial_weight    |  0.13 |  0.05
+
+Man!!  The `sigma` parameter got worse by doing this.  Oh well.
+
+Here's the plots, with the linear effect of (b) as dashed grey lines.  All
+coefficient uncertainties represent $\pm 2$ standard errors.
+
+![Plots of the C(level_cat) coefficients from the above table.  The dashed grey
+overlay of the linear effect underestimates the categorical answers for levels
+0.1 and 0.2 but matches up perfectly with the mean of 0.3
+](./fig/part5/ex19_08_effects.png)
