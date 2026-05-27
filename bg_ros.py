@@ -185,7 +185,7 @@ class DATFileParser:
     self._table = tuple(tuple(line.split()[1:]) for line in lines[1:])
     for row_id, row in enumerate(self._table):
       assert len(row) == len(self._fields), (
-        f"Bad row length for row id {row_id}"
+        f"Bad row length for row id {row_id}; {len(row)} != {len(self._fields)}"
       )
     self._int_filters = {}
     self._float_filters = {}
