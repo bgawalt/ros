@@ -17,7 +17,40 @@ that treatment is selected into/away from by subjects).
 
 ### 20.1, The challenge of causal inference
 
-TK
+The chapter opens with two examples of observational studies where the
+regression coefficients *don't* lend themselves to causal inference.
+
+1.  **Hypothetical example of zero causal effect but positive predictive
+    comparison:**  if the treatment does nothing, but healthy patients sort into
+    the treatment group (and sicker ones the control group), you get a positive
+    coefficient if you fit a univariate model predicting patient health outcomes
+    from patient treatment group assignment.
+
+2.  **Hypothetical example of positive causal effect but zero positive
+    predictive comparison:** if instead *sicker* patients sort preferentialy
+    into the treatment group, then even a genuinely-helpful treatment can wind
+    up looking inert (or bad).  "It is then possible to see equal average
+    outcomes of patients in the two groups, with sick patients who received the
+    treatment canceling out healthy patients who received the control."
+
+The systematic nature of the sorting in these scenarios is important.  It's not
+just bad luck that your two treatment groups are unbalanced w.r.t. patient
+pre-treatment health status.  The sicker patients are systematically driven to
+one group or the other, and resampling or increasing sample size won't fix the
+imbalance that's inducing the coefficient-vs.-actual-effect mismatch.
+
+The chapter introduces the term *confounding covariate* to describe the
+pre-treatment predictor that drives the selection bias.  Omitting these
+confounders from the model, leaving them as lurking variables, wrecks the
+causal effect estimate (i.e., treatment indicator coefficient estimate).
+
+The section closes out with algebra around omitted variable bias, where there's
+a mechanism linking outcome $y$ to confounder $x$ and treatment indicator $z$,
+as well as linking $x$ to $z$.  Both links are linear and additive, so the
+book doesn't really dwell on the implications of the algebra: we know that's not
+a realistic description of how the real-world values of $x$, $y$, and $z$
+interrelate, so trying to draw out strong intuition for what "omitted variable
+bias" looks like from this peculiar case is not really a good use of time.
 
 ### 20.2, Using regression to estimate a causal effect from observational data
 
