@@ -108,7 +108,47 @@ indicator.)
 
 ### 20.4, Imbalance and lack of complete overlap
 
-TK
+Ignorability is unsatisfied if treatment and control are not comparable.  If
+that lack of comparability happens along an unobserved data axis, then nothing
+in this chapter works.  But to repeat for like a fourth time: let's assume that
+you *do* observe all attributes that serve as confounders to the treatment
+indicator.  If you make that assumption, you can warp your observed data to make
+treatment and control comparable again, and causal inference is revived.
+
+Equation 20.3 describes what happens when you take sample averages of the
+treatment and control group when the outcome also depends, quadratically, on a
+confounder:
+
+$$\theta = \bar{y}_1 - \bar{y}_0 - \beta_1\left(\bar{x}_1 - \bar{x}_0\right) - \beta_2\left(\bar{x^2_1} - \bar{x^2_0}\right)$$
+
+To estimate $\theta$ correctly from a regression of $y$ on $(x, z)$, you need to
+know to include both $x$ and $x^2$ as covariates in the model.  This is what
+they mean by "\[i\]mbalance and lack of complete overlap are issues for causal
+inference even if ignorability holds because they force us to rely more heavily
+on model specification and less on direct support from the data."
+
+They use the term *overlap* (a.k.a. *common support*) to talk about how
+confounder value distributions compare across the treatment-control divide.
+Visually:
+
+![Caption of Figure 20.5 from page 392 of ROS: Lack of complete overlap in
+distributions across treatment and control groups. Dashed lines indicate
+distributions for the control group; solid lines indicate distributions for the
+treatment group. (a) Two distributions with no overlap; (b) two distributions
+with partial overlap; (c) a scenario in which the range of one distribution is a
+subset of the range of the other.](./fig/part5/fig20_5_overlap.png)
+
+When there's lack of complete overlap, "the data are inherently limited in what
+they can tell us about treatment effects in the regions of nonoverlap."  Who
+knows if there's just a magic interaction happening exactly in that spot of
+covariate space where we see $x$'s for the treatment units but not the control.
+Talking about those kinds of units means talking about your model (and modeling
+assumptions) and not about anything gleaned from the study data itself.
+
+Put another way, your model will let you extrapolate beyond the support of the
+data (either for treatment units, control units, or both).  But by definition,
+you can't check the fit outside the data support.  You're just hoping your model
+is good enough, instead of doing any quality control.
 
 ### 20.5, Example: evaluating a child care program
 
