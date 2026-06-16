@@ -88,7 +88,23 @@ estimate a useful causal effect estimate.
 
 ### 20.3, Assumption of ignorable treatment assignment in an observational study
 
-TK
+They compare the studies in this chapter with the block-randomized studies
+in Chapter 18.  The difference is that in Ch. 18, the blocking attribute was,
+"by design," the only covariate relevant to treatment assignment.  So it was
+easy to be sure your model had all confounders included: there's only the one,
+and it's what you used to block subjects into groups.  Now, we don't know for
+sure whether we have the complete set of "blocking" confounders that drive
+treatment assignment.
+
+Actually incorporating confounders -- when there's lots of them; when they're
+continuous -- lets you make use of the ignorability assumption, 
+
+$$y^0, y^1 \perp z, x$$
+
+but you have to build a parameteric model linking the three variables in all but
+the simplest cases of $x$ and $z$.  (The chapter walks through a nonparametric
+model for the simple case where $x$ is a single confounder that's a binary
+indicator.)
 
 ### 20.4, Imbalance and lack of complete overlap
 
