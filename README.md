@@ -40,6 +40,8 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 18](./chapter18.md): Causal inference and randomized experiments
     *  [Chapter 19](./chapter19.md): Causal inference using regression on the
         treatment variable
+    *  [Chapter 20](./chapter20.md): Observational studies with all confounders
+        assumed to be measured
 
 
 ## Jupyter and Bambi
