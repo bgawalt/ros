@@ -54,7 +54,37 @@ bias" looks like from this peculiar case is not really a good use of time.
 
 ### 20.2, Using regression to estimate a causal effect from observational data
 
-TK
+In observational studies, the research design is nonexperimental, and you don't
+directly manipulate any of the covariates used to predict the outcome.  "\[I\]f
+we observe differences in average outcomes across these groups, we can't
+separately attribute these differences to the treatment or the confounders --
+the effect of the treatment is thus 'confounded' by these variables."
+
+If you couldn't/didn't observe *all* the relevant confounders, none of the
+techniques in this chapter will be fairly useless.
+
+The motivating example in the section is to expand the Electric Company
+education study from Chapter 19, now with more detail included.  Classrooms were
+randomly given (or not-given) the Electric Company educational program to show
+in-class.  But teachers who received the material could use it to either replace
+or supplement their normal lesson plans.  That decision is nonrandom, and so
+turns the study of "control vs. replace vs. supplement" into an observational
+one.
+
+The study includes pre-treatment test scores as a covariate.  If that were the
+*only* basis on which teachers decided between "replace" and "supplement,"
+then the decision satisfies "a form of the ignorability assumption discussed in
+[Section 18.6](chapter18.md#186-properties-assumptions-and-limitations-of-randomized-experiments).
+That's likely untrue, but, "the ignorability assumption can be a useful
+starting point, especially in a setting such as this where pre-test score is
+such a strong predictor of post-test score."
+
+If we agree the ignorability assumption is satisfied (or just close enough to
+being satisfied), there's still all the other assumptions from
+[Section 11.1](chapter11.md#111-assumptions-of-regression-analysis) to worry 
+about.  Later, this chapter introduces balance and overlap, a.k.a. *common
+support*, that needs addressing before you can declare a regression coefficient
+estimate a useful causal effect estimate.
 
 ### 20.3, Assumption of ignorable treatment assignment in an observational study
 
