@@ -379,7 +379,28 @@ that in aggregate are comparable.
 
 ### 20.9, Additional considerations with observational studies
 
-TK
+If you have an observational study, the first step to drawing causal inferences
+from it is to imagine its controlled-experiment counterpart:
+
+*  **Define the treatment/exposure variable:**  Which predictor is the one that
+    you'd manipulate in an actual randomized experiment, if you could?
+
+*  **Define the control counterfactual state:** When a unit is
+    untreated/unexposed, what does it do instead?
+
+*  **Temporal ordering:** Make sure your outcome comes after the treatment, and
+    that you don't adjust for post-treatment predictors.  And also: make sure
+    that if all data is collected at some time instant, but many of the
+    attributes are about values at some past instant -- are you sure that's
+    being measured right?  You want the subject's education level *before* the
+    treatment, not the level at time of measurement.  I love their call out of
+    how humans are smart and will change up their behavior in anticipation of
+    a treatment/exposure that hasn't happened yet; attributes that are
+    technically pre-treatment are in fact caused by the coming treatment.
+
+Imagining a randomized experiment that corresponds to your observational data
+can help clarify which attributes should be included as predictors, included as
+outcomes, or purposefully ignored.
 
 
 ## Exercises
