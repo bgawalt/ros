@@ -136,7 +136,7 @@ distributions across treatment and control groups. Dashed lines indicate
 distributions for the control group; solid lines indicate distributions for the
 treatment group. (a) Two distributions with no overlap; (b) two distributions
 with partial overlap; (c) a scenario in which the range of one distribution is a
-subset of the range of the other.](./fig/part5/fig20_5_overlap.png)
+subset of the range of the other.](./fig/part5/fig20_05_overlap.png)
 
 When there's lack of complete overlap, "the data are inherently limited in what
 they can tell us about treatment effects in the regions of nonoverlap."  Who
@@ -163,7 +163,7 @@ unmatched groups standardized by the standard deviation in the treatment group.
 Solid circles represent absolute differences in means for groups matched without
 replacement standardized by the standard deviation in the treatment group.
 Matching methods are described later in the chapter.
-](./fig/part5/fig20_9_birth_covariates.png)
+](./fig/part5/fig20_09_birth_covariates.png)
 
 It makes sense that birth weight is the largest difference; it's literally the
 treatment selection criteria.
@@ -221,7 +221,78 @@ your unit counts will wind up too low to say anything useful.
 
 ### 20.7, Propensity score matching for the child care example
 
-TK
+Matching: if there's systematic difference between treatment and control, then
+try and restore balance by matching each treatment unit with a most-similar
+control unit.  *Propensity score matching* is the version they walk through
+here.  It's a five step process.
+
+#### Step 1: Defining the confounders and estimand
+
+1.  What covariates are required to satisfy ignorability?  Maybe you have to
+    rely on conventional choices of what to include, based on prior work in your 
+    field.  Or maybe there's few enough on record that you can just use them
+    all.
+
+2.  Are you estimating ATT?  ATC?  Average treatment effect on some third
+    population beyond treatment and control?  Call whatever group you're going
+    to try and balance towards the *inferential group.*
+
+At this point, I am a little wrongfooted by the introduction of ATT and ATC.
+It seems like they're just saying "an interaction between $z$ and $x$" without
+actually acknowledging that that's what they're recommending.
+
+#### Step 2: Estimating the propensity score
+
+Fit a binary classifier that turns the covariates above into a probability of
+being in the treatment group:
+
+$$\text{Pr}(z = 1) = \text{logit}^{-1}(\beta \cdot x)$$
+
+They promise checking the success of this model fit effort will come later.
+
+The predictions you get out of this classifier are the propensity scores, i.e.,
+the propensity for a unit to have wound up in the inferential group, as a
+function of the confounder covariates.
+
+#### Step 3: Matching to restructure data
+
+Once you have the model, score every unit in treat and control.  Then (when your
+estimand in Step 1 is ATT, and so you inferential group is "treatment") just
+pair every treat unit with the control unit that has the closest propensity
+score.
+
+This matching can be done with or without replacement.  Matching *with*
+replacement is recommended, while noting that it increases variance of
+estimates.  (You might oversample the same control unit a lot, and your estimate
+now is overly reliant on the weird aspects of that one oversampled control
+unit.)
+
+#### Step 4: Diagnostics for balance and overlap
+
+Like in Fig 20.9, once you have your matched dataset, you can look at
+differences in mean values between treat and control for each confounder
+(standardized for continuous confounders, left as means for binary confounders).
+
+You can also plot histograms of the propensity scores for treat and control,
+pre- and post-matching routine:
+
+![sdf](./fig/part5/fig20_14_propensity.png)
+
+You can use the support range of propensity scores to throw away more data:
+only include treat units that fall in the propensity range of the control units.
+
+You should loop here: if the balance diagnostics are bad, go back and upgrade
+the classifier of Step 2.
+
+#### Step 5: Estimating a treatment effect using the restructured data
+
+Run a regression.
+
+The coefficient for the treatment variable is going to be off somewhat: "the
+propensity score has been estimated from the data is not reflected in our
+calculations. This issue has no perfect solution to date and is currently under
+investigation by researchers in this field."  The standard errors are going to
+be too narrow because you're working off the same data twice.
 
 ### 20.8, Restructuring to create balanced treatment and control groups
 
