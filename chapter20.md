@@ -182,7 +182,42 @@ outcomes.)
 
 ### 20.6, Subclassification and average treatment effects
 
-TK
+The chapter has stressed a few times how weird it feels to rely on extrapolation
+from a fit model when faced with imbalance between treatment and control.  So
+this section asks, what can be done nonparametrically.  They break the above
+example out into mother's-education indicator blocks and look at between group
+differences in average outcomes within each block.  They concede this is bad; it
+makes the ignorability assumption even though it's clear important covariates
+are omitted from consideration.  Also, they could only conduct this because they
+had discrete buckets of units to compare, and bucketizing a continuous covariate
+in a similar way throws out information.
+
+Once they have estimates for the effect in each bucket, they derive an average
+treatment effect (a weighted average, where the weights are total baby count
+across both treatment groups).
+
+Circling back to "should we throw out control group data to address incomplete
+overlap with the training group," they introduce the term *average effect of the
+treatment on the treated (ATT)*.  Only certain babies are eligible for the
+treatment, so the comparison should be between treated babies and control group
+babies that meet the criteria.
+
+They repeat the earlier subcategory bucketing, and find ATT by taking the same
+weighted average, but with weights that are only baby counts from the treatment
+buckets.  (ATC does the same thing, but with baby counts in the control
+buckets.)
+
+They close with:
+
+> We can think of the estimate of the effect of the treatment on the treated as
+> a poststratified version of the estimate of the average causal effect. As the
+> methods we discuss in this section rely on more and more covariates, it can be
+> more attractive to apply methods that estimate the effect of the treatment on
+> the treated while avoiding explicit stratification on all potential treatment
+> effect modifiers, as we discuss next.
+
+If you make your buckets the crossproduct of a bunch of different attributes,
+your unit counts will wind up too low to say anything useful.
 
 ### 20.7, Propensity score matching for the child care example
 
