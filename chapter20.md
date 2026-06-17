@@ -296,7 +296,86 @@ be too narrow because you're working off the same data twice.
 
 ### 20.8, Restructuring to create balanced treatment and control groups
 
-TK
+Some things to consider in general, beyond the specifics of matching to restore
+balance between treatment and control:
+
+#### Step 1: Estimands and confounders
+
+*  **Defining the population of interest:** Make sure your estimand target
+    matches the research goals.  Unless you genuinely don't have a way to match
+    treat units with comparable control units -- then maybe fall back to a less
+    specific estimand than ATT.
+
+*  **Choosing covariates:** Maybe you have too few covariates to assume
+    ignorability; that's bad and you should flag it.  Or you have too *many*
+    covariates.  We saw how to include them all and regularize the model fit,
+    but you can also just pre-prune the covariate list for simplicity.
+    Definitely drop any post-treatment predictors.  You should also hold off on
+    covariates that strongly correlate to $z$ but not $y$ (and seek out the
+    ones that *do* strongly predict $y$).
+
+#### Step 2: Calculating distance metrics: finding observations with different treatments that are similar in their pre-treatment characteristics
+
+The propensity score is *a* distance metric, but you can try other ones, too.
+Mahalanobis distance is encouraged, though it "defines proximity based on what
+are arguably specialized neighborhoods of the covariate space."
+
+They talk about some ironies of the propensity score classifier.  If it does a
+perfect job -- gives every treat unit a score of 1 and every control a score of
+0 -- it's totally useless as a matching function.  And in situations where
+randomization has worked perfectly, then you can't fit a classifier at all.
+Plus you get dumb matches from the linearity and additivity: two matched units
+can be very different in their covariates while still having identical
+propensity scores, because the wild swings cancel out overall.
+
+This all reinforces my longstanding sense that unsupervised learning ("what
+counts as two units being close across this $N$ dimensional manifold") is hard
+to evaluate and no one knows how to do it.
+
+#### Step 3: Restructuring the data
+
+*  **Matching algorithms:** So many choices, beyond just with-or-without
+    replacement.  You can do many-to-one matching, where some treat units get
+    many control units matched to it, based on some distance threshold.  You
+    can do a Gale-Shapley style optimal matching.  You can do greedy algorithms
+    in various different orderings of which treat gets matched first.
+
+*  **Matching as weighting scheme:** The restructuring used above is like 0-1
+    weighting: control units are either selected as a treat match, or aren't.
+    But you can pick different weight assignment schemes.  (They tend to
+    correspond to some matching algorithm or other; the book goes into how
+    caliper matching would work for controls that fall within the distance
+    thresholds of multiple treats.)
+
+*  **Inverse probability weighting:** Instead of using the propensity score for
+    hard matching, warp them into per-unit weights.  Different warps apply to
+    different estimands.
+    *  **ATE**: Treats get a weight of $1/\hat{p}$; controls get a weight of
+        $1/(1 - \hat{p})$.
+    *  **ATT**: Treats get a weight of 1; controls get a weight of
+        $\hat{p} / (1 - \hat{p})$.
+    *  **ATC**: Treats get a weight of $(1 - \hat{p}) / \hat{p}$; controls get a
+        weight of 1.
+
+When weighting, be careful you don't assign degenerately large weights to some
+few units that wind up defining the whole model fit.
+
+#### Step 4: Diagnostics: Balance and overlap
+
+It's not useful to look at histograms of propensity scores for treat and control
+and see if they are similar.  A model that's pure randomness can generate good
+histogram similarity and be useless for propensity score matching.
+
+Use standard techniques (e.g., LOO-CV) to test the propensity score model's fit.
+
+Go back and fix the propensity score model as needed, but don't tweak it just so
+that your treatment effect estimate is made stronger/more publishable.
+
+#### Step 5: Estimating the treatment effect using restructured data
+
+Right, run the regression now.  Don't worry about the pairing off; the point is
+not to have matched pairs that are meaningfully linked, but to have two groups
+that in aggregate are comparable.
 
 ### 20.9, Additional considerations with observational studies
 
