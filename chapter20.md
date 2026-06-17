@@ -152,7 +152,33 @@ is good enough, instead of doing any quality control.
 
 ### 20.5, Example: evaluating a child care program
 
-TK
+The example compares a treated group of 290 premature, low-birth-weight babies
+against a control group of 4,091 other babies.  A good dozen confounding
+covariates are noted, and Fig 20.9 displays how greatly they vary between
+groups:
+
+![Figure 20.9 from ROS: "Imbalance in averages of confounding covariates across
+treatment groups. Open circles represent absolute differences in means for the
+unmatched groups standardized by the standard deviation in the treatment group.
+Solid circles represent absolute differences in means for groups matched without
+replacement standardized by the standard deviation in the treatment group.
+Matching methods are described later in the chapter.
+](./fig/part5/fig20_9_birth_covariates.png)
+
+It makes sense that birth weight is the largest difference; it's literally the
+treatment selection criteria.
+
+They discuss how all the confounders have imbalance, but only some have lack of
+complete overlap.  Birth weight, in particular, is capped in the treatment group
+at 2500 grams, and so any treatment interaction trend beyond that is just
+extrapolating from the fit model.
+
+In general, they come just short of recommending dropping units from the control
+group who fall outside treatment group support on 
+
+(The outcome for this example is a cognitive ability test score, which is pretty
+much an afterthought.  This chapter is all about the predictors, not the
+outcomes.)
 
 ### 20.6, Subclassification and average treatment effects
 
