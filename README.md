@@ -42,6 +42,7 @@ throughout, esp. Jupyter notebooks.
         treatment variable
     *  [Chapter 20](./chapter20.md): Observational studies with all confounders
         assumed to be measured
+    *  [Chapter 21](./chapter21.md): Additional topics in causal inference
 
 
 ## Jupyter and Bambi
