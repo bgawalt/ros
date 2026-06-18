@@ -84,6 +84,92 @@ Sesame Street study is three steps:
 They promise a derivation of standard error for that ratio (called a *Wald
 estimate*) is coming later.
 
+### 21.2, Instrumental variables in a regression framework
+
+That three step process I closed out immediately above in Section 21.1 gets an
+algebraic representation:
+
+$$y_i = \beta_0 + \beta_1T_i + \beta_2z_i + \epsilon_i$$
+$$T_i = \gamma_0 + \gamma_1z_i + \nu_i$$
+
+The ignorability assumptions requires $z_i$ to be uncorrelated with noise
+factors $\epsilon_i$ and $\nu_i$.  The exclusion restriction requires $\beta_2$
+to be zero.  The nonzero association and monotonicity assumptions require that
+$\gamma_1$ be positive.
+
+They note that there's no guarantees that $T$ is uncorrelated with $\epsilon$,
+so you can't just grab the coefficient estimate and call that $\beta_1$.  You
+don't have identifiability; $T$ could be collinear with some omitted variable
+that's driving the outcome difference.
+
+With some substitutions and term definitions:
+
+$$y = (\beta_0 + \beta_1\gamma_0) + (\beta_1\gamma_1 + \beta_2)z + \text{error}$$
+$$\delta_0 = \beta_0 + \beta_1\gamma_0$$
+$$\delta_1 = \beta_1\gamma_1 + \beta_2$$
+$$y = \delta_0 + \delta_1z + \text{error}$$
+$$\Rightarrow \beta_1 = (\delta_1 - \beta_2)/\gamma_1$$
+
+Estimating $\gamma_1$ is straightforward regression of $T$ on $z$ if $z$ is
+"random enough" that we know it's not correlated with the $\nu$ error terms.
+And estimating $\delta_1$ works the same way, by regressing $y$ against $z$.
+
+As long as $\beta_2$ is zero -- the exclusion restriction! -- then you can back
+out $\beta_1$ with two ignorability-assumption-hardened regressions on the
+instrument $z$.
+
+They implement this with *two-stage least squares*:
+
+1.  Fit a model $M_1$ of `T ~ z` (feel free to include other covariates here, in
+    addition to $z$)
+2.  For each unit, calculate the predicted $T$ value based on $M_1$, `T'`
+3.  Fit a model $M_2$ of `y ~ T'`; use the $M_1$ predictions as the input to
+    $M_2$.  (If you included other covariates in step 1, include them here,
+    too.)
+
+The mean of the coefficient estimate will give you the CACE, but the standard
+error you read out of the $M_2$ fit will *not* reflect a correct level of
+uncertainty.  The calculation doesn't loop in uncertainty in the input `T'`,
+even though we know the predictions from $M_1$ are noisy; nor does it consider
+the correlation of $T$ with $\epsilon$.
+
+You need to multiply the naive standard error by a ratio of:
+
+*  **Numerator:** The root mean squared error when applying $M_2$ where the $T$
+    values are the *actually observed* treatment-uptake values
+*  **Denominator:** The root mean squared error when applying $M_2$ where the
+    $T$ values are the predicted uptake values that $M_1$ provides
+
+A bunch more caveats:
+
+*  You need as many instruments as there are treatment variables to preserve
+    identifiability.
+*  Continuous valued treatments require a parametric assumption, or else it's
+    the same situation of many treatments (the different "dosages") but only one
+    instrument.
+*  You better be real, real sure that the instrument satisfies the ignorability
+    constraint!
+*  Try to come up with ways to check the exclusion restriction.  Are there
+    units that got the $z = 1$ instrument but *couldn't* have taken up the
+    treatment, even if they wanted to?  That's a good source for checking the
+    effect of encouragement on the outcome (and making sure it's nil).
+*  What if compliers are just weirdos?  What if the CACE tells you something
+    about compliers that doesn't apply to any of the other three classes of
+    subject?
+
+They close with a pair of paragraphs about the advanced topic of structural
+equation models, of which instrumental variable models are a special case.
+It includes this important line:
+
+> \[E\]ven in a relatively simple instrumental variables model, the assumptions
+> needed to identify causal effects are difficult to satisfy and largely
+> untestable.
+
+SEMs bring in even more assumptions (e.g., about conditional independence
+structure, or "multivariate normality of errors"), which means even more
+untestable modeling assumptions.
+
+
 ## Exercises
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
