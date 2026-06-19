@@ -220,6 +220,81 @@ encouragement and treatment.  If you have all four, you can produce a CACE.
 Turns out the Chilean schools example is fuzzy, *very* fuzzy.  "\[A\]bout 39% of
 those who were defined as eligible did not receive the program."
 
+### 21.4, Identification using variation within or between groups
+
+#### Comparisons within groups using varying-intercept ("fixed effects") models
+
+They ask us to imagine groups where (a) there are unobserved/unobservable
+characteristics, (b) that are common/constant across all members of the group,
+and (c) we can take multiple measures from the group.  This let's us adjust for
+those unobserved, unspecified characteristics -- which vary a lot *between*
+groups -- to learn about a relationship we can/do observe.
+
+They immediately tie this to twin studies.  Two twin babies will have many, many
+things in common, that they don't share with any old other random pair of twins.
+Family structure, prenatal care, lots of hereditary factors: all held in common.
+"In essence, then, each twin acts as a counterfactual for his or her sibling."
+
+To harness this, run the regression where each group (e.g., twin pair) gets its
+own intercept term:
+
+$$y_{ij} = \beta_0 + \tau z_{ij} + \alpha_i + \epsilon_{ij}$$
+
+where $z_{ij}$ is the treatment predictor for the $j\text{th}$ subject drawn
+from the $i\text{th}$ group.  You can also predict the deviation from the group
+mean, which works fine when all group sizes are two, but introduces more
+uncertainty when you are estimating the group mean from the data itself.
+
+For causal inference:
+
+1.  You'll need to include within-group means of the treatment variable as a
+    group-level predictor, to try and adjust coarsely for confounders.  (If you
+    think you actually have all the group-level confounder values in your
+    dataset, use those.)
+
+2.  You need non-trivial variation in the treatment variable within each group.
+    You can't study effects of low birth weight using a twin study if twins are
+    always the same birth weight.
+
+One especially prominent use case of varying-intercept models are panel data,
+where the same person is measured repeatedly over some time.  This can hit a
+snag if you adjust for the subject's covariates as measured at each time, since
+some of those are downstream of earlier treatment values.  But ruling out any
+possibly-post-treatment predictor can wind up leaving you with too few
+predictors to justify ignorability.
+
+#### Comparisons within and between groups: difference-in-differences estimation
+
+The treatment-control comparison looks at changes in outcomes across groups.
+Difference-in-differences brings in another dimension of outcome variation,
+like time.  The hope is that this adjusts for differences between these groups.
+Don't just compare outcomes in treat vs. control; there could be selection bias.
+Don't just compare pre-treat measure of the outcome attribute vs. post-treat
+outcome for the treated group; who knows what else happened alongside the
+treatment that explains the gap.  Instead, compare the pre-post change among
+treated units to pre-post change among controls.  That's
+difference-in-differences.
+
+In algebra:
+
+$$y_i = \beta_0 + \beta_1z_i + \beta_2P_i + \tau z_iP_i + \epsilon_i$$
+
+where $$P_i$$ is a time period for subject $i$, taking on 0 for pre-exposure
+and 1 for post-exposure measurements.  Treat and control get their own
+intercepts, plus their own slopes w.r.t. the passage of time.
+
+This works even if you only see each subject for only one of the time periods --
+*if* you assume the sampling at each time instant was from a common
+distribution.
+
+If you do see every subject in both time periods, you have dependence between
+units of the regression, which you can fix by predicting the difference instead:
+
+$$d_i = \alpha + \tau z_i + \nu_i$$
+
+**NOTE!!** This is *not* how Equation 21.9 puts it; I think they have a typo and
+put in $P_i$ instead of $z_i$.
+
 
 ## Exercises
 
