@@ -169,6 +169,57 @@ SEMs bring in even more assumptions (e.g., about conditional independence
 structure, or "multivariate normality of errors"), which means even more
 untestable modeling assumptions.
 
+### 21.3, Regressoin discontinuity: known assignment mechanism but no overlap
+
+There are times when you really do have perfect coverage of the confounders
+that drive treatment group assignment, but still can't run the playbook from
+Chapter 19 or 20.  A totally deterministic rule for assignment to the treatment
+group like "any baby below 2.5 kg is treated; all babies above 2.5 kg aren't"
+is not missing any hidden variables.  Instead, the trouble is zero overlap
+between the two groups.
+
+The regression discontinuity approach says to just zoom in on the subjects that
+live quite close to the deterministic classification boundary.  They live in the
+same general neighborhood, so comparability *probably* holds.  The book
+highlights the tension between how wide that threshold of "close to the
+boundary" is.  Too narrow, and you drop too much data to learn anything; too
+wide, and you're losing comparability between the subgroups.
+
+They walk through an example where Chilean elementary schools were given a test,
+and schools with low average scores were given an intervention to improve
+things.  "Low" was defined by some threshold, which the data translates as the
+zero point of a pretreatment predictor $x$, to give a regression model for
+predicting next year's test scores ($y$):
+
+$$y = \beta_0 + \tau z + \beta_1 * x + \text{error}$$
+
+where $z$ is 0 when $x$ is negative and 1 otherwise.  The actual range of $x$
+covers -20 to 40, but they restrict to just -5 to 5 as their comparability
+window.  (That cuts data volume: they throw away two-thirds of the subjects this
+way.)  When they fit this model, they see an estimate of $\tau$ that's 2 with a
+standard error of 1.  Though by the time they add some richer pre-treatment
+predictors and interactions, that shifts to 1.5 with a s.e. of 1.5.
+
+They talk about how hanging any causal inference on this regression requires
+"an assumption that no confounders vary discontinuously across the threshold."
+
+There's a related case, the fuzzy discontinuity, where the strict deterministic
+treatment assignment rule is occasionally violated.  On the one hand, cool!, we
+get some overlap back.  But on the other, worse hand, oof!, now we have lost the
+ignorability assumption.  The violation cases are probably distinct in some way,
+which means you need a way to adjust for whatever confounder is now producing
+the group selection.
+
+They relate fuzzy regression disconuity conceptually to instrumental variables. 
+The strict deterministic assignment rule is the encouragement.  The same four
+assumptions need checking: ignorable instrument (which you get by setting a
+sufficiently narrow window around the discontinuity boundary), the exclusion 
+restriction, monotonicity (no defiers!), and a predictive link between
+encouragement and treatment.  If you have all four, you can produce a CACE.
+
+Turns out the Chilean schools example is fuzzy, *very* fuzzy.  "\[A\]bout 39% of
+those who were defined as eligible did not receive the program."
+
 
 ## Exercises
 
