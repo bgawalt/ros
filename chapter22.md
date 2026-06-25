@@ -40,6 +40,45 @@ case.  It's certainly the assumption that I make, given all the work I've done
 with these tools in the past, so it's good to think about what things would be
 like without it.
 
+### 22.2, Incomplete Data
+
+Chapter 17's approach to missing data was "just take an educated guess at the
+value," which they especially encourage for "cleaning up small amounts of
+missingness."  But rather than using two distinct operations (fill in the
+blanks, then fit a model to the filled-in data), you can structure the model so
+that it can handle/adjust to/learn from those missing elements.
+
+Examples:
+
+#### Survival analysis
+
+If you're looking at what factors are associated with time-to-event (e.g.,
+patient dies, civil war breaks out), for many units, the data will have been
+published before that event occurred for the unit.  Variants can also correct
+for rounded data, or for some units having, e.g., the age attribute measured in
+months while others measured in years.
+
+#### Measurement ereror
+
+In $y = a + bx + \text{error}$, measurement error of the outcome "folds right
+into" the error term.  Measurement error of the predictor, $x$, though: we
+observe $x^*$, a fuzzing of the real value, $x^* = x + \nu$ for some zero-mean
+error term.  That means:
+
+$$\begin{align}
+    y &= a + bx* + \epsilon \\
+      &= a + b(x - \nu) + \epsilon \\
+      &= a + bx + (\epsilon - b\nu)
+\end{align}$$
+
+That new noise process is very much correlated with our regression predictor;
+regressing $y$ on $x^*$ doesn't return an unbiased estimate of $b$.
+
+Correcting for this bias requires knowing the variance of $\nu$.  You can also
+use a procedure very similar to the two-step approach used for instrumental
+variables in Section 21.2.
+
+
 ## Exercises
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
