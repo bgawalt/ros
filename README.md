@@ -43,7 +43,8 @@ throughout, esp. Jupyter notebooks.
     *  [Chapter 20](./chapter20.md): Observational studies with all confounders
         assumed to be measured
     *  [Chapter 21](./chapter21.md): Additional topics in causal inference
-
+*  Part 6: What comes next?
+    *  [Chapter 22](./chapter22.md): Advanced regression and multilevel models
 
 ## Jupyter and Bambi
 
