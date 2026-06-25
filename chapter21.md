@@ -295,6 +295,40 @@ $$d_i = \alpha + \tau z_i + \nu_i$$
 **NOTE!!** This is *not* how Equation 21.9 puts it; I think they have a typo and
 put in $P_i$ instead of $z_i$.
 
+### 21.5, Causes of effects and effects of causes
+
+Part 5 of the book has focused on the effects of causes: when you take this
+pill, does it cause anything notable to happen?  Except in almost every
+situation, people want to know causes of effects: something notable happened,
+what caused it?  We don't have a great statistical toolset for that, not in
+Part 5 anyway.
+
+They add some mathy looking bits about it -- to say an outcome is notable, is to
+say you have some model of what the outcome *should* have been.  That model can
+be formalized, and the notable outcome can be looked at through the lens of that
+model:
+
+*  Maybe the we're missing a causal variable driving a potential-outcomes model
+    this whole time, where the variable is selecting one or the other outcome,
+    and just so happens to be favoring one class.  Conditioning on the current
+    set of predictors, plus that potential outcomes framework, explains away
+    the notability of the outcomes.
+
+*  Or, and it's hard to say how different this really is from the prior version,
+    maybe we have ignored or omitted an important additional attribute from the
+    current set of predictors.  Looking at the current notable outcome could
+    point us toward a new candidate predictor (or two, or three) that including
+    them would reset our model.  The outcome wouldn't be so notable or
+    surprising any more; the effect was explained away.
+
+They stress that there's no way to pin down unique answers.  I think this is
+synonymous with saying this kind of investigation can lend itself to weak
+theories and wild guesses, just grab the first thing that makes the residuals
+go away.  Our model checking, like LOO-CV, can sort of help with this, but we
+really are HARKing here.
+
+This is one of the most important sections in the book.
+
 
 ## Exercises
 
