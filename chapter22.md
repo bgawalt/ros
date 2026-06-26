@@ -382,8 +382,107 @@ mode with a multivariate normal distribution.
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 
-### K.x, Exercise italic title
+### TK 22.1, Measurement error in $y$
 
-> The problem statement
+> Simulate data $(x, y)_i, i = 1, \ldots, n$ from a linear regression model,
+> $y = a + bx + \text{error}$, but suppose that the outcome $y$ is not observed
+> directly, but instead we observe $v = y + \text{error}$, with independent
+> measurement errors with mean zero.  Use simulations to understand the
+> statistical properties of the observed-data regression of $v$ on $x$, compared
+> to the desired regression of $y$ on $x$.
 
-The answer
+TODO
+
+### TK 22.2, Measurement error in $x$
+
+> Simulate data $(x, y)_i, i = 1, \ldots, n$ from a linear regression model,
+> $y = a + bx + \text{error}$, but suppose that the predictor $x$ is not
+> observed directly, but instead we observe $u = x + \text{error}$, with
+> independent measurement errors with mean zero.  Use simulations to understand
+> the statistical properties of the observed-data regression of $y$ on $u$,
+> compared to the desired regression of $y$ on $x$.
+
+TODO
+
+### TK 22.3, Nonlinear modeling
+
+> The folder `Golf` contains the dataset used in Section 22.6 and also an
+> additional, larger dataset on golf putting, including putts of up to 75 feet
+> in length.
+>
+> (a) Fit the two models in Section 22.6 to this new data.  Display the data and
+>     fitted models, and comment on the fit.
+>
+> (b) Expand the geometry-based model to allow for the possibility that the putt
+>     can be hit too short or too long. Tinker with the model as necessary to
+>     get a reasonable fit to the larger dataset.
+
+TODO
+
+### TK 22.4, Nonlinear modeling
+
+> In the absence of air resistance, a falling object has acceleration equal to
+> the gravitational constant $g$, and so a dropped object will fall a distance
+> $\frac{1}{2}gt^2$ during time $t$.
+>
+> For this exercise you will conduct an experiment to estimate the gravitational
+> constant.  Using a yardstick, mark a set of heights on a wall, for example,
+> 3, 4, 5, 6, and 7 feet off the ground.  At each height, drop a ball twice and
+> measure the time it takes to fall.  Using these data and a measurement error
+> model, fit a model in Stan to estimate $g$.
+
+TODO
+
+### TK 22.5, Smoothing and sample size
+
+> Take a random sample of 1/10 of the data from the `Gay` folder and re-fit the
+> loess and spline models to estimate the support for same-sex marriage and
+> percentage of people who say they know at least one gay person.  Compare to
+> the estimates from the full data shown in Figure 22.6.
+
+TODO
+
+### TK 22.6, Smoothing and sample size
+
+> Repeating the previous exercise with different fractions of data subsampled,
+> explore the behavior of loess and splines at their default settings as a
+> function of sample size.
+
+TODO
+
+### TK 22.7, Nonparametric modeling of a continuous outcome
+
+> Find data of interest to you with a continuous outcome and one continuous
+> predictor and at least 100 data points.  Fit loess, spline, and BART and plot
+> these along with the data. Discuss how these fitted models differ.  If the
+> three fits are essentially identical, add some new (fake) points to the
+> dataset to create differences between the three fitted models.
+
+TODO 
+
+### TK 22.8, Nonparametric modeling of a binary outcome
+
+> Repeat the previous exercise, but with a binary outcome.  This could be a
+> different example or simply a discretized version of the outcome variable in
+> the previous exercise, as long as the discretization is of substantive
+> interest and is not just an arbitrary cutpoint.
+
+TODO
+
+### TK 22.9, Visualizing a fitted nonparametric model in multiple dimensions
+
+> Find data of interest to you with a continuous outcome and two continuous
+> predictors and at least 100 data points.  Fit loess, spline, and BART.
+> Consider different displays of the data and fitted model, such as
+> three-dimensional plots or separate plots of $y$ vs. $x_1$ and $y$ vs. $x_2$.
+
+TODO
+
+### TK 22.10, Computational efficiency
+
+> Perform fake-data experiments to study the speed of optimization and full
+> Bayesian inference for logistic regression, following the example at the end
+> of Section 22.8.  Make a graph on the log-log scale showing compute time as a
+> function of sample size for a fixed number of predictors.
+
+TODO
