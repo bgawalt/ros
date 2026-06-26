@@ -330,6 +330,53 @@ sample to work well."  The reason the regression models from this book worked
 on $n < 30$ datasets is the strict and minimal functional forms those linear
 models induce.
 
+### 22.8, Computational efficiency
+
+They claim that the time it takes to fit a standard linear model is proportional
+to the size of the data matrix, which, sure, 10 passes of stochastic gradient
+descent will meet that claim.  The traditional method is more like $O(np^2)$,
+for solving the normal equations of OLS.
+
+They get into the computational aspects of `stan_glm`, which is based on
+Hamiltonian Monte Carlo sampling.  In it, the sampler explores the
+$D$-dimensional parameter space ($D = 3$ for the
+$y \sim \mathcal{N}(a + bx, \sigma)$ univariate regression case) iteratively and
+stochastically.
+
+To check that the stochastic results are reliable, the fit is conducted
+multiple times: multiple chains of iterative samples (usually four).  The
+diagnostic read outs are
+
+*  `Rhat`, the split-$\hat{R}$ convergence metric, comparing results from the
+    different chains.  A value of 1 means converged; higher than 1 means the
+    chains don't have great overlap yet in terms of which parts of the parameter
+    space they've explored.
+
+*  `n_eff`, the number of effective samples of each coefficient.  The iterative
+    samples have some path dependence and drag.  Each sample is a function, in
+    part, of the sample that came before.  So even though the default chain is
+    4000 samples long, the number of effective samples depends on the 
+    autocorrelation of the chain.
+
+*  `mcse`, Monte Carlo standard error, additonal uncertainty you incur for each
+    parameter by dint of using this stochastic approach.  It's "negligible in
+    all the examples in this book."
+
+Running the chains in parallel is a no-brainer way to speed things up.
+
+And you can also ask `stan_glm` to just give you the mode of the posterior,
+instead of exploring the whole space to get uncertainty estimates for each
+coefficient or correlations between those coefficient samples.
+
+> This optimization is as fast as maximum likelihood -- indeed, it can be
+> faster, in that the prior distribution can make the optimization problem more
+> stable -- and can be a good choice for problems where full Bayesian inference
+> is too slow.
+
+You do still get *some* uncertainty measurements from this mode-seeking use 
+case, but the uncertainty ellipses are determined by approximating the posterior
+mode with a multivariate normal distribution.
+
 
 ## Exercises
 
