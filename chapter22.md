@@ -110,6 +110,26 @@ Linear combinations of normals are themselves normals, which is how we're
 getting the convenient "it's just another multivariate regression" behavior
 here.  Maybe Stan/PyMC really do make it about as straightforward as this case.
 
+## 22.4, Regularization for models with many predictors
+
+We know what happens if you include too few predictors in a model.  You lose
+ignorability for your less-than-fully-randomized causal inference, or you
+increase your effect's standard error in your fully-randomized causal inference.
+Your missing data imputation loses accuracy.  Predictive accuracy of the model
+itself suffers.
+
+Going the other way, though -- too *many* predictors -- introduces instability,
+at least if you're "using least squares, maximum likelihood, or Bayesian
+inference with noninformative priors".
+
+Just chucking out predictors altogether is high-bias; you're insisting up front
+you know which predictors should have zero influence on the prediction.
+
+Instead, the book calls back to Section 12.7, where we used priors to regularize
+the coefficient estimates.  The regularized horseshoe prior, in particular, let
+us directly specify "I don't think the final model should put serious weight on
+more than six predictors."
+
 
 ## Exercises
 
