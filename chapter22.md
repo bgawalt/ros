@@ -78,6 +78,38 @@ Correcting for this bias requires knowing the variance of $\nu$.  You can also
 use a procedure very similar to the two-step approach used for instrumental
 variables in Section 21.2.
 
+### 22.3, Correlated errors and multivariate models
+
+A motivating example: consider a situation where the error terms behind
+consecutive units $\{(y_{i-1}, x_{i-1}), (y_i, x_i)\}$ are *not*
+independent/uncorrelated.  Think a time series of data, where the error term
+values are "sticky" from one time instant to the next:
+
+$$y_t = X_y\beta + \epsilon_t,~~~
+\epsilon_t \sim \mathcal{N}\left(\rho\epsilon_{t-1}, (1 - \rho^2)\sigma^2\right)$$
+
+(The delicate specification of $\{\epsilon_t\}$ is so that the marginal variance
+of each error term is $\sigma$.)
+
+This setup gives you a multivariate regression with a non-diagonal covariance
+matrix:
+
+$$y \sim \mathcal{N}(X\beta, \Sigma), ~~~\Sigma_{ij} = \rho^{|i - j|}\sigma^2$$
+
+You'll now need a special solver (or Stan/PyMC spec) to estimate the parameters,
+but this is not especially exotic or difficult to specify.
+
+> Modeling and inference for more complicated time series, spatial, etc., models
+> proceeds the same way, in that any linear dependence structure for normally
+> distributed errors can be expressed as a multivariate normal distribution on
+> the errors.
+
+This leads to an interesting question, that I don't know the answer to: how easy
+is it to handle *non*-normal errors, with *non*-linear dependence structure?
+Linear combinations of normals are themselves normals, which is how we're
+getting the convenient "it's just another multivariate regression" behavior
+here.  Maybe Stan/PyMC really do make it about as straightforward as this case.
+
 
 ## Exercises
 
