@@ -130,6 +130,40 @@ the coefficient estimates.  The regularized horseshoe prior, in particular, let
 us directly specify "I don't think the final model should put serious weight on
 more than six predictors."
 
+## 22.5, Multilevel or hierarchical models
+
+Often, units can be bundled together, and often those bundles can themselves be
+bundled.  This gets called multilevel or hierarchical modeling.  It's been
+name-checked a lot in earlier chapters as a useful tool!
+
+Examples of hierarchical data:
+
+*  **Nested:**
+    *  a test score from each student, a school for each student, a district for
+        each school, a state for each district
+    *  a district for each likely voter, a state for each district
+*  **Non-nested:**
+    *  a test score from each student, who has a grade level, and a school
+    *  a vote-share outcome for each election, each of which takes place in a
+        certain state and in a certain year
+
+If you have lots of data, you can just fit this kind of structure directly,
+
+```
+y ~ x + factor(state) + x:factor(state)
+```
+
+If you have low data volumes, though, you'll need to partially pool coefficient
+estimates.  Stabilize your coefficient estimates for any one state by assuming
+that state's coefficents are at least somewhat similar to the coefficients for
+the other 49 states.
+
+I don't know how non-nested pooling should work, if you have interactions
+between group indicators.  If I want to regularize my estimates for Wyoming in
+1996, how much should I make (Wyoming, 1996) look like every other state in
+1996, vs. make it look like Wyoming in every other year?  And how do I specify
+that, in Stan/PyMC?
+
 
 ## Exercises
 
