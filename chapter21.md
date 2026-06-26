@@ -334,8 +334,354 @@ This is one of the most important sections in the book.
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 
-### K.x, Exercise italic title
+### TK 21.1, Instrumental variables
 
-> The problem statement
+> The following study is performed at a university.  Students are sent emails
+> encouraging them to click on a university website.  Each student is randomly
+> assigned to one of two sites: a site with encouragement to vote in the
+> upcoming student government election, and a neutral site with study tips.  The
+> students are then followed up to see if they voted. Define $y = 1$ if the
+> student voted or 0 otherwise; define u = 1 if the student was assigned to the
+> encouragement site or 0 if he or she was assigned to the neutral site; define
+> $v = 1$ if the student actually accessed the site (which can be checked using
+> unique identifiers) or 0 if he or she never clicked on the link.
+>
+> (a) From which of the following regressions or pair of regressions can we
+>     compute the instrumental variables estimate of the effect of accessing the
+>     site on voting?
+>
+>    * Regression of $y$ on $u$.
+>    * Regression of $y$ on $v$.
+>    * Regression of $y$ on $u$ and $v$.
+>    * Regression of $y$ on $u$, and the regression of $v$ on $u$.
+>    * Regression of $y$ on $v$, and the regression of $v$ on $u$.
+>
+> (b) What assumptions are required for the instrumental variables estimate to
+>     be reasonable in this case?  Do these assumptions seem plausible here?
 
-The answer
+TODO
+
+### TK 21.2, Instrumental variables, simulating a population
+
+> The goal of this exercise is to simulate data consistent with the assumptions
+> of the instrumental variables procedure described in Section 21.1.  You will
+> also evaluate the properties of different approaches to estimating the
+> complier average causal effect (CACE).
+>
+> To help conceptualize the type of data that might be consistent with the
+> instrumental variable assumptions, consider a hypothetical randomized
+> encouragement design.  In particular, imagine a study in which 1000 students
+> entering any undergraduate degree program in the sciences in a major
+> university are randomly assigned to one of two conditions.  One group is
+> encouraged via an email from the chair of their department to participate in a
+> one-week math boot camp just before the start of their first semester.
+> Students in the other group are also allowed to participate but receive no
+> special encouragement.  These students would have had to discover on their own
+> the existence of the program on the university website.  The running variable
+> is test score on the final exam for a required math course, and the outcome
+> variable $y$ that you will simulate below represents the difference between
+> that score and the threshold for passing.  Thus a negative value for a student
+> reflects the fact that the student would not be eligible for that course.
+>
+> Generate data for a sample of 1000 individuals consistent with the IV
+> assumptions discussed in this chapter. Follow the guidelines below.
+>
+> (a) Simulate compliance status.  Assume that 25% of individuals are compliers,
+>     60% are never-takers, and 15% are always-takers. Generate $d^0$ and $d^1$
+>     vectors to reflect this. You can also generate a vector indicating
+>     compliance type, $c$, if that is helpful.
+>
+> (b) Which compliance group has been omitted from consideration?  What
+>     assumption does that imply?
+>
+> (c) Simulate the potential outcomes in a way that meets the following
+>     criteria:
+>
+>    * The exclusion restriction is satisfied.
+>    * The average effect of $z$ on $y$ for the compliers is 4.
+>    * The average $y(z = 0)$ for never-takers is 0; the average $y(z = 0)$
+>        for compliers is 3; the average $y(z = 0)$ for always-takers is 6.
+>    * The residual standard deviation is 1 for everyone in the sample
+>        (generated independently for each potential outcome).
+>
+> (d) Calculate the sample average treatment effect (SATE; average effect of $z$
+>     on y for the people in the experiment) for each of the compliance groups.
+>
+> (e) What is another name for the SATE for the compliers?
+>
+> (f) Calculate the intent-to-treat (ITT) effect using your simulated data.
+>
+> (g) Put $T^0, T^1, y^0, y^1$ into one dataset called `dat_full`. You can also
+>     include a variable, $c$, indicating compliance group if you created one.
+
+TODO
+
+### TK 21.3, Instrumental variables, playing the role of the experimenter
+
+> Now switch to the role of the researcher.  Pretend that you ran the experiment
+> described in the previous exercise. Generate a binary indicator $z$ for to
+> indicate who was to be encouraged to participate in the program. The
+> probability of encouragement should be 0.5.
+
+TODO
+
+### TK 21.4, Instrumental variables, understanding which potential outcome manifests as an observed outcome
+
+> Use `dat_full` from the previous exercise to create a dataset that the
+> researcher would actually get to see given the $z$ you just generated.  This
+> observed dataset should only have $T$, $z$, and $y$ in it.  Call it `dat_obs`.
+
+TODO
+
+### TK 21.5, Instrumental variables, inference
+
+> Given the simulated `dat_obs`:
+>
+> (a) Estimate the percentage of compliers, never-takers, and always-takers,
+>     assuming that there are no defiers.
+>
+> (b) Perform the naive regression estimate of the effect of the treatment on
+>     the outcome.  What is another name for this type of analysis?
+>
+> (c) Estimate the intent-to-treat on the treated (ITT) effect.
+>
+> (d) Estimate the complier average causal effect (CACE) by dividing the ITT
+>     estimate by the estimated percentage of compliers in the sample.
+>
+> (e) Estimate the CACE by fitting two-stage regression as in Section 21.1.
+>
+> (f) Estimate the CACE and its standard error using brms.
+
+TODO
+
+### TK 21.6, Instrumental variables, assumptions
+
+> Continuing Exercises 21.2–21.5:
+>
+> (a) Describe the assumptions required for the instrumental variables procedure
+>     to give a good estimate of the treatment effect.  We have generated data
+>     that satisfy these assumptions.  Suppose instead you were handed data from
+>     the study described above.  Comment on the plausibility of each of the
+>     required assumptions in that setting.
+>
+> (b) Suppose that the data-generating process above included a covariate that
+>     predicted both $z$ and $y$. Which of the assumptions described in (a)
+>     would that change and how?
+>
+> (c) Suppose that the above directions were amended as follows: "The average of
+>     $y^0$ for never-takers is 0; the average of $y^0$ for compliers is 3; the
+>     average of $y^0$ for always-takers is 6; the average of $y^1$ for
+>     never-takers is 2."  Which of the assumptions of instrumental variables
+>     would that violate?
+>
+> (d) How would you alter the simulation to violate the monotonicity assumption?
+>
+> (e) How might one alter the administration of this program to preclude the
+>     existence of always-takers? Does this raise ethical questions?
+
+TODO
+
+### TK 21.7, Instrumental variables, evaluating statistical properties when the assumptions hold
+
+> Simulate a sampling distribution for any of the estimators used in Exercise
+> 21.5.  Which of these estimators is unbiased?  For each, also report the
+> standard deviation of the sampling distribution and compare to the standard
+> error computed in Exercise 21.5.
+
+TODO
+
+### TK 21.8, Instrumental variables, evaluating statistical properties when the assumptions are violated
+
+> Simulate a sampling distribution for any of the estimators used in Exercise
+> 21.5 in one of the worlds implied in Exercise 21.6.  What happens to the
+> properties of these estimators when the required assumptions do not hold?
+
+TODO
+
+### TK 21.9, Regression discontinuity
+
+> Take the Chile schools example from Section 21.3 and perform a series of
+> analyses using different subsetting ranges.  Plot the estimate $\pm$ standard
+> error as a function of the subsetting range.  As the width of the range
+> increases, the standard error should go down, but there should be more of a
+> concern about the use of the estimate for causal inference, given the lack of
+> overlap.
+
+TODO
+
+### TK 21.10, Regression discontinuity
+
+> Suppose you are trying to evaluate the effect of a new procedure for coronary
+> bypass surgery that is supposed to help with the postoperative healing
+> process.  The new procedure is risky, however, and is rarely performed in
+> patients who are over 80 years old.
+>
+> Data for this (hypothetical) example are displayed in Figure 21.4.
+>
+> (a) Does this seem like an appropriate setting in which to implement a
+>     regression discontinuity analysis?
+>
+> (b) The folder `Bypass` contains data for this example: `stay` is the length
+>     of hospital stay after surgery, `age` is the age of the patient, and `new`
+>     is the indicator for whether the new surgical procedure was used.
+>     Preoperative disease severity (`severity`) was unobserved by the
+>     researchers, but we have access to it for illustrative purposes.  Can you
+>     find any evidence using these data that the regression discontinuity
+>     design is inappropriate?
+>
+> (c) Estimate the treatment effect using a regression discontinuity estimate
+>     (ignoring) severity.  Estimate the treatment effect in any way you like,
+>     taking advantage of the information in severity.  Explain the discrepancy
+>     between these estimates.
+
+TODO
+
+### TK 21.11, Regression discontinuity, setting up an artificial world
+
+> This assignment simulates hypothetical data collected on women who gave birth
+> at any one of several hospitals in disadvantaged neighborhoods in New York
+> City in 2010.  We are envisioning a government policy that makes health care
+> available for pregnant women, new mothers, and their children though 2 years
+> post-birth.  This program is only available for women in households with
+> income below $20,000 at the time they gave birth.  The general question of
+> interest is whether this program increases a measure of child health at age 3.
+> You will generate data for a sample of 1000 individuals.
+>
+> For this assignment we make the unrealistic assumption that everyone who is
+> eligible for the program participates and no one participates who is not
+> eligible.  This is an example of a "clean" or "sharp" regression discontinuity
+> design.
+>
+> (a) Simulate the "assignment variable" (sometimes referred to as the running
+>     variable, forcing variable, or rating), income, in units of thousands of
+>     dollars.  Call the variable `income`.  Try to create a distribution that
+>     mimics the key features of the data displayed in Figure 21.5.
+>
+> (b) Create an indicator for program eligibility for this sample. Call this
+>     variable `eligible`.
+>
+> (c) Simulate outcomes for World A.  Generate the potential outcomes for health
+>     assuming linear models for both $\mathbb{E}(y^0|x)$ and
+>     $\mathbb{E}(y^1|x)$.  This health measure should have a minimum possible
+>     score of 0 and maximum possible score of 30.  The expected treatment
+>    effect for everyone should be 4; in other words, $\mathbb{E}(y^1-y^0|x)$
+>    should be 4 at all levels of $x$.  The residual standard deviation of each
+>    potential outcome should be 1.
+>
+>    Save two datasets: (1) `fullA` should have the assignment variable and both
+>    potential outcomes and (2) `obsA` should have the assignment variable, the
+>    eligibility variable, and the observed outcome.
+>
+> (d) Simulate outcomes for World B. Generate the potential outcomes for health
+>     assuming a linear model for $\mathbb{E}(y^0|x)$ and a quadratic model for
+>     $\mathbb{E}(y^1 |x)$.  The treatment effect at the threshold (the level of
+>     $x$ that determines eligibility) should be 4.  The residual standard
+>    deviation of each potential outcome should be 1.  Creating this
+>    data-generating process may be facilitated by using a transformed version
+>    of your income variable that subtracts out the threshold value.
+>
+>    Save two datasets: (1) `fullB` should have the assignment variable and both
+>    potential outcomes and (2) `obsB` should have the assignment variable, the
+>    eligibility variable, and the observed outcome.
+
+TODO
+
+### TK 21.12, Regression discontinuity analysis
+
+> Now you will act as a researcher and analyze the data created in the previous
+> exercise.
+>
+> (a) Plot your data!  Make two scatterplots of observed health vs. income, one
+>     corresponding to each world.  In each, plot eligible participants in red
+>     and non-eligible participants in blue.
+>
+> (b) Estimate the treatment effect for World A and World B using all the data.
+>     Now we will estimate effects in a number of different ways.  Each model
+>     should include reported income and eligible as predictors.  In each case
+>     use the model fit to report the estimate of the effect of the program at
+>     the threshold level of income.
+>
+>    i. Fit a linear model to the full dataset. Do not include an interaction.
+>
+>    ii. Fit a linear model to the full dataset, including an interaction
+>       between income and eligible.
+>
+>    iii. Fit a model that is quadratic in income and includes an interaction
+>       between both income terms and eligible; that is, allow the shape of the
+>       relationship to vary between treatment and control groups.
+>
+> (c) Fit the same models using the data from World B.
+>
+> (d) Fit the same models using the data from World A but restricting the sample
+>     to those with incomes between $16,000 and $24,000.
+>
+> (e) Fit the same models using the data from World B but restricting the sample
+>     to those with incomes between $16,000 and $24,000.
+>
+> (f) Comment on the differences in the estimates from the previous four parts
+>     of this exercise.
+>
+> (g) Provide a causal interpretation of your favorite estimate above.
+
+TODO
+
+### TK 21.13, Regression discontinuity assumptions
+
+> What are the three most important assumptions for the causal estimates in the
+> previous exercise?
+
+TODO
+
+### TK 21.14, Thinking harder about regression discontinuity
+
+> Consider the scenario of Exercise 21.11.
+>
+> (a) A colleague now points out that some women may have incentives in these
+>     settings to misreport their actual income.  Plot a histogram of reported
+>     income and look for anything that might support such a claim.  What
+>     assumption is called into question if women are truly misreporting in this
+>     manner?
+>
+> (b) Another colleague points out that several other government programs such
+>     as food supplements and Head Start have the same income threshold for
+>     eligibility. How might this knowledge impact your interpretation of your
+>     results?
+
+TODO
+
+### TK 21.15, Intermediate outcomes
+
+> In Exercise 19.10, you estimated the effect of incumbency on votes for
+> Congress.  Now consider an additional variable: money raised by the
+> congressional candidates.  Assume this variable has been coded in some
+> reasonable way to be positive in districts where the Democrat has raised more
+> money and negative in districts where the Republican has raised more.
+>
+> (a) Explain why it is inappropriate to include money as an additional input
+>     variable to "improve" the estimate of incumbency advantage in the
+>     regression in Exercise 19.10.
+>
+> (b) Suppose you are interested in estimating the effect of money on the
+>     election outcome.  Set this up as a causal inference problem (that is,
+>     define the treatments and potential outcomes).
+>
+> (c) Explain why it is inappropriate to simply estimate the effect of money
+>     using instrumental variables, with incumbency as the instrument.  Which of
+>     the instrumental variables assumptions would be reasonable in this example
+>     and which would be implausible?
+>
+> (d) How could you estimate the effect of money on congressional election
+>     outcomes?
+>
+> See Campbell (2002) and Gerber (2004) for more on this topic.
+
+TODO
+
+### TK 21.16, Difference-in-differences estimation
+
+> Consider the Electric Company example from Chapter 19, estimating a separate
+> treatment effect in each grade. What is the difference-in-differences estimate
+> here?  Explain why the regression estimate used in that chapter is a better
+> choice.
+
+TODO
