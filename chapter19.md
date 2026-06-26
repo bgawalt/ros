@@ -498,7 +498,7 @@ overlay of the linear effect underestimates the categorical answers for levels
 0.1 and 0.2 but matches up perfectly with the mean of 0.3
 ](./fig/part5/ex19_08_effects.png)
 
-### 19.10, Estimating causal effects
+### TK 19.10, Estimating causal effects
 
 > The folder Congress has election outcomes and incumbency for U.S. Incumbency
 > advantage congressional election races in the 1900s.
@@ -525,4 +525,4 @@ overlay of the linear effect underestimates the categorical answers for levels
 >     of the causal effect of incumbency? In answering this question, define
 >     clearly what is meant by incumbency as a “treatment variable.”
 
-TK
+TODO

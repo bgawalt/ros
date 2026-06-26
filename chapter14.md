@@ -494,7 +494,7 @@ to around 82%.](./fig/part3/ex14_07b_logarsenic.png)
 *  "`arsenic` = 1.0 to `arsenic` = 2.0, with `dist` held constant" is associated
     with an average increase in switching by 16 pct-pt. 
 
-### 14.8, Learning from social science data
+### TK 14.8, Learning from social science data
 
 > The General Social Survey (GSS) has been conducted in the United States every
 > two years since 1972.
@@ -515,7 +515,7 @@ to around 82%.](./fig/part3/ex14_07b_logarsenic.png)
 > (d) Discuss the results and how you might want to expand your model to answer
 >     some social science question of interest.
 
-TK
+TODO
 
 ### 14.9, Linear or logistic regression for discrete data
 

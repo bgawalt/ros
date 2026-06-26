@@ -456,12 +456,12 @@ I guess it really doesn't matter?
 for b1 and b2 looking for all the world like
 N(0, 1)](./fig/part2/ex11_6_zscores.png)
 
-### 11.7, Correlation and explained variance
+### TK 11.7, Correlation and explained variance
 
 > In a least squares regression with one predictor, show that $R^2$ equals the
 > square of the correlation between $x$ and $y$.
 
-TK
+TODO
 
 ### 11.8, Using simulation to check the fit of a time-series model
 

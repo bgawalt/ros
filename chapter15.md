@@ -601,12 +601,12 @@ Also essentially the same in terms of ELPD LOO performance:
 ![Two identical uncertainty intervals over the ELPD LOO axis from -1970 to
 -1936](./fig/part3/ex15_05_compare.png)
 
-### 15.6, Comparing logit and probit
+### TK 15.6, Comparing logit and probit
 
 > Construct a dataset where the logit and probit models give clearly different
 > estimates, not just differing by a factor of 1.6.
 
-TK
+TODO
 
 ### 15.8, Robust linear regression using the $t$ model
 
@@ -683,7 +683,7 @@ So, I suppose for simplicity's sake, I prefer the normal error model.
 in Bambi, and I don't know how to implement a $t$ distribution's CDF as a
 PyTensor backend.)
 
-### 15.12, Spatial voting models
+### TK 15.12, Spatial voting models
 
 > Suppose that competing political candidates A and B have positions that can be
 > located spatially in a one-dimensional space (that is, on a line). Suppose
@@ -701,7 +701,7 @@ PyTensor backend.)
 > See Erikson and Romero (1990) and Clinton, Jackman, and Rivers (2004) for
 > background.
 
-TK
+TODO
 
 ### 15.13, Multinomial choice models
 
@@ -825,7 +825,7 @@ In terms of actual roach count, the average predictive comparison comes to:
 *  `treatment`: -34.0 roaches if you apply the treatment
 *  `senior`: -17.7 if it's an apartment complex for seniors
 
-### 15.17, Learning from social science data
+### TK 15.17, Learning from social science data
 
 > The General Social Survey (GSS) has been conducted in the United States every
 > two years since 1972.
@@ -847,4 +847,4 @@ In terms of actual roach count, the average predictive comparison comes to:
 > (d) Discuss the results and how you might want to expand your model to answer
 >     some social science question of interest.
 
-TK
+TODO

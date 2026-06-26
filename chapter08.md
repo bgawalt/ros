@@ -360,9 +360,9 @@ is the same as the absolute influence in the blue chart.
 > (b) Demonstrate how this works in a simple case with three data points,
 >     $(x, y) = (0, 0), (4, 1), (5, 5)$.
 
-#### 8.7(a)
+#### TK 8.7(a) proof of weighted average of slopes
 
-TK
+TODO
 
 #### 8.7(b)
 
