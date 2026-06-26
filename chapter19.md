@@ -497,3 +497,32 @@ coefficient uncertainties represent $\pm 2$ standard errors.
 overlay of the linear effect underestimates the categorical answers for levels
 0.1 and 0.2 but matches up perfectly with the mean of 0.3
 ](./fig/part5/ex19_08_effects.png)
+
+### 19.10, Estimating causal effects
+
+> The folder Congress has election outcomes and incumbency for U.S. Incumbency
+> advantage congressional election races in the 1900s.
+>
+> (a) Take data from a particular year, t, and estimate the effect of incumbency
+>     by fitting a regression of $v_{i,t} , the Democratic share of the
+>     two-party vote in district $i$, on $v_{i,t-2} (the outcome in the previous
+>     election, two years earlier), $I_{it}$ (the incumbency status in district
+>     $i$ in election $t$, coded as 1 for Democratic incumbents, 0 for open
+>     seats, -1 for Republican incumbents), and $P_{it}$ (the incumbent party,
+>     coded as 1 if the sitting congressmember is a Democrat and -1 if he or she
+>     is a Republican). In your analysis, include only the districts where the
+>     congressional election was contested in both years (if you are interested
+>     in missing-data imputation for these elections, see Exercise 17.10), and
+>     do not pick a year ending in 2. District lines in the United States are
+>     redrawn every 10 years, and district election outcomes $v_{it}$ and
+>     $v_{i,t-2}$ are not comparable across redistrictings, for example, from
+>     1970 to 1972.
+>
+> (b) Plot the fitted model and the data, and discuss the political
+>     interpretation of the estimated coefficients.
+>
+> (c) What assumptions are needed for this regression to give a valid estimate
+>     of the causal effect of incumbency? In answering this question, define
+>     clearly what is meant by incumbency as a “treatment variable.”
+
+TK
