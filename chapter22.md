@@ -164,6 +164,91 @@ between group indicators.  If I want to regularize my estimates for Wyoming in
 1996, vs. make it look like Wyoming in every other year?  And how do I specify
 that, in Stan/PyMC?
 
+### 22.6, Nonlinear models, a demonstration using Stan
+
+Linear modeling, we've got on lock.  Our approach to nonlinear modeling, though,
+has been kind of hack: you just define a new predictor as nonlinear transform
+on one or more initial predictors, then rerun the linear modeling playbook.
+But not every nonlinear transformation can be addressed this way, like we posed
+with the model above, $y = \beta_1\sin(\beta_2x) + \text{error}$.  "Such models
+can be fit with maximum likelihood or Bayesian methods using Stan."
+
+The example model they fit: a set of about 6,000 golf puts at various distances,
+rounded to the nearest foot, giving a set of $(n, x, y)$ triples, for $x$ as
+distance and $y$ being the number sunk.  There's $J$ such triples.
+
+To fit a logistic regression to this, or really any, univariate data, your Stan
+spec looks like:
+
+```
+data {
+  int J;
+  int n[J];
+  vector[J] x;
+  int y[J];
+}
+parameters {
+  real a;
+  real b;
+}
+model {
+  y ~ binomial_logit(n, a + b*x);
+}
+```
+
+The resulting estimates for `a ` and `b` wind up with narrow credible intervals.
+
+That's the linear model.  This section is about *non*linear model.  They build
+one up from first principles:
+
+1.  Every ball is hit towards the hole, at some angle.  That angle has zero mean
+    (i.e., dead on target) and some standard deviation $\sigma$.  The golfer
+    never hits the ball too hard or too soft given the distance, it's strictly
+    about getting the angle right.  Call that noisy angle a normal RV.
+2.  The ball is of radius $r$ (1.68 inches) and the hole is of radius $R$ (4.25
+    inches).
+3.  For the ball to land in the hole, the entire ball must land within the
+    radius $R$.  That means the angle must be sufficiently shallow that the
+    angle is less than $\sin^{-1}\left((R - r) / x\right)$.  (I don't know why
+    it's not enough for the center of the ball to pass over the $R$-hole, but
+    "the whole ball lands in the hole" is the way they went here.)
+4.  If the angle is a normal $\mathcal{N}(0, \sigma)$, you can back out the
+    probability of landing in the hole as
+    $2\Phi\left(\sin^{-1}\left(\frac{R - r}{x}\right) / \sigma\right)$ - 1.
+
+That $\sigma$ parameter is the only one to fit in this model.  (The logistic
+regression had two, slope and intercept.)  In Stan, this looks like:
+
+```
+data {
+  int J;
+  int n[J];
+  vector[J] x;
+  int y[J];
+  real r;
+  real R;
+}
+parameters {
+  real<lower=0> sigma;
+}
+model {
+  vector[J] p = 2*Phi(asin((R-r) ./ x) / sigma) - 1;
+  y ~ binomial(n, p);
+}
+```
+
+The model is fit, and the result is a very narrow band around 1.5 degrees for
+$\sigma$.
+
+For goodness-of-fit checking, they superimpose each model over the data:
+
+![Figure 22.4 Logistic regression and custom geometry-based model fit to the
+golf-putting data. The custom model fits better, which is particularly
+impressive, given that it contains only one parameter and the logistic
+regression has two.](./fig/part6/fig22_6_golf.png)
+
+Without putting any numbers to it, they declare that the nonlinear model "fits
+the data much better."
 
 ## Exercises
 
