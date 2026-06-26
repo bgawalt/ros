@@ -250,6 +250,87 @@ regression has two.](./fig/part6/fig22_6_golf.png)
 Without putting any numbers to it, they declare that the nonlinear model "fits
 the data much better."
 
+### 22.7, Nonparametric regression and machine learning
+
+Nonparametric regression has no prespecified functional form for mapping the
+predictors to the outcome.  These models can adapt arbitrarily well to any
+data, limited just by the number of duplicate-predictor-value units.
+
+To be of use, the nonparametric models need to avoid overfit (a term that is
+only just now appearing in this book?!).  They come with some tuning parameters
+that can require certain levels of smoothness.  Crossvalidation can help set
+those tuning parameter values.
+
+The crossover here between nonparametric regression and machine learning feels
+mostly cultural.
+
+#### Loess
+
+This one's fun, because you can tune it in the limit to just fall back to
+simple linear regression:
+
+1.  Pick a tuning parameter, $f \in [0, 1]$, where values closer to 1 require
+    more smoothness in the resulting functional form.  (A value of 1?  That's
+    how you recover simple linear regression.)
+
+2.  For each unit, fit a particular weighted linear regression based on the
+    whole dataset.   (Call it "the main one".)   The weights for the regression
+    decay with increasing distance of each unit from the main one.  A value of
+    $f = 0$ ignores the other units entirely, and only fits the linear
+    regression to the main one itself (or any duplicate-predictors lying on top
+    of it).
+
+They don't say how to *use* these $n$ weighted regressions, how to aggregate
+them into a single predictor for new data.  Oh well.
+
+#### Splines and Gaussian processes
+
+For splines, you specify a set of $H$ basis functions, all of which are "locally
+smooth."  These basis functions map predictors to outcome, and the overall
+predictor for $x_{new}$ is just a weighted sum of the bases applied to
+$x_{new}$.  The basis function family will make it clear what tuning parameters
+are available.  The result looks very much like our "nonlinear predictor via
+linear regression" hack, $y = \sum_{h=1}^N \beta_hb_h(x) + \text{error}$.
+
+For Gaussian processes, the model looks like $y = g(x) + \text{error}$, where
+$g(x)$ is a draw from a multivariate normal.  The correlation matrix of that
+normal (i.e., its inverse covariance) has rows and columns corresponding to the
+$n$ datapoints.  Element $(i, j)$ is a correlation value between 0 and 1, where
+the exact value is a decreasing function of the distance between $x_i$ and
+$x_j$.  The exact decay rates are the tuning parameters of the model.
+
+They don't make it obvious how to use the Gaussian process model to make
+predictions on new data.  Or even where $y_j$ enters the picture when fitting
+the model.  They say that fitting the model will be slow, and I believe that's
+because the sampling of $g(x)$ is going to involve the $O(n^3)$ operation of
+inverting that correlation matrix.
+
+#### Tree models and BART
+
+Tree models are binary trees, where each non-leaf node has a split rule, and
+each leaf provides a predicted value that's meant to match $\mathbb{E}[y | x]$.
+
+A Bayesian additive regression tree (BART) is a sum over $J$ trees, with a prior
+that sets guidance for how large a tree should be, and how varied/extreme its
+leaf-values.  "The prior favors smaller trees and predictive components that are
+near zero, thus keeping the fit smooth except to the extent that the data force
+otherwise."
+
+#### Machine learning meta-algorithms
+
+Name checking a few other concepts, mostly with an eye towards how they can
+wrap and aggregate several of the more-concrete models above.  Ensemble learning
+(bagging and boosting, though they don't call it that) and genetic algorithms
+get mentioned, and weirdly so does deep learning, despite it being a bad fit for
+the category.
+
+It closes by saying these are mostly about harnessing and learning from very
+large amounts of data, to the point "that they can in practice require a large
+sample to work well."  The reason the regression models from this book worked
+on $n < 30$ datasets is the strict and minimal functional forms those linear
+models induce.
+
+
 ## Exercises
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
