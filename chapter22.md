@@ -110,7 +110,7 @@ Linear combinations of normals are themselves normals, which is how we're
 getting the convenient "it's just another multivariate regression" behavior
 here.  Maybe Stan/PyMC really do make it about as straightforward as this case.
 
-## 22.4, Regularization for models with many predictors
+### 22.4, Regularization for models with many predictors
 
 We know what happens if you include too few predictors in a model.  You lose
 ignorability for your less-than-fully-randomized causal inference, or you
@@ -130,7 +130,7 @@ the coefficient estimates.  The regularized horseshoe prior, in particular, let
 us directly specify "I don't think the final model should put serious weight on
 more than six predictors."
 
-## 22.5, Multilevel or hierarchical models
+### 22.5, Multilevel or hierarchical models
 
 Often, units can be bundled together, and often those bundles can themselves be
 bundled.  This gets called multilevel or hierarchical modeling.  It's been
