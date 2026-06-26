@@ -407,8 +407,274 @@ outcomes, or purposefully ignored.
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 
-### K.x, Exercise italic title
 
-> The problem statement
+### TK 20.2, Constructed Example: observational studies
 
-The answer
+> The folder Lalonde contains data from an observational LaLonde study
+> constructed by LaLonde (1986) based on a randomized experiment that evaluated
+> the effect on earnings of a job training program called National Supported
+> Work.  The constructed observational study was formed by replacing the
+> randomized control group with a comparison group formed using data from two
+> national public-use surveys: the Current Population Survey (CPS) and the Panel
+> Study of Income Dynamics.
+>
+> Dehejia and Wahba (1999) used a subsample of these data to evaluate the
+> potential efficacy of propensity score matching.  The subsample they chose
+> removes men for whom only one pre-treatment measure of earnings is observed.
+> There is evidence in the economics literature that adjusting for earnings from
+> only one pre-treatment period is insufficient to give a good approximation to
+> ignorability.  This exercise replicates some of Dehejia and Wahba’s findings
+> based on the CPS comparison group.
+>
+> (a) Estimate the treatment effect from the experimental data in two ways:
+>     (i) a simple difference in means between treated and control units, and
+>     (ii) a regression-adjusted estimate (that is, a regression of outcomes on
+>     the treatment indicator as well as predictors corresponding to the
+>     pre-treatment characteristics measured in the study).
+>
+> (b) Now use a regression analysis to estimate the causal effect from Dehejia
+>     and Wahba’s subset of the constructed observational study.  Examine the
+>     sensitivity of the model to model specification, for instance, by
+>     excluding the employed indicator variables or by including interactions.
+>     How close are these estimates to the experimental benchmark?
+>
+> (c) Now estimate the causal effect from the Dehejia and Wahba subset using
+>     propensity score matching. Do this by first trying several different
+>     specifications for the propensity score model and choosing the one that
+>     you judge to yield the best balance on the most important covariates.
+>     Perform this propensity score modeling without looking at the estimated
+>     treatment effect that would arise from each of the resulting matching
+>     procedures.  For the matched dataset you construct using your preferred
+>     model, report the estimated treatment effects using the
+>     difference-in-means and regression-adjusted methods described in part (a)
+>     of this exercise. How close are these estimates to the experimental
+>     benchmark (about $1800)?
+>
+> (d) Assuming that the estimates from (b) and (c) can be interpreted causally,
+>     what causal effect does each estimate? What populations are we making
+>     inferences about for each of these estimates?
+>
+> (e) Redo both the regression and the matching exercises, excluding the
+>     variable for earnings in 1974, which is two time periods before the start
+>     of this study. How important does the earnings-in-1974 variable appear to
+>     be in terms of satisfying the ignorability assumption?
+
+TODO
+
+### TK 20.3, Understanding the difference between average treatment effect in the treated and control groups
+
+> Create a hypothetical dataset in which the average treatment effect on the
+> treated and controls (ATT and ATC) are clearly different.  What are the
+> distinguishing characteristics of this dataset?
+
+TODO
+
+### TK 20.4, Exploring the properties of observational data under a linear model
+
+> The goal of this exercise is to learn how to simulate a few different types of
+> observational causal structures and evaluate the properties of different
+> approaches to estimating the treatment effect through linear regression.
+>
+> (a) Simulate data from 1000 people.  First we want to simulate the underlying
+>     data from the joint distribution of a continuous pre-treatment predictor
+>     or covariate $x$, a binary treatment variable $z$, and continuous
+>     potential outcomes $y^0, y^1$. The data-generating process is
+>     $p(x, z, y_0, y_1) = p(x)p(z|x)p(y^0, y^1|z, x)$.
+>
+>    i. Start by simulating the values of $x$ from a normal distribution with
+>         mean 0 and standard deviation 1.
+>
+>    ii. What role does x play in the data-generating process?
+>
+>    iii. The next step is to simulate $z$ from $p(z|x) = \text{binomial}(p)$,
+>         where the vector of probabilities can vary across observations. Come
+>         up with a strategy for generating the vector $z$ conditional on $x$
+>         that forces you to create be explicit about how these probabilities
+>         are conditional on $x$.  An inverse logit function is one approach but
+>         there are others.  Make sure that $x$ is strongly associated with $z$
+>         and that the vector of probabilities used to draw $z$ does not go
+>         below 0.05 or above 0.95 for the values of $x$ in the data.
+>
+>    iv. The last step is to simulate $y^0, y^1$ given $x$ and $z$.  Construct a
+>         model for simulating the two potential outcomes with appropriate
+>         conditioning on $z$ and $x$ with the following stipulations:
+>
+>    *  Make sure that $\mathbb{E}(y^1|x) - E(y^0 | x) = 5$.
+>    *  Make sure that $x$ has a linear and strong relationship with the
+>          outcome.
+>    * Finally, set your error term to have a standard deviation of 1 and allow
+>         the residual standard deviation to be different for the same person
+>         across potential outcomes.
+>
+>    v. Create a data frame containing your simulated $x, z, y^0, y^1$, and save
+>         it for use later.
+>
+>    vi. Calculate the sample average treatment effect and save it for use
+>         later.
+>
+>    vii. Create a data frame with the observed data, $x, z, y$.
+>
+> (b) Play the role of the applied researcher.  Pretend someone handed you the
+>     observed data generated above and asked you to estimate the treatment
+>     effect.  You will try two approaches: difference in means and regression.
+>
+>    i. Estimate the treatment effect using a difference in mean outcomes across
+>         treatment groups.
+>
+>    ii. Estimate the treatment effect using a regression of the outcome on the
+>         treatment indicator and covariate.
+>
+>    iii. Create a scatterplot of observed $y$ vs. $x$ using red dots for
+>         treatment and blue for control observations.  If you were the
+>         researcher, would you be comfortable using linear regression with no
+>         interaction in this setting?
+>
+> (c) Play the role of the statistician studying the properties of estimates.
+>
+>    i. Create a scatterplot of both potential outcomes vs. $x$, using red dots
+>         for values of $y^1$ and blue dots for $y^0$. Does linear regression
+>         with no interaction seem like a reasonable model to estimate causal
+>         effects for the observed data? Why or why not?
+>
+>    ii. Find the bias of each of the estimates calculated by the researcher in
+>         (b) relative to the sample average treatment effect computed using all
+>         the potential outcomes.
+>
+>    iii. Think harder about the practical importance of the bias by dividing
+>         this estimate by the standard deviation of the observed outcome $y$.
+>
+>    iv. Find the bias of each of the estimates by creating a randomization
+>         distribution for each.  When creating randomization distributions,
+>         remember to be careful to keep the original sample the same, only
+>         varying treatment assignment and the observed outcome.
+
+TODO
+
+### TK 20.5, Simulating observational data under a nonlinear model
+
+> Now we’ll explore what happens when we fit a wrong model in an observational
+> study in a simple problem with a single pre-treatment predictor.
+>
+> (a) Simulate the data. Create an R function called `sim_nlin()` that does the
+>     following:
+>
+>    i. The predictor $x$ should be drawn from a uniform distribution between 0
+>         and 2.
+>
+>    ii. Treatment assignment should be drawn from the following binomial where
+>         $\mathbb{E}(z|x) = p = \text{logit}^{-1}(-2 + x^2)$. Save the $p$
+>         vector for use later.
+>
+>    iii. The response surface (model for $y^0, y^1$) should be drawn from the
+>         following distributions:
+>         $y^0 = x + \epsilon_0, y1 = 2x + 3x^2 + \epsilon_1$, where the error
+>         terms are independent and normally distributed, each with mean 0 and
+>         standard deviation 1.
+>
+>    iv. Make sure the returned dataset has a column for the probability of
+>         treatment assignment as well.
+>
+>    v. Simulate a dataset called `data_nlin` with sample size 1000.
+>
+> (b) Make the following plots:
+>
+>    i. Overlaid histograms of the probability of assignment.
+>
+>    ii. A scatterplot of observed $y$ vs. $x$ using red dots for treatment and
+>         blue for control observations.
+>
+>    iii. A scatterplot of both potential outcomes vs. $x$, using red dots for
+>         values of $y^1$ and blue dots for $y^0$.  Does linear regression with
+>         no interactions seem like a reasonable model to estimate causal
+>         effects for the observed data?  Why or why not?
+>
+> (c) Create randomization distributions to investigate the properties of each
+>     of three estimates with respect to the sample average treatment effect:
+>     (1) difference in means, (2) linear regression of the outcome on the
+>     treatment indicator and $x$, (3) linear regression of the outcome on the
+>     treatment indicator, $x$, and $x^2$.
+>
+> (d) Calculate the standardized bias (bias divided by the standard deviation of
+>     $y$) of these estimates relative to the sample average treatment effect.
+
+TODO
+
+### TK 20.6, Observational data with multiple covariates
+
+> (a) Simulate from
+>     $p(x_1, x_2, x_3, z, y^0, y^1) = p(x_1, x_2, x_3)p(z|x_1, x2, x3)p(y^0, y^1|z, x_1, x_2, x_3)$.
+>
+>    i. Simulate the predictors x1; x2; x3 to be independent of each other.
+>
+>    ii. Make sure that the probability of being treated is between 0.05 and
+>         0.95 for each person and that there is a reasonable amount of overlap
+>         across the treatment and control groups.
+>
+>    iii. Generate the response surface as in the following:
+>
+>    $$y^0 = x1 + x2 + x3 + \epsilon_0$$
+>    $$y1 = x1 + x2 + x3 + 5 + \epsilon_1$$
+>
+>   with independent errors normally distributed with mean 0 and standard
+>   deviation 1.
+>
+> (b) Create randomization distributions for (1) a regression that adjusts for
+>     only one of the three covariates and (2) a regression estimate that
+>     adjusts for all three covariates. Evaluate the standardized bias of these
+>     estimates relative to the sample average treatment effect (SATE).
+>
+> (c) Repeat the above but $x_1$, $x_2$, and $x_3$ generated with a dependence
+>     structure.
+>
+> (d) Repeat the above but with a nonlinear response surface.
+
+TODO
+
+### TK 20.7, Propensity score matching
+
+> Perform your own propensity score analysis using the IHDP childcare data in
+> the folder Childcare discussed in Section 20.5. Follow all of the steps and
+> report back in your findings.
+
+TODO
+
+### TK 20.8, Weighted estimate of treatment effect
+
+> Perform an inverse estimated probability of treatment weighting (IPTW)
+> analysis for the IHPD problem. Make sure to check balance and overlap.
+
+TODO
+
+### TK 20.9, Propensity score matching
+
+> Decide on a balance metric for the covariates in the IHPD problem.  Try out a
+> variety of propensity score approaches, varying the propensity score models
+> and method for restructuring, including weighting by inverse estimated
+> probability of treatment.  Find at least eight approaches that satisfy your
+> balance criteria. Comment on the variation in your estimates.
+
+TODO
+
+### TK 20.10, Inverse estimated probability of treatment weighting and other estimates
+
+> Figure 20.15 displays hypothetical data from an observational study with one
+> confounder.
+>
+> (a) Determine the weights (normed and unnormed) for estimating the average
+>     treatment effect for the treated units (ATT) and the sample size in the
+>     ATT pseudo-population.
+>
+> (b) Check for balance in the covariate and potential outcomes in the
+>     reweighted sample.
+>
+> (c) Calculate the ATT in this example using the potential outcomes.
+>
+> (d) Estimate the ATT in this example using the reweighted data.
+>
+> (e) Show the equivalency between weighting for ATT in this example and the
+>     stratification weights discussion in Section 20.6.
+>
+> (f) Repeat all of the above for the average treatment effect for the control
+>     units (ATC).
+
+TODO
