@@ -309,7 +309,7 @@ fit the elephant and wiggle its trunk).
     but it winds up being worse under LOO than the richer model.  So they add
     a bit more back in and achieve slightly-better-than-parity results.
 
-And a big block quote of what to make of "we went simpler and preffered it":
+And a big block quote of what to make of "we went simpler and preferred it":
 
 > One reason we get as good or better performance and understanding from a
 > simpler model is that we are fitting all these regressions with weak prior
