@@ -406,7 +406,7 @@ because it's swamped by the $sigma$ parameter I chose at 2.0.  In no case is
 there any bias; they're all nicely centered on the true slope parameter I chose,
 3.0.
 
-### TK 22.2, Measurement error in $x$
+### 22.2, Measurement error in $x$
 
 > Simulate data $(x, y)_i, i = 1, \ldots, n$ from a linear regression model,
 > $y = a + bx + \text{error}$, but suppose that the predictor $x$ is not
@@ -415,7 +415,20 @@ there any bias; they're all nicely centered on the true slope parameter I chose,
 > the statistical properties of the observed-data regression of $y$ on $u$,
 > compared to the desired regression of $y$ on $x$.
 
-TODO
+Using the same $a$, $b$, and $\sigma$ as in 22.1, and the same spread for the
+$x$ random variables, I can repeat the same loops of `n` and `x-err` pairs,
+at 500-simulations-per-pair:
+
+![Three subfigures, all in one row. They are labeled `n = 50`, `n = 100`, and
+`n = 200`.  Each has three histograms, a blue one (`x-err = 0.5`), an orange
+one (`x-err = 1`) and a wider green one (`x-err = 2`).  As `n` grows,
+the trios of histograms get more narrowly concentrated around their respective
+means.  Those means are at 2.9 for x-err = 0.5, 2.8 for x-err = 1, and a very 
+bad 2.3 for x-err = 2.](./fig/part6/ex22_02_xerr_hists.png)
+
+This is much worse.  All the estimates are biased away from the true value.  And
+increasing the sample size just gives us less variance centered around that
+biased estimate, rather than actually arriving at the correct answer.
 
 ### TK 22.3, Nonlinear modeling
 
