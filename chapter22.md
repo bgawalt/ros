@@ -382,7 +382,7 @@ mode with a multivariate normal distribution.
 
 Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 
-### TK 22.1, Measurement error in $y$
+### 22.1, Measurement error in $y$
 
 > Simulate data $(x, y)_i, i = 1, \ldots, n$ from a linear regression model,
 > $y = a + bx + \text{error}$, but suppose that the outcome $y$ is not observed
@@ -391,7 +391,20 @@ Plots and computation powered by [ChapterK.ipynb](./notebooks/ChapterK.ipynb)
 > statistical properties of the observed-data regression of $v$ on $x$, compared
 > to the desired regression of $y$ on $x$.
 
-TODO
+If I loop such a simulated dataset, for three levels of data count `n` and
+three levels of outcome-noise `y-err`, and for 500 simulations per `(n, y-err)`
+pair, I get the following histograms of the estimated slope coefficients:
+
+![Three subfigures, all in one row. They are labeled `n = 50`, `n = 100`, and
+`n = 200`.  Each has three histograms, a blue one (`y-err = 0.3`), an identical
+orange one (`y-err = 1`) and a wider green one (`y-err = 3`).  As `n` grows,
+the trios of histograms get more narrowly concentrated around the true slope
+value of 3.](./fig/part6/ex22_01_yerr_hists.png)
+
+The jump from `y-err` being 0.3 to 1.0 doesn't make much difference, probably
+because it's swamped by the $sigma$ parameter I chose at 2.0.  In no case is
+there any bias; they're all nicely centered on the true slope parameter I chose,
+3.0.
 
 ### TK 22.2, Measurement error in $x$
 
